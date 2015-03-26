@@ -1,0 +1,25 @@
+
+newmtl Material.000001
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_wood_docks_01.tga
+
+
+newmtl Material.00008d
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_wood_dock_rings.tga
+
+
+newmtl Material.0000c5
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 33
