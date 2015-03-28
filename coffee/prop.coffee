@@ -1,14 +1,14 @@
 class mw.Prop
 	constructor: (@raw) ->
 		@model = @raw.model
-		@x = @raw.x
-		@y = @raw.y
-		@z = @raw.z
-		@r = @raw.r
+		@x = 0#@raw.x
+		@y = -80#@raw.y
+		@z = 0#@raw.z
+		@r = 0#@raw.r
 
-		@mesh = mw.models[@model]
+		#@mesh = mw.models[@model].clone()
 
-		mw.scene.add @mesh
+		#mw.scene.add @mesh
 
 	idiot: (idiot) ->
 		true

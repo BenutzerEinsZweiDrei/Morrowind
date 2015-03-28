@@ -2,33 +2,44 @@
 (function() {
   mw.World = (function() {
     function World(data) {
-      var i, j, len, len1, p;
+      var i, len, p, ref;
+      this.data = data;
       console.log('new world');
-      if (mw.models) {
-        true;
-      }
       this.props = [];
-      for (i = 0, len = data.length; i < len; i++) {
-        p = data[i];
+      this.cached = 0;
+      ref = this.data;
+      for (i = 0, len = ref.length; i < len; i++) {
+        p = ref[i];
         this.cache(p.model);
-      }
-      for (j = 0, len1 = data.length; j < len1; j++) {
-        p = data[j];
-        this.props.push(new mw.Prop(p));
       }
     }
 
-    World.prototype.cached = function() {
+    World.prototype.cachcb = function() {
+      this.cached++;
+      if (this.cached >= this.data.length) {
+        this.ransack();
+      }
+      return true;
+    };
+
+    World.prototype.ransack = function() {
+      var i, len, p, ref;
+      ref = this.data;
+      for (i = 0, len = ref.length; i < len; i++) {
+        p = ref[i];
+        this.props.push(new mw.Prop(p));
+      }
       return true;
     };
 
     World.prototype.cache = function(model) {
-      var cb;
+      var cb, loader;
       cb = function(object) {
         mw.models[model] = object;
-        return mw.world.cached();
+        console.log("put " + model);
+        return mw.world.cachcb();
       };
-      console.log(loader);
+      loader = new THREE.OBJMTLLoader;
       loader.load("models/" + model + ".obj", "models/" + model + ".mtl", cb);
       return true;
     };

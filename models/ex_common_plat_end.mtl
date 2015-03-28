@@ -44,21 +44,21 @@ Ns 0
 map_Kd tx_wood_dock_rings.dds
 
 
-newmtl Material.0000cd
+newmtl Material.0000db
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1
 Ns 33
 
-newmtl Material.0000e1
+newmtl Material.0000ef
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1
 Ns 33
 
-newmtl Material.0000f5
+newmtl Material.000103
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1

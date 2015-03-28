@@ -4,12 +4,10 @@
     function Prop(raw) {
       this.raw = raw;
       this.model = this.raw.model;
-      this.x = this.raw.x;
-      this.y = this.raw.y;
-      this.z = this.raw.z;
-      this.r = this.raw.r;
-      this.mesh = mw.models[this.model];
-      mw.scene.add(this.mesh);
+      this.x = 0;
+      this.y = -80;
+      this.z = 0;
+      this.r = 0;
     }
 
     Prop.prototype.idiot = function(idiot) {

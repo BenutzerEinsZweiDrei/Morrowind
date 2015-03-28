@@ -9,7 +9,12 @@ mw.boot = ->
 
 	@scene.add new THREE.AmbientLight 0x444444
 
+	directionalLight = new THREE.DirectionalLight 0xffeedd
+	directionalLight.position.set( 0, 0, 1 ).normalize()
+	@scene.add directionalLight
+
 	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
+	THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
 	@renderer = new THREE.WebGLRenderer
 	@renderer.setPixelRatio window.devicePixelRatio
@@ -20,7 +25,7 @@ mw.boot = ->
 
 	#window.addEventListener 'resize', onWindowResize, false
 
-	animate.call this
+	animate()
 
 	true
 
@@ -30,6 +35,7 @@ onDocumentMouseMove = (event) ->
 
 	mw.mouseX = ( event.clientX - windowHalfX ) / 2
 	mw.mouseY = ( event.clientY - windowHalfY ) / 2
+	
 	true
 
 animate = ->

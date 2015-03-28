@@ -3,20 +3,24 @@
   var animate, onDocumentMouseMove, render;
 
   mw.boot = function() {
-    var container;
+    var container, directionalLight;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
     this.camera.position.z = 100;
     this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight(0x444444));
+    directionalLight = new THREE.DirectionalLight(0xffeedd);
+    directionalLight.position.set(0, 0, 1).normalize();
+    this.scene.add(directionalLight);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
+    THREE.Loader.Handlers.add(/\.tga$/i, new THREE.TGALoader);
     this.renderer = new THREE.WebGLRenderer;
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(this.renderer.domElement);
     document.addEventListener('mousemove', onDocumentMouseMove, false);
-    animate.call(this);
+    animate();
     return true;
   };
 

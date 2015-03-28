@@ -9,12 +9,16 @@
   };
 
   $(document).ready(function() {
+    var loader;
     $.ajaxSetup({
       'async': false
     });
     mw.boot.call(mw);
-    return $.getJSON("seydaneen.json", function(data) {
-      return mw.world = new mw.World(data);
+    loader = new THREE.OBJMTLLoader;
+    return loader.load('models/male02.obj', 'models/male02_dds.mtl', function(object) {
+      object.position.y = -80;
+      mw.scene.add(object);
+      return true;
     });
   });
 
