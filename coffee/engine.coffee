@@ -5,7 +5,7 @@ mw.boot = ->
 	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 1, 2000
 	@camera.position.z = 100
 
-	@scene = new THREE.Scene()
+	@scene = new THREE.Scene
 
 	@scene.add new THREE.AmbientLight 0x444444
 
@@ -23,11 +23,19 @@ mw.boot = ->
 
 	document.addEventListener 'mousemove', onDocumentMouseMove, false
 
-	#window.addEventListener 'resize', onWindowResize, false
+	window.addEventListener 'resize', onWindowResize, false
 
 	animate()
 
 	true
+
+onWindowResize = ->
+	mw.camera.aspect = window.innerWidth / window.innerHeight
+	mw.camera.updateProjectionMatrix()
+
+	mw.renderer.setSize window.innerWidth, window.innerHeight
+
+	0
 
 onDocumentMouseMove = (event) ->
 	windowHalfX = window.innerWidth / 2
@@ -35,8 +43,8 @@ onDocumentMouseMove = (event) ->
 
 	mw.mouseX = ( event.clientX - windowHalfX ) / 2
 	mw.mouseY = ( event.clientY - windowHalfY ) / 2
-	
-	true
+
+	0
 
 animate = ->
 	requestAnimationFrame animate

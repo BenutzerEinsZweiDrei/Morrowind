@@ -12,7 +12,10 @@ $(document).ready ->
 		#mw.world = new mw.World data
 
 	loader = new THREE.OBJMTLLoader
-	loader.load 'models/male02.obj', 'models/male02_dds.mtl', (object) ->
+	loader.load 'male02/male02.obj', 'male02/male02_dds.mtl', (object) ->
 		object.position.y = - 80
 		mw.scene.add object
+		console.log 'added male02 to scene'
 		true
+
+	true
