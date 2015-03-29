@@ -5,7 +5,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_siding.dds
+map_Kd tx_wood_siding.tga
 
 
 newmtl Material.000009
@@ -14,7 +14,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_wethered.dds
+map_Kd tx_wood_wethered.tga
 
 
 newmtl Material.000027
@@ -23,7 +23,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_weathered_rings.dds
+map_Kd tx_wood_weathered_rings.tga
 
 
 newmtl Material.000033
@@ -32,7 +32,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_docks_01.dds
+map_Kd tx_wood_docks_01.tga
 
 
 newmtl Material.0000a5
@@ -41,7 +41,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_dock_rings.dds
+map_Kd tx_wood_dock_rings.tga
 
 
 newmtl Material.0000db

@@ -9,18 +9,11 @@
   };
 
   $(document).ready(function() {
-    var loader;
     $.ajaxSetup({
       'async': false
     });
     mw.boot.call(mw);
-    loader = new THREE.OBJMTLLoader;
-    loader.load('male02/male02.obj', 'male02/male02_dds.mtl', function(object) {
-      object.position.y = -80;
-      mw.scene.add(object);
-      console.log('added male02 to scene');
-      return true;
-    });
+    mw.animate();
     return true;
   });
 
