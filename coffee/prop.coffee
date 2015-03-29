@@ -14,7 +14,7 @@ class mw.Prop
 		for c, i in @mesh.children
 			c.material.wireframe = true if i is @mesh.children.length-1
 		#@mesh.material.wireframe = true
-
+		
 		mw.scene.add @mesh
 
 	idiot: (idiot) ->

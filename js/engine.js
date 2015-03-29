@@ -20,11 +20,12 @@
     this.camera.position.set(-11910.683190184747, -70395.6857115308, 455.05078764975525);
     this.camera.rotation.y = 270 * Math.PI / 180;
     this.controls = new THREE.FirstPersonControls(this.camera);
+    this.controls.verticalMax = Math.PI * 2;
+    this.controls.verticalMin = Math.PI;
     this.controls.movementSpeed = 500;
     this.controls.lookSpeed = 0.25;
     this.controls.lookVertical = true;
     this.scene = new THREE.Scene;
-    this.camera.rotation.z = 180 * Math.PI / 180;
     ambient = this.scene.add(new THREE.AmbientLight(0x444444));
     directionalLight = new THREE.DirectionalLight(0xffeedd);
     directionalLight.position.set(0, 0, 1).normalize();
