@@ -8,8 +8,8 @@ $(document).ready ->
 	
 	mw.boot.call mw
 
-	#$.getJSON "seydaneen.json", (data) ->
-		#mw.world = new mw.World data
+	$.getJSON "seydaneen.json", (data) ->
+		mw.world = new mw.World data
 		
 	mw.animate()
 

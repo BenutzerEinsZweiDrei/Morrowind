@@ -9,7 +9,6 @@ class mw.World
 		@cached = 0
 		for p in @data
 			@cache p.model
-
 		
 
 	cachcb: () ->

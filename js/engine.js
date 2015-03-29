@@ -16,14 +16,21 @@
     var ambient, container, directionalLight, loader;
     container = document.createElement('div');
     document.body.appendChild(container);
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
-    this.camera.position.z = 100;
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
+    this.camera.position.set(-11910.683190184747, -70395.6857115308, 455.05078764975525);
+    this.camera.rotation.y = 270 * Math.PI / 180;
+    this.controls = new THREE.FirstPersonControls(this.camera);
+    this.controls.movementSpeed = 500;
+    this.controls.lookSpeed = 0.25;
+    this.controls.lookVertical = true;
     this.scene = new THREE.Scene;
+    this.camera.rotation.z = 180 * Math.PI / 180;
     ambient = this.scene.add(new THREE.AmbientLight(0x444444));
     directionalLight = new THREE.DirectionalLight(0xffeedd);
     directionalLight.position.set(0, 0, 1).normalize();
     this.scene.add(directionalLight);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
+    THREE.Loader.Handlers.add(/\.tga$/i, new THREE.TGALoader);
     loader = new THREE.OBJMTLLoader;
     loader.load('male02/male02.obj', 'male02/male02_dds.mtl', function(object) {
       object.position.y = -80;
@@ -47,19 +54,17 @@
   };
 
   onDocumentMouseMove = function(event) {
-    mw.mouseX = (event.clientX - windowHalfX) / 2;
-    mw.mouseY = (event.clientY - windowHalfY) / 2;
+    mw.mouseX = (event.clientX - windowHalfX) * 2;
+    mw.mouseY = (event.clientY - windowHalfY) * 2;
   };
 
   mw.animate = function() {
     requestAnimationFrame(mw.animate);
+    mw.controls.update(0.016);
     render.call(mw);
   };
 
   render = function() {
-    this.camera.position.x += (this.mouseX - this.camera.position.x) * .05;
-    this.camera.position.y += (-this.mouseY - this.camera.position.y) * .05;
-    this.camera.lookAt(this.scene.position);
     this.renderer.render(this.scene, this.camera);
   };
 

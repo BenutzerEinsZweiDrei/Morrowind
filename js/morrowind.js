@@ -13,6 +13,9 @@
       'async': false
     });
     mw.boot.call(mw);
+    $.getJSON("seydaneen.json", function(data) {
+      return mw.world = new mw.World(data);
+    });
     mw.animate();
     return true;
   });
