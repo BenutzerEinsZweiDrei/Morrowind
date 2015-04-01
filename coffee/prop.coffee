@@ -11,9 +11,3 @@ class mw.Prop
 		@mesh.rotation.z = @r * Math.PI / 180
 
 		mw.scene.add @mesh
-
-	idiot: (idiot) ->
-		true
-
-	idiot: ->
-		true # if this is idiot

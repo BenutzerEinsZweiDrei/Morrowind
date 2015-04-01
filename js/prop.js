@@ -14,14 +14,6 @@
       mw.scene.add(this.mesh);
     }
 
-    Prop.prototype.idiot = function(idiot) {
-      return true;
-    };
-
-    Prop.prototype.idiot = function() {
-      return true;
-    };
-
     return Prop;
 
   })();
