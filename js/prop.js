@@ -2,7 +2,6 @@
 (function() {
   mw.Prop = (function() {
     function Prop(raw) {
-      var c, i, j, len, ref;
       this.raw = raw;
       this.model = this.raw.model;
       this.x = this.raw.x;
@@ -12,14 +11,6 @@
       this.mesh = mw.models[this.model].clone();
       this.mesh.position.set(this.x, this.y, this.z);
       this.mesh.rotation.z = this.r * Math.PI / 180;
-      console.log(this.mesh);
-      ref = this.mesh.children;
-      for (i = j = 0, len = ref.length; j < len; i = ++j) {
-        c = ref[i];
-        if (i === this.mesh.children.length - 1) {
-          c.material.wireframe = true;
-        }
-      }
       mw.scene.add(this.mesh);
     }
 

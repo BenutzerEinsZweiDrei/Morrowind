@@ -2,14 +2,14 @@
 (function() {
   mw.World = (function() {
     function World(data) {
-      var i, len, p, ref;
+      var j, len, p, ref;
       this.data = data;
       console.log('new world');
       this.props = [];
       this.cached = 0;
       ref = this.data;
-      for (i = 0, len = ref.length; i < len; i++) {
-        p = ref[i];
+      for (j = 0, len = ref.length; j < len; j++) {
+        p = ref[j];
         this.cache(p.model);
       }
     }
@@ -23,10 +23,10 @@
     };
 
     World.prototype.ransack = function() {
-      var i, len, p, ref;
+      var j, len, p, ref;
       ref = this.data;
-      for (i = 0, len = ref.length; i < len; i++) {
-        p = ref[i];
+      for (j = 0, len = ref.length; j < len; j++) {
+        p = ref[j];
         this.props.push(new mw.Prop(p));
       }
       return true;
@@ -35,7 +35,24 @@
     World.prototype.cache = function(model) {
       var cb, loader;
       cb = function(object) {
+        var c, i, j, len, ref;
         mw.models[model] = object;
+        ref = object.children;
+        for (i = j = 0, len = ref.length; j < len; i = ++j) {
+          c = ref[i];
+          console.log("traversing " + i);
+          if (c.material.map) {
+            c.material.map.needsUpdate = true;
+            c.material.map.onUpdate = function() {
+              console.log('onupdate');
+              if (this.wrapS !== THREE.RepeatWrapping || this.wrapT !== THREE.RepeatWrapping) {
+                this.wrapS = THREE.RepeatWrapping;
+                this.wrapT = THREE.RepeatWrapping;
+                return this.needsUpdate = true;
+              }
+            };
+          }
+        }
         console.log("put " + model);
         return mw.world.cachcb();
       };

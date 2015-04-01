@@ -14,14 +14,14 @@ mw.boot = () ->
 
 	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 1, 5000
 	@camera.position.set -11910.683190184747, -70395.6857115308, 455.05078764975525
-	@camera.rotation.y = 270 * Math.PI / 180
+	#@camera.rotation.y = 270 * Math.PI / 180
 	#@camera.position.z = 1500
 
 	@controls = new THREE.FirstPersonControls @camera
-	@controls.verticalMax = Math.PI * 2
-	@controls.verticalMin = Math.PI
+	#@controls.verticalMax = Math.PI * 2
+	#@controls.verticalMin = Math.PI
 	@controls.movementSpeed = 500
-	@controls.lookSpeed = 0.25
+	@controls.lookSpeed = 0.2
 	@controls.lookVertical = true
 
 	# scene
@@ -43,7 +43,9 @@ mw.boot = () ->
 	loader = new THREE.OBJMTLLoader
 	loader.load 'male02/male02.obj', 'male02/male02_dds.mtl', ( object ) ->
 
-		object.position.y = - 80
+		object.position.y = -70395.6857115308
+		object.position.x = -11910.683190184747
+		object.position.z = 455.05078764975525
 		mw.scene.add object
 		return
 

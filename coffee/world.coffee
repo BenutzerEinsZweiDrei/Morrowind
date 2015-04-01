@@ -27,6 +27,16 @@ class mw.World
 	cache: (model) ->
 		cb = (object) ->
 			mw.models[model] = object
+			for c, i in object.children
+				console.log "traversing #{i}"
+				if c.material.map
+					c.material.map.needsUpdate = true
+					c.material.map.onUpdate = ->
+						console.log 'onupdate'
+						if @wrapS isnt THREE.RepeatWrapping or @wrapT isnt THREE.RepeatWrapping
+							@wrapS = THREE.RepeatWrapping
+							@wrapT = THREE.RepeatWrapping
+							@needsUpdate = true
 			console.log "put #{model}"
 			mw.world.cachcb()
 

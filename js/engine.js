@@ -18,12 +18,9 @@
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
     this.camera.position.set(-11910.683190184747, -70395.6857115308, 455.05078764975525);
-    this.camera.rotation.y = 270 * Math.PI / 180;
     this.controls = new THREE.FirstPersonControls(this.camera);
-    this.controls.verticalMax = Math.PI * 2;
-    this.controls.verticalMin = Math.PI;
     this.controls.movementSpeed = 500;
-    this.controls.lookSpeed = 0.25;
+    this.controls.lookSpeed = 0.2;
     this.controls.lookVertical = true;
     this.scene = new THREE.Scene;
     ambient = this.scene.add(new THREE.AmbientLight(0x444444));
@@ -34,7 +31,9 @@
     THREE.Loader.Handlers.add(/\.tga$/i, new THREE.TGALoader);
     loader = new THREE.OBJMTLLoader;
     loader.load('male02/male02.obj', 'male02/male02_dds.mtl', function(object) {
-      object.position.y = -80;
+      object.position.y = -70395.6857115308;
+      object.position.x = -11910.683190184747;
+      object.position.z = 455.05078764975525;
       mw.scene.add(object);
     });
     this.renderer = new THREE.WebGLRenderer;
