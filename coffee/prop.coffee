@@ -10,15 +10,8 @@ class mw.Prop
 
 		@mesh = mw.models[@model].clone()
 		@mesh.position.set @x, @y, @z
-
-		if @scale
-			@mesh.scale.set @scale, @scale, @scale
-
-		###rotWorldMatrix = new THREE.Matrix4()
-		rotWorldMatrix.makeRotationAxis new THREE.Vector3(0,0,1).normalize(), 0 * Math.PI / 180
-		rotWorldMatrix.multiply @mesh.matrix
-		@mesh.matrix = rotWorldMatrix
-		@mesh.rotation.setFromRotationMatrix @mesh.matrix###
+		
+		@mesh.scale.set @scale, @scale, @scale if @scale
 		
 		@mesh.rotation.z = @r * Math.PI / 180
 

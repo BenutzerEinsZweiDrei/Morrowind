@@ -14,13 +14,6 @@
       if (this.scale) {
         this.mesh.scale.set(this.scale, this.scale, this.scale);
       }
-
-      /*rotWorldMatrix = new THREE.Matrix4()
-      		rotWorldMatrix.makeRotationAxis new THREE.Vector3(0,0,1).normalize(), 0 * Math.PI / 180
-      		rotWorldMatrix.multiply @mesh.matrix
-      		@mesh.matrix = rotWorldMatrix
-      		@mesh.rotation.setFromRotationMatrix @mesh.matrix
-       */
       this.mesh.rotation.z = this.r * Math.PI / 180;
       mw.scene.add(this.mesh);
     }

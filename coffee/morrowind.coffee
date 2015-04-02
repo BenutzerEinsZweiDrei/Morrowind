@@ -10,6 +10,8 @@ $(document).ready ->
 
 	$.getJSON "seydaneen.json", (data) ->
 		mw.world = new mw.World data
+
+	mw.heightmap = new mw.Heightmap
 		
 	mw.animate()
 

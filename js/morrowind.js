@@ -16,6 +16,7 @@
     $.getJSON("seydaneen.json", function(data) {
       return mw.world = new mw.World(data);
     });
+    mw.heightmap = new mw.Heightmap;
     mw.animate();
     return true;
   });

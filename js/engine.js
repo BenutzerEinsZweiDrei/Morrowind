@@ -16,12 +16,12 @@
     var ambient, container, directionalLight;
     container = document.createElement('div');
     document.body.appendChild(container);
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000000);
     this.camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
     this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);
-    this.controls.movementSpeed = 500;
-    this.controls.lookSpeed = 0.2;
+    this.controls.movementSpeed = 1000;
+    this.controls.lookSpeed = 0.5;
     this.scene = new THREE.Scene;
     ambient = this.scene.add(new THREE.AmbientLight(0x444444));
     directionalLight = new THREE.DirectionalLight(0xffeedd);
