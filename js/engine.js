@@ -18,6 +18,7 @@
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
     this.camera.position.set(-11910.683190184747, -70395.6857115308, 455.05078764975525);
+    this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);
     this.controls.movementSpeed = 500;
     this.controls.lookSpeed = 0.2;

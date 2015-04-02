@@ -14,8 +14,7 @@ mw.boot = () ->
 
 	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 1, 5000
 	@camera.position.set -11910.683190184747, -70395.6857115308, 455.05078764975525
-	#@camera.rotation.y = 270 * Math.PI / 180
-	#@camera.position.z = 1500
+	@camera.up = new THREE.Vector3 0, 0, 1
 
 	@controls = new THREE.FirstPersonControls @camera
 	#@controls.verticalMax = Math.PI * 2
