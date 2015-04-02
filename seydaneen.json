@@ -1,10 +1,12 @@
 [
+	"# TRADING HOUSE PLATFORM",
 	{
 	"model": "ex_de_docks_steps_01",
 	"x": -11699.271,
 	"y": -70396.516,
 	"z": 270.629,
-	"r": 0
+	"r": 0,
+	"scale": 1.03
 	},
 	{
 	"model": "ex_common_plat_end",
@@ -39,6 +41,15 @@
 	"x": -12416.000,
 	"y": -69888.000,
 	"z": 320.000,
+	"r": 270
+	},
+
+	"# TRADING HOUSE",
+	{
+	"model": "ex_common_house_tall_02",
+	"x": -12136.000,
+	"y": -70368.000,
+	"z": 952.000,
 	"r": 270
 	}
 ]

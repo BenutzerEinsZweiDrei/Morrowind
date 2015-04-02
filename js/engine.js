@@ -13,16 +13,15 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var ambient, container, directionalLight, loader;
+    var ambient, container, directionalLight;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000);
-    this.camera.position.set(-11910.683190184747, -70395.6857115308, 455.05078764975525);
+    this.camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
     this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);
     this.controls.movementSpeed = 500;
     this.controls.lookSpeed = 0.2;
-    this.controls.lookVertical = true;
     this.scene = new THREE.Scene;
     ambient = this.scene.add(new THREE.AmbientLight(0x444444));
     directionalLight = new THREE.DirectionalLight(0xffeedd);
@@ -30,13 +29,6 @@
     this.scene.add(directionalLight);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     THREE.Loader.Handlers.add(/\.tga$/i, new THREE.TGALoader);
-    loader = new THREE.OBJMTLLoader;
-    loader.load('male02/male02.obj', 'male02/male02_dds.mtl', function(object) {
-      object.position.y = -70395.6857115308;
-      object.position.x = -11910.683190184747;
-      object.position.z = 455.05078764975525;
-      mw.scene.add(object);
-    });
     this.renderer = new THREE.WebGLRenderer;
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);

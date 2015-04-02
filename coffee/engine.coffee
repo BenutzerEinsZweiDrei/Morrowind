@@ -13,15 +13,15 @@ mw.boot = () ->
 	document.body.appendChild container
 
 	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 1, 5000
-	@camera.position.set -11910.683190184747, -70395.6857115308, 455.05078764975525
+	@camera.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
 	@camera.up = new THREE.Vector3 0, 0, 1
 
+
 	@controls = new THREE.FirstPersonControls @camera
-	#@controls.verticalMax = Math.PI * 2
-	#@controls.verticalMin = Math.PI
 	@controls.movementSpeed = 500
 	@controls.lookSpeed = 0.2
-	@controls.lookVertical = true
+
+	#@controls.object.lookAt new THREE.Vector3 -11812.294149667212, -70441.11573786382, 417.64573489132664
 
 	# scene
 	@scene = new THREE.Scene
@@ -38,15 +38,6 @@ mw.boot = () ->
 
 	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
 	THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
-
-	loader = new THREE.OBJMTLLoader
-	loader.load 'male02/male02.obj', 'male02/male02_dds.mtl', ( object ) ->
-
-		object.position.y = -70395.6857115308
-		object.position.x = -11910.683190184747
-		object.position.z = 455.05078764975525
-		mw.scene.add object
-		return
 
 	@renderer = new THREE.WebGLRenderer
 	@renderer.setPixelRatio window.devicePixelRatio

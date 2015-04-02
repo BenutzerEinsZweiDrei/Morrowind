@@ -7,37 +7,38 @@ class mw.World
 
 		@props = []
 		@cached = 0
+		@queue = 0
+
 		for p in @data
-			@cache p.model
-		
+			if typeof p is "object"
+				@cache p.model
 
 	cachcb: () ->
 		@cached++
-		if @cached >= @data.length
+		if @cached >= @queue
 			@ransack()
 
 		true
 
 	ransack: () ->
 		for p in @data
-			@props.push new mw.Prop p
+			if typeof p is "object"
+				@props.push new mw.Prop p
 
 		true
 
 	cache: (model) ->
+		@queue++
 		cb = (object) ->
 			mw.models[model] = object
 			for c, i in object.children
-				console.log "traversing #{i}"
 				if c.material.map
 					c.material.map.needsUpdate = true
 					c.material.map.onUpdate = ->
-						console.log 'onupdate'
 						if @wrapS isnt THREE.RepeatWrapping or @wrapT isnt THREE.RepeatWrapping
 							@wrapS = THREE.RepeatWrapping
 							@wrapT = THREE.RepeatWrapping
 							@needsUpdate = true
-			console.log "put #{model}"
 			mw.world.cachcb()
 
 		# console.log loader
