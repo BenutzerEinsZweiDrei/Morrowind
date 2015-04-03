@@ -6,13 +6,14 @@ class mw.World
 
 		@cells = []
 
-		for i in [0..8]
-			@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
+		#for i in [0..8]
+			#@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
+		new mw.Cell @x, @y
 
 		#if mw.models
 		#	true
 		
-		@doskybox()
+		#@doskybox()
 
 		@props = []
 		@cached = 0
@@ -22,6 +23,7 @@ class mw.World
 			if typeof p is "object"
 				@cache p.model
 
+		@watershed()
 
 	doskybox: ->
 
@@ -82,5 +84,21 @@ class mw.World
 
 		true
 
-	fuckoff: ->
+	watershed: ->
+		@mirror = new THREE.Mirror mw.renderer, mw.camera, clipBias: 0.003, textureWidth: 1024, textureHeight: 1024, color: 0x777777
+
+		geometry = new THREE.PlaneBufferGeometry 8192*6, 8192*6, 64, 64
+		
+		@water = new THREE.Mesh geometry, @mirror.material
+		@water.add @mirror
+
+		x = (@x * 8192) + 4096 - 128
+		y = (@y * 8192) + 4096 + 128
+
+		@water.position.set x, y, 0
+
+		mw.scene.add @water
+
+		console.log 'added water'
+
 		true

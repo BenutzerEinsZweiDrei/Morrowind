@@ -46,7 +46,8 @@ class mw.Terrain
 
 		@mx = mx = (@x * 8192) + 4096 - 128
 		@my = my = (@y * 8192) + 4096 + 128
-		console.log "mx #{mx}, my #{my}"
+
+		#console.log "mx #{mx}, my #{my}"
 
 		@mesh.position.set mx, my, 0
 
@@ -62,10 +63,11 @@ class mw.Terrain
 			py = ((4096+y)/64)
 			py /= 2
 
-			px = Math.floor px
-			py = Math.floor py
+			#if px is 64 or py is 64
+				#console.log 'continuing'
+				#continue
 
-			#console.log "#{px}, #{py} is #{x}, #{y}"
+			console.log "#{px}, #{py} is #{x}, #{y}"
 
 			p = ((py*64)+px)*4
 
@@ -87,7 +89,6 @@ class mw.Terrain
 		mw.scene.add @mesh
 
 		@mkground()
-		@water()
 
 		true
 
@@ -132,31 +133,3 @@ class mw.Terrain
 		console.log imgd
 
 		return imgd.data
-
-	water: ->
-
-		that = this
-		loader = new THREE.TGALoader
-		loader.load 'models/water00.tga', (asd) ->
-			asd.wrapS = asd.wrapT = THREE.RepeatWrapping
-			asd.repeat.set 32, 32
-
-			geometry = new THREE.PlaneGeometry 8192*2, 8192*2, 64, 64
-
-			material = new THREE.MeshBasicMaterial
-				map: asd
-				#transparent: true
-				#opacity: .5
-
-				#color: 0x747498
-				#wireframe: true
-				#ambient: 0xffffff
-
-			mesh = new THREE.Mesh geometry, material
-			mesh.position.set that.mx, that.my, 0
-
-			console.log mesh
-
-			mw.scene.add mesh
-
-		true

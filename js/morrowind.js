@@ -4,19 +4,9 @@
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-  $(document).ready(function() {
-    $.ajaxSetup({
-      'async': false
-    });
-    mw.boot.call(mw);
-    $.getJSON("seydaneen.json", function(data) {
-      return mw.world = new mw.World(data);
-    });
-    mw.animate();
-    return true;
-  });
-
   mw = root.mw = {
+    gots: 0,
+    gets: 3,
     world: null,
     circle: [
       {
@@ -48,6 +38,50 @@
         y: 1
       }
     ]
+  };
+
+  $(document).ready(function() {
+    $.ajaxSetup({
+      'async': false
+    });
+    mw.boot.call(mw);
+    mw.resources.call(mw);
+    mw.after.call(mw);
+    return true;
+  });
+
+  mw.resources = function() {
+    var loader;
+    this.vvardenfell = new Image(2688, 2816);
+    this.vvardenfell.src = 'vvardenfell.bmp';
+    this.vclr = new Image(2688, 2816);
+    this.vclr.src = 'vvardenfell-vclr.bmp';
+    loader = new THREE.TGALoader;
+    loader.load('models/water00.tga', function(asd) {
+      asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
+      asd.repeat.set(32, 32);
+      mw.watertga = asd;
+      return mw.got.call(mw);
+    });
+    this.vvardenfell.onload = this.vclr.onload = function() {
+      return mw.got.call(mw);
+    };
+    return true;
+  };
+
+  mw.got = function() {
+    if (++this.gots === this.gets) {
+      this.after();
+    }
+    return true;
+  };
+
+  mw.after = function() {
+    $.getJSON("seydaneen.json", function(data) {
+      return mw.world = new mw.World(data);
+    });
+    mw.animate();
+    return true;
   };
 
 }).call(this);

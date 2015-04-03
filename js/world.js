@@ -2,25 +2,23 @@
 (function() {
   mw.World = (function() {
     function World(data) {
-      var i, j, k, len, p, ref;
+      var j, len, p, ref;
       this.data = data;
       this.x = -2;
       this.y = -9;
       this.cells = [];
-      for (i = j = 0; j <= 8; i = ++j) {
-        this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
-      }
-      this.doskybox();
+      new mw.Cell(this.x, this.y);
       this.props = [];
       this.cached = 0;
       this.queue = 0;
       ref = this.data;
-      for (k = 0, len = ref.length; k < len; k++) {
-        p = ref[k];
+      for (j = 0, len = ref.length; j < len; j++) {
+        p = ref[j];
         if (typeof p === "object") {
           this.cache(p.model);
         }
       }
+      this.watershed();
     }
 
     World.prototype.doskybox = function() {
@@ -92,7 +90,22 @@
       return true;
     };
 
-    World.prototype.fuckoff = function() {
+    World.prototype.watershed = function() {
+      var geometry, x, y;
+      this.mirror = new THREE.Mirror(mw.renderer, mw.camera, {
+        clipBias: 0.003,
+        textureWidth: 1024,
+        textureHeight: 1024,
+        color: 0x777777
+      });
+      geometry = new THREE.PlaneBufferGeometry(8192 * 6, 8192 * 6, 64, 64);
+      this.water = new THREE.Mesh(geometry, this.mirror.material);
+      this.water.add(this.mirror);
+      x = (this.x * 8192) + 4096 - 128;
+      y = (this.y * 8192) + 4096 + 128;
+      this.water.position.set(x, y, 0);
+      mw.scene.add(this.water);
+      console.log('added water');
       return true;
     };
 

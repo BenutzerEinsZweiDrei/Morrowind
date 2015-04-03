@@ -27,7 +27,6 @@
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.mx = mx = (this.x * 8192) + 4096 - 128;
       this.my = my = (this.y * 8192) + 4096 + 128;
-      console.log("mx " + mx + ", my " + my);
       this.mesh.position.set(mx, my, 0);
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
@@ -36,8 +35,7 @@
         px /= 2;
         py = (4096 + y) / 64;
         py /= 2;
-        px = Math.floor(px);
-        py = Math.floor(py);
+        console.log(px + ", " + py + " is " + x + ", " + y);
         p = ((py * 64) + px) * 4;
         r = this.data[p];
         g = this.data[p + 1];
@@ -54,7 +52,6 @@
       }
       mw.scene.add(this.mesh);
       this.mkground();
-      this.water();
       return true;
     };
 
@@ -91,26 +88,6 @@
       imgd = context.getImageData(0, 0, 64, 64);
       console.log(imgd);
       return imgd.data;
-    };
-
-    Terrain.prototype.water = function() {
-      var loader, that;
-      that = this;
-      loader = new THREE.TGALoader;
-      loader.load('models/water00.tga', function(asd) {
-        var geometry, material, mesh;
-        asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
-        asd.repeat.set(32, 32);
-        geometry = new THREE.PlaneGeometry(8192 * 2, 8192 * 2, 64, 64);
-        material = new THREE.MeshBasicMaterial({
-          map: asd
-        });
-        mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(that.mx, that.my, 0);
-        console.log(mesh);
-        return mw.scene.add(mesh);
-      });
-      return true;
     };
 
     return Terrain;
