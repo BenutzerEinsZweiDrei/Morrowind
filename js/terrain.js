@@ -14,7 +14,7 @@
     Terrain.prototype.got = function() {
       var d, h, i, j, map, mx, my, p, px, py, ref, x, y;
       this.data = this.heights();
-      this.geometry = new THREE.PlaneGeometry(8192 * 2, 8192 * 2, 128, 128);
+      this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
       map = THREE.ImageUtils.loadTexture('cells/-2,-9.bmp');
       map.magFilter = THREE.NearestFilter;
       map.minFilter = THREE.LinearMipMapLinearFilter;
@@ -23,17 +23,17 @@
         wireframe: true
       });
       this.mesh = new THREE.Mesh(this.geometry, this.material);
-      this.mx = mx = (-2 * 8192) + 4096;
-      this.my = my = (-9 * 8192) + 4096 + 512;
+      this.mx = mx = (-2 * 8192) + 4096 - 128;
+      this.my = my = (-9 * 8192) + 4096 + 128;
       console.log("mx " + mx + ", my " + my);
       this.mesh.position.set(mx, my, 0);
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
-        px = (8192 + x) / 64;
-        px /= 4;
-        py = (8192 + y) / 64;
-        py /= 4;
+        px = (4096 + x) / 64;
+        px /= 2;
+        py = (4096 + y) / 64;
+        py /= 2;
         px = Math.floor(px);
         py = Math.floor(py);
         console.log(px + ", " + py + " is " + x + ", " + y);

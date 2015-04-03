@@ -11,7 +11,7 @@ class mw.Terrain
 	got: ->
 		@data = @heights()
 
-		@geometry = new THREE.PlaneGeometry 8192*2, 8192*2, 128, 128
+		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
 		map = THREE.ImageUtils.loadTexture 'cells/-2,-9.bmp'
 		map.magFilter = THREE.NearestFilter
@@ -43,8 +43,8 @@ class mw.Terrain
 		#px = (16)*64
 		#py = (-9)*64
 
-		@mx = mx = (-2 * 8192) + 4096 #+ 512
-		@my = my = (-9 * 8192) + 4096 + 512
+		@mx = mx = (-2 * 8192) + 4096 - 128
+		@my = my = (-9 * 8192) + 4096 + 128
 		console.log "mx #{mx}, my #{my}"
 
 		@mesh.position.set mx, my, 0
@@ -56,10 +56,10 @@ class mw.Terrain
 			x = @geometry.vertices[i].x
 			y = @geometry.vertices[i].y
 
-			px = ((8192+x)/64)
-			px /= 4
-			py = ((8192+y)/64)
-			py /= 4
+			px = ((4096+x)/64)
+			px /= 2
+			py = ((4096+y)/64)
+			py /= 2
 
 			px = Math.floor px
 			py = Math.floor py
