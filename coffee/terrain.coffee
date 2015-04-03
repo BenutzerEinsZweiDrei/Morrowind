@@ -1,12 +1,12 @@
-class mw.Heightmap
+class mw.Terrain
 	constructor: ->
 
 		@bmp = new Image 64, 64
 		@bmp.src = 'cells/-2,-9.bmp'
 		
-		hm = this
+		that = this
 		@bmp.onload = ->
-			hm.got()
+			that.got()
 
 	got: ->
 		@data = @heights()
@@ -42,8 +42,8 @@ class mw.Heightmap
 		#px = (16)*64
 		#py = (-9)*64
 
-		mx = (-2 * 8192) + 4096 + 512 + 128
-		my = (-9 * 8192) + 256 + 128 #+ 4096
+		@mx = mx = (-2 * 8192) + 4096 + 512 + 128
+		@my = my = (-9 * 8192) + 256 + 128 #+ 4096
 		console.log "mx #{mx}, my #{my}"
 
 		@mesh.position.set mx, my, 0
@@ -60,15 +60,33 @@ class mw.Heightmap
 			p = (py*128+px)*4
 			@geometry.colors[i] = 200
 			#console.log p
-			d = (@data[p+2]) or 1
-			#console.log d
-				#console.log 'yay'
-			@geometry.vertices[i].z = d*2
+			d = (@data[p+2]) or 0
+			if d
+				#console.log d
+					#console.log 'yay'
+				if @data[p+0] is 255 and @data[p+1] is 255
+					h = -(255-d) *2
+					#console.log "water goes #{h}"
+					@geometry.vertices[i].z = h
+				else
+					@geometry.vertices[i].z = d*2
+			else
+				@geometry.vertices[i].z = 1
+
+				###geometry = new THREE.BoxGeometry 1, 1, 1
+				material = new THREE.MeshBasicMaterial color: 0x00ff00
+				cube = new THREE.Mesh geometry, material
+				cube.position.set mx, my, 1
+				mw.scene.add cube###
+
+				#console.log 'lol'
 
 		@geometry.colorsNeedUpdate = true
 
 
 		mw.scene.add @mesh
+
+		@water()
 
 		true
 
@@ -99,3 +117,33 @@ class mw.Heightmap
 		for i in [0..n-1] by 4
 			all = pix[i]+pix[i+1]+pix[i+2]
 			data[j++] = all/30###
+
+
+
+	water: ->
+
+		that = this
+		loader = new THREE.TGALoader
+		loader.load 'models/water00.tga', (asd) ->
+			asd.wrapS = asd.wrapT = THREE.RepeatWrapping
+			asd.repeat.set 32, 32
+
+			geometry = new THREE.PlaneGeometry 8192*2, 8192*2, 64, 64
+
+			material = new THREE.MeshBasicMaterial
+				map: asd
+				transparent: true
+				opacity: .5
+
+				#color: 0x747498
+				#wireframe: true
+				#ambient: 0xffffff
+
+			mesh = new THREE.Mesh geometry, material
+			mesh.position.set that.mx, that.my, 0
+
+			console.log mesh
+
+			mw.scene.add mesh
+
+		true

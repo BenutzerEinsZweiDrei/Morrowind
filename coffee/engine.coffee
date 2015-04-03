@@ -25,6 +25,7 @@ mw.boot = () ->
 
 	# scene
 	@scene = new THREE.Scene
+	@scene.fog = new THREE.FogExp2 0xefd1b5, 0.00015
 	#@scene.rotation.z = 180 * Math.PI / 180
 
 	ambient = 
@@ -36,7 +37,7 @@ mw.boot = () ->
 
 	# model
 
-	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
+	#THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
 	THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
 	@renderer = new THREE.WebGLRenderer
