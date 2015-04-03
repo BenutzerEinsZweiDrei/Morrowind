@@ -2,40 +2,44 @@
 (function() {
   mw.World = (function() {
     function World(data) {
-      var j, len, p, ref;
+      var i, j, k, len, p, ref;
       this.data = data;
-      console.log('new world');
-      mw.terrain = new mw.Terrain;
+      this.x = -2;
+      this.y = -9;
+      this.cells = [];
+      for (i = j = 0; j <= 8; i = ++j) {
+        this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
+      }
+      this.doskybox();
       this.props = [];
       this.cached = 0;
       this.queue = 0;
       ref = this.data;
-      for (j = 0, len = ref.length; j < len; j++) {
-        p = ref[j];
+      for (k = 0, len = ref.length; k < len; k++) {
+        p = ref[k];
         if (typeof p === "object") {
           this.cache(p.model);
         }
       }
-      this.doskybox();
     }
 
     World.prototype.doskybox = function() {
-      var geometry, loader, shader, uniforms;
-      geometry = new THREE.CubeGeometry(8192 * 2, 8192 * 2, 4069);
-      shader = THREE.ShaderUtils.lib["cube"];
-      uniforms = THREE.UniformsUtils.clone(shader.uniforms);
-      uniforms['tCube'].texture = asd;
+      var geometry, loader;
+      geometry = new THREE.CubeGeometry(8192 * 2, 8192 * 2, 8192 * 2);
       loader = new THREE.TGALoader;
       loader.load('models/tx_sky_clear.tga', function(asd) {
-        var material;
+        var array, i, j, material;
         asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
-        material = new THREE.MeshShaderMaterial({
-          fragmentShader: shader.fragmentShader({
-            vertexShader: shader.vertexShader,
-            uniforms: uniforms
-          })
-        });
+        array = [];
+        for (i = j = 0; j <= 5; i = ++j) {
+          array.push(new THREE.MeshBasicMaterial({
+            map: asd,
+            side: THREE.BackSide
+          }));
+        }
+        material = new THREE.MeshFaceMaterial(array);
         this.skybox = new THREE.Mesh(geometry, material);
+        this.skybox.position.set(mw.terrain.mx, mw.terrain.my, -500);
         return mw.scene.add(this.skybox);
       });
       return true;

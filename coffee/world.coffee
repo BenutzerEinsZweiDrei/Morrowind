@@ -1,12 +1,18 @@
 class mw.World
 	constructor: (@data) ->
-		console.log 'new world'
 
-		mw.terrain = new mw.Terrain
+		@x = -2
+		@y = -9
+
+		@cells = []
+
+		for i in [0..8]
+			@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
 
 		#if mw.models
 		#	true
 		
+		@doskybox()
 
 		@props = []
 		@cached = 0
@@ -16,32 +22,28 @@ class mw.World
 			if typeof p is "object"
 				@cache p.model
 
-		@doskybox()
 
 	doskybox: ->
 
 		#imagePrefix = "models/dawnmountain-";
 		#directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 		#imageSuffix = ".png";
-		geometry = new THREE.CubeGeometry 8192*2, 8192*2, 4069
-
-		shader = THREE.ShaderUtils.lib["cube"]
-		uniforms = THREE.UniformsUtils.clone shader.uniforms
-		uniforms['tCube'].texture = asd
+		geometry = new THREE.CubeGeometry 8192*2, 8192*2, 8192*2
 		
 		loader = new THREE.TGALoader
 		loader.load 'models/tx_sky_clear.tga', (asd) ->
 			asd.wrapS = asd.wrapT = THREE.RepeatWrapping
 			#asd.repeat.set 1, 1
 
-			material = new THREE.MeshShaderMaterial
-				fragmentShader: shader.fragmentShader
-			    vertexShader: shader.vertexShader
-			    uniforms: uniforms
+			array = []
+			for i in [0..5]
+				array.push new THREE.MeshBasicMaterial
+					map: asd
+					side: THREE.BackSide
 
+			material = new THREE.MeshFaceMaterial array
 			@skybox = new THREE.Mesh geometry, material
-			#@skybox.position.set mw.terrain.mx, mw.terrain.my, -500
-
+			@skybox.position.set mw.terrain.mx, mw.terrain.my, -500
 			mw.scene.add @skybox
 	
 		true

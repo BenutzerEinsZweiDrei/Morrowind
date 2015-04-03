@@ -1,8 +1,8 @@
 class mw.Terrain
-	constructor: ->
+	constructor: (@x, @y) ->
 
 		@bmp = new Image 64, 64
-		@bmp.src = 'cells/-2,-9.bmp'
+		@bmp.src = "cells/#{@x},#{@y}.bmp"
 		
 		that = this
 		@bmp.onload = ->
@@ -13,7 +13,7 @@ class mw.Terrain
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
-		map = THREE.ImageUtils.loadTexture 'cells/-2,-9.bmp'
+		map = THREE.ImageUtils.loadTexture "cells/#{@x},#{@y}.bmp"
 		map.magFilter = THREE.NearestFilter
 		map.minFilter = THREE.LinearMipMapLinearFilter
 
@@ -44,8 +44,8 @@ class mw.Terrain
 		#px = (16)*64
 		#py = (-9)*64
 
-		@mx = mx = (-2 * 8192) + 4096 - 128
-		@my = my = (-9 * 8192) + 4096 + 128
+		@mx = mx = (@x * 8192) + 4096 - 128
+		@my = my = (@y * 8192) + 4096 + 128
 		console.log "mx #{mx}, my #{my}"
 
 		@mesh.position.set mx, my, 0

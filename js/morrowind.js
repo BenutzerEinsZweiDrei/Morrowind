@@ -4,10 +4,6 @@
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-  mw = root.mw = {
-    world: null
-  };
-
   $(document).ready(function() {
     $.ajaxSetup({
       'async': false
@@ -19,5 +15,39 @@
     mw.animate();
     return true;
   });
+
+  mw = root.mw = {
+    world: null,
+    circle: [
+      {
+        x: 1,
+        y: -1
+      }, {
+        x: 0,
+        y: -1
+      }, {
+        x: -1,
+        y: -1
+      }, {
+        x: 1,
+        y: 0
+      }, {
+        x: 0,
+        y: 0
+      }, {
+        x: -1,
+        y: 0
+      }, {
+        x: 1,
+        y: 1
+      }, {
+        x: 0,
+        y: 1
+      }, {
+        x: -1,
+        y: 1
+      }
+    ]
+  };
 
 }).call(this);

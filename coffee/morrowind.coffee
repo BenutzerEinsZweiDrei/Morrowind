@@ -1,7 +1,5 @@
 root = exports ? this
 
-mw = root.mw =
-	world: null
 
 $(document).ready ->
 	$.ajaxSetup 'async': false
@@ -15,3 +13,13 @@ $(document).ready ->
 
 	true
 
+
+# definitions of insanity
+
+mw = root.mw =
+	world: null
+	circle: [
+		{x: 1, y:-1}, {x: 0, y:-1}, {x:-1, y:-1},
+		{x: 1, y: 0}, {x: 0, y: 0}, {x:-1, y: 0},
+		{x: 1, y: 1}, {x: 0, y: 1}, {x:-1, y: 1}
+	]
