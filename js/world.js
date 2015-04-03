@@ -5,6 +5,7 @@
       var j, len, p, ref;
       this.data = data;
       console.log('new world');
+      mw.terrain = new mw.Terrain;
       this.props = [];
       this.cached = 0;
       this.queue = 0;
@@ -15,7 +16,30 @@
           this.cache(p.model);
         }
       }
+      this.doskybox();
     }
+
+    World.prototype.doskybox = function() {
+      var geometry, loader, shader, uniforms;
+      geometry = new THREE.CubeGeometry(8192 * 2, 8192 * 2, 4069);
+      shader = THREE.ShaderUtils.lib["cube"];
+      uniforms = THREE.UniformsUtils.clone(shader.uniforms);
+      uniforms['tCube'].texture = asd;
+      loader = new THREE.TGALoader;
+      loader.load('models/tx_sky_clear.tga', function(asd) {
+        var material;
+        asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
+        material = new THREE.MeshShaderMaterial({
+          fragmentShader: shader.fragmentShader({
+            vertexShader: shader.vertexShader,
+            uniforms: uniforms
+          })
+        });
+        this.skybox = new THREE.Mesh(geometry, material);
+        return mw.scene.add(this.skybox);
+      });
+      return true;
+    };
 
     World.prototype.cachcb = function() {
       this.cached++;

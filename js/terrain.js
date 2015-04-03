@@ -12,7 +12,7 @@
     }
 
     Terrain.prototype.got = function() {
-      var d, h, i, j, map, mx, my, p, px, py, ref, x, y;
+      var b, g, h, i, j, map, mx, my, p, px, py, r, ref, x, y;
       this.data = this.heights();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
       map = THREE.ImageUtils.loadTexture('cells/-2,-9.bmp');
@@ -36,27 +36,41 @@
         py /= 2;
         px = Math.floor(px);
         py = Math.floor(py);
-        console.log(px + ", " + py + " is " + x + ", " + y);
         p = ((py * 64) + px) * 4;
-        d = this.data[p + 2] || 0;
-        if (this.data[p + 0] === 255 && this.data[p + 1] === 255) {
+        r = this.data[p];
+        g = this.data[p + 1];
+        b = this.data[p + 2];
+        if (r === 255) {
           this.geometry.vertices[i].z = h;
-          h = -(255 - d);
+          h = -(255 - b);
+        } else if (g) {
+          h = 255 + b;
         } else {
-          h = d;
-
-          /*geometry = new THREE.BoxGeometry 2, 2, 2
-          				material = new THREE.MeshBasicMaterial color: 0x00ff00
-          				cube = new THREE.Mesh geometry, material
-          				cube.position.set mx-x, my-y, d*2
-          				mw.scene.add cube
-           */
+          h = b;
         }
         this.geometry.vertices[i].z = h;
       }
       mw.scene.add(this.mesh);
+      this.mkground();
       this.water();
       return true;
+    };
+
+    Terrain.prototype.mkground = function() {
+      var loader, that;
+      that = this;
+      loader = new THREE.TGALoader;
+      return loader.load('models/tx_ai_clover_02.tga', function(asd) {
+        var geometry;
+        asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
+        asd.repeat.set(32, 32);
+        geometry = new THREE.PlaneGeometry(8192 * 2, 8192 * 2, 64, 64);
+        that.ground = that.mesh.clone();
+        that.ground.material = new THREE.MeshBasicMaterial({
+          map: asd
+        });
+        return mw.scene.add(that.ground);
+      });
     };
 
     Terrain.prototype.heights = function() {

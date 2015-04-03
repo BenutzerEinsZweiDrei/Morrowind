@@ -10,8 +10,6 @@ $(document).ready ->
 
 	$.getJSON "seydaneen.json", (data) ->
 		mw.world = new mw.World data
-
-	mw.terrain = new mw.Terrain
 		
 	mw.animate()
 

@@ -22,6 +22,7 @@ class mw.Terrain
 			#color: 0xffff00
 			wireframe: true
 
+		#tx_ai_clover_02.tga
 
 		#, side: THREE.DoubleSide
 
@@ -64,34 +65,46 @@ class mw.Terrain
 			px = Math.floor px
 			py = Math.floor py
 
-
-
-			console.log "#{px}, #{py} is #{x}, #{y}"
+			#console.log "#{px}, #{py} is #{x}, #{y}"
 
 			p = ((py*64)+px)*4
 
-			d = (@data[p+2]) or 0
+			r = @data[p]
+			g = @data[p+1]
+			b = @data[p+2]
 
-			if @data[p+0] is 255 and @data[p+1] is 255
+			if r is 255
 				@geometry.vertices[i].z = h
-				h = -(255-d)
+				h = -(255-b)
+			else if g
+				h = 255+b
 			else
-				h = d
-
-				###geometry = new THREE.BoxGeometry 2, 2, 2
-				material = new THREE.MeshBasicMaterial color: 0x00ff00
-				cube = new THREE.Mesh geometry, material
-				cube.position.set mx-x, my-y, d*2
-				mw.scene.add cube###
+				h = b
 			
 			@geometry.vertices[i].z = h
 
 
 		mw.scene.add @mesh
 
+		@mkground()
 		@water()
 
 		true
+
+	mkground: ->
+		that = this
+
+		loader = new THREE.TGALoader
+		loader.load 'models/tx_ai_clover_02.tga', (asd) ->
+			asd.wrapS = asd.wrapT = THREE.RepeatWrapping
+			asd.repeat.set 32, 32
+
+			geometry = new THREE.PlaneGeometry 8192*2, 8192*2, 64, 64
+
+			that.ground = that.mesh.clone()
+			that.ground.material = new THREE.MeshBasicMaterial map: asd
+
+			mw.scene.add that.ground
 
 	heights: ->
 		console.log 'heights'

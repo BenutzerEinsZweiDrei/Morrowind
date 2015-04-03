@@ -16,7 +16,6 @@
     $.getJSON("seydaneen.json", function(data) {
       return mw.world = new mw.World(data);
     });
-    mw.terrain = new mw.Terrain;
     mw.animate();
     return true;
   });

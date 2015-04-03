@@ -25,15 +25,15 @@ mw.boot = () ->
 
 	# scene
 	@scene = new THREE.Scene
-	@scene.fog = new THREE.FogExp2 0xefd1b5, 0.00015
+	@scene.fog = new THREE.FogExp2 0xefd1b5, 0.0002
 	#@scene.rotation.z = 180 * Math.PI / 180
 
 	ambient = 
-	@scene.add new THREE.AmbientLight 0x444444
+	@scene.add new THREE.AmbientLight 0xbfb5ac
 
-	directionalLight = new THREE.DirectionalLight 0xffeedd
-	directionalLight.position.set( 0, 0, 1 ).normalize()
-	@scene.add directionalLight
+	#directionalLight = new THREE.DirectionalLight 0xffeedd
+	#directionalLight.position.set( 0, 0, 1 ).normalize()
+	#@scene.add directionalLight
 
 	# model
 
