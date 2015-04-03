@@ -9,12 +9,9 @@ class mw.Heightmap
 			hm.got()
 
 	got: ->
-		heights = @heights()
+		@data = @heights()
 
 		@geometry = new THREE.PlaneGeometry 8192*2, 8192*2, 128, 128
-
-		# put heightmap
-		plane.vertices[i].position.z = data[i];
 
 		map = THREE.ImageUtils.loadTexture 'seydaneen.bmp'
 		map.magFilter = THREE.NearestFilter
@@ -45,12 +42,31 @@ class mw.Heightmap
 		#px = (16)*64
 		#py = (-9)*64
 
-		x = (-2 * 8192) + 4096 + 512 + 128
-		y = (-9 * 8192) + 256 + 128 #+ 4096
+		mx = (-2 * 8192) + 4096 + 512 + 128
+		my = (-9 * 8192) + 256 + 128 #+ 4096
+		console.log "mx #{mx}, my #{my}"
 
-		@mesh.position.set x, y, 200
+		@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
+
+		# put heightmap
+		for i in [0..@geometry.vertices.length-1]
+			x = @geometry.vertices[i].x
+			y = @geometry.vertices[i].y
+			px = (((-2 * 8192)+x)/128) + 128 + 64
+			py = (((-9 * 8192)+y)/128) + 512 + 128
+			#console.log "#{px}, #{py}"
+			p = (py*128+px)*4
+			@geometry.colors[i] = 200
+			#console.log p
+			d = (@data[p+2]) or 1
+			#console.log d
+				#console.log 'yay'
+			@geometry.vertices[i].z = d*2
+
+		@geometry.colorsNeedUpdate = true
+
 
 		mw.scene.add @mesh
 
@@ -76,12 +92,10 @@ class mw.Heightmap
 		
 
 		imgd = context.getImageData 0, 0, 128, 128
-		pix = imgd.data
+		return imgd.data
 
-		j=0
+		###j=0
 		n = pix.length
 		for i in [0..n-1] by 4
 			all = pix[i]+pix[i+1]+pix[i+2]
-			data[j++] = all/30
-
-		return data
+			data[j++] = all/30###
