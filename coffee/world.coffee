@@ -69,6 +69,9 @@ class mw.World
 		cb = (object) ->
 			mw.models[model] = object
 			for c, i in object.children
+				#if not c.name
+					#c.visible = false
+
 				if c.material.map
 					c.material.map.needsUpdate = true
 					c.material.map.onUpdate = ->
@@ -85,11 +88,38 @@ class mw.World
 		true
 
 	watershed: ->
-		@mirror = new THREE.Mirror mw.renderer, mw.camera, clipBias: 0.003, textureWidth: 1024, textureHeight: 1024, color: 0x777777
+
+		THREE.ShaderLib['mirror'].uniforms.opacity = type: "f", value: .6
+		THREE.ShaderLib['mirror'].fragmentShader =
+		"uniform float opacity;
+		uniform vec3 mirrorColor;
+		uniform sampler2D mirrorSampler;
+		varying vec4 mirrorCoord;
+		float blendOverlay(float base, float blend) {
+		return( base < 0.5 ? ( 2.0 * base * blend ) : (1.0 - 2.0 * ( 1.0 - base ) * ( 1.0 - blend ) ) );
+		}
+		void main() {
+		vec4 color = texture2DProj(mirrorSampler, mirrorCoord);
+		color = vec4(blendOverlay(mirrorColor.r, color.r), blendOverlay(mirrorColor.g, color.g), blendOverlay(mirrorColor.b, color.b), opacity);
+		gl_FragColor = color;
+		}"
+
+		mw.watertga.wrapS = mw.watertga.wrapT = THREE.RepeatWrapping
+		mw.watertga.repeat.set 64, 64
+
+		@mirror = new THREE.Mirror mw.renderer, mw.camera, clipBias: 0.0025, textureWidth: 1024, textureHeight: 1024, color: 0x777777
+		@mirror.material.transparent = true
+		#@mirror.material.uniforms['uOpacity'].value = .5
 
 		geometry = new THREE.PlaneBufferGeometry 8192*6, 8192*6, 64, 64
-		
-		@water = new THREE.Mesh geometry, @mirror.material
+
+		@waterMaterial = new THREE.MeshLambertMaterial
+			map: mw.watertga
+			transparent: true
+			opacity: .6
+
+		@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@mirror.material, @waterMaterial]
+		#@water = new THREE.Mesh geometry, @mirror.material
 		@water.add @mirror
 
 		x = (@x * 8192) + 4096 - 128

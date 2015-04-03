@@ -35,7 +35,6 @@
         px /= 2;
         py = (4096 + y) / 64;
         py /= 2;
-        console.log(px + ", " + py + " is " + x + ", " + y);
         p = ((py * 64) + px) * 4;
         r = this.data[p];
         g = this.data[p + 1];

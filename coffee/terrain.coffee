@@ -67,7 +67,7 @@ class mw.Terrain
 				#console.log 'continuing'
 				#continue
 
-			console.log "#{px}, #{py} is #{x}, #{y}"
+			#console.log "#{px}, #{py} is #{x}, #{y}"
 
 			p = ((py*64)+px)*4
 

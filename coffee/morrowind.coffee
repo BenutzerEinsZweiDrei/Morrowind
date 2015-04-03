@@ -10,6 +10,7 @@ mw = root.mw =
 		{x: 1, y: 0}, {x: 0, y: 0}, {x:-1, y: 0},
 		{x: 1, y: 1}, {x: 0, y: 1}, {x:-1, y: 1}
 	]
+	tgas: []
 
 
 $(document).ready ->
@@ -18,8 +19,6 @@ $(document).ready ->
 	mw.boot.call mw
 
 	mw.resources.call mw
-
-	mw.after.call mw
 
 	true
 
@@ -32,9 +31,8 @@ mw.resources = ->
 
 	loader = new THREE.TGALoader
 	loader.load 'models/water00.tga', (asd) ->
-		asd.wrapS = asd.wrapT = THREE.RepeatWrapping
-		asd.repeat.set 32, 32
 		mw.watertga = asd
+		console.log asd
 		mw.got.call mw
 	
 	@vvardenfell.onload = @vclr.onload = ->

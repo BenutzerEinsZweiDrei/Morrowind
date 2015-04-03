@@ -37,7 +37,8 @@
         x: -1,
         y: 1
       }
-    ]
+    ],
+    tgas: []
   };
 
   $(document).ready(function() {
@@ -46,7 +47,6 @@
     });
     mw.boot.call(mw);
     mw.resources.call(mw);
-    mw.after.call(mw);
     return true;
   });
 
@@ -58,9 +58,8 @@
     this.vclr.src = 'vvardenfell-vclr.bmp';
     loader = new THREE.TGALoader;
     loader.load('models/water00.tga', function(asd) {
-      asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
-      asd.repeat.set(32, 32);
       mw.watertga = asd;
+      console.log(asd);
       return mw.got.call(mw);
     });
     this.vvardenfell.onload = this.vclr.onload = function() {
