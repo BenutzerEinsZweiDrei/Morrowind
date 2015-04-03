@@ -46,7 +46,7 @@
           this.geometry.vertices[i].z = h;
           h = -(255 - b);
         } else if (g) {
-          h = 255 + b;
+          h = (255 * (g / 8)) + b;
         } else {
           h = b;
         }
