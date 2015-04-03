@@ -12,8 +12,8 @@
     }
 
     Heightmap.prototype.got = function() {
-      var heights, map, x, y;
-      heights = this.heights();
+      var d, i, j, map, mx, my, p, px, py, ref, x, y;
+      this.data = this.heights();
       this.geometry = new THREE.PlaneGeometry(8192 * 2, 8192 * 2, 128, 128);
       map = THREE.ImageUtils.loadTexture('seydaneen.bmp');
       map.magFilter = THREE.NearestFilter;
@@ -23,15 +23,27 @@
         wireframe: true
       });
       this.mesh = new THREE.Mesh(this.geometry, this.material);
-      x = (-2 * 8192) + 4096 + 512 + 128;
-      y = (-9 * 8192) + 256 + 128;
-      this.mesh.position.set(x, y, 200);
+      mx = (-2 * 8192) + 4096 + 512 + 128;
+      my = (-9 * 8192) + 256 + 128;
+      console.log("mx " + mx + ", my " + my);
+      this.mesh.position.set(mx, my, 0);
+      for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+        x = this.geometry.vertices[i].x;
+        y = this.geometry.vertices[i].y;
+        px = (((-2 * 8192) + x) / 128) + 128 + 64;
+        py = (((-9 * 8192) + y) / 128) + 512 + 128;
+        p = (py * 128 + px) * 4;
+        this.geometry.colors[i] = 200;
+        d = this.data[p + 2] || 1;
+        this.geometry.vertices[i].z = d * 2;
+      }
+      this.geometry.colorsNeedUpdate = true;
       mw.scene.add(this.mesh);
       return true;
     };
 
     Heightmap.prototype.heights = function() {
-      var all, canvas, context, data, i, img, imgd, j, k, l, n, pix, ref, ref1, ref2, size;
+      var canvas, context, data, i, img, imgd, j, ref, ref1, size;
       console.log('heights');
       img = this.bmp;
       canvas = document.createElement('canvas');
@@ -41,18 +53,18 @@
       size = 128 * 128;
       data = new Float32Array(size);
       context.drawImage(img, 0, 0);
-      for (i = k = ref = i, ref1 = i - size - 1; ref <= ref1 ? k <= ref1 : k >= ref1; i = ref <= ref1 ? ++k : --k) {
+      for (i = j = ref = i, ref1 = i - size - 1; ref <= ref1 ? j <= ref1 : j >= ref1; i = ref <= ref1 ? ++j : --j) {
         data[i] = 0;
       }
       imgd = context.getImageData(0, 0, 128, 128);
-      pix = imgd.data;
-      j = 0;
-      n = pix.length;
-      for (i = l = 0, ref2 = n - 1; l <= ref2; i = l += 4) {
-        all = pix[i] + pix[i + 1] + pix[i + 2];
-        data[j++] = all / 30;
-      }
-      return data;
+      return imgd.data;
+
+      /*j=0
+      		n = pix.length
+      		for i in [0..n-1] by 4
+      			all = pix[i]+pix[i+1]+pix[i+2]
+      			data[j++] = all/30
+       */
     };
 
     return Heightmap;
