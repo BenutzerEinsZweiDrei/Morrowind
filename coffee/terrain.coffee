@@ -13,7 +13,7 @@ class mw.Terrain
 
 		@geometry = new THREE.PlaneGeometry 8192*2, 8192*2, 128, 128
 
-		map = THREE.ImageUtils.loadTexture 'seydaneen.bmp'
+		map = THREE.ImageUtils.loadTexture 'cells/-2,-9.bmp'
 		map.magFilter = THREE.NearestFilter
 		map.minFilter = THREE.LinearMipMapLinearFilter
 
@@ -26,6 +26,7 @@ class mw.Terrain
 		#, side: THREE.DoubleSide
 
 		@mesh = new THREE.Mesh @geometry, @material
+		#@mesh.rotation.z = 180 * Math.PI / 180
 
 		# 998, 2301 Seyda Neen cell
 		# Seyda Neen is -2, -9
@@ -42,46 +43,48 @@ class mw.Terrain
 		#px = (16)*64
 		#py = (-9)*64
 
-		@mx = mx = (-2 * 8192) + 4096 + 512 + 128
-		@my = my = (-9 * 8192) + 256 + 128 #+ 4096
+		@mx = mx = (-2 * 8192) + 4096 #+ 512
+		@my = my = (-9 * 8192) + 4096 + 512
 		console.log "mx #{mx}, my #{my}"
 
 		@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
 
-		# put heightmap
 		for i in [0..@geometry.vertices.length-1]
+
 			x = @geometry.vertices[i].x
 			y = @geometry.vertices[i].y
-			px = (((-2 * 8192)+x)/128) + 128 + 64
-			py = (((-9 * 8192)+y)/128) + 512 + 128
-			#console.log "#{px}, #{py}"
-			p = (py*128+px)*4
-			@geometry.colors[i] = 200
-			#console.log p
-			d = (@data[p+2]) or 0
-			if d
-				#console.log d
-					#console.log 'yay'
-				if @data[p+0] is 255 and @data[p+1] is 255
-					h = -(255-d) *2
-					#console.log "water goes #{h}"
-					@geometry.vertices[i].z = h
-				else
-					@geometry.vertices[i].z = d*2
-			else
-				@geometry.vertices[i].z = 1
 
-				###geometry = new THREE.BoxGeometry 1, 1, 1
+			px = ((8192+x)/64)
+			px /= 4
+			py = ((8192+y)/64)
+			py /= 4
+
+			px = Math.floor px
+			py = Math.floor py
+
+
+
+			console.log "#{px}, #{py} is #{x}, #{y}"
+
+			p = ((py*64)+px)*4
+
+			d = (@data[p+2]) or 0
+
+			if @data[p+0] is 255 and @data[p+1] is 255
+				@geometry.vertices[i].z = h
+				h = -(255-d)
+			else
+				h = d
+
+				###geometry = new THREE.BoxGeometry 2, 2, 2
 				material = new THREE.MeshBasicMaterial color: 0x00ff00
 				cube = new THREE.Mesh geometry, material
-				cube.position.set mx, my, 1
+				cube.position.set mx-x, my-y, d*2
 				mw.scene.add cube###
-
-				#console.log 'lol'
-
-		@geometry.colorsNeedUpdate = true
+			
+			@geometry.vertices[i].z = h
 
 
 		mw.scene.add @mesh
@@ -96,29 +99,26 @@ class mw.Terrain
 		img = @bmp
 
 		canvas = document.createElement 'canvas'
-		canvas.width = 128
-		canvas.height = 128
+		document.body.appendChild canvas
+		$('canvas').css 'position', 'absolute'
+
+		canvas.width = 64
+		canvas.height = 64
 		context = canvas.getContext '2d'
 
-		size = 128 * 128
-		data = new Float32Array size
+		#size = 128 * 128
+		#data = new Float32Array size
 
+		context.translate 0, 64
+		#context.rotate 180 * Math.PI / 180
+		context.scale 1, -1
 		context.drawImage img, 0, 0
-
-		for i in [i..i-size-1]
-			data[i] = 0
 		
 
-		imgd = context.getImageData 0, 0, 128, 128
+		imgd = context.getImageData 0, 0, 64, 64
+		console.log imgd
+
 		return imgd.data
-
-		###j=0
-		n = pix.length
-		for i in [0..n-1] by 4
-			all = pix[i]+pix[i+1]+pix[i+2]
-			data[j++] = all/30###
-
-
 
 	water: ->
 
@@ -132,8 +132,8 @@ class mw.Terrain
 
 			material = new THREE.MeshBasicMaterial
 				map: asd
-				transparent: true
-				opacity: .5
+				#transparent: true
+				#opacity: .5
 
 				#color: 0x747498
 				#wireframe: true

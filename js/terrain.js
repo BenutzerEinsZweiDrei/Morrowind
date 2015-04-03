@@ -15,7 +15,7 @@
       var d, h, i, j, map, mx, my, p, px, py, ref, x, y;
       this.data = this.heights();
       this.geometry = new THREE.PlaneGeometry(8192 * 2, 8192 * 2, 128, 128);
-      map = THREE.ImageUtils.loadTexture('seydaneen.bmp');
+      map = THREE.ImageUtils.loadTexture('cells/-2,-9.bmp');
       map.magFilter = THREE.NearestFilter;
       map.minFilter = THREE.LinearMipMapLinearFilter;
       this.material = new THREE.MeshBasicMaterial({
@@ -23,65 +23,58 @@
         wireframe: true
       });
       this.mesh = new THREE.Mesh(this.geometry, this.material);
-      this.mx = mx = (-2 * 8192) + 4096 + 512 + 128;
-      this.my = my = (-9 * 8192) + 256 + 128;
+      this.mx = mx = (-2 * 8192) + 4096;
+      this.my = my = (-9 * 8192) + 4096 + 512;
       console.log("mx " + mx + ", my " + my);
       this.mesh.position.set(mx, my, 0);
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
-        px = (((-2 * 8192) + x) / 128) + 128 + 64;
-        py = (((-9 * 8192) + y) / 128) + 512 + 128;
-        p = (py * 128 + px) * 4;
-        this.geometry.colors[i] = 200;
+        px = (8192 + x) / 64;
+        px /= 4;
+        py = (8192 + y) / 64;
+        py /= 4;
+        px = Math.floor(px);
+        py = Math.floor(py);
+        console.log(px + ", " + py + " is " + x + ", " + y);
+        p = ((py * 64) + px) * 4;
         d = this.data[p + 2] || 0;
-        if (d) {
-          if (this.data[p + 0] === 255 && this.data[p + 1] === 255) {
-            h = -(255 - d) * 2;
-            this.geometry.vertices[i].z = h;
-          } else {
-            this.geometry.vertices[i].z = d * 2;
-          }
+        if (this.data[p + 0] === 255 && this.data[p + 1] === 255) {
+          this.geometry.vertices[i].z = h;
+          h = -(255 - d);
         } else {
-          this.geometry.vertices[i].z = 1;
+          h = d;
 
-          /*geometry = new THREE.BoxGeometry 1, 1, 1
+          /*geometry = new THREE.BoxGeometry 2, 2, 2
           				material = new THREE.MeshBasicMaterial color: 0x00ff00
           				cube = new THREE.Mesh geometry, material
-          				cube.position.set mx, my, 1
+          				cube.position.set mx-x, my-y, d*2
           				mw.scene.add cube
            */
         }
+        this.geometry.vertices[i].z = h;
       }
-      this.geometry.colorsNeedUpdate = true;
       mw.scene.add(this.mesh);
       this.water();
       return true;
     };
 
     Terrain.prototype.heights = function() {
-      var canvas, context, data, i, img, imgd, j, ref, ref1, size;
+      var canvas, context, img, imgd;
       console.log('heights');
       img = this.bmp;
       canvas = document.createElement('canvas');
-      canvas.width = 128;
-      canvas.height = 128;
+      document.body.appendChild(canvas);
+      $('canvas').css('position', 'absolute');
+      canvas.width = 64;
+      canvas.height = 64;
       context = canvas.getContext('2d');
-      size = 128 * 128;
-      data = new Float32Array(size);
+      context.translate(0, 64);
+      context.scale(1, -1);
       context.drawImage(img, 0, 0);
-      for (i = j = ref = i, ref1 = i - size - 1; ref <= ref1 ? j <= ref1 : j >= ref1; i = ref <= ref1 ? ++j : --j) {
-        data[i] = 0;
-      }
-      imgd = context.getImageData(0, 0, 128, 128);
+      imgd = context.getImageData(0, 0, 64, 64);
+      console.log(imgd);
       return imgd.data;
-
-      /*j=0
-      		n = pix.length
-      		for i in [0..n-1] by 4
-      			all = pix[i]+pix[i+1]+pix[i+2]
-      			data[j++] = all/30
-       */
     };
 
     Terrain.prototype.water = function() {
@@ -94,9 +87,7 @@
         asd.repeat.set(32, 32);
         geometry = new THREE.PlaneGeometry(8192 * 2, 8192 * 2, 64, 64);
         material = new THREE.MeshBasicMaterial({
-          map: asd,
-          transparent: true,
-          opacity: .5
+          map: asd
         });
         mesh = new THREE.Mesh(geometry, material);
         mesh.position.set(that.mx, that.my, 0);

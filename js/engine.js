@@ -20,7 +20,7 @@
     this.camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
     this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);
-    this.controls.movementSpeed = 1000;
+    this.controls.movementSpeed = 2000;
     this.controls.lookSpeed = 0.5;
     this.scene = new THREE.Scene;
     this.scene.fog = new THREE.FogExp2(0xefd1b5, 0.00015);
