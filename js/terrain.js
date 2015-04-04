@@ -17,8 +17,8 @@
         wireframe: true
       });
       this.mesh = new THREE.Mesh(this.geometry, this.material);
-      this.mx = mx = (this.x * 8192) + 4096 - 128;
-      this.my = my = (this.y * 8192) + 4096 + 128;
+      this.mx = mx = (this.x * 8192) + 4096;
+      this.my = my = (this.y * 8192) + 4096;
       this.mesh.position.set(mx, my, 0);
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
@@ -27,7 +27,7 @@
         px /= 2;
         py = (4096 + y) / 64;
         py /= 2;
-        p = ((py * 64) + px) * 4;
+        p = ((py * 65) + px) * 4;
         r = this.data[p];
         g = this.data[p + 1];
         b = this.data[p + 2];
@@ -72,19 +72,20 @@
         console.log('there');
         $('canvas').css('position', 'absolute');
       }
-      canvas.width = 64;
-      canvas.height = 64;
+      canvas.width = 65;
+      canvas.height = 65;
       context = canvas.getContext('2d');
       context.save();
-      context.translate(0, 64);
+      context.translate(0, 65);
       context.scale(1, -1);
       x = -(18 + this.x) * 64;
       y = -(27 - this.y) * 64;
       context.drawImage(img, x, y);
-      imgd = context.getImageData(0, 0, 64, 64);
+      imgd = context.getImageData(0, 0, 65, 65);
       context.restore();
       context.drawImage(img, x, y);
       this.canvas = canvas;
+      console.log(imgd);
       return imgd.data;
     };
 

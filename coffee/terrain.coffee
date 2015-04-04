@@ -37,8 +37,8 @@ class mw.Terrain
 		#px = (16)*64
 		#py = (-9)*64
 
-		@mx = mx = (@x * 8192) + 4096 - 128
-		@my = my = (@y * 8192) + 4096 + 128
+		@mx = mx = (@x * 8192) + 4096
+		@my = my = (@y * 8192) + 4096
 
 		#console.log "mx #{mx}, my #{my}"
 
@@ -62,7 +62,8 @@ class mw.Terrain
 
 			#console.log "#{px}, #{py} is #{x}, #{y}"
 
-			p = ((py*64)+px)*4
+			p = ((py*65)+px)*4
+			#p -= 1
 
 			r = @data[p]
 			g = @data[p+1]
@@ -110,12 +111,12 @@ class mw.Terrain
 			console.log 'there'
 			$('canvas').css 'position', 'absolute'
 
-		canvas.width = 64
-		canvas.height = 64
+		canvas.width = 65
+		canvas.height = 65
 		context = canvas.getContext '2d'
 
 		context.save() # push
-		context.translate 0, 64
+		context.translate 0, 65
 		context.scale 1, -1
 
 		x = -( 18 + @x ) *64
@@ -125,11 +126,12 @@ class mw.Terrain
 
 		# console.log "#{@x}, #{@y} is #{x}, #{y}"
 		
-		imgd = context.getImageData 0, 0, 64, 64
+		imgd = context.getImageData 0, 0, 65, 65
 
 		context.restore() # pop
 		context.drawImage img, x, y
 
 		@canvas = canvas
+		console.log imgd
 
 		return imgd.data
