@@ -1,19 +1,12 @@
 class mw.Terrain
 	constructor: (@x, @y) ->
-
-		@bmp = new Image 64, 64
-		@bmp.src = "cells/#{@x},#{@y}.bmp"
-		
-		that = this
-		@bmp.onload = ->
-			that.got()
-
-	got: ->
 		@data = @heights()
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
 		map = new THREE.Texture @canvas
+		console.log map
+		map.needsUpdate = true;
 		map.magFilter = THREE.NearestFilter
 		map.minFilter = THREE.LinearMipMapLinearFilter
 
@@ -108,23 +101,21 @@ class mw.Terrain
 			mw.scene.add that.ground
 
 	heights: ->
-		console.log 'heights'
-		
 		img = mw.vvardenfell
 
 		canvas = document.createElement 'canvas'
 		document.body.appendChild canvas
-		$('canvas').css 'position', 'relative'
+
+		if @x is -2 and @y is -9
+			console.log 'there'
+			$('canvas').css 'position', 'absolute'
 
 		canvas.width = 64
 		canvas.height = 64
 		context = canvas.getContext '2d'
 
-		#size = 128 * 128
-		#data = new Float32Array size
-
+		context.save() # push
 		context.translate 0, 64
-		#context.rotate 180 * Math.PI / 180
 		context.scale 1, -1
 
 		x = -( 18 + @x ) *64
@@ -132,9 +123,12 @@ class mw.Terrain
 		#y -= 64
 		context.drawImage img, x, y
 
-		console.log "#{@x}, #{@y} is #{x}, #{y}"
+		# console.log "#{@x}, #{@y} is #{x}, #{y}"
 		
 		imgd = context.getImageData 0, 0, 64, 64
+
+		context.restore() # pop
+		context.drawImage img, x, y
 
 		@canvas = canvas
 

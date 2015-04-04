@@ -2,22 +2,14 @@
 (function() {
   mw.Terrain = (function() {
     function Terrain(x1, y1) {
-      var that;
+      var b, g, h, i, j, map, mx, my, p, px, py, r, ref, x, y;
       this.x = x1;
       this.y = y1;
-      this.bmp = new Image(64, 64);
-      this.bmp.src = "cells/" + this.x + "," + this.y + ".bmp";
-      that = this;
-      this.bmp.onload = function() {
-        return that.got();
-      };
-    }
-
-    Terrain.prototype.got = function() {
-      var b, g, h, i, j, map, mx, my, p, px, py, r, ref, x, y;
       this.data = this.heights();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
       map = new THREE.Texture(this.canvas);
+      console.log(map);
+      map.needsUpdate = true;
       map.magFilter = THREE.NearestFilter;
       map.minFilter = THREE.LinearMipMapLinearFilter;
       this.material = new THREE.MeshBasicMaterial({
@@ -51,8 +43,8 @@
       }
       mw.scene.add(this.mesh);
       this.mkground();
-      return true;
-    };
+      true;
+    }
 
     Terrain.prototype.mkground = function() {
       var loader, that;
@@ -73,21 +65,25 @@
 
     Terrain.prototype.heights = function() {
       var canvas, context, img, imgd, x, y;
-      console.log('heights');
       img = mw.vvardenfell;
       canvas = document.createElement('canvas');
       document.body.appendChild(canvas);
-      $('canvas').css('position', 'relative');
+      if (this.x === -2 && this.y === -9) {
+        console.log('there');
+        $('canvas').css('position', 'absolute');
+      }
       canvas.width = 64;
       canvas.height = 64;
       context = canvas.getContext('2d');
+      context.save();
       context.translate(0, 64);
       context.scale(1, -1);
       x = -(18 + this.x) * 64;
       y = -(27 - this.y) * 64;
       context.drawImage(img, x, y);
-      console.log(this.x + ", " + this.y + " is " + x + ", " + y);
       imgd = context.getImageData(0, 0, 64, 64);
+      context.restore();
+      context.drawImage(img, x, y);
       this.canvas = canvas;
       return imgd.data;
     };
