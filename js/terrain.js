@@ -17,7 +17,7 @@
       var b, g, h, i, j, map, mx, my, p, px, py, r, ref, x, y;
       this.data = this.heights();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
-      map = THREE.ImageUtils.loadTexture("cells/" + this.x + "," + this.y + ".bmp");
+      map = new THREE.Texture(this.canvas);
       map.magFilter = THREE.NearestFilter;
       map.minFilter = THREE.LinearMipMapLinearFilter;
       this.material = new THREE.MeshBasicMaterial({
@@ -72,20 +72,23 @@
     };
 
     Terrain.prototype.heights = function() {
-      var canvas, context, img, imgd;
+      var canvas, context, img, imgd, x, y;
       console.log('heights');
-      img = this.bmp;
+      img = mw.vvardenfell;
       canvas = document.createElement('canvas');
       document.body.appendChild(canvas);
-      $('canvas').css('position', 'absolute');
+      $('canvas').css('position', 'relative');
       canvas.width = 64;
       canvas.height = 64;
       context = canvas.getContext('2d');
       context.translate(0, 64);
       context.scale(1, -1);
-      context.drawImage(img, 0, 0);
+      x = -(18 + this.x) * 64;
+      y = -(27 - this.y) * 64;
+      context.drawImage(img, x, y);
+      console.log(this.x + ", " + this.y + " is " + x + ", " + y);
       imgd = context.getImageData(0, 0, 64, 64);
-      console.log(imgd);
+      this.canvas = canvas;
       return imgd.data;
     };
 

@@ -2,18 +2,20 @@
 (function() {
   mw.World = (function() {
     function World(data) {
-      var j, len, p, ref;
+      var i, j, k, len, p, ref;
       this.data = data;
       this.x = -2;
       this.y = -9;
       this.cells = [];
-      new mw.Cell(this.x, this.y);
+      for (i = j = 0; j <= 8; i = ++j) {
+        this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
+      }
       this.props = [];
       this.cached = 0;
       this.queue = 0;
       ref = this.data;
-      for (j = 0, len = ref.length; j < len; j++) {
-        p = ref[j];
+      for (k = 0, len = ref.length; k < len; k++) {
+        p = ref[k];
         if (typeof p === "object") {
           this.cache(p.model);
         }

@@ -6,9 +6,9 @@ class mw.World
 
 		@cells = []
 
-		#for i in [0..8]
-			#@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
-		new mw.Cell @x, @y
+		for i in [0..8]
+			@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
+		#new mw.Cell @x, @y
 
 		#if mw.models
 		#	true

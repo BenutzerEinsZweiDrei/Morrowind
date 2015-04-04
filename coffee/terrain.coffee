@@ -13,7 +13,7 @@ class mw.Terrain
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
-		map = THREE.ImageUtils.loadTexture "cells/#{@x},#{@y}.bmp"
+		map = new THREE.Texture @canvas
 		map.magFilter = THREE.NearestFilter
 		map.minFilter = THREE.LinearMipMapLinearFilter
 
@@ -110,11 +110,11 @@ class mw.Terrain
 	heights: ->
 		console.log 'heights'
 		
-		img = @bmp
+		img = mw.vvardenfell
 
 		canvas = document.createElement 'canvas'
 		document.body.appendChild canvas
-		$('canvas').css 'position', 'absolute'
+		$('canvas').css 'position', 'relative'
 
 		canvas.width = 64
 		canvas.height = 64
@@ -126,10 +126,16 @@ class mw.Terrain
 		context.translate 0, 64
 		#context.rotate 180 * Math.PI / 180
 		context.scale 1, -1
-		context.drawImage img, 0, 0
-		
 
+		x = -( 18 + @x ) *64
+		y = -( 27 - @y ) *64
+		#y -= 64
+		context.drawImage img, x, y
+
+		console.log "#{@x}, #{@y} is #{x}, #{y}"
+		
 		imgd = context.getImageData 0, 0, 64, 64
-		console.log imgd
+
+		@canvas = canvas
 
 		return imgd.data
