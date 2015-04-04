@@ -70,7 +70,7 @@ class mw.Terrain
 
 			if r is 255
 				@geometry.vertices[i].z = h
-				h = -(255-b)
+				h = -(255-b) + (255*((g-255)/8))
 			else if g
 				h = (255*(g/8))+b
 			else

@@ -33,7 +33,7 @@
         b = this.data[p + 2];
         if (r === 255) {
           this.geometry.vertices[i].z = h;
-          h = -(255 - b);
+          h = -(255 - b) + (255 * ((g - 255) / 8));
         } else if (g) {
           h = (255 * (g / 8)) + b;
         } else {
