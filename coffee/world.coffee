@@ -6,6 +6,8 @@ class mw.World
 
 		@cells = []
 
+		mw.splat.call mw
+
 		for i in [0..8]
 			@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
 		#new mw.Cell @x, @y
@@ -13,7 +15,7 @@ class mw.World
 		#if mw.models
 		#	true
 		
-		#@doskybox()
+		@doskybox()
 
 		@props = []
 		@cached = 0
@@ -31,7 +33,7 @@ class mw.World
 		#imagePrefix = "models/dawnmountain-";
 		#directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 		#imageSuffix = ".png";
-		geometry = new THREE.CubeGeometry 8192*2, 8192*2, 8192*2
+		geometry = new THREE.CubeGeometry 8192*3, 8192*3, 8192
 		
 		loader = new THREE.TGALoader
 		loader.load 'models/tx_sky_clear.tga', (asd) ->
@@ -46,7 +48,7 @@ class mw.World
 
 			material = new THREE.MeshFaceMaterial array
 			@skybox = new THREE.Mesh geometry, material
-			@skybox.position.set mw.terrain.mx, mw.terrain.my, -500
+			@skybox.position.set (mw.world.x * 8192) + 4096, (mw.world.y * 8192) + 4096, -255
 			mw.scene.add @skybox
 	
 		true

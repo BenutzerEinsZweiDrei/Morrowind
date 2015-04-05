@@ -7,9 +7,11 @@
       this.x = -2;
       this.y = -9;
       this.cells = [];
+      mw.splat.call(mw);
       for (i = j = 0; j <= 8; i = ++j) {
         this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
       }
+      this.doskybox();
       this.props = [];
       this.cached = 0;
       this.queue = 0;
@@ -26,7 +28,7 @@
 
     World.prototype.doskybox = function() {
       var geometry, loader;
-      geometry = new THREE.CubeGeometry(8192 * 2, 8192 * 2, 8192 * 2);
+      geometry = new THREE.CubeGeometry(8192 * 3, 8192 * 3, 8192);
       loader = new THREE.TGALoader;
       loader.load('models/tx_sky_clear.tga', function(asd) {
         var array, i, j, material;
@@ -40,7 +42,7 @@
         }
         material = new THREE.MeshFaceMaterial(array);
         this.skybox = new THREE.Mesh(geometry, material);
-        this.skybox.position.set(mw.terrain.mx, mw.terrain.my, -500);
+        this.skybox.position.set((mw.world.x * 8192) + 4096, (mw.world.y * 8192) + 4096, -255);
         return mw.scene.add(this.skybox);
       });
       return true;

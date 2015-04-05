@@ -4,45 +4,12 @@ class mw.Terrain
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
-		map = new THREE.Texture @canvas
-		#console.log map
-		map.needsUpdate = true;
-		map.magFilter = THREE.NearestFilter
-		map.minFilter = THREE.LinearMipMapLinearFilter
-
-		@material = new THREE.MeshBasicMaterial
-			map: map
-			#color: 0xffff00
-			wireframe: true
-
-		#tx_ai_clover_02.tga
-
-		#, side: THREE.DoubleSide
-
-		@mesh = new THREE.Mesh @geometry, @material
-		#@mesh.rotation.z = 180 * Math.PI / 180
-
-		# 998, 2301 Seyda Neen cell
-		# Seyda Neen is -2, -9
-		# left corner -18, -16
-		# right corner 24, 28
-		# prop in -2, -9 reports -11879.539, -70898.875 which is -2.90, -17.30
-		# x is from right to left
-		# y is from top to bottom
-		# map is 42 x 44 cells
-		# bmp is 2688 x 2816
-		# cell is 64*64 pixels, 4096 units
-		# -13088, -70417, 675.7888756651994
-		# -73632, -16480
-		#px = (16)*64
-		#py = (-9)*64
-
 		@mx = mx = (@x * 8192) + 4096
 		@my = my = (@y * 8192) + 4096
 
 		#console.log "mx #{mx}, my #{my}"
 
-		@mesh.position.set mx, my, 0
+		#@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
 
@@ -80,26 +47,17 @@ class mw.Terrain
 			@geometry.vertices[i].z = h
 
 
-		mw.scene.add @mesh
+		#mw.scene.add @mesh
 
 		@mkground()
 
 		true
 
 	mkground: ->
-		that = this
+		@ground = new THREE.Mesh @geometry, new THREE.MeshLambertMaterial map: @vclr
+		@ground.position.set @mx, @my, 0
 
-		loader = new THREE.TGALoader
-		loader.load 'models/tx_ai_clover_02.tga', (asd) ->
-			asd.wrapS = asd.wrapT = THREE.RepeatWrapping
-			asd.repeat.set 32, 32
-
-			geometry = new THREE.PlaneGeometry 8192*2, 8192*2, 64, 64
-
-			that.ground = that.mesh.clone()
-			that.ground.material = new THREE.MeshBasicMaterial map: asd
-
-			mw.scene.add that.ground
+		mw.scene.add @ground
 
 	heights: ->
 		@canvas = canvas = document.createElement 'canvas'
@@ -112,7 +70,6 @@ class mw.Terrain
 
 		canvas.width = 65
 		canvas.height = 65
-		
 
 		context = canvas.getContext '2d'
 
@@ -126,13 +83,36 @@ class mw.Terrain
 		context.drawImage mw.vvardenfell, x, y
 
 		# console.log "#{@x}, #{@y} is #{x}, #{y}"
-		
+		context.getImageData 0, 0, 65, 65
 		imgd = context.getImageData 0, 0, 65, 65
 
 		context.drawImage mw.vclr, x, y
-		@vclr = canvas.toDataURL()
-		
-		context.restore() # pop
-		context.drawImage mw.vvardenfell, x, y
+		@vclr = new THREE.Texture @canvas
+		@vclr.needsUpdate = true
+		@vclr.magFilter = THREE.NearestFilter
+		@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		#document.body.appendChild @img
+
+		#context.restore() # pop
+		#context.drawImage mw.vvardenfell, x, y
 
 		return imgd.data
+
+mw.splat = ->
+	noiseTexture = new THREE.ImageUtils.loadTexture 'cloud.png'
+	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping
+	noiseTexture.repeat.set 64, 64
+
+	waterTexture = new THREE.ImageUtils.loadTexture 'water.jpg'
+	waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping
+	noiseTexture.repeat.set 64, 64
+
+	@splatMaterial = new THREE.ShaderMaterial
+		uniforms:
+			oceanTexture:  { type: "t", value: waterTexture }
+			sandyTexture: { type: "t", value: noiseTexture }
+		vertexShader:   document.getElementById( 'splatVertexShader'   ).textContent
+		fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
+		transparent: true
+
+	true

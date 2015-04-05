@@ -8,27 +8,45 @@
     waterTexture = new THREE.ImageUtils.loadTexture('water.jpg');
     waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping;
     noiseTexture.repeat.set(64, 64);
-
-    /*@customMaterial = new THREE.ShaderMaterial
-    		uniforms:
-    			baseTexture:  { type: "t", value: @waters[0] }
-    			baseSpeed:    { type: "f", value: 0.005 }
-    			noiseTexture: { type: "t", value: noiseTexture }
-    			noiseScale:   { type: "f", value: 0.5337 }
-    			alpha:        { type: "f", value: 1.0 }
-    			time:         { type: "f", value: 1.0 }
-    		vertexShader:   document.getElementById( 'vertexShader'   ).textContent
-    		fragmentShader: document.getElementById( 'fragmentShader' ).textContent
-    		side: THREE.DoubleSide
-    		transparent: true
-     */
-    THREE.ShaderLib['mirror'].uniforms.noiseTexture = {
-      type: "t",
-      value: noiseTexture
-    };
+    this.customMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        baseTexture: {
+          type: "t",
+          value: this.waters[0]
+        },
+        baseSpeed: {
+          type: "f",
+          value: 0.005
+        },
+        noiseTexture: {
+          type: "t",
+          value: noiseTexture
+        },
+        noiseScale: {
+          type: "f",
+          value: 0.5337
+        },
+        alpha: {
+          type: "f",
+          value: 1.0
+        },
+        time: {
+          type: "f",
+          value: 1.0
+        }
+      },
+      vertexShader: document.getElementById('vertexShader').textContent,
+      fragmentShader: document.getElementById('fragmentShader').textContent,
+      side: THREE.DoubleSide,
+      transparent: true
+    });
     THREE.ShaderLib['mirror'].uniforms.baseTexture = {
       type: "t",
       value: waterTexture
+    };
+    THREE.ShaderLib['mirror'].uniforms.noiseTexture = {
+      type: "t",
+      value: noiseTexture
     };
     THREE.ShaderLib['mirror'].uniforms.noiseSpeed = {
       type: "f",
@@ -55,11 +73,11 @@
       color: 0x777777
     });
     this.mirror.material.transparent = true;
-    geometry = new THREE.PlaneGeometry(8192 * 4, 8192 * 4);
+    geometry = new THREE.PlaneGeometry(8192 * 3, 8192 * 3);
     this.waterMaterial = new THREE.MeshLambertMaterial({
       map: mw.waters[0],
       transparent: true,
-      opacity: .6
+      opacity: .7
     });
     this.water = THREE.SceneUtils.createMultiMaterialObject(geometry, [this.mirror.material, this.waterMaterial]);
     this.water.add(this.mirror);

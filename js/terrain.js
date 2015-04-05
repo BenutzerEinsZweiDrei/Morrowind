@@ -2,23 +2,13 @@
 (function() {
   mw.Terrain = (function() {
     function Terrain(x1, y1) {
-      var b, g, h, i, j, map, mx, my, p, px, py, r, ref, x, y;
+      var b, g, h, i, j, mx, my, p, px, py, r, ref, x, y;
       this.x = x1;
       this.y = y1;
       this.data = this.heights();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
-      map = new THREE.Texture(this.canvas);
-      map.needsUpdate = true;
-      map.magFilter = THREE.NearestFilter;
-      map.minFilter = THREE.LinearMipMapLinearFilter;
-      this.material = new THREE.MeshBasicMaterial({
-        map: map,
-        wireframe: true
-      });
-      this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
-      this.mesh.position.set(mx, my, 0);
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
@@ -40,26 +30,16 @@
         }
         this.geometry.vertices[i].z = h;
       }
-      mw.scene.add(this.mesh);
       this.mkground();
       true;
     }
 
     Terrain.prototype.mkground = function() {
-      var loader, that;
-      that = this;
-      loader = new THREE.TGALoader;
-      return loader.load('models/tx_ai_clover_02.tga', function(asd) {
-        var geometry;
-        asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
-        asd.repeat.set(32, 32);
-        geometry = new THREE.PlaneGeometry(8192 * 2, 8192 * 2, 64, 64);
-        that.ground = that.mesh.clone();
-        that.ground.material = new THREE.MeshBasicMaterial({
-          map: asd
-        });
-        return mw.scene.add(that.ground);
-      });
+      this.ground = new THREE.Mesh(this.geometry, new THREE.MeshLambertMaterial({
+        map: this.vclr
+      }));
+      this.ground.position.set(this.mx, this.my, 0);
+      return mw.scene.add(this.ground);
     };
 
     Terrain.prototype.heights = function() {
@@ -79,16 +59,44 @@
       x = -(18 + this.x) * 64;
       y = -(27 - this.y) * 64;
       context.drawImage(mw.vvardenfell, x, y);
+      context.getImageData(0, 0, 65, 65);
       imgd = context.getImageData(0, 0, 65, 65);
       context.drawImage(mw.vclr, x, y);
-      this.vclr = canvas.toDataURL();
-      context.restore();
-      context.drawImage(mw.vvardenfell, x, y);
+      this.vclr = new THREE.Texture(this.canvas);
+      this.vclr.needsUpdate = true;
+      this.vclr.magFilter = THREE.NearestFilter;
+      this.vclr.minFilter = THREE.LinearMipMapLinearFilter;
       return imgd.data;
     };
 
     return Terrain;
 
   })();
+
+  mw.splat = function() {
+    var noiseTexture, waterTexture;
+    noiseTexture = new THREE.ImageUtils.loadTexture('cloud.png');
+    noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
+    noiseTexture.repeat.set(64, 64);
+    waterTexture = new THREE.ImageUtils.loadTexture('water.jpg');
+    waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping;
+    noiseTexture.repeat.set(64, 64);
+    this.splatMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        oceanTexture: {
+          type: "t",
+          value: waterTexture
+        },
+        sandyTexture: {
+          type: "t",
+          value: noiseTexture
+        }
+      },
+      vertexShader: document.getElementById('splatVertexShader').textContent,
+      fragmentShader: document.getElementById('splatFragmentShader').textContent,
+      transparent: true
+    });
+    return true;
+  };
 
 }).call(this);

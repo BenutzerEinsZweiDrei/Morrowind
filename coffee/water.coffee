@@ -9,7 +9,7 @@ mw.watershed = ->
 	noiseTexture.repeat.set 64, 64
 
 	# create custom material from the shader code above within specially labeled script tags
-	###@customMaterial = new THREE.ShaderMaterial
+	@customMaterial = new THREE.ShaderMaterial
 		uniforms:
 			baseTexture:  { type: "t", value: @waters[0] }
 			baseSpeed:    { type: "f", value: 0.005 }
@@ -20,10 +20,10 @@ mw.watershed = ->
 		vertexShader:   document.getElementById( 'vertexShader'   ).textContent
 		fragmentShader: document.getElementById( 'fragmentShader' ).textContent
 		side: THREE.DoubleSide
-		transparent: true###
+		transparent: true
 
-	THREE.ShaderLib['mirror'].uniforms.noiseTexture =	type: "t", value: noiseTexture
 	THREE.ShaderLib['mirror'].uniforms.baseTexture =	type: "t", value: waterTexture
+	THREE.ShaderLib['mirror'].uniforms.noiseTexture =	type: "t", value: noiseTexture
 	THREE.ShaderLib['mirror'].uniforms.noiseSpeed =		type: "f", value: 0.01
 	THREE.ShaderLib['mirror'].uniforms.noiseScale =		type: "f", value: 0.5337
 	THREE.ShaderLib['mirror'].uniforms.time =			type: "f", value: 1.0
@@ -84,12 +84,12 @@ mw.watershed = ->
 	@mirror.material.transparent = true
 	#@mirror.material.uniforms['uOpacity'].value = .5
 
-	geometry = new THREE.PlaneGeometry 8192*4, 8192*4
+	geometry = new THREE.PlaneGeometry 8192*3, 8192*3
 
 	@waterMaterial = new THREE.MeshLambertMaterial
 		map: mw.waters[0]
 		transparent: true
-		opacity: .6
+		opacity: .7
 
 	@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@mirror.material, @waterMaterial]
 	#@water = new THREE.Mesh geometry, @mirror.material
