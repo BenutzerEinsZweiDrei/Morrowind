@@ -23,7 +23,8 @@ class mw.World
 			if typeof p is "object"
 				@cache p.model
 
-		@watershed()
+		@waterStep = 0
+		@waterMoment = 0
 
 	doskybox: ->
 
@@ -62,6 +63,8 @@ class mw.World
 			if typeof p is "object"
 				@props.push new mw.Prop p
 
+		mw.watershed.call mw
+
 		true
 
 	cache: (model) ->
@@ -87,48 +90,20 @@ class mw.World
 
 		true
 
-	watershed: ->
+	step: ->
+		
+		if mw.water
+			THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta
 
-		THREE.ShaderLib['mirror'].uniforms.opacity = type: "f", value: .6
-		THREE.ShaderLib['mirror'].fragmentShader =
-		"uniform float opacity;
-		uniform vec3 mirrorColor;
-		uniform sampler2D mirrorSampler;
-		varying vec4 mirrorCoord;
-		float blendOverlay(float base, float blend) {
-		return( base < 0.5 ? ( 2.0 * base * blend ) : (1.0 - 2.0 * ( 1.0 - base ) * ( 1.0 - blend ) ) );
-		}
-		void main() {
-		vec4 color = texture2DProj(mirrorSampler, mirrorCoord);
-		color = vec4(blendOverlay(mirrorColor.r, color.r), blendOverlay(mirrorColor.g, color.g), blendOverlay(mirrorColor.b, color.b), opacity);
-		gl_FragColor = color;
-		}"
+		if mw.water
+			@waterMoment += mw.delta
 
-		mw.watertga.wrapS = mw.watertga.wrapT = THREE.RepeatWrapping
-		mw.watertga.repeat.set 64, 64
+			if @waterMoment >= 0.08
+				#console.log 'yep'
+				@waterStep = if @waterStep < 30 then @waterStep + 1 else 0
+				
+				mw.waterMaterial.map = mw.waters[@waterStep]
 
-		@mirror = new THREE.Mirror mw.renderer, mw.camera, clipBias: 0.0025, textureWidth: 1024, textureHeight: 1024, color: 0x777777
-		@mirror.material.transparent = true
-		#@mirror.material.uniforms['uOpacity'].value = .5
-
-		geometry = new THREE.PlaneBufferGeometry 8192*6, 8192*6, 64, 64
-
-		@waterMaterial = new THREE.MeshLambertMaterial
-			map: mw.watertga
-			transparent: true
-			opacity: .6
-
-		@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@mirror.material, @waterMaterial]
-		#@water = new THREE.Mesh geometry, @mirror.material
-		@water.add @mirror
-
-		x = (@x * 8192) + 4096 - 128
-		y = (@y * 8192) + 4096 + 128
-
-		@water.position.set x, y, 0
-
-		mw.scene.add @water
-
-		console.log 'added water'
+				@waterMoment = 0
 
 		true

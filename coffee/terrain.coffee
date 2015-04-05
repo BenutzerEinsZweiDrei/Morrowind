@@ -5,7 +5,7 @@ class mw.Terrain
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
 		map = new THREE.Texture @canvas
-		console.log map
+		#console.log map
 		map.needsUpdate = true;
 		map.magFilter = THREE.NearestFilter
 		map.minFilter = THREE.LinearMipMapLinearFilter
@@ -102,9 +102,8 @@ class mw.Terrain
 			mw.scene.add that.ground
 
 	heights: ->
-		img = mw.vvardenfell
+		@canvas = canvas = document.createElement 'canvas'
 
-		canvas = document.createElement 'canvas'
 		document.body.appendChild canvas
 
 		if @x is -2 and @y is -9
@@ -113,6 +112,8 @@ class mw.Terrain
 
 		canvas.width = 65
 		canvas.height = 65
+		
+
 		context = canvas.getContext '2d'
 
 		context.save() # push
@@ -122,16 +123,16 @@ class mw.Terrain
 		x = -( 18 + @x ) *64
 		y = -( 27 - @y ) *64
 		#y -= 64
-		context.drawImage img, x, y
+		context.drawImage mw.vvardenfell, x, y
 
 		# console.log "#{@x}, #{@y} is #{x}, #{y}"
 		
 		imgd = context.getImageData 0, 0, 65, 65
 
+		context.drawImage mw.vclr, x, y
+		@vclr = canvas.toDataURL()
+		
 		context.restore() # pop
-		context.drawImage img, x, y
-
-		@canvas = canvas
-		console.log imgd
+		context.drawImage mw.vvardenfell, x, y
 
 		return imgd.data

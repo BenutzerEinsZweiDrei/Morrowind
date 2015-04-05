@@ -20,7 +20,8 @@
           this.cache(p.model);
         }
       }
-      this.watershed();
+      this.waterStep = 0;
+      this.waterMoment = 0;
     }
 
     World.prototype.doskybox = function() {
@@ -62,6 +63,7 @@
           this.props.push(new mw.Prop(p));
         }
       }
+      mw.watershed.call(mw);
       return true;
     };
 
@@ -92,35 +94,18 @@
       return true;
     };
 
-    World.prototype.watershed = function() {
-      var geometry, x, y;
-      THREE.ShaderLib['mirror'].uniforms.opacity = {
-        type: "f",
-        value: .6
-      };
-      THREE.ShaderLib['mirror'].fragmentShader = "uniform float opacity; uniform vec3 mirrorColor; uniform sampler2D mirrorSampler; varying vec4 mirrorCoord; float blendOverlay(float base, float blend) { return( base < 0.5 ? ( 2.0 * base * blend ) : (1.0 - 2.0 * ( 1.0 - base ) * ( 1.0 - blend ) ) ); } void main() { vec4 color = texture2DProj(mirrorSampler, mirrorCoord); color = vec4(blendOverlay(mirrorColor.r, color.r), blendOverlay(mirrorColor.g, color.g), blendOverlay(mirrorColor.b, color.b), opacity); gl_FragColor = color; }";
-      mw.watertga.wrapS = mw.watertga.wrapT = THREE.RepeatWrapping;
-      mw.watertga.repeat.set(64, 64);
-      this.mirror = new THREE.Mirror(mw.renderer, mw.camera, {
-        clipBias: 0.0025,
-        textureWidth: 1024,
-        textureHeight: 1024,
-        color: 0x777777
-      });
-      this.mirror.material.transparent = true;
-      geometry = new THREE.PlaneBufferGeometry(8192 * 6, 8192 * 6, 64, 64);
-      this.waterMaterial = new THREE.MeshLambertMaterial({
-        map: mw.watertga,
-        transparent: true,
-        opacity: .6
-      });
-      this.water = THREE.SceneUtils.createMultiMaterialObject(geometry, [this.mirror.material, this.waterMaterial]);
-      this.water.add(this.mirror);
-      x = (this.x * 8192) + 4096 - 128;
-      y = (this.y * 8192) + 4096 + 128;
-      this.water.position.set(x, y, 0);
-      mw.scene.add(this.water);
-      console.log('added water');
+    World.prototype.step = function() {
+      if (mw.water) {
+        THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta;
+      }
+      if (mw.water) {
+        this.waterMoment += mw.delta;
+        if (this.waterMoment >= 0.08) {
+          this.waterStep = this.waterStep < 30 ? this.waterStep + 1 : 0;
+          mw.waterMaterial.map = mw.waters[this.waterStep];
+          this.waterMoment = 0;
+        }
+      }
       return true;
     };
 

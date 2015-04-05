@@ -8,7 +8,6 @@
       this.data = this.heights();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
       map = new THREE.Texture(this.canvas);
-      console.log(map);
       map.needsUpdate = true;
       map.magFilter = THREE.NearestFilter;
       map.minFilter = THREE.LinearMipMapLinearFilter;
@@ -64,9 +63,8 @@
     };
 
     Terrain.prototype.heights = function() {
-      var canvas, context, img, imgd, x, y;
-      img = mw.vvardenfell;
-      canvas = document.createElement('canvas');
+      var canvas, context, imgd, x, y;
+      this.canvas = canvas = document.createElement('canvas');
       document.body.appendChild(canvas);
       if (this.x === -2 && this.y === -9) {
         console.log('there');
@@ -80,12 +78,12 @@
       context.scale(1, -1);
       x = -(18 + this.x) * 64;
       y = -(27 - this.y) * 64;
-      context.drawImage(img, x, y);
+      context.drawImage(mw.vvardenfell, x, y);
       imgd = context.getImageData(0, 0, 65, 65);
+      context.drawImage(mw.vclr, x, y);
+      this.vclr = canvas.toDataURL();
       context.restore();
-      context.drawImage(img, x, y);
-      this.canvas = canvas;
-      console.log(imgd);
+      context.drawImage(mw.vvardenfell, x, y);
       return imgd.data;
     };
 

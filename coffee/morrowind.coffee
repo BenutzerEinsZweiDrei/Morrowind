@@ -2,7 +2,7 @@ root = exports ? this
 
 mw = root.mw =
 	gots: 0
-	gets: 3
+	gets: 2+31
 
 	world: null
 	circle: [
@@ -10,7 +10,7 @@ mw = root.mw =
 		{x: 1, y: 0}, {x: 0, y: 0}, {x:-1, y: 0},
 		{x: 1, y: 1}, {x: 0, y: 1}, {x:-1, y: 1}
 	]
-	tgas: []
+	waters: []
 
 
 $(document).ready ->
@@ -29,13 +29,20 @@ mw.resources = ->
 	@vclr = new Image 2688, 2816
 	@vclr.src = 'vvardenfell-vclr.bmp'
 
-	loader = new THREE.TGALoader
-	loader.load 'models/water00.tga', (asd) ->
-		mw.watertga = asd
-		console.log asd
-		mw.got.call mw
+	for i in [0..31]
+		go = ->
+			loader = new THREE.TGALoader
+			n = if i < 10 then "0#{i}" else i
+			loader.load "models/water#{n}.tga", (asd) ->
+				asd.wrapS = asd.wrapT = THREE.RepeatWrapping
+				asd.repeat.set 64, 64
+				mw.waters[parseInt n] = asd
+				console.log "got #{n}"
+				mw.got.call mw
+
+		go()
 	
-	@vvardenfell.onload = @vclr.onload = ->
+	@vclr.onload = @vvardenfell.onload = @vclr.onload = ->
 		mw.got.call mw
 
 	true

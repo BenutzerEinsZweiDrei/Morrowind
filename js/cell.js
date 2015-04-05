@@ -4,7 +4,6 @@
     function Cell(x, y) {
       this.x = x;
       this.y = y;
-      console.log("new cell " + this.x + ", " + this.y);
       this.terrain = new mw.Terrain(this.x, this.y);
     }
 

@@ -6,7 +6,7 @@
 
   mw = root.mw = {
     gots: 0,
-    gets: 3,
+    gets: 2 + 31,
     world: null,
     circle: [
       {
@@ -38,7 +38,7 @@
         y: 1
       }
     ],
-    tgas: []
+    waters: []
   };
 
   $(document).ready(function() {
@@ -51,18 +51,27 @@
   });
 
   mw.resources = function() {
-    var loader;
+    var go, i, j;
     this.vvardenfell = new Image(2688, 2816);
     this.vvardenfell.src = 'vvardenfell.bmp';
     this.vclr = new Image(2688, 2816);
     this.vclr.src = 'vvardenfell-vclr.bmp';
-    loader = new THREE.TGALoader;
-    loader.load('models/water00.tga', function(asd) {
-      mw.watertga = asd;
-      console.log(asd);
-      return mw.got.call(mw);
-    });
-    this.vvardenfell.onload = this.vclr.onload = function() {
+    for (i = j = 0; j <= 31; i = ++j) {
+      go = function() {
+        var loader, n;
+        loader = new THREE.TGALoader;
+        n = i < 10 ? "0" + i : i;
+        return loader.load("models/water" + n + ".tga", function(asd) {
+          asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
+          asd.repeat.set(64, 64);
+          mw.waters[parseInt(n)] = asd;
+          console.log("got " + n);
+          return mw.got.call(mw);
+        });
+      };
+      go();
+    }
+    this.vclr.onload = this.vvardenfell.onload = this.vclr.onload = function() {
       return mw.got.call(mw);
     };
     return true;

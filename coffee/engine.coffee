@@ -49,6 +49,8 @@ mw.boot = () ->
 
 	window.addEventListener 'resize', onWindowResize, false
 
+	@clock = new THREE.Clock()
+
 	true
 
 
@@ -75,7 +77,12 @@ mw.animate = () ->
 
 	requestAnimationFrame mw.animate
 
-	mw.controls.update 0.016
+	mw.delta = mw.clock.getDelta()
+
+	mw.controls.update mw.delta
+
+	if mw.world
+		mw.world.step()
 
 	render.call mw
 
@@ -89,9 +96,8 @@ render = ->
 	#@camera.lookAt new THREE.Vector3 -12000.271,-70296.516, 270.629 #@scene.position
 	#@camera.rotation.y += 180 * Math.PI / 180
 
-	if mw.world
-		if mw.world.water
-			mw.world.mirror.render()
+	if mw.water
+		mw.mirror.render()
 
 	@renderer.render @scene, @camera
 

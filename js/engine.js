@@ -32,6 +32,7 @@
     container.appendChild(this.renderer.domElement);
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     window.addEventListener('resize', onWindowResize, false);
+    this.clock = new THREE.Clock();
     return true;
   };
 
@@ -50,15 +51,17 @@
 
   mw.animate = function() {
     requestAnimationFrame(mw.animate);
-    mw.controls.update(0.016);
+    mw.delta = mw.clock.getDelta();
+    mw.controls.update(mw.delta);
+    if (mw.world) {
+      mw.world.step();
+    }
     render.call(mw);
   };
 
   render = function() {
-    if (mw.world) {
-      if (mw.world.water) {
-        mw.world.mirror.render();
-      }
+    if (mw.water) {
+      mw.mirror.render();
     }
     this.renderer.render(this.scene, this.camera);
   };
