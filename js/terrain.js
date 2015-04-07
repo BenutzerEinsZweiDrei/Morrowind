@@ -54,6 +54,7 @@
       context.drawImage(mw.vvardenfell, x, y);
       context.getImageData(0, 0, 65, 65);
       this.heights = context.getImageData(0, 0, 65, 65).data;
+      context.restore();
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;

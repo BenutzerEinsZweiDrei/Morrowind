@@ -93,6 +93,8 @@ void main()
     //vec4 snowy = (smoothstep(0.50, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 );
 
     vec4 map = texture2D(texturePlacement, vUv);
+    vec4 vcolor = smoothstep(0.01, 0.25, 1.0) * texture2D(vertexColour, vUv);
+
     vec4 color = vec4(0.0);
 
     if ( map.b == 0.8392156862745098 )
@@ -108,7 +110,7 @@ void main()
     	color = map;
     }
 
-    gl_FragColor = color;
+    gl_FragColor = mix(color, vcolor, .5);
     
     //gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy;// + grass + rocky + snowy;
 }

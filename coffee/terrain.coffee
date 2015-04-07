@@ -87,6 +87,7 @@ class mw.Terrain
 		@heights = context.getImageData(0, 0, 65, 65).data
 
 		# VERTEX COLOUR MAP
+		context.restore() # pop
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
