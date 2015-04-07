@@ -29,7 +29,7 @@ mw.boot = () ->
 	#@scene.rotation.z = 180 * Math.PI / 180
 
 	@scene.add new THREE.AmbientLight 0x777777 #0xbfb5ac
-
+	
 	#@sun =
 	#directionalLight = new THREE.DirectionalLight 0xffeedd
 	#directionalLight.position.set( 0, -0.25, 1 ).normalize()
