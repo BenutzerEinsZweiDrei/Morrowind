@@ -49,10 +49,7 @@ mw.watershed = ->
 	}
 
 	void main() {
-		vec2 uvTimeShift = vUv + vec2( -0.7, 1.5 ) * time * noiseSpeed;	
-		vec4 noiseGeneratorTimeShift = texture2D( noiseTexture, uvTimeShift );
-		vec2 uvNoiseTimeShift = vUv + noiseScale * vec2( noiseGeneratorTimeShift.r, noiseGeneratorTimeShift.b );
-		vec4 baseColor = texture2D( baseTexture, uvNoiseTimeShift );
+		
 
 		vec4 color = texture2DProj(mirrorSampler, mirrorCoord);
 
@@ -64,6 +61,13 @@ mw.watershed = ->
 		gl_FragColor = color;
 	}
 	"
+
+	###
+	//vec2 uvTimeShift = vUv + vec2( -0.7, 1.5 ) * time * noiseSpeed;
+	//vec4 noiseGeneratorTimeShift = texture2D( noiseTexture, uvTimeShift );
+	//vec2 uvNoiseTimeShift = vUv + noiseScale * vec2( noiseGeneratorTimeShift.r, noiseGeneratorTimeShift.b );
+	//vec4 baseColor = texture2D( baseTexture, uvNoiseTimeShift );
+	###
 
 	THREE.ShaderLib['mirror'].vertexShader =
 	"

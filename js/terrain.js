@@ -54,14 +54,13 @@
       context.drawImage(mw.vvardenfell, x, y);
       context.getImageData(0, 0, 65, 65);
       this.heights = context.getImageData(0, 0, 65, 65).data;
+      canvas.width = 64;
+      canvas.height = 64;
       context.restore();
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
-      this.vclr.magFilter = THREE.NearestFilter;
-      this.vclr.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
-      document.body.appendChild(canvas);
       canvas.width = 16;
       canvas.height = 16;
       context = canvas.getContext('2d');
@@ -98,10 +97,27 @@
           dirtTexture: {
             type: "t",
             value: mw.textures['models/tx_bc_dirt.tga']
+          },
+          fogColor: {
+            type: "c",
+            value: mw.scene.fog.color
+          },
+          fogDensity: {
+            type: "f",
+            value: mw.scene.fog.density
+          },
+          fogNear: {
+            type: "f",
+            value: mw.scene.fog.near
+          },
+          fogFar: {
+            type: "f",
+            value: mw.scene.fog.far
           }
         },
         vertexShader: document.getElementById('splatVertexShader').textContent,
         fragmentShader: document.getElementById('splatFragmentShader').textContent,
+        fog: true,
         transparent: true
       });
       return material;

@@ -87,16 +87,18 @@ class mw.Terrain
 		@heights = context.getImageData(0, 0, 65, 65).data
 
 		# VERTEX COLOUR MAP
+		canvas.width = 64
+		canvas.height = 64
 		context.restore() # pop
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
-		@vclr.magFilter = THREE.NearestFilter
-		@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		#@vclr.magFilter = THREE.NearestFilter
+		#@vclr.minFilter = THREE.LinearMipMapLinearFilter
 
 		# TEXTURE PLACEMENT MAP
 		canvas = document.createElement 'canvas'
-		document.body.appendChild canvas
+		#document.body.appendChild canvas
 		canvas.width = 16
 		canvas.height = 16
 		context = canvas.getContext '2d'
@@ -130,8 +132,14 @@ class mw.Terrain
 				vertexColour: 		{ type: "t", value: @vclr }
 				mossTexture: 		{ type: "t", value: mw.textures['models/tx_bc_moss.tga'] }
 				dirtTexture: 		{ type: "t", value: mw.textures['models/tx_bc_dirt.tga'] }
+				fogColor:			{ type: "c", value: mw.scene.fog.color }
+				fogDensity:			{ type: "f", value: mw.scene.fog.density }
+				fogNear:			{ type: "f", value: mw.scene.fog.near }
+				fogFar:				{ type: "f", value: mw.scene.fog.far }
+
 			vertexShader:   document.getElementById( 'splatVertexShader'   ).textContent
 			fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
+			fog: true
 			transparent: true
 
 		return material

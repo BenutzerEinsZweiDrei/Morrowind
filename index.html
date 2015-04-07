@@ -36,8 +36,8 @@
 varying vec2 vUv;
 void main() 
 { 
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+	vUv = uv;
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }
 </script>
 
@@ -67,8 +67,8 @@ varying vec2 vUv;
 
 void main() 
 {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+	vUv = uv;
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }
 </script>
 
@@ -83,58 +83,87 @@ uniform sampler2D dirtTexture;
 
 varying vec2 vUv;
 
+#define PI 3.14159
+#define PI2 6.28318
+#define RECIPROCAL_PI2 0.15915494
+#define LOG2 1.442695
+#define EPSILON 1e-6
+
+float square( in float a ) { return a*a; }
+vec2  square( in vec2 a )  { return vec2( a.x*a.x, a.y*a.y ); }
+vec3  square( in vec3 a )  { return vec3( a.x*a.x, a.y*a.y, a.z*a.z ); }
+vec4  square( in vec4 a )  { return vec4( a.x*a.x, a.y*a.y, a.z*a.z, a.w*a.w ); }
+float saturate( in float a ) { return clamp( a, 0.0, 1.0 ); }
+vec2  saturate( in vec2 a )  { return clamp( a, 0.0, 1.0 ); }
+vec3  saturate( in vec3 a )  { return clamp( a, 0.0, 1.0 ); }
+vec4  saturate( in vec4 a )  { return clamp( a, 0.0, 1.0 ); }
+float average( in float a ) { return a; }
+float average( in vec2 a )  { return ( a.x + a.y) * 0.5; }
+float average( in vec3 a )  { return ( a.x + a.y + a.z) / 3.0; }
+float average( in vec4 a )  { return ( a.x + a.y + a.z + a.w) * 0.25; }
+float whiteCompliment( in float a ) { return saturate( 1.0 - a ); }
+vec2  whiteCompliment( in vec2 a )  { return saturate( vec2(1.0) - a ); }
+vec3  whiteCompliment( in vec3 a )  { return saturate( vec3(1.0) - a ); }
+vec4  whiteCompliment( in vec4 a )  { return saturate( vec4(1.0) - a ); }
+
+#ifdef USE_FOG
+
+	uniform vec3 fogColor;
+
+	#ifdef FOG_EXP2
+
+		uniform float fogDensity;
+
+	#else
+
+		uniform float fogNear;
+		uniform float fogFar;
+	#endif
+
+#endif
 
 void main()
 {
-    //vec4 water = (smoothstep(0.01, 0.25, 1.0) - smoothstep(0.24, 0.26, 1.0)) * texture2D( texturePlacement, vUv * 10.0 );
-    //vec4 sandy = (smoothstep(0.24, 0.27, 1.0) - smoothstep(0.28, 0.31, 1.0)) * texture2D( vertexColour, vUv * 10.0 );
-    //vec4 grass = (smoothstep(0.28, 0.32, vAmount) - smoothstep(0.35, 0.40, vAmount)) * texture2D( grassTexture, vUV * 20.0 );
-    //vec4 rocky = (smoothstep(0.30, 0.50, vAmount) - smoothstep(0.40, 0.70, vAmount)) * texture2D( rockyTexture, vUV * 20.0 );
-    //vec4 snowy = (smoothstep(0.50, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 );
 
-    vec4 map = texture2D(texturePlacement, vUv);
-    vec4 vcolor = smoothstep(0.01, 0.25, 1.0) * texture2D(vertexColour, vUv);
+	//vec4 water = (smoothstep(0.01, 0.25, 1.0) - smoothstep(0.24, 0.26, 1.0)) * texture2D( texturePlacement, vUv * 10.0 );
+	//vec4 sandy = (smoothstep(0.24, 0.27, 1.0) - smoothstep(0.28, 0.31, 1.0)) * texture2D( vertexColour, vUv * 10.0 );
+	//vec4 grass = (smoothstep(0.28, 0.32, vAmount) - smoothstep(0.35, 0.40, vAmount)) * texture2D( grassTexture, vUV * 20.0 );
+	//vec4 rocky = (smoothstep(0.30, 0.50, vAmount) - smoothstep(0.40, 0.70, vAmount)) * texture2D( rockyTexture, vUV * 20.0 );
+	//vec4 snowy = (smoothstep(0.50, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 );
 
-    vec4 color = vec4(0.0);
+	//vec3 color = vec3( 0.0 );
 
-    if ( map.b == 0.8392156862745098 )
-    {
-    	color = texture2D(dirtTexture, vUv * 16.0 );
-    }
-    else if ( map.b == 0.9019607843137255 )
-    {
-    	color = texture2D(mossTexture, vUv * 16.0 );
-    }
-    else
-    {
-    	color = map;
-    }
+	vec4 map = texture2D(texturePlacement, vUv);
+	vec4 vcolor = texture2D(vertexColour, vUv);
 
-    gl_FragColor = mix(color, vcolor, .5);
-    
-    //gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy;// + grass + rocky + snowy;
-}
-</script>
+	vec3 color = vec3(0.0);
+	vec4 soil = vec4(0.0);
 
-<!--
+	if ( map.b == 0.8392156862745098 )
+	{
+		soil = texture2D(dirtTexture, vUv * 16.0 );
+	}
+	else if ( map.b == 0.9019607843137255 )
+	{
+		soil = texture2D(mossTexture, vUv * 16.0 );
+	}
+	else
+	{
+		soil = map;
+	}
 
-    #ifdef USE_FOG
+	color = vec3(soil);
+	//float minn = min(vcolor.r, vcolor.g);
+	//minn = min(minn, vcolor.b);
+	//vec3 vclr = vec3((vcolor.r-minn), (vcolor.g-minn), (vcolor.b-minn));
+	vec3 vclr = vec3(vcolor);
 
-		uniform vec3 fogColor;
+	//color = vec3(min(soil.r, vcolour.r), min(soil.g, vcolour.g), min(soil.b, vcolour.b)); // darken
+	color = mix(color, vclr, 0.5);
+	//color = vclr + color;
+	//color = vec3(vcolor);
 
-		#ifdef FOG_EXP2
-
-			uniform float fogDensity;
-
-		#else
-
-			uniform float fogNear;
-			uniform float fogFar;
-		#endif
-
-	#endif
-
-    #ifdef USE_FOG
+	#ifdef USE_FOG
 
 		#ifdef USE_LOGDEPTHBUF_EXT
 
@@ -155,11 +184,20 @@ void main()
 
 			float fogFactor = smoothstep( fogNear, fogFar, depth );
 
-	#endif
-	
-	outgoingLight = mix( outgoingLight, fogColor, fogFactor );
+		#endif
+		
+		//color = mix( color, fogColor, fogFactor );
 
-#endif
+	#endif
+
+	gl_FragColor = vec4(color, 1.0);
+	
+	//gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy;// + grass + rocky + snowy;
+}
+</script>
+
+<!--
+
 -->
 
 </body>
