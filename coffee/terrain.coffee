@@ -9,8 +9,8 @@ class mw.Terrain
 
 		#console.log "mx #{mx}, my #{my}"
 
-		#@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
-		#@mesh.position.set mx, my, 0
+		@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
+		@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
 
@@ -48,7 +48,7 @@ class mw.Terrain
 			@geometry.vertices[i].z = h
 
 
-		#mw.scene.add @mesh
+		mw.scene.add @mesh
 
 		@mkground()
 
@@ -114,7 +114,7 @@ class mw.Terrain
 		canvas.height = 18
 		context = canvas.getContext '2d'
 
-		context.translate -1, -1
+		context.translate 0, 2
 		#context.scale 1, 1
 		context.drawImage mw.vtex, x/4, y/4
 		
