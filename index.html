@@ -134,8 +134,16 @@ void main()
 
 	//vec3 color = vec3( 0.0 );
 
-	vec4 map = texture2D(texturePlacement, vUv);
-	vec4 vcolor = texture2D(vertexColour, vUv);
+	vec2 uv1 = vUv;
+	uv1.x = uv1.y - 0.0078125;
+	vec4 map = texture2D(texturePlacement, uv1);
+
+	vec2 uv2 = vUv;
+	uv2.x = uv2.x + 0.0078125;
+	uv2.y = uv2.y + 0.0078125;
+	vec4 vcolor = texture2D(vertexColour, uv2 * 0.9846153846153846);
+
+	//  0.9846153846153846 1.015625
 
 	vec3 color = vec3(0.0);
 	vec4 soil = vec4(0.0);
@@ -160,7 +168,7 @@ void main()
 	color = vec3(soil);
 	vec3 vclr = vec3(vcolor);
 
-	color = vclr * color;
+	color = vclr;
 
 	#ifdef USE_FOG
 

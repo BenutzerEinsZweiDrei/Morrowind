@@ -9,7 +9,8 @@ class mw.Terrain
 
 		#console.log "mx #{mx}, my #{my}"
 
-		#@mesh.position.set mx, my, 0
+		@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
+		@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
 
@@ -47,7 +48,7 @@ class mw.Terrain
 			@geometry.vertices[i].z = h
 
 
-		#mw.scene.add @mesh
+		mw.scene.add @mesh
 
 		@mkground()
 
@@ -60,7 +61,6 @@ class mw.Terrain
 		mw.scene.add @ground
 
 	maps: ->
-		canvas = document.createElement 'canvas'
 
 		#document.body.appendChild canvas
 
@@ -68,10 +68,10 @@ class mw.Terrain
 			#console.log 'there'
 			#$('canvas').css 'position', 'absolute'
 
+		canvas = document.createElement 'canvas'
+		context = canvas.getContext '2d'
 		canvas.width = 65
 		canvas.height = 65
-
-		context = canvas.getContext '2d'
 
 		context.save() # push
 		context.translate 0, 65
@@ -86,16 +86,27 @@ class mw.Terrain
 		context.getImageData 0, 0, 65, 65
 		@heights = context.getImageData(0, 0, 65, 65).data
 
-		# VERTEX COLOUR MAP
-		#canvas.width = 64
-		#canvas.height = 64
 		context.restore() # pop
-		context.translate 1, 0
+		context.drawImage mw.vvardenfell, x, y
+
+		@height = new THREE.Texture canvas
+		@height.needsUpdate = true
+		@height.magFilter = THREE.NearestFilter
+		@height.minFilter = THREE.LinearMipMapLinearFilter
+
+		# VERTEX COLOUR MAP
+		canvas = document.createElement 'canvas'
+		context = canvas.getContext '2d'
+		canvas.width = 65
+		canvas.height = 65
+		context.restore() # pop
+		#context.translate -1, 1
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
-		#@vclr.magFilter = THREE.NearestFilter
-		#@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		#@vclr.repeat.set .25, .25
+		@vclr.magFilter = THREE.NearestFilter
+		@vclr.minFilter = THREE.LinearMipMapLinearFilter
 
 		# TEXTURE PLACEMENT MAP
 		canvas = document.createElement 'canvas'

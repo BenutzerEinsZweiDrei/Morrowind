@@ -9,6 +9,11 @@
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
+      this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshBasicMaterial({
+        map: this.height,
+        wireframe: true
+      }));
+      this.mesh.position.set(mx, my, 0);
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
@@ -30,6 +35,7 @@
         }
         this.geometry.vertices[i].z = h;
       }
+      mw.scene.add(this.mesh);
       this.mkground();
       true;
     }
@@ -43,9 +49,9 @@
     Terrain.prototype.maps = function() {
       var canvas, context, x, y;
       canvas = document.createElement('canvas');
+      context = canvas.getContext('2d');
       canvas.width = 65;
       canvas.height = 65;
-      context = canvas.getContext('2d');
       context.save();
       context.translate(0, 65);
       context.scale(1, -1);
@@ -55,10 +61,21 @@
       context.getImageData(0, 0, 65, 65);
       this.heights = context.getImageData(0, 0, 65, 65).data;
       context.restore();
-      context.translate(1, 0);
+      context.drawImage(mw.vvardenfell, x, y);
+      this.height = new THREE.Texture(canvas);
+      this.height.needsUpdate = true;
+      this.height.magFilter = THREE.NearestFilter;
+      this.height.minFilter = THREE.LinearMipMapLinearFilter;
+      canvas = document.createElement('canvas');
+      context = canvas.getContext('2d');
+      canvas.width = 65;
+      canvas.height = 65;
+      context.restore();
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
+      this.vclr.magFilter = THREE.NearestFilter;
+      this.vclr.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
       canvas.width = 16;
       canvas.height = 16;
