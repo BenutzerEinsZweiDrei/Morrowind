@@ -2,7 +2,7 @@ root = exports ? this
 
 mw = root.mw =
 	gots: 0
-	gets: 2+31
+	gets: 2
 
 	world: null
 	circle: [
@@ -10,7 +10,11 @@ mw = root.mw =
 		{x: 1, y: 0}, {x: 0, y: 0}, {x:-1, y: 0},
 		{x: 1, y: 1}, {x: 0, y: 1}, {x:-1, y: 1}
 	]
-	waters: []
+	preloads: [
+		'models/tx_bc_dirt.tga'
+		'models/tx_bc_moss.tga'
+	]
+	textures: []
 
 
 $(document).ready ->
@@ -29,26 +33,34 @@ mw.resources = ->
 	@vclr = new Image 2688, 2816
 	@vclr.src = 'vvardenfell-vclr.bmp'
 
-	for i in [0..31]
+	@vtex = new Image 672, 704
+	@vtex.src = 'vvardenfell-vtex3.bmp'
+
+	@preloads.push "models/water#{n}.tga" for n in [0..31]
+
+	@gets += @preloads.length
+
+	for f, i in @preloads
 		go = ->
+			a = f
 			loader = new THREE.TGALoader
-			n = if i < 10 then "0#{i}" else i
-			loader.load "models/water#{n}.tga", (asd) ->
+			loader.load a, (asd) ->
 				asd.wrapS = asd.wrapT = THREE.RepeatWrapping
 				asd.repeat.set 64, 64
-				mw.waters[parseInt n] = asd
-				console.log "got #{n}"
+				mw.textures[a] = asd
+				console.log "got #{a}"
 				mw.got.call mw
 
 		go()
 	
-	@vclr.onload = @vvardenfell.onload = @vclr.onload = ->
+	@vvardenfell.onload = @vclr.onload = @vtex.onload = ->
 		mw.got.call mw
 
 	true
 
 mw.got = ->
 	if ++@gots is @gets
+		console.log 'got all preloads'
 		@after()
 
 	true
@@ -63,3 +75,24 @@ mw.after = ->
 
 # definitions of insanity
 
+mw.texture = (file) ->
+	p = file
+
+	THREE.ImageUtils.loadTexture p
+
+	if mw.textures[p]
+		return  mw.textures[p]
+	else
+		go = ->
+			loader = new THREE.TGALoader
+			console.log loader
+			i = p
+			loader.load p, (asd) ->
+				#asd.wrapS = asd.wrapT = THREE.RepeatWrapping
+				#asd.repeat.set 64, 64
+				mw.textures[i] = asd
+				return
+
+		go()
+
+	true

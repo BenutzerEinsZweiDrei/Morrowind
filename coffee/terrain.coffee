@@ -1,6 +1,6 @@
 class mw.Terrain
 	constructor: (@x, @y) ->
-		@data = @heights()
+		@maps()
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
@@ -32,9 +32,9 @@ class mw.Terrain
 			p = ((py*65)+px)*4
 			#p -= 1
 
-			r = @data[p]
-			g = @data[p+1]
-			b = @data[p+2]
+			r = @heights[p]
+			g = @heights[p+1]
+			b = @heights[p+2]
 
 			if r is 255
 				@geometry.vertices[i].z = h
@@ -54,19 +54,19 @@ class mw.Terrain
 		true
 
 	mkground: ->
-		@ground = new THREE.Mesh @geometry, new THREE.MeshLambertMaterial map: @vclr
+		@ground = new THREE.Mesh @geometry, @splat()
 		@ground.position.set @mx, @my, 0
 
 		mw.scene.add @ground
 
-	heights: ->
-		@canvas = canvas = document.createElement 'canvas'
+	maps: ->
+		canvas = document.createElement 'canvas'
 
-		document.body.appendChild canvas
+		#document.body.appendChild canvas
 
-		if @x is -2 and @y is -9
-			console.log 'there'
-			$('canvas').css 'position', 'absolute'
+		#if @x is -2 and @y is -9
+			#console.log 'there'
+			#$('canvas').css 'position', 'absolute'
 
 		canvas.width = 65
 		canvas.height = 65
@@ -84,35 +84,55 @@ class mw.Terrain
 
 		# console.log "#{@x}, #{@y} is #{x}, #{y}"
 		context.getImageData 0, 0, 65, 65
-		imgd = context.getImageData 0, 0, 65, 65
+		@heights = context.getImageData(0, 0, 65, 65).data
 
+		# VERTEX COLOUR MAP
 		context.drawImage mw.vclr, x, y
-		@vclr = new THREE.Texture @canvas
+		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
 		@vclr.magFilter = THREE.NearestFilter
 		@vclr.minFilter = THREE.LinearMipMapLinearFilter
-		#document.body.appendChild @img
+
+		# TEXTURE PLACEMENT MAP
+		canvas = document.createElement 'canvas'
+		document.body.appendChild canvas
+		canvas.width = 16
+		canvas.height = 16
+		context = canvas.getContext '2d'
+
+		#context.translate 0, 16
+		#context.scale 1, -1
+		context.drawImage mw.vtex, x/4, y/4
+		
+		@vtex = new THREE.Texture canvas
+		@vtex.needsUpdate = true
+		@vtex.magFilter = THREE.NearestFilter
+		@vtex.minFilter = THREE.LinearMipMapLinearFilter
 
 		#context.restore() # pop
 		#context.drawImage mw.vvardenfell, x, y
 
-		return imgd.data
+		true
 
-mw.splat = ->
-	noiseTexture = new THREE.ImageUtils.loadTexture 'cloud.png'
-	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping
-	noiseTexture.repeat.set 64, 64
+	splat: ->
+		a = new THREE.ImageUtils.loadTexture 'cloud.png'
+		a.wrapS = a.wrapT = THREE.RepeatWrapping
+		a.repeat.set 64, 64
 
-	waterTexture = new THREE.ImageUtils.loadTexture 'water.jpg'
-	waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping
-	noiseTexture.repeat.set 64, 64
+		b = new THREE.ImageUtils.loadTexture 'water.jpg'
+		b.wrapS = b.wrapT = THREE.RepeatWrapping
+		b.repeat.set 64, 64
 
-	@splatMaterial = new THREE.ShaderMaterial
-		uniforms:
-			oceanTexture:  { type: "t", value: waterTexture }
-			sandyTexture: { type: "t", value: noiseTexture }
-		vertexShader:   document.getElementById( 'splatVertexShader'   ).textContent
-		fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
-		transparent: true
+		material = new THREE.ShaderMaterial
+			uniforms:
+				texturePlacement:	{ type: "t", value: @vtex }
+				vertexColour: 		{ type: "t", value: @vclr }
+				mossTexture: 		{ type: "t", value: mw.textures['models/tx_bc_moss.tga'] }
+				dirtTexture: 		{ type: "t", value: mw.textures['models/tx_bc_dirt.tga'] }
+			vertexShader:   document.getElementById( 'splatVertexShader'   ).textContent
+			fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
+			transparent: true
 
-	true
+		return material
+
+		true
