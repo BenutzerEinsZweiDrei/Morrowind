@@ -54,9 +54,8 @@
       context.drawImage(mw.vvardenfell, x, y);
       context.getImageData(0, 0, 65, 65);
       this.heights = context.getImageData(0, 0, 65, 65).data;
-      canvas.width = 64;
-      canvas.height = 64;
       context.restore();
+      context.translate(1, 0);
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
@@ -97,6 +96,10 @@
           dirtTexture: {
             type: "t",
             value: mw.textures['models/tx_bc_dirt.tga']
+          },
+          mudTexture: {
+            type: "t",
+            value: mw.textures['models/tx_bc_mud.tga']
           },
           fogColor: {
             type: "c",

@@ -38,7 +38,7 @@
         y: 1
       }
     ],
-    preloads: ['models/tx_bc_dirt.tga', 'models/tx_bc_moss.tga'],
+    preloads: ['models/tx_bc_dirt.tga', 'models/tx_bc_moss.tga', 'models/tx_bc_mud.tga'],
     textures: []
   };
 

@@ -87,9 +87,10 @@ class mw.Terrain
 		@heights = context.getImageData(0, 0, 65, 65).data
 
 		# VERTEX COLOUR MAP
-		canvas.width = 64
-		canvas.height = 64
+		#canvas.width = 64
+		#canvas.height = 64
 		context.restore() # pop
+		context.translate 1, 0
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
@@ -130,8 +131,11 @@ class mw.Terrain
 			uniforms:
 				texturePlacement:	{ type: "t", value: @vtex }
 				vertexColour: 		{ type: "t", value: @vclr }
+
 				mossTexture: 		{ type: "t", value: mw.textures['models/tx_bc_moss.tga'] }
 				dirtTexture: 		{ type: "t", value: mw.textures['models/tx_bc_dirt.tga'] }
+				mudTexture: 		{ type: "t", value: mw.textures['models/tx_bc_mud.tga'] }
+
 				fogColor:			{ type: "c", value: mw.scene.fog.color }
 				fogDensity:			{ type: "f", value: mw.scene.fog.density }
 				fogNear:			{ type: "f", value: mw.scene.fog.near }

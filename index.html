@@ -78,6 +78,7 @@ uniform sampler2D vertexColour;
 
 uniform sampler2D mossTexture;
 uniform sampler2D dirtTexture;
+uniform sampler2D mudTexture;
 //uniform sampler2D rockyTexture;
 //uniform sampler2D snowyTexture;
 
@@ -147,6 +148,10 @@ void main()
 	{
 		soil = texture2D(mossTexture, vUv * 16.0 );
 	}
+	else if ( map.b == 0.9686274509803922 )
+	{
+		soil = texture2D(mudTexture, vUv * 16.0 );
+	}
 	else
 	{
 		soil = map;
@@ -180,7 +185,7 @@ void main()
 
 		#endif
 		
-		//color = mix( color, fogColor, fogFactor );
+		color = mix( color, fogColor, fogFactor );
 
 	#endif
 
