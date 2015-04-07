@@ -75,10 +75,12 @@
       canvas.width = 18;
       canvas.height = 18;
       context = canvas.getContext('2d');
-      context.scale(1, 1);
+      context.translate(-1, -1);
       context.drawImage(mw.vtex, x / 4, y / 4);
       this.vtex = new THREE.Texture(canvas);
       this.vtex.needsUpdate = true;
+      this.vtex.magFilter = THREE.NearestFilter;
+      this.vtex.minFilter = THREE.LinearMipMapLinearFilter;
       return true;
     };
 

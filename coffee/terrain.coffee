@@ -114,14 +114,14 @@ class mw.Terrain
 		canvas.height = 18
 		context = canvas.getContext '2d'
 
-		#context.translate 0, 16
-		context.scale 1, 1
+		context.translate -1, -1
+		#context.scale 1, 1
 		context.drawImage mw.vtex, x/4, y/4
 		
 		@vtex = new THREE.Texture canvas
 		@vtex.needsUpdate = true
-		#@vtex.magFilter = THREE.NearestFilter
-		#@vtex.minFilter = THREE.LinearMipMapLinearFilter
+		@vtex.magFilter = THREE.NearestFilter
+		@vtex.minFilter = THREE.LinearMipMapLinearFilter
 
 		#context.restore() # pop
 		#context.drawImage mw.vvardenfell, x, y
