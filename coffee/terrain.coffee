@@ -9,8 +9,8 @@ class mw.Terrain
 
 		#console.log "mx #{mx}, my #{my}"
 
-		@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
-		@mesh.position.set mx, my, 0
+		#@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
+		#@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
 
@@ -48,7 +48,7 @@ class mw.Terrain
 			@geometry.vertices[i].z = h
 
 
-		mw.scene.add @mesh
+		#mw.scene.add @mesh
 
 		@mkground()
 
@@ -104,8 +104,8 @@ class mw.Terrain
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
-		@vclr.magFilter = THREE.NearestFilter
-		@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		#@vclr.magFilter = THREE.NearestFilter
+		#@vclr.minFilter = THREE.LinearMipMapLinearFilter
 
 		# TEXTURE PLACEMENT MAP
 		canvas = document.createElement 'canvas'
