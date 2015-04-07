@@ -4,6 +4,7 @@ mw = root.mw =
 	gots: 0
 	gets: 2
 
+	keys: []
 	world: null
 	circle: [
 		{x: 1, y:-1}, {x: 0, y:-1}, {x:-1, y:-1},
@@ -24,6 +25,28 @@ $(document).ready ->
 	mw.boot.call mw
 
 	mw.resources.call mw
+
+	true
+
+document.onkeydown = document.onkeyup = (event) ->
+	k = event.keyCode
+
+	if event.type is 'keydown' and mw.keys[k] isnt 2
+		mw.keys[k] = 1
+	else if event.type is 'keyup'
+		#console.log('key up')
+		mw.keys[k] = 0
+
+	if not mw.keys[ k ]
+		delete mw.keys[k]
+
+	if k is 114
+		event.preventDefault()
+	
+	#console.log mw.keys
+
+	if mw.lightbox
+		mw.lightbox.key()
 
 	true
 

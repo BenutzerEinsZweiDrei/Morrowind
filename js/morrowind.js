@@ -7,6 +7,7 @@
   mw = root.mw = {
     gots: 0,
     gets: 2,
+    keys: [],
     world: null,
     circle: [
       {
@@ -51,8 +52,28 @@
     return true;
   });
 
+  document.onkeydown = document.onkeyup = function(event) {
+    var k;
+    k = event.keyCode;
+    if (event.type === 'keydown' && mw.keys[k] !== 2) {
+      mw.keys[k] = 1;
+    } else if (event.type === 'keyup') {
+      mw.keys[k] = 0;
+    }
+    if (!mw.keys[k]) {
+      delete mw.keys[k];
+    }
+    if (k === 114) {
+      event.preventDefault();
+    }
+    if (mw.lightbox) {
+      mw.lightbox.key();
+    }
+    return true;
+  };
+
   mw.resources = function() {
-    var f, go, i, j, k, len, n, ref;
+    var f, go, i, j, l, len, n, ref;
     this.vvardenfell = new Image(2688, 2816);
     this.vvardenfell.src = 'vvardenfell.bmp';
     this.vclr = new Image(2688, 2816);
@@ -64,7 +85,7 @@
     }
     this.gets += this.preloads.length;
     ref = this.preloads;
-    for (i = k = 0, len = ref.length; k < len; i = ++k) {
+    for (i = l = 0, len = ref.length; l < len; i = ++l) {
       f = ref[i];
       go = function() {
         var a, loader;

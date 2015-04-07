@@ -23,7 +23,7 @@
     this.controls.movementSpeed = 2000;
     this.controls.lookSpeed = 0.5;
     this.scene = new THREE.Scene;
-    this.scene.fog = new THREE.FogExp2(0xefd1b5, 0.0002);
+    this.scene.fog = new THREE.FogExp2(0xefd1b5, 0.00015);
     this.scene.add(new THREE.AmbientLight(0x777777));
     THREE.Loader.Handlers.add(/\.tga$/i, new THREE.TGALoader);
     this.renderer = new THREE.WebGLRenderer;
@@ -53,6 +53,14 @@
     requestAnimationFrame(mw.animate);
     mw.delta = mw.clock.getDelta();
     mw.controls.update(mw.delta);
+    if (mw.keys[114] === 1) {
+      if (mw.minimap != null) {
+        mw.minimap.dtor();
+        mw.minimap = null;
+      } else {
+        mw.minimap = new mw.Minimap;
+      }
+    }
     if (mw.world) {
       mw.world.step();
     }

@@ -25,7 +25,7 @@ mw.boot = () ->
 
 	# scene
 	@scene = new THREE.Scene
-	@scene.fog = new THREE.FogExp2 0xefd1b5, 0.0002
+	@scene.fog = new THREE.FogExp2 0xefd1b5, 0.00015
 	#@scene.rotation.z = 180 * Math.PI / 180
 
 	@scene.add new THREE.AmbientLight 0x777777 #0xbfb5ac
@@ -80,6 +80,13 @@ mw.animate = () ->
 	mw.delta = mw.clock.getDelta()
 
 	mw.controls.update mw.delta
+
+	if mw.keys[114] is 1
+		if mw.minimap?
+			mw.minimap.dtor()
+			mw.minimap = null
+		else
+			mw.minimap = new mw.Minimap
 
 	if mw.world
 		mw.world.step()
