@@ -135,8 +135,8 @@ void main()
 	//vec3 color = vec3( 0.0 );
 
 	vec2 uv1 = vUv;
-	//uv1.x = uv1.x - 0.0078125;
-	//uv1.y = uv1.y + 0.0078125;
+	uv1.x = uv1.x - 0.0078125;
+	uv1.y = uv1.y + 0.0078125;
 	vec4 map = texture2D(texturePlacement, uv1 * 0.8888888888888889);
 
 	vec2 uv2 = vUv;
