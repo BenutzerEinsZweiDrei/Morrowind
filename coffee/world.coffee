@@ -6,8 +6,6 @@ class mw.World
 
 		@cells = []
 
-		mw.splat.call mw
-
 		for i in [0..8]
 			@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
 		#new mw.Cell @x, @y
@@ -104,7 +102,10 @@ class mw.World
 				#console.log 'yep'
 				@waterStep = if @waterStep < 30 then @waterStep + 1 else 0
 				
-				mw.waterMaterial.map = mw.waters[@waterStep]
+				t = mw.textures["models/water#{@waterStep}.tga"]
+				t.repeat.set 64, 64
+
+				mw.waterMaterial.map = t
 
 				@waterMoment = 0
 

@@ -5,7 +5,7 @@
       var b, g, h, i, j, mx, my, p, px, py, r, ref, x, y;
       this.x = x1;
       this.y = y1;
-      this.data = this.heights();
+      this.maps();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
@@ -17,9 +17,9 @@
         py = (4096 + y) / 64;
         py /= 2;
         p = ((py * 65) + px) * 4;
-        r = this.data[p];
-        g = this.data[p + 1];
-        b = this.data[p + 2];
+        r = this.heights[p];
+        g = this.heights[p + 1];
+        b = this.heights[p + 2];
         if (r === 255) {
           this.geometry.vertices[i].z = h;
           h = -(255 - b) + (255 * ((g - 255) / 8));
@@ -35,21 +35,14 @@
     }
 
     Terrain.prototype.mkground = function() {
-      this.ground = new THREE.Mesh(this.geometry, new THREE.MeshLambertMaterial({
-        map: this.vclr
-      }));
+      this.ground = new THREE.Mesh(this.geometry, this.splat());
       this.ground.position.set(this.mx, this.my, 0);
       return mw.scene.add(this.ground);
     };
 
-    Terrain.prototype.heights = function() {
-      var canvas, context, imgd, x, y;
-      this.canvas = canvas = document.createElement('canvas');
-      document.body.appendChild(canvas);
-      if (this.x === -2 && this.y === -9) {
-        console.log('there');
-        $('canvas').css('position', 'absolute');
-      }
+    Terrain.prototype.maps = function() {
+      var canvas, context, x, y;
+      canvas = document.createElement('canvas');
       canvas.width = 65;
       canvas.height = 65;
       context = canvas.getContext('2d');
@@ -60,43 +53,62 @@
       y = -(27 - this.y) * 64;
       context.drawImage(mw.vvardenfell, x, y);
       context.getImageData(0, 0, 65, 65);
-      imgd = context.getImageData(0, 0, 65, 65);
+      this.heights = context.getImageData(0, 0, 65, 65).data;
       context.drawImage(mw.vclr, x, y);
-      this.vclr = new THREE.Texture(this.canvas);
+      this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
       this.vclr.magFilter = THREE.NearestFilter;
       this.vclr.minFilter = THREE.LinearMipMapLinearFilter;
-      return imgd.data;
+      canvas = document.createElement('canvas');
+      document.body.appendChild(canvas);
+      canvas.width = 16;
+      canvas.height = 16;
+      context = canvas.getContext('2d');
+      context.drawImage(mw.vtex, x / 4, y / 4);
+      this.vtex = new THREE.Texture(canvas);
+      this.vtex.needsUpdate = true;
+      this.vtex.magFilter = THREE.NearestFilter;
+      this.vtex.minFilter = THREE.LinearMipMapLinearFilter;
+      return true;
+    };
+
+    Terrain.prototype.splat = function() {
+      var a, b, material;
+      a = new THREE.ImageUtils.loadTexture('cloud.png');
+      a.wrapS = a.wrapT = THREE.RepeatWrapping;
+      a.repeat.set(64, 64);
+      b = new THREE.ImageUtils.loadTexture('water.jpg');
+      b.wrapS = b.wrapT = THREE.RepeatWrapping;
+      b.repeat.set(64, 64);
+      material = new THREE.ShaderMaterial({
+        uniforms: {
+          texturePlacement: {
+            type: "t",
+            value: this.vtex
+          },
+          vertexColour: {
+            type: "t",
+            value: this.vclr
+          },
+          mossTexture: {
+            type: "t",
+            value: mw.textures['models/tx_bc_moss.tga']
+          },
+          dirtTexture: {
+            type: "t",
+            value: mw.textures['models/tx_bc_dirt.tga']
+          }
+        },
+        vertexShader: document.getElementById('splatVertexShader').textContent,
+        fragmentShader: document.getElementById('splatFragmentShader').textContent,
+        transparent: true
+      });
+      return material;
+      return true;
     };
 
     return Terrain;
 
   })();
-
-  mw.splat = function() {
-    var noiseTexture, waterTexture;
-    noiseTexture = new THREE.ImageUtils.loadTexture('cloud.png');
-    noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
-    noiseTexture.repeat.set(64, 64);
-    waterTexture = new THREE.ImageUtils.loadTexture('water.jpg');
-    waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping;
-    noiseTexture.repeat.set(64, 64);
-    this.splatMaterial = new THREE.ShaderMaterial({
-      uniforms: {
-        oceanTexture: {
-          type: "t",
-          value: waterTexture
-        },
-        sandyTexture: {
-          type: "t",
-          value: noiseTexture
-        }
-      },
-      vertexShader: document.getElementById('splatVertexShader').textContent,
-      fragmentShader: document.getElementById('splatFragmentShader').textContent,
-      transparent: true
-    });
-    return true;
-  };
 
 }).call(this);

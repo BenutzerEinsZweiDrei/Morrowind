@@ -12,7 +12,7 @@
       uniforms: {
         baseTexture: {
           type: "t",
-          value: this.waters[0]
+          value: waterTexture
         },
         baseSpeed: {
           type: "f",
@@ -75,7 +75,7 @@
     this.mirror.material.transparent = true;
     geometry = new THREE.PlaneGeometry(8192 * 3, 8192 * 3);
     this.waterMaterial = new THREE.MeshLambertMaterial({
-      map: mw.waters[0],
+      map: mw.textures["models/water0.tga"],
       transparent: true,
       opacity: .7
     });

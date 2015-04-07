@@ -63,48 +63,102 @@ void main()
 </script>
 
 <script id="splatVertexShader" type="x-shader/x-vertex">
-uniform sampler2D bumpTexture;
-uniform float bumpScale;
-
-varying float vAmount;
-varying vec2 vUV;
+varying vec2 vUv;
 
 void main() 
 {
-    vUV = uv;
-    vec4 bumpData = texture2D( bumpTexture, uv );
-
-    vAmount = bumpData.r; // assuming map is grayscale it doesn't matter if you use r, g, or b.
-
-    // move the position along the normal
-    vec3 newPosition = position + normal * bumpScale * vAmount;
-
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }
 </script>
 
 <script id="splatFragmentShader" type="x-shader/x-vertex">
-uniform sampler2D vclr;
-uniform sampler2D oceanTexture;
-uniform sampler2D sandyTexture;
-//uniform sampler2D grassTexture;
+uniform sampler2D texturePlacement;
+uniform sampler2D vertexColour;
+
+uniform sampler2D mossTexture;
+uniform sampler2D dirtTexture;
 //uniform sampler2D rockyTexture;
 //uniform sampler2D snowyTexture;
 
-varying vec2 vUV;
+varying vec2 vUv;
 
-varying float vAmount;
 
-void main() 
+void main()
 {
-    vec4 water = (smoothstep(0.01, 0.25, vAmount) - smoothstep(0.24, 0.26, vAmount)) * texture2D( oceanTexture, vUV * 10.0 );
-    vec4 sandy = (smoothstep(0.24, 0.27, vAmount) - smoothstep(0.28, 0.31, vAmount)) * texture2D( sandyTexture, vUV * 10.0 );
+    //vec4 water = (smoothstep(0.01, 0.25, 1.0) - smoothstep(0.24, 0.26, 1.0)) * texture2D( texturePlacement, vUv * 10.0 );
+    //vec4 sandy = (smoothstep(0.24, 0.27, 1.0) - smoothstep(0.28, 0.31, 1.0)) * texture2D( vertexColour, vUv * 10.0 );
     //vec4 grass = (smoothstep(0.28, 0.32, vAmount) - smoothstep(0.35, 0.40, vAmount)) * texture2D( grassTexture, vUV * 20.0 );
     //vec4 rocky = (smoothstep(0.30, 0.50, vAmount) - smoothstep(0.40, 0.70, vAmount)) * texture2D( rockyTexture, vUV * 20.0 );
     //vec4 snowy = (smoothstep(0.50, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 );
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy;// + grass + rocky + snowy;
+
+    vec4 map = texture2D(texturePlacement, vUv);
+    vec4 color = vec4(0.0);
+
+    if ( map.b == 0.8392156862745098 )
+    {
+    	color = texture2D(dirtTexture, vUv * 16.0 );
+    }
+    else if ( map.b == 0.9019607843137255 )
+    {
+    	color = texture2D(mossTexture, vUv * 16.0 );
+    }
+    else
+    {
+    	color = map;
+    }
+
+    gl_FragColor = color;
+    
+    //gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy;// + grass + rocky + snowy;
 }
 </script>
+
+<!--
+
+    #ifdef USE_FOG
+
+		uniform vec3 fogColor;
+
+		#ifdef FOG_EXP2
+
+			uniform float fogDensity;
+
+		#else
+
+			uniform float fogNear;
+			uniform float fogFar;
+		#endif
+
+	#endif
+
+    #ifdef USE_FOG
+
+		#ifdef USE_LOGDEPTHBUF_EXT
+
+			float depth = gl_FragDepthEXT / gl_FragCoord.w;
+
+		#else
+
+			float depth = gl_FragCoord.z / gl_FragCoord.w;
+
+		#endif
+
+		#ifdef FOG_EXP2
+
+			float fogFactor = exp2( - square( fogDensity ) * square( depth ) * LOG2 );
+			fogFactor = whiteCompliment( fogFactor );
+
+		#else
+
+			float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+	#endif
+	
+	outgoingLight = mix( outgoingLight, fogColor, fogFactor );
+
+#endif
+-->
 
 </body>
 </html>

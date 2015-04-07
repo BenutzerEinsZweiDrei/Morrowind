@@ -6,7 +6,7 @@
 
   mw = root.mw = {
     gots: 0,
-    gets: 2 + 31,
+    gets: 2,
     world: null,
     circle: [
       {
@@ -38,7 +38,8 @@
         y: 1
       }
     ],
-    waters: []
+    preloads: ['models/tx_bc_dirt.tga', 'models/tx_bc_moss.tga'],
+    textures: []
   };
 
   $(document).ready(function() {
@@ -51,27 +52,35 @@
   });
 
   mw.resources = function() {
-    var go, i, j;
+    var f, go, i, j, k, len, n, ref;
     this.vvardenfell = new Image(2688, 2816);
     this.vvardenfell.src = 'vvardenfell.bmp';
     this.vclr = new Image(2688, 2816);
     this.vclr.src = 'vvardenfell-vclr.bmp';
-    for (i = j = 0; j <= 31; i = ++j) {
+    this.vtex = new Image(672, 704);
+    this.vtex.src = 'vvardenfell-vtex3.bmp';
+    for (n = j = 0; j <= 31; n = ++j) {
+      this.preloads.push("models/water" + n + ".tga");
+    }
+    this.gets += this.preloads.length;
+    ref = this.preloads;
+    for (i = k = 0, len = ref.length; k < len; i = ++k) {
+      f = ref[i];
       go = function() {
-        var loader, n;
+        var a, loader;
+        a = f;
         loader = new THREE.TGALoader;
-        n = i < 10 ? "0" + i : i;
-        return loader.load("models/water" + n + ".tga", function(asd) {
+        return loader.load(a, function(asd) {
           asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
           asd.repeat.set(64, 64);
-          mw.waters[parseInt(n)] = asd;
-          console.log("got " + n);
+          mw.textures[a] = asd;
+          console.log("got " + a);
           return mw.got.call(mw);
         });
       };
       go();
     }
-    this.vclr.onload = this.vvardenfell.onload = this.vclr.onload = function() {
+    this.vvardenfell.onload = this.vclr.onload = this.vtex.onload = function() {
       return mw.got.call(mw);
     };
     return true;
@@ -79,6 +88,7 @@
 
   mw.got = function() {
     if (++this.gots === this.gets) {
+      console.log('got all preloads');
       this.after();
     }
     return true;
@@ -89,6 +99,27 @@
       return mw.world = new mw.World(data);
     });
     mw.animate();
+    return true;
+  };
+
+  mw.texture = function(file) {
+    var go, p;
+    p = file;
+    THREE.ImageUtils.loadTexture(p);
+    if (mw.textures[p]) {
+      return mw.textures[p];
+    } else {
+      go = function() {
+        var i, loader;
+        loader = new THREE.TGALoader;
+        console.log(loader);
+        i = p;
+        return loader.load(p, function(asd) {
+          mw.textures[i] = asd;
+        });
+      };
+      go();
+    }
     return true;
   };
 

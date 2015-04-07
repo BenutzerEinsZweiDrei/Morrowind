@@ -7,7 +7,6 @@
       this.x = -2;
       this.y = -9;
       this.cells = [];
-      mw.splat.call(mw);
       for (i = j = 0; j <= 8; i = ++j) {
         this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
       }
@@ -97,6 +96,7 @@
     };
 
     World.prototype.step = function() {
+      var t;
       if (mw.water) {
         THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta;
       }
@@ -104,7 +104,9 @@
         this.waterMoment += mw.delta;
         if (this.waterMoment >= 0.08) {
           this.waterStep = this.waterStep < 30 ? this.waterStep + 1 : 0;
-          mw.waterMaterial.map = mw.waters[this.waterStep];
+          t = mw.textures["models/water" + this.waterStep + ".tga"];
+          t.repeat.set(64, 64);
+          mw.waterMaterial.map = t;
           this.waterMoment = 0;
         }
       }

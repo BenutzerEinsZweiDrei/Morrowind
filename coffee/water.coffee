@@ -11,7 +11,7 @@ mw.watershed = ->
 	# create custom material from the shader code above within specially labeled script tags
 	@customMaterial = new THREE.ShaderMaterial
 		uniforms:
-			baseTexture:  { type: "t", value: @waters[0] }
+			baseTexture:  { type: "t", value: waterTexture }
 			baseSpeed:    { type: "f", value: 0.005 }
 			noiseTexture: { type: "t", value: noiseTexture }
 			noiseScale:   { type: "f", value: 0.5337 }
@@ -87,7 +87,7 @@ mw.watershed = ->
 	geometry = new THREE.PlaneGeometry 8192*3, 8192*3
 
 	@waterMaterial = new THREE.MeshLambertMaterial
-		map: mw.waters[0]
+		map: mw.textures["models/water0.tga"]
 		transparent: true
 		opacity: .7
 
