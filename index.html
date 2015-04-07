@@ -153,15 +153,9 @@ void main()
 	}
 
 	color = vec3(soil);
-	//float minn = min(vcolor.r, vcolor.g);
-	//minn = min(minn, vcolor.b);
-	//vec3 vclr = vec3((vcolor.r-minn), (vcolor.g-minn), (vcolor.b-minn));
 	vec3 vclr = vec3(vcolor);
 
-	//color = vec3(min(soil.r, vcolour.r), min(soil.g, vcolour.g), min(soil.b, vcolour.b)); // darken
-	color = mix(color, vclr, 0.5);
-	//color = vclr + color;
-	//color = vec3(vcolor);
+	color = vclr * color;
 
 	#ifdef USE_FOG
 
