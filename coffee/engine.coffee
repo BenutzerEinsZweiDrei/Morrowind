@@ -25,10 +25,14 @@ mw.boot = () ->
 
 	# scene
 	@scene = new THREE.Scene
-	@scene.fog = new THREE.FogExp2 0xefd1b5, 0.00015
+	#@scene.fog = new THREE.FogExp2 0xefd1b5, 0.0002
+	@scene.fog = new THREE.Fog 0xefd1b5, 2500, 10000
 	#@scene.rotation.z = 180 * Math.PI / 180
 
-	@scene.add new THREE.AmbientLight 0x777777 #0xbfb5ac
+	# dawn 0x424a57
+	# day 0x898ca0
+	# neutral 0x777777
+	@scene.add new THREE.AmbientLight 0x898ca0
 	
 	#@sun =
 	#directionalLight = new THREE.DirectionalLight 0xffeedd

@@ -1,0 +1,34 @@
+
+newmtl Material.000001
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_wall_stone_01.tga
+
+
+newmtl Material.000067
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_contain_box_metal_block.tga
+
+
+newmtl Material.0000bf
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_stone_plain_01.tga
+
+
+newmtl Material.000107
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 33

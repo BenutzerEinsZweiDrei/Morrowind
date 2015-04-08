@@ -1,0 +1,43 @@
+
+newmtl Material.000001
+Ka 0.992157 0.992157 0.992157
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_stone_left_01.tga
+
+
+newmtl Material.000029
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_stone_right_01.tga
+
+
+newmtl Material.000041
+Ka 0.1 0.1 0.1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_stone_mid_01.tga
+
+
+newmtl Material.000051
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_stone_plain_01.tga
+
+
+newmtl Material.000087
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 33

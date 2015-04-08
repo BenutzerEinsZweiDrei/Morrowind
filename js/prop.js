@@ -7,7 +7,7 @@
       this.x = this.raw.x;
       this.y = this.raw.y;
       this.z = this.raw.z;
-      this.r = this.raw.r - 360;
+      this.r = Math.abs(this.raw.r - 360);
       this.scale = this.raw.scale || 0;
       this.transparent = this.raw.transparent || false;
       this.mesh = mw.models[this.model].clone();

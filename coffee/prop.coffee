@@ -4,7 +4,7 @@ class mw.Prop
 		@x = @raw.x
 		@y = @raw.y
 		@z = @raw.z
-		@r = @raw.r - 360
+		@r = Math.abs @raw.r - 360
 		@scale = @raw.scale or 0
 		@transparent = @raw.transparent or false
 
