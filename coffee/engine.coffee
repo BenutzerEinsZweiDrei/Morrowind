@@ -41,8 +41,8 @@ mw.boot = () ->
 
 	# model
 
-	#THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
-	THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
+	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
+	#THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
 	@renderer = new THREE.WebGLRenderer
 	@renderer.setPixelRatio window.devicePixelRatio

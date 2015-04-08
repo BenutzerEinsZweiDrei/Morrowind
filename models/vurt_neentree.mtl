@@ -1,0 +1,72 @@
+
+newmtl Material.000001
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_branchybark.dds
+
+
+newmtl Material.0002fa
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_branchybark.dds
+
+
+newmtl Material.000ab6
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_branchybark.dds
+
+
+newmtl Material.001272
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_branchybark.dds
+
+
+newmtl Material.00156b
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_bcdeadbranches.dds
+
+
+newmtl Material.0018cf
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_bcdeadbranches.dds
+
+
+newmtl Material.001c33
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_branchybark.dds
+
+
+newmtl Material.001caa
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ..\textures\vurt_branchybark.dds
+

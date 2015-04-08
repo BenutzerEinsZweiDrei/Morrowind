@@ -129,22 +129,22 @@ class mw.Terrain
 		true
 
 	splat: ->
-		a = new THREE.ImageUtils.loadTexture 'cloud.png'
+		###a = new THREE.ImageUtils.loadTexture 'cloud.png'
 		a.wrapS = a.wrapT = THREE.RepeatWrapping
 		a.repeat.set 64, 64
 
 		b = new THREE.ImageUtils.loadTexture 'water.jpg'
 		b.wrapS = b.wrapT = THREE.RepeatWrapping
-		b.repeat.set 64, 64
+		b.repeat.set 64, 64###
 
 		material = new THREE.ShaderMaterial
 			uniforms:
 				texturePlacement:	{ type: "t", value: @vtex }
 				vertexColour: 		{ type: "t", value: @vclr }
 
-				mossTexture: 		{ type: "t", value: mw.textures['models/tx_bc_moss.tga'] }
-				dirtTexture: 		{ type: "t", value: mw.textures['models/tx_bc_dirt.tga'] }
-				mudTexture: 		{ type: "t", value: mw.textures['models/tx_bc_mud.tga'] }
+				mossTexture: 		{ type: "t", value: mw.textures['tx_bc_moss.dds'] }
+				dirtTexture: 		{ type: "t", value: mw.textures['tx_bc_dirt.dds'] }
+				mudTexture: 		{ type: "t", value: mw.textures['tx_bc_mud.dds'] }
 
 				fogColor:			{ type: "c", value: mw.scene.fog.color }
 				fogDensity:			{ type: "f", value: mw.scene.fog.density }

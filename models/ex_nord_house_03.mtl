@@ -5,7 +5,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_brown_posts_02.tga
+map_Kd textures\tx_wood_brown_posts_02.dds
 
 
 newmtl Material.00010f
@@ -14,7 +14,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_stone_left_01.tga
+map_Kd textures\tx_stone_left_01.dds
 
 
 newmtl Material.00011f
@@ -23,7 +23,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_stone_right_01.tga
+map_Kd textures\tx_stone_right_01.dds
 
 
 newmtl Material.00012f
@@ -32,7 +32,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wall_stuccostone_01.tga
+map_Kd textures\tx_wall_stuccostone_01.dds
 
 
 newmtl Material.00013f
@@ -41,7 +41,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wall_stone_01.tga
+map_Kd textures\tx_wall_stone_01.dds
 
 
 newmtl Material.00014f
@@ -50,7 +50,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_brown_rings_01.tga
+map_Kd textures\tx_wood_brown_rings_01.dds
 
 
 newmtl Material.0001ab
@@ -59,7 +59,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_thatch_01.tga
+map_Kd textures\tx_thatch_01.dds
 
 
 newmtl Material.00026f
@@ -68,7 +68,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_stone_plain_01.tga
+map_Kd textures\tx_stone_plain_01.dds
 
 
 newmtl Material.0002bb
@@ -77,7 +77,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wall_stuccostone_el_01.tga
+map_Kd textures\tx_wall_stuccostone_el_01.dds
 
 
 newmtl Material.0002cb
@@ -86,7 +86,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wall_stuccostone_er_01.tga
+map_Kd textures\tx_wall_stuccostone_er_01.dds
 
 
 newmtl Material.0002db

@@ -1,19 +1,19 @@
 mw.watershed = ->
 
-	noiseTexture = new THREE.ImageUtils.loadTexture 'cloud.png'
+	###noiseTexture = new THREE.ImageUtils.loadTexture 'cloud.png'
 	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping
 	noiseTexture.repeat.set 64, 64
 
 	waterTexture = new THREE.ImageUtils.loadTexture 'water.jpg'
 	waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping
-	noiseTexture.repeat.set 64, 64
+	noiseTexture.repeat.set 64, 64###
 
 	# create custom material from the shader code above within specially labeled script tags
 	@customMaterial = new THREE.ShaderMaterial
 		uniforms:
-			baseTexture:  { type: "t", value: waterTexture }
+			baseTexture:  { type: "t", value: 0 }
 			baseSpeed:    { type: "f", value: 0.005 }
-			noiseTexture: { type: "t", value: noiseTexture }
+			noiseTexture: { type: "t", value: 0 }
 			noiseScale:   { type: "f", value: 0.5337 }
 			alpha:        { type: "f", value: 1.0 }
 			time:         { type: "f", value: 1.0 }
@@ -22,8 +22,8 @@ mw.watershed = ->
 		side: THREE.DoubleSide
 		transparent: true
 
-	THREE.ShaderLib['mirror'].uniforms.baseTexture =	type: "t", value: waterTexture
-	THREE.ShaderLib['mirror'].uniforms.noiseTexture =	type: "t", value: noiseTexture
+	THREE.ShaderLib['mirror'].uniforms.baseTexture =	type: "t", value: 0
+	THREE.ShaderLib['mirror'].uniforms.noiseTexture =	type: "t", value: 0
 	THREE.ShaderLib['mirror'].uniforms.noiseSpeed =		type: "f", value: 0.01
 	THREE.ShaderLib['mirror'].uniforms.noiseScale =		type: "f", value: 0.5337
 	THREE.ShaderLib['mirror'].uniforms.time =			type: "f", value: 1.0
@@ -83,29 +83,29 @@ mw.watershed = ->
 		gl_Position = projectionMatrix * mvPosition;
 	}
 	"
-
+	
 	@mirror = new THREE.Mirror mw.renderer, mw.camera, clipBias: 0.0025, textureWidth: 1024, textureHeight: 1024, color: 0x777777
 	@mirror.material.transparent = true
 	#@mirror.material.uniforms['uOpacity'].value = .5
-
+	
 	geometry = new THREE.PlaneGeometry 8192*3, 8192*3
-
+	
 	@waterMaterial = new THREE.MeshLambertMaterial
-		map: mw.textures["models/water0.tga"]
+		map: mw.textures['water/water0.dds']
 		transparent: true
 		opacity: .7
-
+		
 	@water = THREE.SceneUtils.createMultiMaterialObject geometry, [ @waterMaterial] # @mirror.material,
 	#@water = new THREE.Mesh geometry, @mirror.material
 	#@water.add @mirror
-
+	
 	x = (mw.world.x * 8192) + 4096
 	y = (mw.world.y * 8192) + 4096
-
+	
 	@water.position.set x, y, 0
-
+	
 	mw.scene.add @water
-
+	
 	console.log 'added water'
-
+	
 	true

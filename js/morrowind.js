@@ -6,7 +6,7 @@
 
   mw = root.mw = {
     gots: 0,
-    gets: 2,
+    gets: 3,
     keys: [],
     world: null,
     circle: [
@@ -39,7 +39,7 @@
         y: 1
       }
     ],
-    preloads: ['models/tx_bc_dirt.tga', 'models/tx_bc_moss.tga', 'models/tx_bc_mud.tga'],
+    pretex: ['tx_sky_clear.dds', 'tx_bc_mud.dds', 'tx_bc_dirt.dds', 'tx_bc_moss.dds'],
     textures: []
   };
 
@@ -81,17 +81,17 @@
     this.vtex = new Image(672, 704);
     this.vtex.src = 'vvardenfell-vtex3.bmp';
     for (n = j = 0; j <= 31; n = ++j) {
-      this.preloads.push("models/water" + n + ".tga");
+      this.pretex.push("water/water" + n + ".dds");
     }
-    this.gets += this.preloads.length;
-    ref = this.preloads;
+    this.gets += this.pretex.length;
+    ref = this.pretex;
     for (i = l = 0, len = ref.length; l < len; i = ++l) {
       f = ref[i];
       go = function() {
         var a, loader;
         a = f;
-        loader = new THREE.TGALoader;
-        return loader.load(a, function(asd) {
+        loader = new THREE.DDSLoader;
+        return loader.load("textures/" + f, function(asd) {
           asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
           asd.repeat.set(64, 64);
           mw.textures[a] = asd;

@@ -26,24 +26,21 @@
     }
 
     World.prototype.doskybox = function() {
-      var geometry, loader;
+      var array, geometry, i, j, material, t;
       geometry = new THREE.CubeGeometry(8192 * 3, 8192 * 3, 8192);
-      loader = new THREE.TGALoader;
-      loader.load('models/tx_sky_clear.tga', function(asd) {
-        var array, i, j, material;
-        asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
-        array = [];
-        for (i = j = 0; j <= 5; i = ++j) {
-          array.push(new THREE.MeshBasicMaterial({
-            map: asd,
-            side: THREE.BackSide
-          }));
-        }
-        material = new THREE.MeshFaceMaterial(array);
-        this.skybox = new THREE.Mesh(geometry, material);
-        this.skybox.position.set((mw.world.x * 8192) + 4096, (mw.world.y * 8192) + 4096, -255);
-        return mw.scene.add(this.skybox);
-      });
+      t = mw.textures['tx_sky_clear.dds'];
+      t.repeat.set(1, 1);
+      array = [];
+      for (i = j = 0; j <= 5; i = ++j) {
+        array.push(new THREE.MeshBasicMaterial({
+          map: t,
+          side: THREE.BackSide
+        }));
+      }
+      material = new THREE.MeshFaceMaterial(array);
+      this.skybox = new THREE.Mesh(geometry, material);
+      this.skybox.position.set((this.x * 8192) + 4096, (this.y * 8192) + 4096, -255);
+      mw.scene.add(this.skybox);
       return true;
     };
 
@@ -100,11 +97,12 @@
       if (mw.water) {
         THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta;
       }
+      return;
       if (mw.water) {
         this.waterMoment += mw.delta;
         if (this.waterMoment >= 0.08) {
           this.waterStep = this.waterStep < 30 ? this.waterStep + 1 : 0;
-          t = mw.textures["models/water" + this.waterStep + ".tga"];
+          t = mw.textures["water/water" + this.waterStep + ".dds"];
           t.repeat.set(64, 64);
           mw.waterMaterial.map = t;
           this.waterMoment = 0;

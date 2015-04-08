@@ -83,13 +83,16 @@
     };
 
     Terrain.prototype.splat = function() {
-      var a, b, material;
-      a = new THREE.ImageUtils.loadTexture('cloud.png');
-      a.wrapS = a.wrapT = THREE.RepeatWrapping;
-      a.repeat.set(64, 64);
-      b = new THREE.ImageUtils.loadTexture('water.jpg');
-      b.wrapS = b.wrapT = THREE.RepeatWrapping;
-      b.repeat.set(64, 64);
+
+      /*a = new THREE.ImageUtils.loadTexture 'cloud.png'
+      		a.wrapS = a.wrapT = THREE.RepeatWrapping
+      		a.repeat.set 64, 64
+      
+      		b = new THREE.ImageUtils.loadTexture 'water.jpg'
+      		b.wrapS = b.wrapT = THREE.RepeatWrapping
+      		b.repeat.set 64, 64
+       */
+      var material;
       material = new THREE.ShaderMaterial({
         uniforms: {
           texturePlacement: {
@@ -102,15 +105,15 @@
           },
           mossTexture: {
             type: "t",
-            value: mw.textures['models/tx_bc_moss.tga']
+            value: mw.textures['tx_bc_moss.dds']
           },
           dirtTexture: {
             type: "t",
-            value: mw.textures['models/tx_bc_dirt.tga']
+            value: mw.textures['tx_bc_dirt.dds']
           },
           mudTexture: {
             type: "t",
-            value: mw.textures['models/tx_bc_mud.tga']
+            value: mw.textures['tx_bc_mud.dds']
           },
           fogColor: {
             type: "c",

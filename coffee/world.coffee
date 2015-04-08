@@ -27,27 +27,21 @@ class mw.World
 		@waterMoment = 0
 
 	doskybox: ->
-
-		#imagePrefix = "models/dawnmountain-";
-		#directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
-		#imageSuffix = ".png";
 		geometry = new THREE.CubeGeometry 8192*3, 8192*3, 8192
 		
-		loader = new THREE.TGALoader
-		loader.load 'models/tx_sky_clear.tga', (asd) ->
-			asd.wrapS = asd.wrapT = THREE.RepeatWrapping
-			#asd.repeat.set 1, 1
+		t = mw.textures['tx_sky_clear.dds']
+		t.repeat.set 1, 1
 
-			array = []
-			for i in [0..5]
-				array.push new THREE.MeshBasicMaterial
-					map: asd
-					side: THREE.BackSide
+		array = []
+		for i in [0..5]
+			array.push new THREE.MeshBasicMaterial
+				map: t
+				side: THREE.BackSide
 
-			material = new THREE.MeshFaceMaterial array
-			@skybox = new THREE.Mesh geometry, material
-			@skybox.position.set (mw.world.x * 8192) + 4096, (mw.world.y * 8192) + 4096, -255
-			mw.scene.add @skybox
+		material = new THREE.MeshFaceMaterial array
+		@skybox = new THREE.Mesh geometry, material
+		@skybox.position.set (@x * 8192) + 4096, (@y * 8192) + 4096, -255
+		mw.scene.add @skybox
 	
 		true
 
@@ -95,6 +89,8 @@ class mw.World
 		if mw.water
 			THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta
 
+		return
+
 		if mw.water
 			@waterMoment += mw.delta
 
@@ -102,7 +98,7 @@ class mw.World
 				#console.log 'yep'
 				@waterStep = if @waterStep < 30 then @waterStep + 1 else 0
 				
-				t = mw.textures["models/water#{@waterStep}.tga"]
+				t = mw.textures["water/water#{@waterStep}.dds"]
 				t.repeat.set 64, 64
 
 				mw.waterMaterial.map = t

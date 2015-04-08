@@ -2,7 +2,7 @@ root = exports ? this
 
 mw = root.mw =
 	gots: 0
-	gets: 2
+	gets: 3
 
 	keys: []
 	world: null
@@ -11,10 +11,11 @@ mw = root.mw =
 		{x: 1, y: 0}, {x: 0, y: 0}, {x:-1, y: 0},
 		{x: 1, y: 1}, {x: 0, y: 1}, {x:-1, y: 1}
 	]
-	preloads: [
-		'models/tx_bc_dirt.tga'
-		'models/tx_bc_moss.tga'
-		'models/tx_bc_mud.tga'
+	pretex: [ # most horrible name
+		'tx_sky_clear.dds'
+		'tx_bc_mud.dds'
+		'tx_bc_dirt.dds'
+		'tx_bc_moss.dds'
 	]
 	textures: []
 
@@ -60,15 +61,15 @@ mw.resources = ->
 	@vtex = new Image 672, 704
 	@vtex.src = 'vvardenfell-vtex3.bmp'
 
-	@preloads.push "models/water#{n}.tga" for n in [0..31]
+	@pretex.push "water/water#{n}.dds" for n in [0..31]
 
-	@gets += @preloads.length
+	@gets += @pretex.length
 
-	for f, i in @preloads
+	for f, i in @pretex
 		go = ->
 			a = f
-			loader = new THREE.TGALoader
-			loader.load a, (asd) ->
+			loader = new THREE.DDSLoader
+			loader.load "textures/#{f}", (asd) ->
 				asd.wrapS = asd.wrapT = THREE.RepeatWrapping
 				asd.repeat.set 64, 64
 				mw.textures[a] = asd

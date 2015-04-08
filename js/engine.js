@@ -25,7 +25,7 @@
     this.scene = new THREE.Scene;
     this.scene.fog = new THREE.Fog(0xefd1b5, 2500, 10000);
     this.scene.add(new THREE.AmbientLight(0x898ca0));
-    THREE.Loader.Handlers.add(/\.tga$/i, new THREE.TGALoader);
+    THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer;
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);

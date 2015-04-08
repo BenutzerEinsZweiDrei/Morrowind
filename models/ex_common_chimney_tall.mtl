@@ -5,7 +5,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wall_stone_01.tga
+map_Kd tx_wall_stone_01.dds
 
 
 newmtl Material.000067
@@ -14,7 +14,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_contain_box_metal_block.tga
+map_Kd tx_contain_box_metal_block.dds
 
 
 newmtl Material.0000bf
@@ -23,7 +23,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_stone_plain_01.tga
+map_Kd tx_stone_plain_01.dds
 
 
 newmtl Material.000107

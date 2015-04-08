@@ -46,7 +46,7 @@
 
 	"# Arrille's Tradehouse",
 	{
-	"model": "ex_common_house_tall_02",
+	"model": "ex_common_house_tall_02dds",
 	"x": -12136.000,
 	"y": -70368.000,
 	"z": 952.000,
@@ -150,6 +150,13 @@
 	"x": -11718.207,
 	"y": -70690.000,
 	"z": 349.794,
+	"r": 261.3
+	},
+	{
+	"model": "vurt_neentree",
+	"x": -11722.207,
+	"y": -71304.219,
+	"z": 334.438,
 	"r": 261.3
 	}
 ]
