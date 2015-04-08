@@ -71,6 +71,9 @@
       cb = function(object) {
         var c, i, j, len, m, ref;
         mw.models[model] = object;
+        if (model === 'ex_common_house_tall_02') {
+          console.log(object);
+        }
         ref = object.children;
         for (i = j = 0, len = ref.length; j < len; i = ++j) {
           c = ref[i];

@@ -65,17 +65,21 @@ class mw.World
 		@queue++
 		cb = (object) ->
 			mw.models[model] = object
+			console.log object if model is 'ex_common_house_tall_02'
+			
 			for c, i in object.children
 				#if not c.name
 					#c.visible = false
 
-				if c.material.map
-					c.material.map.needsUpdate = true
-					c.material.map.onUpdate = ->
+				if m = c.material.map
+					m.needsUpdate = true
+					m.repeat.y = -1
+					###c.material.map.onUpdate = ->
+						@repeat.y = -1
 						if @wrapS isnt THREE.RepeatWrapping or @wrapT isnt THREE.RepeatWrapping
 							@wrapS = THREE.RepeatWrapping
 							@wrapT = THREE.RepeatWrapping
-							@needsUpdate = true
+							@needsUpdate = true###
 			mw.world.cachcb()
 
 		# console.log loader
