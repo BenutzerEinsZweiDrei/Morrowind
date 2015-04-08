@@ -5,7 +5,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_wall_stuccostone_01.dds
+map_Kd ../textures/tx_wall_stuccostone_01.dds
 
 
 newmtl Material.000015
@@ -14,7 +14,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_thatch_01.dds
+map_Kd ../textures/tx_thatch_01.dds
 
 
 newmtl Material.0000c8
@@ -23,7 +23,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_wood_grey_planks_01.dds
+map_Kd ../textures/tx_wood_grey_planks_01.dds
 
 
 newmtl Material.00011f
@@ -32,7 +32,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_wood_brown_posts_02.dds
+map_Kd ../textures/tx_wood_brown_posts_02.dds
 
 
 newmtl Material.0004b9
@@ -41,7 +41,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_wall_stone_01.dds
+map_Kd ../textures/tx_wall_stone_01.dds
 
 
 newmtl Material.0004dd
@@ -50,7 +50,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_wall_brick_imp_01.dds
+map_Kd ../textures/tx_wall_brick_imp_01.dds
 
 
 newmtl Material.0004ff
@@ -59,7 +59,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_stucco_imp_02.dds
+map_Kd ../textures/tx_stucco_imp_02.dds
 
 
 newmtl Material.00051b
@@ -68,7 +68,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_wall_stuccostone_el_01.dds
+map_Kd ../textures/tx_wall_stuccostone_el_01.dds
 
 
 newmtl Material.00052b
@@ -77,7 +77,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd textures\tx_wall_stuccostone_er_01.dds
+map_Kd ../textures/tx_wall_stuccostone_er_01.dds
 
 
 newmtl Material.00053b

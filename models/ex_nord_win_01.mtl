@@ -5,7 +5,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_wood_brown_posts_02.tga
+map_Kd ../textures/tx_wood_brown_posts_02.dds
 
 
 newmtl Material.000005
@@ -14,7 +14,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_metal_strip_01.tga
+map_Kd ../textures/tx_metal_strip_01.dds
 
 
 newmtl Material.00001d
@@ -23,7 +23,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_stone_plain_01.tga
+map_Kd ../textures/tx_stone_plain_01.dds
 
 
 newmtl Material.0000ce
@@ -32,7 +32,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_hinge_01.tga
+map_Kd ../textures/tx_hinge_01.dds
 
 
 newmtl Material.0000e2

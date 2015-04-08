@@ -5,7 +5,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_bark_05.tga
+map_Kd ../textures/tx_bark_05.dds
 
 
 newmtl Material.0001a3
@@ -14,7 +14,7 @@ Kd 1 1 1
 Ks 0 0 0
 d 1
 Ns 0
-map_Kd tx_treering_wg_01.tga
+map_Kd ../textures/tx_treering_wg_01.dds
 
 
 newmtl Material.0001da
