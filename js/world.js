@@ -77,6 +77,7 @@
           if (c.material.map) {
             c.material.map.needsUpdate = true;
             c.material.map.onUpdate = function() {
+              this.repeat.y = -1;
               if (this.wrapS !== THREE.RepeatWrapping || this.wrapT !== THREE.RepeatWrapping) {
                 this.wrapS = THREE.RepeatWrapping;
                 this.wrapT = THREE.RepeatWrapping;
