@@ -34,10 +34,10 @@ mw.boot = () ->
 	# neutral 0x777777
 	@scene.add new THREE.AmbientLight 0x898ca0
 	
-	#@sun =
-	#directionalLight = new THREE.DirectionalLight 0xffeedd
-	#directionalLight.position.set( 0, -0.25, 1 ).normalize()
-	#@scene.add directionalLight
+	@sun =
+	directionalLight = new THREE.DirectionalLight 0xffeedd
+	directionalLight.position.set( 0, -0.25, 1 ).normalize()
+	@scene.add directionalLight
 
 	# model
 

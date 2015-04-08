@@ -13,7 +13,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var container;
+    var container, directionalLight;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000000);
@@ -25,6 +25,9 @@
     this.scene = new THREE.Scene;
     this.scene.fog = new THREE.Fog(0xefd1b5, 2500, 10000);
     this.scene.add(new THREE.AmbientLight(0x898ca0));
+    this.sun = directionalLight = new THREE.DirectionalLight(0xffeedd);
+    directionalLight.position.set(0, -0.25, 1).normalize();
+    this.scene.add(directionalLight);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer;
     this.renderer.setPixelRatio(window.devicePixelRatio);

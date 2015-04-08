@@ -69,21 +69,22 @@
       var cb, loader;
       this.queue++;
       cb = function(object) {
-        var c, i, j, len, ref;
+        var c, i, j, len, m, ref;
         mw.models[model] = object;
         ref = object.children;
         for (i = j = 0, len = ref.length; j < len; i = ++j) {
           c = ref[i];
-          if (c.material.map) {
-            c.material.map.needsUpdate = true;
-            c.material.map.onUpdate = function() {
-              this.repeat.y = -1;
-              if (this.wrapS !== THREE.RepeatWrapping || this.wrapT !== THREE.RepeatWrapping) {
-                this.wrapS = THREE.RepeatWrapping;
-                this.wrapT = THREE.RepeatWrapping;
-                return this.needsUpdate = true;
-              }
-            };
+          if (m = c.material.map) {
+            m.needsUpdate = true;
+            m.repeat.y = -1;
+
+            /*c.material.map.onUpdate = ->
+            						@repeat.y = -1
+            						if @wrapS isnt THREE.RepeatWrapping or @wrapT isnt THREE.RepeatWrapping
+            							@wrapS = THREE.RepeatWrapping
+            							@wrapT = THREE.RepeatWrapping
+            							@needsUpdate = true
+             */
           }
         }
         return mw.world.cachcb();
