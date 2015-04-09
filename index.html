@@ -187,43 +187,49 @@ void main()
 		vec3 c = vec3(0.0);
 	}*/
 
-	float x = floor( uv1.x * 16.0 ) / 16.0;
-	float y = floor( uv1.y * 16.0 ) / 16.0;
+	float x = floor( uv1.x * 32.0 ) / 32.0;
+	float y = floor( uv1.y * 32.0 ) / 32.0;
 
-	if ( /*mapl.b == dirtb ||*/ mapl.b == 1.0 )
+
+	if ( mapl.b == dirtb /* || mapl.b == 1.0 */ )
 	{
-		soil = vec3( texture2D(dirtTexture, vUv * 16.0 ) );
+		soil = vec3( texture2D(dirtTexture, vUv * 16.0) );
 		//vec4 soil2 = texture2D(mossTexture, vUv * 16.0 );
 		//vec4 soil3 = texture2D(mudTexture, vUv * 16.0 );
 		//soil = a
 
 	}
-
-	if ( mapl.b == dirtb)
+	else if ( mapl.b == mossb )
 	{
-		soil = vec3( texture2D(dirtTexture, vUv * 16.0 ) );
-		//vec4 soil2 = texture2D(mossTexture, vUv * 16.0 );
-		//vec4 soil3 = texture2D(mudTexture, vUv * 16.0 );
-		//soil = a
-
+		soil = vec3( texture2D(mossTexture, vUv * 16.0 ) );
+	}
+	else {
+		soil = map;
 	}
 
 	vec2 uav = uv1;
-	for(int i = 0; i <= 7; i++) {
+	for(int i = 0; i <= 9; i++) {
 		vec2 e = a[i];
 		//vec3 c = vec3(0.0);
 
-		uav.x = x + (e.x*0.0625) + 0.03125;
-		uav.y = y + (e.y*0.0625) + 0.03125;
+		uav.x = x + (e.x*0.03125) + 0.015625;
+		uav.y = y + (e.y*0.03125) + 0.015625;
 		vec3 m = vec3( texture2D(texturePlacementLinear, uav * 0.8888888888888889) );
 
-		if ( m.b == dirtb ) {
-			soil = 1.5 * soil;
+		//boolean 
+		//float n = 
+		//float nesw 
+
+		if ( m.b == mossb ) {
+			//float minn = min(dirtb, map.b);
+			//float maxx = max(dirtb, map.b);
+			//float d = abs(1.0-(maxx - minn));
+			float d = dirtb - map.b;
+			soil = mix(soil, vec3( texture2D(mossTexture, vUv * 16.0 )), 0.25);
+			//soil = 1.1 * soil;
 			//soil + vec3( texture2D(mossTexture, vUv * 16.0 ) );
 		}
 	}
-
-	
 
 	/*else if ( mapl.b == mossb )
 	{
@@ -238,7 +244,7 @@ void main()
 		soil = map;
 	}*/
 
-	color = /*vclr * soil*/ soil;
+	color = soil;
 
 	#ifdef USE_FOG
 
