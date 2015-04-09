@@ -188,28 +188,31 @@ void main()
 	float x = floor( uv1.x * 16.0 ) / 16.0;
 	float y = floor( uv1.y * 16.0 ) / 16.0;
 
-	if ( mapl.b == dirtb || mapl.b == 1.0 )
+	if ( /*mapl.b == dirtb ||*/ mapl.b == 1.0 )
 	{
 		soil = vec3( texture2D(dirtTexture, vUv * 16.0 ) );
 		//vec4 soil2 = texture2D(mossTexture, vUv * 16.0 );
 		//vec4 soil3 = texture2D(mudTexture, vUv * 16.0 );
 		//soil = a
-		vec2 uav = vec2(0.0);
-		for(int i = 0; i <= 7; i++) {
-			vec2 e = a[i];
-			vec3 c = vec3(0.0);
-
-			uav.x = (x + (e.x*0.0625)) + 0.03125;
-			uav.y = (y + (e.y*0.0625)) + 0.03125;
-			vec3 m = vec3( texture2D(texturePlacementLinear, uav * 0.8888888888888889) );
-
-			if ( m.b == mossb ) {
-				soil = vec3( texture2D(mossTexture, vUv * 16.0 ) );
-			}
-		}
 
 	}
-	else if ( mapl.b == mossb )
+	
+	vec2 uav = uv1;
+	for(int i = 0; i <= 7; i++) {
+		vec2 e = a[i];
+		//vec3 c = vec3(0.0);
+
+		uav.x = x;//(x + (e.x*0.0625)) + 0.03125;
+		uav.y = y;//(y + (e.y*0.0625)) + 0.03125;
+		vec3 m = vec3( texture2D(texturePlacementLinear, uv1 * 0.8888888888888889) );
+
+		if ( m.b == dirtb ) {
+			soil = vec3(1.0);
+			//soil + vec3( texture2D(mossTexture, vUv * 16.0 ) );
+		}
+	}
+
+	/*else if ( mapl.b == mossb )
 	{
 		soil = vec3( texture2D(mossTexture, vUv * 16.0 ) );
 	}
@@ -220,7 +223,7 @@ void main()
 	else
 	{
 		soil = map;
-	}
+	}*/
 
 	color = /*vclr * soil*/ soil;
 
