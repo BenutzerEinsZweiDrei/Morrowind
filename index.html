@@ -185,8 +185,8 @@ void main()
 		vec3 c = vec3(0.0);
 	}*/
 
-	float x = 1.0 / floor( uv1.x * 18.0 );
-	float y = 1.0 / floor( uv1.y * 18.0 );
+	float x = floor( uv1.x * 16.0 ) / 16.0;
+	float y = floor( uv1.y * 16.0 ) / 16.0;
 
 	if ( mapl.b == dirtb || mapl.b == 1.0 )
 	{
@@ -222,7 +222,7 @@ void main()
 		soil = map;
 	}
 
-	color = /*vclr * soil*/ mapl;//vclr * soil;
+	color = /*vclr * soil*/ soil;
 
 	#ifdef USE_FOG
 
