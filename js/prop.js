@@ -20,6 +20,9 @@
         console.log('TRANSPARENT');
         console.log(this.mesh);
       }
+      if (this.model === 'ex_common_house_tall_02') {
+        mw.target = this;
+      }
       mw.scene.add(this.mesh);
     }
 

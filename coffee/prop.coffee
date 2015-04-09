@@ -10,6 +10,8 @@ class mw.Prop
 
 		@mesh = mw.models[@model].clone()
 		@mesh.position.set @x, @y, @z
+		#@mesh.castShadow = true
+		#@mesh.receiveShadow = false
 		
 		@mesh.scale.set @scale, @scale, @scale if @scale
 		
@@ -18,5 +20,8 @@ class mw.Prop
 		if @transparent
 			console.log 'TRANSPARENT'
 			console.log @mesh
+
+		if @model is 'ex_common_house_tall_02'
+			mw.target = this
 
 		mw.scene.add @mesh

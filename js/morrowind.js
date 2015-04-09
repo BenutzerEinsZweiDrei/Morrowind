@@ -5,6 +5,7 @@
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
   mw = root.mw = {
+    freeze: false,
     gots: 0,
     gets: 3,
     keys: [],

@@ -99,9 +99,6 @@
 
     World.prototype.step = function() {
       var t;
-      if (mw.water) {
-        THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta;
-      }
       return;
       if (mw.water) {
         this.waterMoment += mw.delta;

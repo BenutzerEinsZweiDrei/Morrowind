@@ -9,8 +9,8 @@ class mw.Terrain
 
 		#console.log "mx #{mx}, my #{my}"
 
-		#@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
-		#@mesh.position.set mx, my, 0
+		@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
+		@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
 
@@ -48,7 +48,7 @@ class mw.Terrain
 			@geometry.vertices[i].z = h
 
 
-		#mw.scene.add @mesh
+		mw.scene.add @mesh
 
 		@mkground()
 
@@ -104,8 +104,8 @@ class mw.Terrain
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
-		#@vclr.magFilter = THREE.NearestFilter
-		#@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		@vclr.magFilter = THREE.NearestFilter
+		@vclr.minFilter = THREE.LinearMipMapLinearFilter
 
 		# TEXTURE PLACEMENT MAP
 		canvas = document.createElement 'canvas'
@@ -114,14 +114,21 @@ class mw.Terrain
 		canvas.height = 18
 		context = canvas.getContext '2d'
 
-		context.translate 0, 2
+		context.translate 1, 1
 		#context.scale 1, 1
 		context.drawImage mw.vtex, x/4, y/4
 		
 		@vtex = new THREE.Texture canvas
 		@vtex.needsUpdate = true
-		@vtex.magFilter = THREE.NearestFilter
-		@vtex.minFilter = THREE.LinearMipMapLinearFilter
+
+		@vtexl = new THREE.Texture canvas
+		@vtexl.needsUpdate = true
+		@vtexl.magFilter = THREE.NearestFilter
+		@vtexl.minFilter = THREE.LinearMipMapLinearFilter
+		document.body.appendChild canvas
+		if @x is -2 and @y is -9
+			console.log 'there'
+			$('canvas').css 'position', 'absolute'
 
 		#context.restore() # pop
 		#context.drawImage mw.vvardenfell, x, y
@@ -140,6 +147,7 @@ class mw.Terrain
 		material = new THREE.ShaderMaterial
 			uniforms:
 				texturePlacement:	{ type: "t", value: @vtex }
+				texturePlacementLinear:	{ type: "t", value: @vtexl }
 				vertexColour: 		{ type: "t", value: @vclr }
 
 				mossTexture: 		{ type: "t", value: mw.textures['tx_bc_moss.dds'] }

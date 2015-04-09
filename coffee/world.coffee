@@ -90,8 +90,10 @@ class mw.World
 
 	step: ->
 		
-		if mw.water
-			THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta
+		#if mw.water
+			#THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta
+
+			
 
 		return
 

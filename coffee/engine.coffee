@@ -32,12 +32,18 @@ mw.boot = () ->
 	# dawn 0x424a57
 	# day 0x898ca0
 	# neutral 0x777777
-	@scene.add new THREE.AmbientLight 0x898ca0
+	@scene.add new THREE.AmbientLight 0xffffff
 	
-	#@sun =
-	#directionalLight = new THREE.DirectionalLight 0xffeedd
-	#directionalLight.position.set( 0, -0.25, 1 ).normalize()
-	#@scene.add directionalLight
+	@sun = new THREE.SpotLight 0xffeedd
+	#@sun.shadowCameraNear 
+	@sun.castShadow = true
+	@sun.shadowDarkness = 0.5
+	@sun.shadowCameraVisible = true
+
+	@sun.target.position.set( -12722.207, -71304.219, 0 );
+	#@sun.position.set( -13722.207, -71304.219, 500 ) #.normalize()
+	@sun.shadowMapWidth = @sun.shadowMapHeight = 2048
+	#@scene.add @sun
 
 	# model
 
@@ -45,8 +51,13 @@ mw.boot = () ->
 	#THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
 	@renderer = new THREE.WebGLRenderer
+	#@renderer.shadowMapEnabled = true
+	#@renderer.shadowMapType = THREE.PCFSoftShadowMap;
+
 	@renderer.setPixelRatio window.devicePixelRatio
 	@renderer.setSize window.innerWidth, window.innerHeight
+	
+
 	container.appendChild @renderer.domElement
 
 	document.addEventListener 'mousemove', onDocumentMouseMove, false
@@ -83,23 +94,29 @@ mw.animate = () ->
 
 	mw.delta = mw.clock.getDelta()
 
-	mw.controls.update mw.delta
+	if not mw.freeze
+		mw.controls.update mw.delta
 
-	if mw.keys[114] is 1
-		if mw.minimap?
-			mw.minimap.dtor()
-			mw.minimap = null
-		else
-			mw.minimap = new mw.Minimap
+	if mw.keys[77] is 1
+		mw.freeze = ! mw.freeze
 
 	if mw.world
 		mw.world.step()
 
 	render.call mw
 
+	for k, i in mw.keys
+		if k
+			mw.keys[i] = 2
+
 	return
 
 render = ->
+
+	angle = Date.now()/200 * Math.PI;
+	@sun.position.x	= -13222.207 + (Math.cos(angle*-0.1)*600);
+	@sun.position.y	= -72304.219 + (Math.sin(angle*-0.1)*600);
+	@sun.position.z	= 800 + (Math.sin(angle*0.5)*100);
 
 	#@camera.position.x = -11699.271 + @mouseX
 	#@camera.position.y = -70396.516 + @mouseY

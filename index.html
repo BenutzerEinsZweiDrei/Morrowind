@@ -81,6 +81,7 @@ void main()
 
 <script id="splatFragmentShader" type="x-shader/x-vertex">
 uniform sampler2D texturePlacement;
+uniform sampler2D texturePlacementLinear;
 uniform sampler2D vertexColour;
 
 uniform sampler2D mossTexture;
@@ -130,6 +131,7 @@ vec4  whiteCompliment( in vec4 a )  { return saturate( vec4(1.0) - a ); }
 
 #endif
 
+
 void main()
 {
 
@@ -142,9 +144,10 @@ void main()
 	//vec3 color = vec3( 0.0 );
 
 	vec2 uv1 = vUv;
-	uv1.x = uv1.x - 0.0078125;
-	uv1.y = uv1.y + 0.0078125;
-	vec4 map = texture2D(texturePlacement, uv1 * 0.8888888888888889);
+	uv1.x = uv1.x + 0.0625;
+	uv1.y = uv1.y + 0.0625;
+	vec3 map = vec3( texture2D(texturePlacement, uv1 * 0.8888888888888889) );
+	vec3 mapl = vec3( texture2D(texturePlacementLinear, uv1 * 0.8888888888888889) );
 
 	vec2 uv2 = vUv;
 	uv2.x = uv2.x + 0.0078125;
@@ -154,7 +157,7 @@ void main()
 
 	//  0.9846153846153846 1.015625
 	vec3 color = vec3(0.0);
-	vec4 soil = vec4(0.0);
+	vec3 soil = vec3(0.0);
 
 	float dirtb = 0.8392156862745098;
 	float mossb = 0.9019607843137255;
@@ -171,27 +174,55 @@ void main()
 
 	//color = vec3(soil1);// + vec3(soil2) + vec3(soil3);
 
-	if ( map.b == dirtb )
+	
+	vec2 a[9]; // = float[2](1.2, 4.2);
+	a[0] = vec2(-1.0, -1.0); a[1] = vec2( 0.0, -1.0); a[2] = vec2(1.0, -1.0);
+	a[3] = vec2(-1.0,  0.0);/*a[1]= vec2( 0.0,0.0);*/ a[4] = vec2(1.0,  0.0);
+	a[5] = vec2(-1.0,  1.0); a[6] = vec2( 0.0,  1.0); a[7] = vec2(1.0,  1.0);
+
+	/*for(int i = 0; i <= 7; i++) {
+		vec2 e = a[i];
+		vec3 c = vec3(0.0);
+	}*/
+
+	float x = 1.0 / floor( uv1.x * 18.0 );
+	float y = 1.0 / floor( uv1.y * 18.0 );
+
+	if ( mapl.b == dirtb || mapl.b == 1.0 )
 	{
-		soil = texture2D(dirtTexture, vUv * 16.0 );
+		soil = vec3( texture2D(dirtTexture, vUv * 16.0 ) );
 		//vec4 soil2 = texture2D(mossTexture, vUv * 16.0 );
 		//vec4 soil3 = texture2D(mudTexture, vUv * 16.0 );
 		//soil = a
+		vec2 uav = vec2(0.0);
+		for(int i = 0; i <= 7; i++) {
+			vec2 e = a[i];
+			vec3 c = vec3(0.0);
+
+			uav.x = (x + (e.x*0.0625)) + 0.03125;
+			uav.y = (y + (e.y*0.0625)) + 0.03125;
+			vec3 m = vec3( texture2D(texturePlacementLinear, uav * 0.8888888888888889) );
+
+			if ( m.b == mossb ) {
+				soil = vec3( texture2D(mossTexture, vUv * 16.0 ) );
+			}
+		}
+
 	}
-	else if ( map.b == mossb )
+	else if ( mapl.b == mossb )
 	{
-		soil = texture2D(mossTexture, vUv * 16.0 );
+		soil = vec3( texture2D(mossTexture, vUv * 16.0 ) );
 	}
-	else if ( map.b == mudb )
+	else if ( mapl.b == mudb )
 	{
-		soil = texture2D(mudTexture, vUv * 8.0 );
+		soil = vec3( texture2D(mudTexture, vUv * 8.0 ) );
 	}
 	else
 	{
 		soil = map;
 	}
 
-	color = vclr * vec3(soil);
+	color = /*vclr * soil*/ mapl;//vclr * soil;
 
 	#ifdef USE_FOG
 
