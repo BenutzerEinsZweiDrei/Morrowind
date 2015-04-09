@@ -207,7 +207,23 @@ void main()
 		soil = map;
 	}
 
+	vec3 moss = vec3( texture2D(mossTexture, vUv * 16.0 ) );
+
 	vec2 uav = uv1;
+	int blends = 0;
+	for(int i = 0; i <= 9; i++) {
+		vec2 e = a[i];
+		//vec3 c = vec3(0.0);
+
+		uav.x = x + (e.x*0.03125) + 0.015625;
+		uav.y = y + (e.y*0.03125) + 0.015625;
+		vec3 m = vec3( texture2D(texturePlacementLinear, uav * 0.8888888888888889) );
+
+		if ( m.b != dirtb ) {
+			blends += 1;
+		}
+	}
+
 	for(int i = 0; i <= 9; i++) {
 		vec2 e = a[i];
 		//vec3 c = vec3(0.0);
@@ -219,13 +235,16 @@ void main()
 		//boolean 
 		//float n = 
 		//float nesw 
+		float M = 1.0 / float(blends);
 
 		if ( m.b == mossb ) {
-			//float minn = min(dirtb, map.b);
-			//float maxx = max(dirtb, map.b);
+			float minn = min(dirtb, mapl.b);
+			float maxx = max(dirtb, mapl.b);
 			//float d = abs(1.0-(maxx - minn));
-			float d = dirtb - map.b;
-			soil = mix(soil, vec3( texture2D(mossTexture, vUv * 16.0 )), 0.25);
+			float D = (dirtb - mapl.b);
+			float d = D / map.b;
+			soil = mix(soil, moss, M);
+			//soil = mapl * moss;
 			//soil = 1.1 * soil;
 			//soil + vec3( texture2D(mossTexture, vUv * 16.0 ) );
 		}
