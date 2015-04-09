@@ -6,6 +6,7 @@
       this.x = x1;
       this.y = y1;
       this.maps();
+      this.vtexmaps();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
@@ -77,18 +78,58 @@
       context = canvas.getContext('2d');
       context.translate(1, 1);
       context.drawImage(mw.vtex, x / 4, y / 4);
+      this.blues = context.getImageData(0, 0, 18, 18).data;
       this.vtex = new THREE.Texture(canvas);
       this.vtex.needsUpdate = true;
       this.vtexl = new THREE.Texture(canvas);
       this.vtexl.needsUpdate = true;
       this.vtexl.magFilter = THREE.NearestFilter;
       this.vtexl.minFilter = THREE.LinearMipMapLinearFilter;
-      document.body.appendChild(canvas);
-      if (this.x === -2 && this.y === -9) {
-        console.log('there');
-        $('canvas').css('position', 'absolute');
-      }
       return true;
+    };
+
+    Terrain.prototype.vtexmaps = function() {
+      var b, blues, canvas, color, context, data, i, j, k, l, len, len1, m, masks, n, ref, ref1, t, v;
+      masks = [];
+      blues = [];
+      for (i = j = 0, ref = this.blues.length / 4; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+        b = this.blues[(i * 4) + 2];
+        if (blues.indexOf(b) === -1) {
+          blues.push(b);
+        }
+      }
+      color = 3;
+      for (k = 0, len = blues.length; k < len; k++) {
+        b = blues[k];
+        if (++color === 4) {
+          canvas = document.createElement('canvas');
+          $(canvas).attr('mw', "cell " + this.x + ", " + this.y);
+          if (this.x === -2 && this.y === -9) {
+            document.body.appendChild(canvas);
+          }
+          context = canvas.getContext('2d');
+          canvas.width = 18;
+          canvas.height = 18;
+          color = 0;
+          data = context.createImageData(18, 18);
+          masks.push(canvas);
+        }
+        for (i = l = 0, ref1 = this.blues.length / 4; 0 <= ref1 ? l <= ref1 : l >= ref1; i = 0 <= ref1 ? ++l : --l) {
+          v = this.blues[(i * 4) + 2];
+          data.data[(i * 4) + color] = v === b ? 255 : 0;
+        }
+        console.log(data);
+        context.putImageData(data, 0, 0);
+      }
+      for (i = n = 0, len1 = masks.length; n < len1; i = ++n) {
+        m = masks[i];
+        t = new THREE.Texture(m);
+        t.needsUpdate = true;
+        masks[i] = t;
+        console.log(m);
+      }
+      console.log(blues.length + " blues for " + this.x + ", " + this.y);
+      return this.masks = masks;
     };
 
     Terrain.prototype.splat = function() {

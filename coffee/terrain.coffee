@@ -1,6 +1,7 @@
 class mw.Terrain
 	constructor: (@x, @y) ->
 		@maps()
+		@vtexmaps()
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
@@ -117,7 +118,8 @@ class mw.Terrain
 		context.translate 1, 1
 		#context.scale 1, 1
 		context.drawImage mw.vtex, x/4, y/4
-		
+
+		@blues = context.getImageData(0, 0, 18, 18).data;
 		@vtex = new THREE.Texture canvas
 		@vtex.needsUpdate = true
 
@@ -125,15 +127,68 @@ class mw.Terrain
 		@vtexl.needsUpdate = true
 		@vtexl.magFilter = THREE.NearestFilter
 		@vtexl.minFilter = THREE.LinearMipMapLinearFilter
-		document.body.appendChild canvas
-		if @x is -2 and @y is -9
-			console.log 'there'
-			$('canvas').css 'position', 'absolute'
+		
+		#document.body.appendChild canvas
+		#if @x is -2 and @y is -9
+		#	console.log 'there'
+		#	$('canvas').css 'position', 'absolute'
 
 		#context.restore() # pop
 		#context.drawImage mw.vvardenfell, x, y
 
 		true
+
+	vtexmaps: ->
+		#console.log @blues
+		#console.log @blues.length
+
+		masks = []
+
+		blues = []
+		for i in [0..@blues.length/4]
+			b = @blues[(i*4)+2]
+
+			if blues.indexOf(b) == -1
+				blues.push b
+		
+		color = 3
+		for b in blues
+
+			if ++color is 4
+				canvas = document.createElement 'canvas'
+				$(canvas).attr 'mw', "cell #{@x}, #{@y}"
+				document.body.appendChild canvas if @x is -2 and @y is -9
+				context = canvas.getContext '2d'
+				canvas.width = 18
+				canvas.height = 18
+				color = 0
+				data = context.createImageData 18, 18
+				#data = new Array 18*18*4
+				masks.push canvas
+
+			for i in [0..@blues.length/4]
+				v = @blues[(i*4)+2]
+				data.data[(i*4)+color] = if v is b then 255 else 0
+
+			console.log data
+			context.putImageData data, 0, 0
+
+		for m, i in masks
+			t = new THREE.Texture m
+			t.needsUpdate = true
+			masks[i] = t
+			console.log m
+
+
+		#for j in [0..16*16*4]
+		#	data.length/4
+
+		console.log "#{blues.length} blues for #{@x}, #{@y}"
+
+		@masks = masks
+		#@blues = blues
+
+		#console.log blues
 
 	splat: ->
 		###a = new THREE.ImageUtils.loadTexture 'cloud.png'
