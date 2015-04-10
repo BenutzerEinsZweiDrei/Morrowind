@@ -95,9 +95,9 @@ mw.watershed = ->
 		transparent: true
 		opacity: .7
 
-	@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@mirror.material, @waterMaterial]
-	#@water = new THREE.Mesh geometry, @mirror.material
-	@water.add @mirror
+	#@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@mirror.material, @waterMaterial]
+	@water = new THREE.Mesh geometry, @waterMaterial #@mirror.material
+	#@water.add @mirror
 
 	x = (mw.world.x * 8192) + 4096
 	y = (mw.world.y * 8192) + 4096

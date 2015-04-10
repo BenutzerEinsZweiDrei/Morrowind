@@ -8,8 +8,13 @@
       this.maps();
       this.soul();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
+      console.log(this.geometry);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
+      this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshBasicMaterial({
+        wireframe: true
+      }));
+      this.mesh.position.set(mx, my, 0);
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
@@ -31,12 +36,17 @@
         }
         this.geometry.vertices[i].z = h;
       }
+      mw.scene.add(this.mesh);
       this.mkground();
       true;
     }
 
     Terrain.prototype.mkground = function() {
-      this.ground = new THREE.Mesh(this.geometry, this.splat());
+      var m;
+      m = new THREE.MeshBasicMaterial({
+        map: mw.textures['tx_bc_mud.dds']
+      });
+      this.ground = new THREE.Mesh(this.geometry, m);
       this.ground.position.set(this.mx, this.my, 0);
       return mw.scene.add(this.ground);
     };
@@ -48,7 +58,7 @@
       canvas.width = 65;
       canvas.height = 65;
       context.save();
-      context.translate(0, 65);
+      context.translate(1, 65);
       context.scale(1, -1);
       x = -(18 + this.x) * 64;
       y = -(27 - this.y) * 64;
@@ -101,9 +111,6 @@
         if (++color === 4) {
           canvas = document.createElement('canvas');
           $(canvas).attr('mw', "cell " + this.x + ", " + this.y);
-          if (this.x === -2 && this.y === -9) {
-            document.body.appendChild(canvas);
-          }
           context = canvas.getContext('2d');
           canvas.width = 18;
           canvas.height = 18;

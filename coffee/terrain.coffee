@@ -4,14 +4,17 @@ class mw.Terrain
 		@soul()
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
+		console.log @geometry
+		
+		#@geometry.rotation.x = 90 *  Math.PI / 180 
 
 		@mx = mx = (@x * 8192) + 4096
 		@my = my = (@y * 8192) + 4096
 
 		#console.log "mx #{mx}, my #{my}"
 
-		#@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial map: @height, wireframe: true
-		#@mesh.position.set mx, my, 0
+		@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial wireframe: true #map: @height,
+		@mesh.position.set mx, my, 0
 
 		#console.log "at #{x}, #{y}"
 
@@ -49,14 +52,15 @@ class mw.Terrain
 			@geometry.vertices[i].z = h
 
 
-		#mw.scene.add @mesh
+		mw.scene.add @mesh
 
 		@mkground()
 
 		true
 
 	mkground: ->
-		@ground = new THREE.Mesh @geometry, @splat()
+		m = new THREE.MeshBasicMaterial map: mw.textures['tx_bc_mud.dds']
+		@ground = new THREE.Mesh @geometry, m
 		@ground.position.set @mx, @my, 0
 
 		mw.scene.add @ground
@@ -75,7 +79,7 @@ class mw.Terrain
 		canvas.height = 65
 
 		context.save() # push
-		context.translate 0, 65
+		context.translate 1, 65
 		context.scale 1, -1
 
 		x = -( 18 + @x ) *64
@@ -153,7 +157,7 @@ class mw.Terrain
 			if ++color is 4
 				canvas = document.createElement 'canvas'
 				$(canvas).attr 'mw', "cell #{@x}, #{@y}"
-				document.body.appendChild canvas if @x is -2 and @y is -9
+				#document.body.appendChild canvas if @x is -2 and @y is -9
 				context = canvas.getContext '2d'
 				canvas.width = 18
 				canvas.height = 18
