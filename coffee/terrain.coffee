@@ -3,14 +3,32 @@ class mw.Terrain
 		@maps()
 		@soul()
 
-		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64	
+		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 128, 128	
 
 		@mx = mx = (@x * 8192) + 4096
 		@my = my = (@y * 8192) + 4096
 
+		@patch = new THREE.Geometry
+		@patch.name = "patch"
+
 		@patches = new THREE.Geometry
-		@mesh = new THREE.Mesh @patches, new THREE.MeshBasicMaterial wireframe: true, transparent: true, opacity: .5 #map: @height,
+
+		material = new THREE.MeshBasicMaterial
+			wireframe: true
+			transparent: true
+			opacity: .5
+
+		@mesh = new THREE.Mesh @patch, material
 		@mesh.position.set mx, my, 500
+		mw.scene.add @mesh
+
+		defaultpatch =  new THREE.PlaneGeometry 256, 256, 2, 2
+		defaultpatch.name = "default"
+		@mesh2 = new THREE.Mesh defaultpatch, material
+		@mesh2.position.set mx- 512, my, 500
+		mw.scene.add @mesh2
+
+
 
 		###
 		mS = (new THREE.Matrix4()).identity();
@@ -23,19 +41,85 @@ class mw.Terrain
 		@geometry.applyMatrix(mS);
 		###
 
-
 		# create ground patch
-		patches = []
-		Neo = (new THREE.Matrix4()).identity();
+		array = [[0, 0], [0, -1], [-1, -1], [-1, 0]]
+		Neo = (new THREE.Matrix4()).identity()
+
+		@patch.vertices = [
+			new THREE.Vector3 0, 128, 0		# 0
+			new THREE.Vector3 128, 128, 0			# 1
+			new THREE.Vector3 0, 0, 0		# 2
+			new THREE.Vector3 128, 0, 0		# 3
+			new THREE.Vector3 0, -128, 0		# 4
+			new THREE.Vector3 0, 0, 0		# 5 (dupe)
+			new THREE.Vector3 128, -128, 0		# 6
+			new THREE.Vector3 128, 0, 0		# 7 (dupe)
+			new THREE.Vector3 0, -128, 0		# 8 (dupe)
+			new THREE.Vector3 -128, -128, 0		# 9
+			new THREE.Vector3 0, 0, 0		# 10 (dupe)
+			new THREE.Vector3 -128, 0, 0		# 11
+			new THREE.Vector3 0, 128, 0		# 12 (dupe)
+			new THREE.Vector3 0, 0, 0		# 13 (dupe)
+			new THREE.Vector3 -128, 128, 0		# 14
+			new THREE.Vector3 -128, 0, 0		# 15 (dupe)
+		]
+		@patch.faces = [
+			new THREE.Face3 0, 2, 1
+			new THREE.Face3 2, 3, 1
+			new THREE.Face3 4, 6, 5
+			new THREE.Face3 6, 7, 5
+			new THREE.Face3 8, 10, 9
+			new THREE.Face3 10, 11, 9
+			new THREE.Face3 12, 14, 13
+			new THREE.Face3 14, 15, 13
+		]
+		@patch.verticesNeedUpdate = true
+		@patch.elementsNeedUpdate = true
+		@patch.morphTargetsNeedUpdate = true
+		@patch.uvsNeedUpdate = true
+		@patch.normalsNeedUpdate = true
+		@patch.colorsNeedUpdate = true
+		@patch.tangentsNeedUpdate = true
+
+		###
 		for i in [0..3]
 			patch = new THREE.PlaneGeometry 128, 128, 1, 1
-			#Neo.makeTranslation 1, 1, 1
-			Neo.makeRotationZ 90 * Math.PI / 180
 
-			patch.applyMatrix(Neo);
+			r = (i*90) * Math.PI / 180
 
-			#patches.push patch
-			@patches.merge patch
+			Neo.makeRotationZ r
+
+			patch.applyMatrix Neo
+
+			j = i #Math.abs i-3
+
+			for i in [0..patch.vertices.length-1]
+				patch.vertices[i].x = patch.vertices[i].x + (array[j][0]*128)
+				patch.vertices[i].y = patch.vertices[i].y + (array[j][1]*128)
+
+			@patch.merge patch
+		###
+
+		for y in [0..31]
+			for x in [0..31]
+				g = @patch.clone()
+				for i in [0..g.vertices.length-1]
+					g.vertices[i].x += (x-16) * 256
+					g.vertices[i].y += (y-16) * 256
+
+				@patches.merge g
+
+		if @x is -2 and @y is -9
+
+			console.log 'original:'
+			console.log defaultpatch.vertices
+			#console.log @geometry.vertices
+
+			@geometry = @patches
+
+			console.log 'patches:'
+			console.log @patch.vertices
+			#console.log @patches.vertices
 
 		#for i in [0..@geometry.vertices.length-1]
 			#@geometry.vertices[i].x = -@geometry.vertices[i].x
@@ -50,12 +134,12 @@ class mw.Terrain
 			x = @geometry.vertices[i].x
 			y = @geometry.vertices[i].y
 
-			px = ((4096+x)/64)
+			px = ((4096+x)/128)
 			px /= 2
-			py = ((4096+y)/64)
+			py = ((4096+y)/128)
 			py /= 2
 
-			#if px is 64 or py is 64
+			#if px is 128 or py is 128
 				#console.log 'continuing'
 				#continue
 
@@ -79,15 +163,13 @@ class mw.Terrain
 			@geometry.vertices[i].z = h
 
 
-		mw.scene.add @mesh
-
 		@mkground()
 
 		true
 
 	mkground: ->
 		m = new THREE.MeshBasicMaterial side: THREE.DoubleSide, map: mw.textures['tx_bc_mud.dds']
-		@ground = new THREE.Mesh @geometry, m
+		@ground = new THREE.Mesh @geometry, @splat()
 		@ground.position.set @mx, @my, 0
 
 		mw.scene.add @ground
@@ -109,9 +191,9 @@ class mw.Terrain
 		context.translate 1, 65
 		context.scale 1, -1
 
-		x = -( 18 + @x ) *64
-		y = -( 27 - @y ) *64
-		#y -= 64
+		x = -( 18 + @x ) *128
+		y = -( 27 - @y ) *128
+		#y -= 128
 		context.drawImage mw.vvardenfell, x, y
 
 		# console.log "#{@x}, #{@y} is #{x}, #{y}"
@@ -179,7 +261,7 @@ class mw.Terrain
 		color = 3
 		for b in blues
 			@textures.push mw.textures[mw.blues[b]] if mw.blues[b]
-			console.log "#{b} is #{mw.blues[b]}"
+			#console.log "#{b} is #{mw.blues[b]}"
 
 			if ++color is 4
 				canvas = document.createElement 'canvas'
@@ -206,23 +288,23 @@ class mw.Terrain
 			t.needsUpdate = true
 			@masks[i] = t
 
-		console.log "#{blues.length} blues for #{@x}, #{@y}"
+		#console.log "#{blues.length} blues for #{@x}, #{@y}"
 
 		@textures.pop() while @textures.length > 9
-		console.log "#{@textures.length} t length"
+		#console.log "#{@textures.length} t length"
 
 		true
 
 	splat: ->
 		###a = new THREE.ImageUtils.loadTexture 'cloud.png'
 		a.wrapS = a.wrapT = THREE.RepeatWrapping
-		a.repeat.set 64, 64
+		a.repeat.set 128, 128
 
 		b = new THREE.ImageUtils.loadTexture 'water.jpg'
 		b.wrapS = b.wrapT = THREE.RepeatWrapping
-		b.repeat.set 64, 64###
+		b.repeat.set 128, 128###
 
-		console.log @masks
+		#console.log @masks
 
 		material = new THREE.ShaderMaterial
 			uniforms:
