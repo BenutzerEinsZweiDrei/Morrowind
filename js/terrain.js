@@ -2,20 +2,41 @@
 (function() {
   mw.Terrain = (function() {
     function Terrain(x1, y1) {
-      var b, g, h, i, j, mx, my, p, px, py, r, ref, x, y;
+      var Neo, b, g, h, i, j, k, mx, my, p, patch, patches, px, py, r, ref, x, y;
       this.x = x1;
       this.y = y1;
       this.maps();
       this.soul();
       this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 64, 64);
-      console.log(this.geometry);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
-      this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshBasicMaterial({
-        wireframe: true
+      this.patches = new THREE.Geometry;
+      this.mesh = new THREE.Mesh(this.patches, new THREE.MeshBasicMaterial({
+        wireframe: true,
+        transparent: true,
+        opacity: .5
       }));
-      this.mesh.position.set(mx, my, 0);
-      for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      this.mesh.position.set(mx, my, 500);
+
+      /*
+      		mS = (new THREE.Matrix4()).identity();
+      		console.log mS
+      		#set -1 to the corresponding axis
+      		mS.elements[0] = -1;
+      		#mS.elements[5] = -1;
+      		mS.elements[10] = -1;
+      
+      		@geometry.applyMatrix(mS);
+       */
+      patches = [];
+      Neo = (new THREE.Matrix4()).identity();
+      for (i = j = 0; j <= 3; i = ++j) {
+        patch = new THREE.PlaneGeometry(128, 128, 1, 1);
+        Neo.makeRotationZ(90 * Math.PI / 180);
+        patch.applyMatrix(Neo);
+        this.patches.merge(patch);
+      }
+      for (i = k = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? k <= ref : k >= ref; i = 0 <= ref ? ++k : --k) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
         px = (4096 + x) / 64;
@@ -44,6 +65,7 @@
     Terrain.prototype.mkground = function() {
       var m;
       m = new THREE.MeshBasicMaterial({
+        side: THREE.DoubleSide,
         map: mw.textures['tx_bc_mud.dds']
       });
       this.ground = new THREE.Mesh(this.geometry, m);

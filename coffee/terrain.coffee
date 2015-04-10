@@ -3,20 +3,47 @@ class mw.Terrain
 		@maps()
 		@soul()
 
-		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
-		console.log @geometry
-		
-		#@geometry.rotation.x = 90 *  Math.PI / 180 
+		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64	
 
 		@mx = mx = (@x * 8192) + 4096
 		@my = my = (@y * 8192) + 4096
 
-		#console.log "mx #{mx}, my #{my}"
+		@patches = new THREE.Geometry
+		@mesh = new THREE.Mesh @patches, new THREE.MeshBasicMaterial wireframe: true, transparent: true, opacity: .5 #map: @height,
+		@mesh.position.set mx, my, 500
 
-		@mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial wireframe: true #map: @height,
-		@mesh.position.set mx, my, 0
+		###
+		mS = (new THREE.Matrix4()).identity();
+		console.log mS
+		#set -1 to the corresponding axis
+		mS.elements[0] = -1;
+		#mS.elements[5] = -1;
+		mS.elements[10] = -1;
 
-		#console.log "at #{x}, #{y}"
+		@geometry.applyMatrix(mS);
+		###
+
+
+		# create ground patch
+		patches = []
+		Neo = (new THREE.Matrix4()).identity();
+		for i in [0..3]
+			patch = new THREE.PlaneGeometry 128, 128, 1, 1
+			#Neo.makeTranslation 1, 1, 1
+			Neo.makeRotationZ 90 * Math.PI / 180
+
+			patch.applyMatrix(Neo);
+
+			#patches.push patch
+			@patches.merge patch
+
+		#for i in [0..@geometry.vertices.length-1]
+			#@geometry.vertices[i].x = -@geometry.vertices[i].x
+			#@geometry.vertices[i].y = -@geometry.vertices[i].y
+
+			
+			#mesh.applyMatrix(mS);
+			#object.applyMatrix(mS)
 
 		for i in [0..@geometry.vertices.length-1]
 
@@ -59,7 +86,7 @@ class mw.Terrain
 		true
 
 	mkground: ->
-		m = new THREE.MeshBasicMaterial map: mw.textures['tx_bc_mud.dds']
+		m = new THREE.MeshBasicMaterial side: THREE.DoubleSide, map: mw.textures['tx_bc_mud.dds']
 		@ground = new THREE.Mesh @geometry, m
 		@ground.position.set @mx, @my, 0
 
