@@ -201,8 +201,9 @@ void main()
 			p = M.a;
 		}
  		soil += vec3( c * vec4(p, p, p, 1.0) );
- 		//soil = mix(c, soil, p);
 	}
+
+	soil = vclr * soil; 
 
 	//vec4 M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
 	//float p = M.g;

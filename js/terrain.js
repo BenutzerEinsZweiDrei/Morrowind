@@ -70,8 +70,6 @@
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
-      this.vclr.magFilter = THREE.NearestFilter;
-      this.vclr.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
       canvas.width = 18;
       canvas.height = 18;

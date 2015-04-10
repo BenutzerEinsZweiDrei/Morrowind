@@ -1,7 +1,7 @@
 class mw.Terrain
 	constructor: (@x, @y) ->
 		@maps()
-		@vtexmaps()
+		@soul()
 
 		@geometry = new THREE.PlaneGeometry 4096*2, 4096*2, 64, 64
 
@@ -105,8 +105,8 @@ class mw.Terrain
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
-		@vclr.magFilter = THREE.NearestFilter
-		@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		#@vclr.magFilter = THREE.NearestFilter
+		#@vclr.minFilter = THREE.LinearMipMapLinearFilter
 
 		# TEXTURE PLACEMENT MAP
 		canvas = document.createElement 'canvas'
@@ -120,13 +120,6 @@ class mw.Terrain
 		context.drawImage mw.vtex, x/4, y/4
 
 		@blues = context.getImageData(0, 0, 18, 18).data;
-		@vtex = new THREE.Texture canvas
-		@vtex.needsUpdate = true
-
-		@vtexl = new THREE.Texture canvas
-		@vtexl.needsUpdate = true
-		@vtexl.magFilter = THREE.NearestFilter
-		@vtexl.minFilter = THREE.LinearMipMapLinearFilter
 		
 		#document.body.appendChild canvas
 		#if @x is -2 and @y is -9
@@ -138,11 +131,12 @@ class mw.Terrain
 
 		true
 
-	vtexmaps: ->
+	soul: ->
 		#console.log @blues
 		#console.log @blues.length
 
-		masks = []
+		@masks = []
+		@textures = []
 
 		blues = []
 		for i in [0..@blues.length/4]
@@ -153,6 +147,8 @@ class mw.Terrain
 		
 		color = 3
 		for b in blues
+			@textures.push mw.textures[mw.blues[b]] if mw.blues[b]
+			console.log "#{b} is #{mw.blues[b]}"
 
 			if ++color is 4
 				canvas = document.createElement 'canvas'
@@ -164,31 +160,27 @@ class mw.Terrain
 				color = 0
 				data = context.createImageData 18, 18
 				#data = new Array 18*18*4
-				masks.push canvas
+				@masks.push canvas
 
 			for i in [0..@blues.length/4]
 				v = @blues[(i*4)+2]
-				data.data[(i*4)+color] = if v is b then 255 else 0
+				data.data[(i*4)+color] = if v is b then 255 else 1
 
-			console.log data
 			context.putImageData data, 0, 0
 
-		for m, i in masks
+		#
+
+		for m, i in @masks
 			t = new THREE.Texture m
 			t.needsUpdate = true
-			masks[i] = t
-			console.log m
-
-
-		#for j in [0..16*16*4]
-		#	data.length/4
+			@masks[i] = t
 
 		console.log "#{blues.length} blues for #{@x}, #{@y}"
 
-		@masks = masks
-		#@blues = blues
+		@textures.pop() while @textures.length > 9
+		console.log "#{@textures.length} t length"
 
-		#console.log blues
+		true
 
 	splat: ->
 		###a = new THREE.ImageUtils.loadTexture 'cloud.png'
@@ -199,15 +191,15 @@ class mw.Terrain
 		b.wrapS = b.wrapT = THREE.RepeatWrapping
 		b.repeat.set 64, 64###
 
+		console.log @masks
+
 		material = new THREE.ShaderMaterial
 			uniforms:
-				texturePlacement:	{ type: "t", value: @vtex }
-				texturePlacementLinear:	{ type: "t", value: @vtexl }
 				vertexColour: 		{ type: "t", value: @vclr }
 
-				mossTexture: 		{ type: "t", value: mw.textures['tx_bc_moss.dds'] }
-				dirtTexture: 		{ type: "t", value: mw.textures['tx_bc_dirt.dds'] }
-				mudTexture: 		{ type: "t", value: mw.textures['tx_bc_mud.dds'] }
+				uTextures: 			{ type: "tv", value: @textures }
+				amount:				{ type: "i", value: @textures.length }
+				uMasks: 			{ type: "tv", value: @masks }
 
 				fogColor:			{ type: "c", value: mw.scene.fog.color }
 				fogDensity:			{ type: "f", value: mw.scene.fog.density }
@@ -220,5 +212,3 @@ class mw.Terrain
 			transparent: true
 
 		return material
-
-		true
