@@ -1,5 +1,3 @@
-stats = 0
-
 # this init is necessary or we corrupt the matrix
 mw.mouseX = 0
 mw.mouseY = 0
@@ -18,8 +16,8 @@ mw.boot = () ->
 
 
 	@controls = new THREE.FirstPersonControls @camera
-	@controls.movementSpeed = 200
-	@controls.lookSpeed = 0.1
+	@controls.movementSpeed = 1000
+	@controls.lookSpeed = 0.25
 
 	#@controls.object.lookAt new THREE.Vector3 -11812.294149667212, -70441.11573786382, 417.64573489132664
 
@@ -56,6 +54,11 @@ mw.boot = () ->
 
 	@renderer.setPixelRatio window.devicePixelRatio
 	@renderer.setSize window.innerWidth, window.innerHeight
+
+	@stats = new Stats()
+	@stats.domElement.style.position = 'absolute'
+	@stats.domElement.style.top = '0px'
+	container.appendChild @stats.domElement
 	
 
 	container.appendChild @renderer.domElement
@@ -104,6 +107,7 @@ mw.animate = () ->
 		mw.world.step()
 
 	render.call mw
+	mw.stats.update()
 
 	for k, i in mw.keys
 		if k

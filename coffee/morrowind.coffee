@@ -19,9 +19,9 @@ mw = root.mw =
 		'tx_bc_moss.dds'
 	]
 	blues: {
-		'247': 'tx_bc_mud.dds'
-		'214': 'tx_bc_dirt.dds'
 		'230': 'tx_bc_moss.dds'
+		'214': 'tx_bc_dirt.dds'
+		'247': 'tx_bc_mud.dds'
 		'58': 'tx_bc_moss.dds'
 		'16': 'tx_bc_dirt.dds'
 		'25': 'tx_bc_mud.dds'

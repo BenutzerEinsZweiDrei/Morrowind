@@ -13,7 +13,7 @@ class mw.World
 		#if mw.models
 		#	true
 		
-		@doskybox()
+		#@doskybox()
 
 		@props = []
 		@cached = 0
@@ -58,28 +58,26 @@ class mw.World
 				@props.push new mw.Prop p
 
 		mw.watershed.call mw
-
 		true
 
 	cache: (model) ->
 		@queue++
 		cb = (object) ->
 			mw.models[model] = object
-			console.log object if model is 'ex_common_house_tall_02'
+			console.log object if model is 'vurt_neentree'
 			
 			for c, i in object.children
 				#if not c.name
 					#c.visible = false
 
+				c.material.transparent = true
+				c.material.alphaTest = 0.5 # fixes all my problems
+				#c.material.depthWrite = false
+				#c.material.depthTest = false
+
 				if m = c.material.map
 					m.needsUpdate = true
 					m.repeat.y = -1
-					###c.material.map.onUpdate = ->
-						@repeat.y = -1
-						if @wrapS isnt THREE.RepeatWrapping or @wrapT isnt THREE.RepeatWrapping
-							@wrapS = THREE.RepeatWrapping
-							@wrapT = THREE.RepeatWrapping
-							@needsUpdate = true###
 			mw.world.cachcb()
 
 		# console.log loader
@@ -92,10 +90,6 @@ class mw.World
 		
 		#if mw.water
 			#THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta
-
-			
-
-		return
 
 		if mw.water
 			@waterMoment += mw.delta

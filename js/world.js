@@ -10,7 +10,6 @@
       for (i = j = 0; j <= 8; i = ++j) {
         this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
       }
-      this.doskybox();
       this.props = [];
       this.cached = 0;
       this.queue = 0;
@@ -71,23 +70,17 @@
       cb = function(object) {
         var c, i, j, len, m, ref;
         mw.models[model] = object;
-        if (model === 'ex_common_house_tall_02') {
+        if (model === 'vurt_neentree') {
           console.log(object);
         }
         ref = object.children;
         for (i = j = 0, len = ref.length; j < len; i = ++j) {
           c = ref[i];
+          c.material.transparent = true;
+          c.material.alphaTest = 0.5;
           if (m = c.material.map) {
             m.needsUpdate = true;
             m.repeat.y = -1;
-
-            /*c.material.map.onUpdate = ->
-            						@repeat.y = -1
-            						if @wrapS isnt THREE.RepeatWrapping or @wrapT isnt THREE.RepeatWrapping
-            							@wrapS = THREE.RepeatWrapping
-            							@wrapT = THREE.RepeatWrapping
-            							@needsUpdate = true
-             */
           }
         }
         return mw.world.cachcb();
@@ -99,7 +92,6 @@
 
     World.prototype.step = function() {
       var t;
-      return;
       if (mw.water) {
         this.waterMoment += mw.delta;
         if (this.waterMoment >= 0.08) {

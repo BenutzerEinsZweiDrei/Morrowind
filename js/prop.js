@@ -26,6 +26,10 @@
       mw.scene.add(this.mesh);
     }
 
+    Prop.prototype.step = function() {
+      return true;
+    };
+
     return Prop;
 
   })();

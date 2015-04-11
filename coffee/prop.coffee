@@ -10,6 +10,7 @@ class mw.Prop
 
 		@mesh = mw.models[@model].clone()
 		@mesh.position.set @x, @y, @z
+
 		#@mesh.castShadow = true
 		#@mesh.receiveShadow = false
 		
@@ -25,3 +26,7 @@ class mw.Prop
 			mw.target = this
 
 		mw.scene.add @mesh
+
+	step: ->
+
+		true

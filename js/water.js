@@ -78,18 +78,19 @@
     THREE.ShaderLib['mirror'].vertexShader = "uniform mat4 textureMatrix; varying vec4 mirrorCoord; varying vec2 vUv; void main() { vUv = uv; vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 ); vec4 worldPosition = modelMatrix * vec4( position, 1.0 ); mirrorCoord = textureMatrix * worldPosition; gl_Position = projectionMatrix * mvPosition; }";
     this.mirror = new THREE.Mirror(mw.renderer, mw.camera, {
       clipBias: 0.0025,
-      textureWidth: 1024,
-      textureHeight: 1024,
+      textureWidth: window.innerWidth,
+      textureHeight: window.innerHeight,
       color: 0x777777
     });
     this.mirror.material.transparent = true;
-    geometry = new THREE.PlaneGeometry(8192, 8192);
+    geometry = new THREE.PlaneGeometry(8192 * 3, 8192 * 3);
     this.waterMaterial = new THREE.MeshLambertMaterial({
       map: mw.textures['water/water0.dds'],
       transparent: true,
-      opacity: .7
+      opacity: .5
     });
-    this.water = new THREE.Mesh(geometry, this.waterMaterial);
+    this.water = THREE.SceneUtils.createMultiMaterialObject(geometry, [this.waterMaterial, this.mirror.material]);
+    this.water.add(this.mirror);
     x = (mw.world.x * 8192) + 4096;
     y = (mw.world.y * 8192) + 4096;
     this.water.position.set(x, y, 1);

@@ -84,20 +84,24 @@ mw.watershed = ->
 	}
 	"
 
-	@mirror = new THREE.Mirror mw.renderer, mw.camera, clipBias: 0.0025, textureWidth: 1024, textureHeight: 1024, color: 0x777777
+	@mirror = new THREE.Mirror mw.renderer, mw.camera,
+			clipBias: 0.0025,
+			textureWidth: window.innerWidth,
+			textureHeight: window.innerHeight,
+			color: 0x777777
 	@mirror.material.transparent = true
 	#@mirror.material.uniforms['uOpacity'].value = .5
 
-	geometry = new THREE.PlaneGeometry 8192, 8192
+	geometry = new THREE.PlaneGeometry 8192*3, 8192*3
 
 	@waterMaterial = new THREE.MeshLambertMaterial
 		map: mw.textures['water/water0.dds']
 		transparent: true
-		opacity: .7
+		opacity: .5
 
-	#@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@mirror.material, @waterMaterial]
-	@water = new THREE.Mesh geometry, @waterMaterial #@mirror.material
-	#@water.add @mirror
+	@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@waterMaterial, @mirror.material]
+	#@water = new THREE.Mesh geometry, @mirror.material
+	@water.add @mirror
 
 	x = (mw.world.x * 8192) + 4096
 	y = (mw.world.y * 8192) + 4096
