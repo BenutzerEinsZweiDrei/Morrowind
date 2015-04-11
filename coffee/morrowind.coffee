@@ -63,13 +63,13 @@ document.onkeydown = document.onkeyup = (event) ->
 
 mw.resources = ->
 	@vvardenfell = new Image 2688, 2816
-	@vvardenfell.src = 'vvardenfell.bmp'
+	@vvardenfell.src = 'textures/vvardenfell.bmp'
 
 	@vclr = new Image 2688, 2816
-	@vclr.src = 'vvardenfell-vclr.bmp'
+	@vclr.src = 'textures/vvardenfell-vclr.bmp'
 
 	@vtex = new Image 672, 704
-	@vtex.src = 'vvardenfell-vtex3.bmp'
+	@vtex.src = 'textures/vvardenfell-vtex3.bmp'
 
 	@pretex.push "water/water#{n}.dds" for n in [0..31]
 

@@ -89,11 +89,11 @@
   mw.resources = function() {
     var f, go, i, j, l, len, n, ref;
     this.vvardenfell = new Image(2688, 2816);
-    this.vvardenfell.src = 'vvardenfell.bmp';
+    this.vvardenfell.src = 'textures/vvardenfell.bmp';
     this.vclr = new Image(2688, 2816);
-    this.vclr.src = 'vvardenfell-vclr.bmp';
+    this.vclr.src = 'textures/vvardenfell-vclr.bmp';
     this.vtex = new Image(672, 704);
-    this.vtex.src = 'vvardenfell-vtex3.bmp';
+    this.vtex.src = 'textures/vvardenfell-vtex3.bmp';
     for (n = j = 0; j <= 31; n = ++j) {
       this.pretex.push("water/water" + n + ".dds");
     }
