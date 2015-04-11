@@ -2,43 +2,15 @@
 (function() {
   mw.Terrain = (function() {
     function Terrain(x1, y1) {
-      var Neo, array, b, defaultpatch, g, h, i, j, k, l, material, mx, my, n, p, px, py, r, ref, ref1, x, y;
+      var b, g, h, i, j, k, l, mS, mesh, mx, my, n, p, px, py, r, ref, ref1, x, y;
       this.x = x1;
       this.y = y1;
       this.maps();
       this.soul();
-      this.geometry = new THREE.PlaneGeometry(4096 * 2, 4096 * 2, 128, 128);
+      this.geometry = new THREE.PlaneGeometry(8192, 8192, 64, 64);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
       this.patch = new THREE.Geometry;
-      this.patch.name = "patch";
-      this.patches = new THREE.Geometry;
-      material = new THREE.MeshBasicMaterial({
-        wireframe: true,
-        transparent: true,
-        opacity: .5
-      });
-      this.mesh = new THREE.Mesh(this.patch, material);
-      this.mesh.position.set(mx, my, 500);
-      mw.scene.add(this.mesh);
-      defaultpatch = new THREE.PlaneGeometry(256, 256, 2, 2);
-      defaultpatch.name = "default";
-      this.mesh2 = new THREE.Mesh(defaultpatch, material);
-      this.mesh2.position.set(mx - 512, my, 500);
-      mw.scene.add(this.mesh2);
-
-      /*
-      		mS = (new THREE.Matrix4()).identity();
-      		console.log mS
-      		#set -1 to the corresponding axis
-      		mS.elements[0] = -1;
-      		#mS.elements[5] = -1;
-      		mS.elements[10] = -1;
-      
-      		@geometry.applyMatrix(mS);
-       */
-      array = [[0, 0], [0, -1], [-1, -1], [-1, 0]];
-      Neo = (new THREE.Matrix4()).identity();
       this.patch.vertices = [new THREE.Vector3(0, 128, 0), new THREE.Vector3(128, 128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(128, 0, 0), new THREE.Vector3(0, -128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(128, -128, 0), new THREE.Vector3(128, 0, 0), new THREE.Vector3(0, -128, 0), new THREE.Vector3(-128, -128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(-128, 0, 0), new THREE.Vector3(0, 128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(-128, 128, 0), new THREE.Vector3(-128, 0, 0)];
       this.patch.faces = [new THREE.Face3(0, 2, 1), new THREE.Face3(2, 3, 1), new THREE.Face3(4, 6, 5), new THREE.Face3(6, 7, 5), new THREE.Face3(8, 10, 9), new THREE.Face3(10, 11, 9), new THREE.Face3(12, 14, 13), new THREE.Face3(14, 15, 13)];
       this.patch.verticesNeedUpdate = true;
@@ -50,6 +22,9 @@
       this.patch.tangentsNeedUpdate = true;
 
       /*
+      		 * create ground patch
+      		array = [[0, 0], [0, -1], [-1, -1], [-1, 0]]
+      		Neo = (new THREE.Matrix4()).identity()
       		for i in [0..3]
       			patch = new THREE.PlaneGeometry 128, 128, 1, 1
       
@@ -66,30 +41,43 @@
       				patch.vertices[i].y = patch.vertices[i].y + (array[j][1]*128)
       
       			@patch.merge patch
+      
+      		console.log @patch
        */
+      this.patches = new THREE.Geometry;
       for (y = j = 0; j <= 31; y = ++j) {
         for (x = k = 0; k <= 31; x = ++k) {
           g = this.patch.clone();
           for (i = l = 0, ref = g.vertices.length - 1; 0 <= ref ? l <= ref : l >= ref; i = 0 <= ref ? ++l : --l) {
-            g.vertices[i].x += (x - 16) * 256;
-            g.vertices[i].y += (y - 16) * 256;
+            g.vertices[i].x += ((x - 16) * 256) + 128;
+            g.vertices[i].y += ((y - 16) * 256) + 128;
           }
           this.patches.merge(g);
         }
       }
+      mw.assignUVs(this.patches);
       if (this.x === -2 && this.y === -9) {
-        console.log('original:');
-        console.log(defaultpatch.vertices);
         this.geometry = this.patches;
-        console.log('patches:');
-        console.log(this.patch.vertices);
+        mesh = new THREE.Mesh(this.geometry, new THREE.MeshBasicMaterial({
+          wireframe: true
+        }));
+        mesh.position.set(mx, my, 0);
+        mw.scene.add(mesh);
+      } else {
+        mS = (new THREE.Matrix4()).identity();
+        mS.elements[0] = -1;
+        mS.elements[10] = -1;
+        this.geometry.applyMatrix(mS);
+        mesh = new THREE.Mesh(this.geometry, mw.wireframe);
+        mesh.position.set(mx, my, 0);
+        mw.scene.add(mesh);
       }
       for (i = n = 0, ref1 = this.geometry.vertices.length - 1; 0 <= ref1 ? n <= ref1 : n >= ref1; i = 0 <= ref1 ? ++n : --n) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
-        px = (4096 + x) / 128;
+        px = (4096 + x) / 64;
         px /= 2;
-        py = (4096 + y) / 128;
+        py = (4096 + y) / 64;
         py /= 2;
         p = ((py * 65) + px) * 4;
         r = this.heights[p];
@@ -112,12 +100,12 @@
     Terrain.prototype.mkground = function() {
       var m;
       m = new THREE.MeshBasicMaterial({
-        side: THREE.DoubleSide,
         map: mw.textures['tx_bc_mud.dds']
       });
       this.ground = new THREE.Mesh(this.geometry, this.splat());
       this.ground.position.set(this.mx, this.my, 0);
-      return mw.scene.add(this.ground);
+      mw.scene.add(this.ground);
+      return true;
     };
 
     Terrain.prototype.maps = function() {
@@ -129,8 +117,8 @@
       context.save();
       context.translate(1, 65);
       context.scale(1, -1);
-      x = -(18 + this.x) * 128;
-      y = -(27 - this.y) * 128;
+      x = -(18 + this.x) * 64;
+      y = -(27 - this.y) * 64;
       context.drawImage(mw.vvardenfell, x, y);
       context.getImageData(0, 0, 65, 65);
       this.heights = context.getImageData(0, 0, 65, 65).data;
@@ -209,11 +197,11 @@
 
       /*a = new THREE.ImageUtils.loadTexture 'cloud.png'
       		a.wrapS = a.wrapT = THREE.RepeatWrapping
-      		a.repeat.set 128, 128
-      
+      		a.repeat.set 64, 64
+      		
       		b = new THREE.ImageUtils.loadTexture 'water.jpg'
       		b.wrapS = b.wrapT = THREE.RepeatWrapping
-      		b.repeat.set 128, 128
+      		b.repeat.set 64, 64
        */
       var material;
       material = new THREE.ShaderMaterial({
@@ -254,7 +242,8 @@
         vertexShader: document.getElementById('splatVertexShader').textContent,
         fragmentShader: document.getElementById('splatFragmentShader').textContent,
         fog: true,
-        transparent: true
+        transparent: true,
+        side: THREE.DoubleSide
       });
       return material;
     };

@@ -49,7 +49,12 @@
       '16': 'tx_bc_dirt.dds',
       '25': 'tx_bc_mud.dds'
     },
-    textures: []
+    textures: [],
+    wireframe: new THREE.MeshBasicMaterial({
+      wireframe: true,
+      transparent: true,
+      opacity: .5
+    })
   };
 
   $(document).ready(function() {

@@ -83,7 +83,7 @@
       color: 0x777777
     });
     this.mirror.material.transparent = true;
-    geometry = new THREE.PlaneGeometry(8192 * 3, 8192 * 3);
+    geometry = new THREE.PlaneGeometry(8192, 8192);
     this.waterMaterial = new THREE.MeshLambertMaterial({
       map: mw.textures['water/water0.dds'],
       transparent: true,
@@ -92,7 +92,7 @@
     this.water = new THREE.Mesh(geometry, this.waterMaterial);
     x = (mw.world.x * 8192) + 4096;
     y = (mw.world.y * 8192) + 4096;
-    this.water.position.set(x, y, 0);
+    this.water.position.set(x, y, 1);
     mw.scene.add(this.water);
     console.log('added water');
     return true;

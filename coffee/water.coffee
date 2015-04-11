@@ -88,7 +88,7 @@ mw.watershed = ->
 	@mirror.material.transparent = true
 	#@mirror.material.uniforms['uOpacity'].value = .5
 
-	geometry = new THREE.PlaneGeometry 8192*3, 8192*3
+	geometry = new THREE.PlaneGeometry 8192, 8192
 
 	@waterMaterial = new THREE.MeshLambertMaterial
 		map: mw.textures['water/water0.dds']
@@ -102,7 +102,7 @@ mw.watershed = ->
 	x = (mw.world.x * 8192) + 4096
 	y = (mw.world.y * 8192) + 4096
 
-	@water.position.set x, y, 0
+	@water.position.set x, y, 1
 
 	mw.scene.add @water
 

@@ -27,6 +27,7 @@ mw = root.mw =
 		'25': 'tx_bc_mud.dds'
 	}
 	textures: []
+	wireframe: new THREE.MeshBasicMaterial wireframe: true, transparent: true, opacity: .5
 
 
 $(document).ready ->

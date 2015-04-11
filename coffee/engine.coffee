@@ -18,8 +18,8 @@ mw.boot = () ->
 
 
 	@controls = new THREE.FirstPersonControls @camera
-	@controls.movementSpeed = 2000
-	@controls.lookSpeed = 0.5
+	@controls.movementSpeed = 200
+	@controls.lookSpeed = 0.1
 
 	#@controls.object.lookAt new THREE.Vector3 -11812.294149667212, -70441.11573786382, 417.64573489132664
 
