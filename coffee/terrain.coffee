@@ -85,10 +85,10 @@ class mw.Terrain
 
 			@geometry = @patches
 
-			mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial
+			###mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial
 				wireframe: true#, map: mw.textures['tx_bc_mud.dds']
 			mesh.position.set mx, my, 0
-			mw.scene.add mesh
+			mw.scene.add mesh###
 
 			#console.log 'patches:'
 			#console.log @patches.vertices
@@ -99,9 +99,9 @@ class mw.Terrain
 			mS.elements[10] = -1
 			@geometry.applyMatrix mS
 
-			mesh = new THREE.Mesh @geometry, mw.wireframe
+			###mesh = new THREE.Mesh @geometry, mw.wireframe
 			mesh.position.set mx, my, 0
-			mw.scene.add mesh
+			mw.scene.add mesh###
 
 		for i in [0..@geometry.vertices.length-1]
 
@@ -125,8 +125,39 @@ class mw.Terrain
 			if r is 255
 				@geometry.vertices[i].z = h
 				h = -(255-b) + (255*((g-255)/8))
-				262
-				h *= 
+			else if g
+				h = (255*(g/8))+b
+			else
+				h = b
+			
+			@geometry.vertices[i].z = h
+
+		# average
+
+		for i in [0..@geometry.vertices.length-1]
+
+			x = @geometry.vertices[i].x
+			y = @geometry.vertices[i].y
+
+
+
+			px = ((4096+x)/64)
+			px /= 2
+			py = ((4096+y)/64)
+			py /= 2
+
+			#console.log "#{px}, #{py} is #{x}, #{y}"
+
+			p = ((py*65)+px)*4
+			#p -= 1
+
+			r = @heights[p]
+			g = @heights[p+1]
+			b = @heights[p+2]
+
+			if r is 255
+				@geometry.vertices[i].z = h
+				h = -(255-b) + (255*((g-255)/8))
 			else if g
 				h = (255*(g/8))+b
 			else

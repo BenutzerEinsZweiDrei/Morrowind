@@ -2,7 +2,7 @@
 (function() {
   mw.Terrain = (function() {
     function Terrain(x1, y1) {
-      var b, g, h, i, j, k, l, mS, mesh, mx, my, n, p, px, py, r, ref, ref1, x, y;
+      var b, g, h, i, j, k, l, mS, mx, my, n, o, p, px, py, r, ref, ref1, ref2, x, y;
       this.x = x1;
       this.y = y1;
       this.maps();
@@ -58,21 +58,45 @@
       mw.assignUVs(this.patches);
       if (this.x === -2 && this.y === -9) {
         this.geometry = this.patches;
-        mesh = new THREE.Mesh(this.geometry, new THREE.MeshBasicMaterial({
-          wireframe: true
-        }));
-        mesh.position.set(mx, my, 0);
-        mw.scene.add(mesh);
+
+        /*mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial
+        				wireframe: true#, map: mw.textures['tx_bc_mud.dds']
+        			mesh.position.set mx, my, 0
+        			mw.scene.add mesh
+         */
       } else {
         mS = (new THREE.Matrix4()).identity();
         mS.elements[0] = -1;
         mS.elements[10] = -1;
         this.geometry.applyMatrix(mS);
-        mesh = new THREE.Mesh(this.geometry, mw.wireframe);
-        mesh.position.set(mx, my, 0);
-        mw.scene.add(mesh);
+
+        /*mesh = new THREE.Mesh @geometry, mw.wireframe
+        			mesh.position.set mx, my, 0
+        			mw.scene.add mesh
+         */
       }
       for (i = n = 0, ref1 = this.geometry.vertices.length - 1; 0 <= ref1 ? n <= ref1 : n >= ref1; i = 0 <= ref1 ? ++n : --n) {
+        x = this.geometry.vertices[i].x;
+        y = this.geometry.vertices[i].y;
+        px = (4096 + x) / 64;
+        px /= 2;
+        py = (4096 + y) / 64;
+        py /= 2;
+        p = ((py * 65) + px) * 4;
+        r = this.heights[p];
+        g = this.heights[p + 1];
+        b = this.heights[p + 2];
+        if (r === 255) {
+          this.geometry.vertices[i].z = h;
+          h = -(255 - b) + (255 * ((g - 255) / 8));
+        } else if (g) {
+          h = (255 * (g / 8)) + b;
+        } else {
+          h = b;
+        }
+        this.geometry.vertices[i].z = h;
+      }
+      for (i = o = 0, ref2 = this.geometry.vertices.length - 1; 0 <= ref2 ? o <= ref2 : o >= ref2; i = 0 <= ref2 ? ++o : --o) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
         px = (4096 + x) / 64;
@@ -198,7 +222,7 @@
       /*a = new THREE.ImageUtils.loadTexture 'cloud.png'
       		a.wrapS = a.wrapT = THREE.RepeatWrapping
       		a.repeat.set 64, 64
-      		
+      
       		b = new THREE.ImageUtils.loadTexture 'water.jpg'
       		b.wrapS = b.wrapT = THREE.RepeatWrapping
       		b.repeat.set 64, 64
