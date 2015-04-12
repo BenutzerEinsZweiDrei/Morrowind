@@ -3,35 +3,10 @@ class mw.Terrain
 		@maps()
 		@makemasks()
 
-		@geometry = new THREE.PlaneGeometry 8192, 8192, 64, 64
-		console.log @geometry.vertices.length
+		@geometry = mw.patches.clone()
 
 		@mx = mx = (@x * 8192) + 4096
 		@my = my = (@y * 8192) + 4096
-
-		@patches = mw.patches.clone()
-
-		if @x is -2 and @y is -9
-
-			@geometry = @patches
-
-			###mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial
-				wireframe: true#, map: mw.textures['tx_bc_mud.dds']
-			mesh.position.set mx, my, 0
-			mw.scene.add mesh###
-
-			#console.log 'patches:'
-			#console.log @patches.vertices
-		###else
-
-			mS = (new THREE.Matrix4()).identity()
-			mS.elements[0] = -1
-			mS.elements[10] = -1
-			@geometry.applyMatrix mS
-
-			mesh = new THREE.Mesh @geometry, mw.wireframe
-			mesh.position.set mx, my, 0
-			mw.scene.add mesh###
 
 		for i in [0..@geometry.vertices.length-1]
 

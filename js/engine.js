@@ -31,6 +31,7 @@
     this.sun.shadowMapWidth = this.sun.shadowMapHeight = 2048;
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer;
+    this.maxAnisotropy = this.renderer.getMaxAnisotropy();
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.stats = new Stats();

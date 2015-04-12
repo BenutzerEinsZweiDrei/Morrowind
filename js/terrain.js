@@ -7,32 +7,9 @@
       this.y = y1;
       this.maps();
       this.makemasks();
-      this.geometry = new THREE.PlaneGeometry(8192, 8192, 64, 64);
-      console.log(this.geometry.vertices.length);
+      this.geometry = mw.patches.clone();
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
-      this.patches = mw.patches.clone();
-      if (this.x === -2 && this.y === -9) {
-        this.geometry = this.patches;
-
-        /*mesh = new THREE.Mesh @geometry, new THREE.MeshBasicMaterial
-        				wireframe: true#, map: mw.textures['tx_bc_mud.dds']
-        			mesh.position.set mx, my, 0
-        			mw.scene.add mesh
-         */
-      }
-
-      /*else
-      
-      			mS = (new THREE.Matrix4()).identity()
-      			mS.elements[0] = -1
-      			mS.elements[10] = -1
-      			@geometry.applyMatrix mS
-      
-      			mesh = new THREE.Mesh @geometry, mw.wireframe
-      			mesh.position.set mx, my, 0
-      			mw.scene.add mesh
-       */
       for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;

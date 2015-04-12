@@ -49,6 +49,8 @@ mw.boot = () ->
 	#THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
 	@renderer = new THREE.WebGLRenderer
+
+	@maxAnisotropy = @renderer.getMaxAnisotropy()
 	#@renderer.shadowMapEnabled = true
 	#@renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
