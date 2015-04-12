@@ -171,8 +171,7 @@
         vertexShader: document.getElementById('splatVertexShader').textContent,
         fragmentShader: document.getElementById('splatFragmentShader').textContent,
         fog: true,
-        transparent: true,
-        side: THREE.DoubleSide
+        transparent: true
       });
       return material;
     };

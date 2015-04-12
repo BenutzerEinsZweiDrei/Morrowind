@@ -188,6 +188,6 @@ class mw.Terrain
 			fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
 			fog: true
 			transparent: true
-			side: THREE.DoubleSide
+			#side: THREE.DoubleSide
 
 		return material
