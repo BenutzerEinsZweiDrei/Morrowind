@@ -15,7 +15,30 @@
       v3 = geometry.vertices[faces[i].c];
       geometry.faceVertexUvs[0].push([new THREE.Vector2((v1.x + offset.x) / range.x, (v1.y + offset.y) / range.y), new THREE.Vector2((v2.x + offset.x) / range.x, (v2.y + offset.y) / range.y), new THREE.Vector2((v3.x + offset.x) / range.x, (v3.y + offset.y) / range.y)]);
     }
-    return geometry.uvsNeedUpdate = true;
+    geometry.uvsNeedUpdate = true;
+    return true;
+  };
+
+  mw.produceterrain = function() {
+    var g, i, j, k, l, ref, x, y;
+    this.patch = new THREE.Geometry;
+    this.patch.vertices = [new THREE.Vector3(0, 128, 0), new THREE.Vector3(128, 128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(128, 0, 0), new THREE.Vector3(0, -128, 0), new THREE.Vector3(128, -128, 0), new THREE.Vector3(-128, -128, 0), new THREE.Vector3(-128, 0, 0), new THREE.Vector3(-128, 128, 0)];
+    this.patch.faces = [new THREE.Face3(0, 2, 1), new THREE.Face3(2, 3, 1), new THREE.Face3(4, 5, 2), new THREE.Face3(5, 3, 2), new THREE.Face3(4, 2, 6), new THREE.Face3(2, 7, 6), new THREE.Face3(0, 8, 2), new THREE.Face3(8, 7, 2)];
+    this.patches = new THREE.Geometry;
+    for (y = j = 0; j <= 31; y = ++j) {
+      for (x = k = 0; k <= 31; x = ++k) {
+        g = this.patch.clone();
+        for (i = l = 0, ref = g.vertices.length - 1; 0 <= ref ? l <= ref : l >= ref; i = 0 <= ref ? ++l : --l) {
+          g.vertices[i].x += ((x - 16) * 256) + 128;
+          g.vertices[i].y += ((y - 16) * 256) + 128;
+        }
+        this.patches.merge(g);
+      }
+    }
+    this.patches.mergeVertices();
+    console.log(this.patches.vertices.length);
+    mw.assignUVs(this.patches);
+    return true;
   };
 
 }).call(this);

@@ -59,6 +59,7 @@
       'async': false
     });
     mw.boot.call(mw);
+    mw.produceterrain.call(mw);
     mw.resources.call(mw);
     return true;
   });

@@ -33,6 +33,8 @@ $(document).ready ->
 	
 	mw.boot.call mw
 
+	mw.produceterrain.call mw
+
 	mw.resources.call mw
 
 	true

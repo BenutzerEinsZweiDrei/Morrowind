@@ -4,82 +4,12 @@ class mw.Terrain
 		@makemasks()
 
 		@geometry = new THREE.PlaneGeometry 8192, 8192, 64, 64
+		console.log @geometry.vertices.length
 
 		@mx = mx = (@x * 8192) + 4096
 		@my = my = (@y * 8192) + 4096
 
-		@patch = new THREE.Geometry
-		@patch.vertices = [
-			new THREE.Vector3 0, 128, 0		# 0
-			new THREE.Vector3 128, 128, 0	# 1
-			new THREE.Vector3 0, 0, 0		# 2
-			new THREE.Vector3 128, 0, 0		# 3
-			new THREE.Vector3 0, -128, 0	# 4
-			new THREE.Vector3 0, 0, 0		# 5 (dupe)
-			new THREE.Vector3 128, -128, 0	# 6
-			new THREE.Vector3 128, 0, 0		# 7 (dupe)
-			new THREE.Vector3 0, -128, 0	# 8 (dupe)
-			new THREE.Vector3 -128, -128, 0	# 9
-			new THREE.Vector3 0, 0, 0		# 10 (dupe)
-			new THREE.Vector3 -128, 0, 0	# 11
-			new THREE.Vector3 0, 128, 0		# 12 (dupe)
-			new THREE.Vector3 0, 0, 0		# 13 (dupe)
-			new THREE.Vector3 -128, 128, 0	# 14
-			new THREE.Vector3 -128, 0, 0	# 15 (dupe)
-		]
-		@patch.faces = [
-			new THREE.Face3 0, 2, 1
-			new THREE.Face3 2, 3, 1
-			new THREE.Face3 4, 6, 5
-			new THREE.Face3 6, 7, 5
-			new THREE.Face3 8, 10, 9
-			new THREE.Face3 10, 11, 9
-			new THREE.Face3 12, 14, 13
-			new THREE.Face3 14, 15, 13
-		]
-		@patch.verticesNeedUpdate = true
-		@patch.elementsNeedUpdate = true
-		@patch.morphTargetsNeedUpdate = true
-		@patch.uvsNeedUpdate = true
-		@patch.normalsNeedUpdate = true
-		@patch.colorsNeedUpdate = true
-		@patch.tangentsNeedUpdate = true
-
-		###
-		# create ground patch
-		array = [[0, 0], [0, -1], [-1, -1], [-1, 0]]
-		Neo = (new THREE.Matrix4()).identity()
-		for i in [0..3]
-			patch = new THREE.PlaneGeometry 128, 128, 1, 1
-
-			r = (i*90) * Math.PI / 180
-
-			Neo.makeRotationZ r
-
-			patch.applyMatrix Neo
-
-			j = i #Math.abs i-3
-
-			for i in [0..patch.vertices.length-1]
-				patch.vertices[i].x = patch.vertices[i].x + (array[j][0]*128)
-				patch.vertices[i].y = patch.vertices[i].y + (array[j][1]*128)
-
-			@patch.merge patch
-
-		console.log @patch
-		###
-
-		@patches = new THREE.Geometry
-		for y in [0..31]
-			for x in [0..31]
-				g = @patch.clone()
-				for i in [0..g.vertices.length-1]
-					g.vertices[i].x += ((x-16) * 256) + 128
-					g.vertices[i].y += ((y-16) * 256) + 128
-
-				@patches.merge g
-
-		mw.assignUVs @patches
+		@patches = mw.patches.clone()
 
 		if @x is -2 and @y is -9
 
@@ -92,14 +22,14 @@ class mw.Terrain
 
 			#console.log 'patches:'
 			#console.log @patches.vertices
-		else
+		###else
 
 			mS = (new THREE.Matrix4()).identity()
 			mS.elements[0] = -1
 			mS.elements[10] = -1
 			@geometry.applyMatrix mS
 
-			###mesh = new THREE.Mesh @geometry, mw.wireframe
+			mesh = new THREE.Mesh @geometry, mw.wireframe
 			mesh.position.set mx, my, 0
 			mw.scene.add mesh###
 
@@ -107,39 +37,6 @@ class mw.Terrain
 
 			x = @geometry.vertices[i].x
 			y = @geometry.vertices[i].y
-
-			px = ((4096+x)/64)
-			px /= 2
-			py = ((4096+y)/64)
-			py /= 2
-
-			#console.log "#{px}, #{py} is #{x}, #{y}"
-
-			p = ((py*65)+px)*4
-			#p -= 1
-
-			r = @heights[p]
-			g = @heights[p+1]
-			b = @heights[p+2]
-
-			if r is 255
-				@geometry.vertices[i].z = h
-				h = -(255-b) + (255*((g-255)/8))
-			else if g
-				h = (255*(g/8))+b
-			else
-				h = b
-			
-			@geometry.vertices[i].z = h
-
-		# average
-
-		for i in [0..@geometry.vertices.length-1]
-
-			x = @geometry.vertices[i].x
-			y = @geometry.vertices[i].y
-
-
 
 			px = ((4096+x)/64)
 			px /= 2
@@ -182,12 +79,6 @@ class mw.Terrain
 
 	maps: ->
 
-		#document.body.appendChild canvas
-
-		#if @x is -2 and @y is -9
-			#console.log 'there'
-			#$('canvas').css 'position', 'absolute'
-
 		canvas = document.createElement 'canvas'
 		context = canvas.getContext '2d'
 		canvas.width = 65
@@ -214,7 +105,8 @@ class mw.Terrain
 		@height.magFilter = THREE.NearestFilter
 		@height.minFilter = THREE.LinearMipMapLinearFilter
 
-		# VERTEX COLOUR MAP
+		# vertex colour map
+
 		canvas = document.createElement 'canvas'
 		context = canvas.getContext '2d'
 		canvas.width = 65
@@ -227,7 +119,8 @@ class mw.Terrain
 		#@vclr.magFilter = THREE.NearestFilter
 		#@vclr.minFilter = THREE.LinearMipMapLinearFilter
 
-		# TEXTURE PLACEMENT MAP
+		# texture placement map
+
 		canvas = document.createElement 'canvas'
 		#document.body.appendChild canvas
 		canvas.width = 18
@@ -302,15 +195,6 @@ class mw.Terrain
 		true
 
 	splat: ->
-		###a = new THREE.ImageUtils.loadTexture 'cloud.png'
-		a.wrapS = a.wrapT = THREE.RepeatWrapping
-		a.repeat.set 64, 64
-
-		b = new THREE.ImageUtils.loadTexture 'water.jpg'
-		b.wrapS = b.wrapT = THREE.RepeatWrapping
-		b.repeat.set 64, 64###
-
-		#console.log @masks
 
 		material = new THREE.ShaderMaterial
 			uniforms:

@@ -2,60 +2,16 @@
 (function() {
   mw.Terrain = (function() {
     function Terrain(x1, y1) {
-      var b, g, h, i, j, k, l, mS, mx, my, n, o, p, px, py, r, ref, ref1, ref2, x, y;
+      var b, g, h, i, j, mx, my, p, px, py, r, ref, x, y;
       this.x = x1;
       this.y = y1;
       this.maps();
       this.makemasks();
       this.geometry = new THREE.PlaneGeometry(8192, 8192, 64, 64);
+      console.log(this.geometry.vertices.length);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
-      this.patch = new THREE.Geometry;
-      this.patch.vertices = [new THREE.Vector3(0, 128, 0), new THREE.Vector3(128, 128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(128, 0, 0), new THREE.Vector3(0, -128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(128, -128, 0), new THREE.Vector3(128, 0, 0), new THREE.Vector3(0, -128, 0), new THREE.Vector3(-128, -128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(-128, 0, 0), new THREE.Vector3(0, 128, 0), new THREE.Vector3(0, 0, 0), new THREE.Vector3(-128, 128, 0), new THREE.Vector3(-128, 0, 0)];
-      this.patch.faces = [new THREE.Face3(0, 2, 1), new THREE.Face3(2, 3, 1), new THREE.Face3(4, 6, 5), new THREE.Face3(6, 7, 5), new THREE.Face3(8, 10, 9), new THREE.Face3(10, 11, 9), new THREE.Face3(12, 14, 13), new THREE.Face3(14, 15, 13)];
-      this.patch.verticesNeedUpdate = true;
-      this.patch.elementsNeedUpdate = true;
-      this.patch.morphTargetsNeedUpdate = true;
-      this.patch.uvsNeedUpdate = true;
-      this.patch.normalsNeedUpdate = true;
-      this.patch.colorsNeedUpdate = true;
-      this.patch.tangentsNeedUpdate = true;
-
-      /*
-      		 * create ground patch
-      		array = [[0, 0], [0, -1], [-1, -1], [-1, 0]]
-      		Neo = (new THREE.Matrix4()).identity()
-      		for i in [0..3]
-      			patch = new THREE.PlaneGeometry 128, 128, 1, 1
-      
-      			r = (i*90) * Math.PI / 180
-      
-      			Neo.makeRotationZ r
-      
-      			patch.applyMatrix Neo
-      
-      			j = i #Math.abs i-3
-      
-      			for i in [0..patch.vertices.length-1]
-      				patch.vertices[i].x = patch.vertices[i].x + (array[j][0]*128)
-      				patch.vertices[i].y = patch.vertices[i].y + (array[j][1]*128)
-      
-      			@patch.merge patch
-      
-      		console.log @patch
-       */
-      this.patches = new THREE.Geometry;
-      for (y = j = 0; j <= 31; y = ++j) {
-        for (x = k = 0; k <= 31; x = ++k) {
-          g = this.patch.clone();
-          for (i = l = 0, ref = g.vertices.length - 1; 0 <= ref ? l <= ref : l >= ref; i = 0 <= ref ? ++l : --l) {
-            g.vertices[i].x += ((x - 16) * 256) + 128;
-            g.vertices[i].y += ((y - 16) * 256) + 128;
-          }
-          this.patches.merge(g);
-        }
-      }
-      mw.assignUVs(this.patches);
+      this.patches = mw.patches.clone();
       if (this.x === -2 && this.y === -9) {
         this.geometry = this.patches;
 
@@ -64,39 +20,20 @@
         			mesh.position.set mx, my, 0
         			mw.scene.add mesh
          */
-      } else {
-        mS = (new THREE.Matrix4()).identity();
-        mS.elements[0] = -1;
-        mS.elements[10] = -1;
-        this.geometry.applyMatrix(mS);
+      }
 
-        /*mesh = new THREE.Mesh @geometry, mw.wireframe
-        			mesh.position.set mx, my, 0
-        			mw.scene.add mesh
-         */
-      }
-      for (i = n = 0, ref1 = this.geometry.vertices.length - 1; 0 <= ref1 ? n <= ref1 : n >= ref1; i = 0 <= ref1 ? ++n : --n) {
-        x = this.geometry.vertices[i].x;
-        y = this.geometry.vertices[i].y;
-        px = (4096 + x) / 64;
-        px /= 2;
-        py = (4096 + y) / 64;
-        py /= 2;
-        p = ((py * 65) + px) * 4;
-        r = this.heights[p];
-        g = this.heights[p + 1];
-        b = this.heights[p + 2];
-        if (r === 255) {
-          this.geometry.vertices[i].z = h;
-          h = -(255 - b) + (255 * ((g - 255) / 8));
-        } else if (g) {
-          h = (255 * (g / 8)) + b;
-        } else {
-          h = b;
-        }
-        this.geometry.vertices[i].z = h;
-      }
-      for (i = o = 0, ref2 = this.geometry.vertices.length - 1; 0 <= ref2 ? o <= ref2 : o >= ref2; i = 0 <= ref2 ? ++o : --o) {
+      /*else
+      
+      			mS = (new THREE.Matrix4()).identity()
+      			mS.elements[0] = -1
+      			mS.elements[10] = -1
+      			@geometry.applyMatrix mS
+      
+      			mesh = new THREE.Mesh @geometry, mw.wireframe
+      			mesh.position.set mx, my, 0
+      			mw.scene.add mesh
+       */
+      for (i = j = 0, ref = this.geometry.vertices.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
         x = this.geometry.vertices[i].x;
         y = this.geometry.vertices[i].y;
         px = (4096 + x) / 64;
@@ -218,15 +155,6 @@
     };
 
     Terrain.prototype.splat = function() {
-
-      /*a = new THREE.ImageUtils.loadTexture 'cloud.png'
-      		a.wrapS = a.wrapT = THREE.RepeatWrapping
-      		a.repeat.set 64, 64
-      
-      		b = new THREE.ImageUtils.loadTexture 'water.jpg'
-      		b.wrapS = b.wrapT = THREE.RepeatWrapping
-      		b.repeat.set 64, 64
-       */
       var material;
       material = new THREE.ShaderMaterial({
         uniforms: {
