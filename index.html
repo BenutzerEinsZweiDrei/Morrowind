@@ -171,44 +171,45 @@ void main()
 	vec3 color = vec3(0.0);
 	vec3 soil = vec3(0.0);
 
-	for (int i = 0; i <= 4; i ++) {
+	for (int i = 0; i <= 9; i ++) {
+		if ( i < amount ) {
+			int m = int(floor(float(i)/3.0));
+			vec4 M = vec4(0.0);
+			float p = 0.0;
+			vec4 c = texture2D(uTextures[i], vUv * 16.0);
 
-		int m = int(floor(float(i)/3.0));
-		vec4 M = vec4(1.0);
-		float p = 0.0;
-		vec4 c = texture2D(uTextures[i], vUv * 16.0);
+			if ( m == 0 ) {
+				M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
+			}
+			else if ( m == 1) {
+				M = texture2D(uMasks[1], uv1 * 0.8888888888888889);
+			}
+			else if ( m == 2 ) {
+				M = texture2D(uMasks[2], uv1 * 0.8888888888888889);
+			}
 
-		if ( m == 0 ) {
-			M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
-		}
-		else if ( m == 1) {
-			M = texture2D(uMasks[1], uv1 * 0.8888888888888889);
-		}
-		else if ( m == 2 ) {
-			M = texture2D(uMasks[2], uv1 * 0.8888888888888889);
-		}
+			int I = int(floor(float(i)/4.0));
+			int ch = i - (I*4);
+			if ( ch == 0 ) {
+				p = M.r;
+			}
+			else if ( ch == 1) {
+				p = M.g;
+			}
+			else if ( ch == 2) {
+				p = M.b;
+			}
+			else if ( ch == 3 ) {
+				p = M.a;
+			}
 
-		int I = int(floor(float(i)/4.0));
-		int ch = i - (I*4);
-		if ( ch == 0 ) {
-			p = M.r;
+			soil += vec3( vec4(p, p, p, 0) * c );
 		}
-		else if ( ch == 1) {
-			p = M.g;
-		}
-		else if ( ch == 2) {
-			p = M.b;
-		}
-		else if ( ch == 3 ) {
-			p = M.a;
-		}
-
-		soil += vec3( vec4(p, p, p, 0) * c );
 	}
 
 	//soil = vec3( texture2D(uTextures[1], vUv * 16.0) );
 
-	soil = /*vclr **/ soil; 
+	soil = soil * vclr; 
 
 	//vec4 M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
 	//float p = M.g;
