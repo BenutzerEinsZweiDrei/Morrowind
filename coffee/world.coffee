@@ -13,7 +13,7 @@ class mw.World
 		#if mw.models
 		#	true
 		
-		#@doskybox()
+		@doskybox()
 
 		@props = []
 		@cached = 0

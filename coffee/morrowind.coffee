@@ -13,6 +13,7 @@ mw = root.mw =
 		{x: 1, y: 1}, {x: 0, y: 1}, {x:-1, y: 1}
 	]
 	pretex: [ # most horrible name
+		'cat.dds'
 		'tx_sky_clear.dds'
 		'tx_bc_mud.dds'
 		'tx_bc_dirt.dds'
@@ -22,9 +23,6 @@ mw = root.mw =
 		'230': 'tx_bc_moss.dds'
 		'214': 'tx_bc_dirt.dds'
 		'247': 'tx_bc_mud.dds'
-		'58': 'tx_bc_moss.dds'
-		'16': 'tx_bc_dirt.dds'
-		'25': 'tx_bc_mud.dds'
 	}
 	textures: []
 	wireframe: new THREE.MeshBasicMaterial wireframe: true, transparent: true, opacity: .5

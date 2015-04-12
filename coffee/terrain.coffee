@@ -1,7 +1,7 @@
 class mw.Terrain
 	constructor: (@x, @y) ->
 		@maps()
-		@soul()
+		@makemasks()
 
 		@geometry = new THREE.PlaneGeometry 8192, 8192, 64, 64
 
@@ -250,7 +250,7 @@ class mw.Terrain
 
 		true
 
-	soul: ->
+	makemasks: ->
 		#console.log @blues
 		#console.log @blues.length
 
@@ -266,7 +266,7 @@ class mw.Terrain
 		
 		color = 3
 		for b in blues
-			@textures.push mw.textures[mw.blues[b]] if mw.blues[b]
+			@textures.push mw.textures[ mw.blues[ b ] or 'cat.dds' ]
 			#console.log "#{b} is #{mw.blues[b]}"
 
 			if ++color is 4
@@ -294,10 +294,10 @@ class mw.Terrain
 			t.needsUpdate = true
 			@masks[i] = t
 
-		#console.log "#{blues.length} blues for #{@x}, #{@y}"
+		console.log "#{blues.length} blues for #{@x}, #{@y}"
 
 		@textures.pop() while @textures.length > 9
-		#console.log "#{@textures.length} t length"
+		console.log "#{@textures.length} t length"
 
 		true
 

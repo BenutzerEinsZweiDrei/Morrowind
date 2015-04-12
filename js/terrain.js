@@ -6,7 +6,7 @@
       this.x = x1;
       this.y = y1;
       this.maps();
-      this.soul();
+      this.makemasks();
       this.geometry = new THREE.PlaneGeometry(8192, 8192, 64, 64);
       this.mx = mx = (this.x * 8192) + 4096;
       this.my = my = (this.y * 8192) + 4096;
@@ -171,7 +171,7 @@
       return true;
     };
 
-    Terrain.prototype.soul = function() {
+    Terrain.prototype.makemasks = function() {
       var b, blues, canvas, color, context, data, i, j, k, l, len, len1, m, n, ref, ref1, ref2, t, v;
       this.masks = [];
       this.textures = [];
@@ -185,9 +185,7 @@
       color = 3;
       for (k = 0, len = blues.length; k < len; k++) {
         b = blues[k];
-        if (mw.blues[b]) {
-          this.textures.push(mw.textures[mw.blues[b]]);
-        }
+        this.textures.push(mw.textures[mw.blues[b] || 'cat.dds']);
         if (++color === 4) {
           canvas = document.createElement('canvas');
           $(canvas).attr('mw', "cell " + this.x + ", " + this.y);
@@ -211,9 +209,11 @@
         t.needsUpdate = true;
         this.masks[i] = t;
       }
+      console.log(blues.length + " blues for " + this.x + ", " + this.y);
       while (this.textures.length > 9) {
         this.textures.pop();
       }
+      console.log(this.textures.length + " t length");
       return true;
     };
 

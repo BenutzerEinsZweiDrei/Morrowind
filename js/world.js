@@ -10,6 +10,7 @@
       for (i = j = 0; j <= 8; i = ++j) {
         this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
       }
+      this.doskybox();
       this.props = [];
       this.cached = 0;
       this.queue = 0;
