@@ -76,6 +76,7 @@ class mw.World
 				#c.material.depthTest = false
 
 				if m = c.material.map
+					m.anisotropy = mw.maxAnisotropy
 					m.needsUpdate = true
 					m.repeat.y = -1
 			mw.world.cachcb()

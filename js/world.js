@@ -80,6 +80,7 @@
           c.material.transparent = true;
           c.material.alphaTest = 0.5;
           if (m = c.material.map) {
+            m.anisotropy = mw.maxAnisotropy;
             m.needsUpdate = true;
             m.repeat.y = -1;
           }
