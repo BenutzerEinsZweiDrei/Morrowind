@@ -6,8 +6,8 @@ class mw.World
 
 		@cells = []
 
-		for i in [0..8]
-			@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
+		#for i in [0..8]
+		#	@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
 		#new mw.Cell @x, @y
 
 		#if mw.models
@@ -25,6 +25,8 @@ class mw.World
 
 		@waterStep = 0
 		@waterMoment = 0
+
+		@cellcheck()
 
 	doskybox: ->
 		geometry = new THREE.CubeGeometry 8192*3, 8192*3, 8192
@@ -71,7 +73,7 @@ class mw.World
 					#c.visible = false
 
 				c.material.transparent = true
-				c.material.alphaTest = 0.5 # fixes all my problems
+				c.material.alphaTest = 0.5 # fixes all my problems c.x 
 				#c.material.depthWrite = false
 				#c.material.depthTest = false
 
@@ -87,8 +89,19 @@ class mw.World
 
 		true
 
+	cellcheck:
+		#for c in @cells
+			#if 2 > Math.abs(c.x - mw.ply.x) or 2 > Math.abs(c.y - mw.ply.y)
+				#console.log 'outside boundary'
+				# out of context
+
+		for i in [0..8] # makes 9
+			@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
+		0
+
 	step: ->
-		
+
+
 		#if mw.water
 			#THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta
 
