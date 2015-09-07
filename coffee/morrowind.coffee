@@ -103,7 +103,7 @@ mw.got = ->
 
 mw.after = ->
 	$.getJSON "seydaneen.json", (data) ->
-			mw.world = new mw.World data
+		mw.world = new mw.World data
 		
 	mw.animate()
 
