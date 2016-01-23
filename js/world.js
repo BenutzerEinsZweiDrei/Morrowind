@@ -2,27 +2,25 @@
 (function() {
   mw.World = (function() {
     function World(data) {
-      var i, j, k, len, p, ref;
+      var j, len, p, ref;
       this.data = data;
       this.x = -2;
       this.y = -9;
       this.cells = [];
-      for (i = j = 0; j <= 8; i = ++j) {
-        this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
-      }
       this.doskybox();
       this.props = [];
       this.cached = 0;
       this.queue = 0;
       ref = this.data;
-      for (k = 0, len = ref.length; k < len; k++) {
-        p = ref[k];
+      for (j = 0, len = ref.length; j < len; j++) {
+        p = ref[j];
         if (typeof p === "object") {
           this.cache(p.model);
         }
       }
       this.waterStep = 0;
       this.waterMoment = 0;
+      this.cellcheck();
     }
 
     World.prototype.doskybox = function() {
@@ -90,6 +88,14 @@
       loader = new THREE.OBJMTLLoader;
       loader.load("models/" + model + ".obj", "models/" + model + ".mtl", cb);
       return true;
+    };
+
+    World.prototype.cellcheck = function() {
+      var i, j;
+      for (i = j = 0; j <= 8; i = ++j) {
+        this.cells.push(new mw.Cell(this.x + mw.circle[i].x, this.y + mw.circle[i].y));
+      }
+      return 0;
     };
 
     World.prototype.step = function() {

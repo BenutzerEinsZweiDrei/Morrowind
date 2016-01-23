@@ -10,6 +10,7 @@
     gets: 3,
     keys: [],
     world: null,
+    ply: null,
     circle: [
       {
         x: 1,

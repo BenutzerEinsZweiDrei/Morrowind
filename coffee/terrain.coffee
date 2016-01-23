@@ -18,7 +18,7 @@ class mw.Terrain
 			py = ((4096+y)/64)
 			py /= 2
 
-			#console.log "#{px}, #{py} is #{x}, #{y}"
+			console.log "#{px}, #{py} is #{x}, #{y}"
 
 			p = ((py*65)+px)*4
 			#p -= 1

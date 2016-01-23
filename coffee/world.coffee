@@ -89,7 +89,7 @@ class mw.World
 
 		true
 
-	cellcheck:
+	cellcheck: ->
 		#for c in @cells
 			#if 2 > Math.abs(c.x - mw.ply.x) or 2 > Math.abs(c.y - mw.ply.y)
 				#console.log 'outside boundary'
