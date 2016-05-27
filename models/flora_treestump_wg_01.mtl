@@ -15,11 +15,3 @@ Ks 0 0 0
 d 1
 Ns 0
 map_Kd ../textures/tx_treering_wg_01.dds
-
-
-newmtl Material.0001da
-Ka 1 1 1
-Kd 1 1 1
-Ks 1 1 1
-d 1
-Ns 33

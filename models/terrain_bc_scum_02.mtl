@@ -6,11 +6,3 @@ Ks 0 0 0
 d 1
 Ns 0
 map_Kd ../textures/tx_bc_scum.dds
-
-
-newmtl Material.000009
-Ka 1 1 1
-Kd 1 1 1
-Ks 1 1 1
-d 1
-Ns 33
