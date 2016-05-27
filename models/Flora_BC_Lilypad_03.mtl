@@ -1,0 +1,18 @@
+
+newmtl Material.000001
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_bc_lilypad_03.dds
+
+
+newmtl Material.000009
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0
+map_Kd tx_bc_fern_stem.tga
+
