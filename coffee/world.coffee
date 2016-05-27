@@ -99,7 +99,7 @@ class mw.World
                     if child instanceof THREE.Mesh
                         # child.material = new THREE.MeshBasicMaterial vertexColors: true
                         console.log 'ok'
-                        # child.material.vertexColors = THREE.VertexColors
+                        child.material.vertexColors = THREE.VertexColors
 
 				mw.world.cachcb()
 				return

@@ -90,7 +90,8 @@
           console.log("blessed are the children, our greatest reward");
           dae.scene.traverse(function(child) {
             if (child instanceof THREE.Mesh) {
-              return console.log('ok');
+              console.log('ok');
+              return child.material.vertexColors = THREE.VertexColors;
             }
           });
           mw.world.cachcb();
