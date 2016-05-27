@@ -85,9 +85,15 @@
           mw.world.cachcb();
         };
       } else {
-        cb = function(object) {
-          mw.models[model] = object.scene;
+        cb = function(dae) {
+          mw.models[model] = dae.scene;
           console.log("blessed are the children, our greatest reward");
+          dae.scene.traverse(function(child) {
+            if (child instanceof THREE.Mesh) {
+              console.log('ok');
+              return child.material.vertexColors = true;
+            }
+          });
           mw.world.cachcb();
         };
       }

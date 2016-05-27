@@ -90,9 +90,17 @@ class mw.World
 				return
 
 		else
-			cb = (object) ->
-				mw.models[model] = object.scene
+			cb = (dae) ->
+				mw.models[model] = dae.scene
+
 				console.log "blessed are the children, our greatest reward"
+
+				dae.scene.traverse (child) ->
+                    if child instanceof THREE.Mesh
+                        # child.material = new THREE.MeshBasicMaterial vertexColors: true
+                        console.log 'ok'
+                        child.material.vertexColors = true
+
 				mw.world.cachcb()
 				return
 
