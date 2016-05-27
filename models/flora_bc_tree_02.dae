@@ -14,16 +14,16 @@
  </asset>
  <library_images>
   <image id="nifid_3_image" name="Map_v_bcbark03">
-   <init_from>./textures/v_bcbark03.dds</init_from>
+   <init_from>../textures/v_bcbark03.dds</init_from>
   </image>
   <image id="nifid_10_image" name="Map_vurt_cypress01">
-   <init_from>./textures/vurt_cypress01.dds</init_from>
+   <init_from>../textures/vurt_cypress01.dds</init_from>
   </image>
   <image id="nifid_15_image" name="Map_v_spmoss">
-   <init_from>./textures/v_spmoss.dds</init_from>
+   <init_from>../textures/v_spmoss.dds</init_from>
   </image>
   <image id="nifid_19_image" name="Map_v_spmoss2">
-   <init_from>./textures/v_spmoss2.dds</init_from>
+   <init_from>../textures/v_spmoss2.dds</init_from>
   </image>
  </library_images>
  <library_materials>

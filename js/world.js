@@ -67,13 +67,10 @@
       var cb, loader, model;
       model = p.model;
       this.queue++;
-      cb = function(object) {
-        var c, i, j, len, m, ref;
-        if (!p.collada) {
+      if (!p.collada) {
+        cb = function(object) {
+          var c, i, j, len, m, ref;
           mw.models[model] = object;
-          if (model === 'flora_bc_tree_02') {
-            console.log(object);
-          }
           ref = object.children;
           for (i = j = 0, len = ref.length; j < len; i = ++j) {
             c = ref[i];
@@ -85,9 +82,15 @@
               m.repeat.y = -1;
             }
           }
-        }
-        return mw.world.cachcb();
-      };
+          mw.world.cachcb();
+        };
+      } else {
+        cb = function(object) {
+          mw.models[model] = object.scene;
+          console.log("blessed are the children, our greatest reward");
+          mw.world.cachcb();
+        };
+      }
       if (p.collada) {
         loader = new THREE.ColladaLoader;
         loader.load("models/" + model + ".dae", cb);

@@ -66,11 +66,12 @@ class mw.World
 		model = p.model
 
 		@queue++
-		cb = (object) ->
-			if not p.collada
+
+		if not p.collada
+
+			cb = (object) ->
 				mw.models[model] = object
-				console.log object if model is 'flora_bc_tree_02'
-				
+					
 				for c, i in object.children
 					#if not c.name
 						#c.visible = false
@@ -85,12 +86,21 @@ class mw.World
 						m.needsUpdate = true
 						m.repeat.y = -1
 
-			mw.world.cachcb()
+				mw.world.cachcb()
+				return
+
+		else
+			cb = (object) ->
+				mw.models[model] = object.scene
+				console.log "blessed are the children, our greatest reward"
+				mw.world.cachcb()
+				return
 
 		# console.log loader
 		if p.collada
 			loader = new THREE.ColladaLoader
 			loader.load "models/#{model}.dae", cb
+
 		else
 			loader = new THREE.OBJMTLLoader
 			loader.load "models/#{model}.obj", "models/#{model}.mtl", cb
