@@ -20,8 +20,7 @@ class mw.World
 		@queue = 0
 
 		for p in @data
-			if typeof p is "object"
-				@cache p
+			@cache p if typeof p is "object"
 
 		@waterStep = 0
 		@waterMoment = 0
@@ -67,8 +66,10 @@ class mw.World
 
 		@queue++
 
+		mw.models[model] = null
+
 		cb = (dae) ->
-			console.log dae
+			console.log dae if model is 'ex_common_house_tall_02'
 
 			dad = dae.scene
 
@@ -79,8 +80,15 @@ class mw.World
 
 			dad.traverse (child) ->
 				if child instanceof THREE.Mesh
+					# console.log child.material
 					console.log 'crayons'
+
 					child.material.vertexColors = THREE.VertexColors
+
+					child.material.alphaTest = 0.5
+
+					if child.material.map
+						child.material.map.anisotropy = mw.maxAnisotropy
 
 			mw.world.cachcb()
 			return

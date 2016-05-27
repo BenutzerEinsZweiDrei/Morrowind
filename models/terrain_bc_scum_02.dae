@@ -5,8 +5,8 @@
    <authoring_tool>NifSkope 1.1.3</authoring_tool>
    <comments/>
   </contributor>
-  <created>2016-05-27T19:42:59</created>
-  <modified>2016-05-27T19:42:59</modified>
+  <created>2016-05-27T22:05:46</created>
+  <modified>2016-05-27T22:05:46</modified>
   <revision/>
   <title/>
   <unit meter="0.0254" name="inch"/>
@@ -120,38 +120,6 @@
     </triangles>
    </mesh>
   </geometry>
-  <geometry id="nifid_7-lib" name="-lib">
-   <mesh>
-    <source id="nifid_7-lib-Position">
-     <float_array count="12" id="nifid_7-lib-Position-array">-512.000000 -512.000000 141.852997 512.000000 -512.000000 141.852997 512.000000 512.000000 141.852997 -512.000000 512.000000 141.852997 </float_array>
-     <technique_common>
-      <accessor count="4" stride="3" source="#nifid_7-lib-Position-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <source id="nifid_7-lib-Normal0">
-     <float_array count="12" id="nifid_7-lib-Normal0-array">0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 </float_array>
-     <technique_common>
-      <accessor count="4" stride="3" source="#nifid_7-lib-Normal0-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <vertices id="nifid_7-lib-Vertex">
-     <input semantic="POSITION" source="#nifid_7-lib-Position"/>
-    </vertices>
-    <triangles count="2">
-     <input offset="0" semantic="VERTEX" source="#nifid_7-lib-Vertex"/>
-     <input offset="1" semantic="NORMAL" source="#nifid_7-lib-Normal0"/>
-     <p>0 0 1 1 2 2 2 2 3 3 0 0 </p>
-    </triangles>
-   </mesh>
-  </geometry>
  </library_geometries>
  <library_visual_scenes>
   <visual_scene id="NifRootScene">
@@ -178,29 +146,6 @@
        </technique_common>
       </bind_material>
      </instance_geometry>
-    </node>
-    <node id="nifid_6_node" name="nifid_6_node">
-     <matrix sid="matrix">
-1.000000 0.000000 0.000000 0.000000
-0.000000 1.000000 0.000000 0.000000
-0.000000 0.000000 1.000000 0.000000
-0.000000 0.000000 0.000000 1.000000
-</matrix>
-     <node id="nifid_7-matrix">
-      <matrix sid="matrix">
-1.000000 0.000000 0.000000 -0.000000
-0.000000 1.000000 0.000000 -0.000000
-0.000000 0.000000 1.000000 -202.853088
-0.000000 0.000000 0.000000 1.000000
-</matrix>
-      <instance_geometry url="#nifid_7-lib">
-       <bind_material>
-        <technique_common>
-         <instance_material target="#nifid_7-material" symbol="material_nifid_7"/>
-        </technique_common>
-       </bind_material>
-      </instance_geometry>
-     </node>
     </node>
    </node>
   </visual_scene>

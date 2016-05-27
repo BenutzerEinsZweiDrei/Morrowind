@@ -9,11 +9,15 @@ class mw.Prop
 		@scale = @raw.scale or 0
 		@transparent = @raw.transparent or false
 
+		# return unless mw.models[@model]?
+
+		# console.log "#{@model} is ok"
+
 		if mw.models[@model].clone
 			@mesh = mw.models[@model].clone()
 		else
 			@mesh = mw.models[@model]	
-			
+
 		@mesh.position.set @x, @y, @z
 
 		#@mesh.castShadow = true

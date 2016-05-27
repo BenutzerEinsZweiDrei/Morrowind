@@ -5,8 +5,8 @@
    <authoring_tool>NifSkope 1.1.3</authoring_tool>
    <comments/>
   </contributor>
-  <created>2016-05-27T19:41:57</created>
-  <modified>2016-05-27T19:41:57</modified>
+  <created>2016-05-27T22:04:21</created>
+  <modified>2016-05-27T22:04:21</modified>
   <revision/>
   <title/>
   <unit meter="0.0254" name="inch"/>
@@ -245,134 +245,6 @@
     </triangles>
    </mesh>
   </geometry>
-  <geometry id="nifid_12-lib" name="-lib">
-   <mesh>
-    <source id="nifid_12-lib-Position">
-     <float_array count="36" id="nifid_12-lib-Position-array">-1.383301 -122.167488 11.598925 17.483643 -122.167488 11.598925 17.483643 72.319717 11.598927 -1.383301 72.319717 11.598927 17.483643 -122.167480 -13.432715 17.483643 72.319710 -13.432714 17.483643 72.319717 11.598927 17.483643 -122.167488 11.598925 -1.383301 72.319710 -13.432714 -1.383301 -122.167480 -13.432715 -1.383301 -122.167488 11.598925 -1.383301 72.319717 11.598927 </float_array>
-     <technique_common>
-      <accessor count="12" stride="3" source="#nifid_12-lib-Position-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <source id="nifid_12-lib-Normal0">
-     <float_array count="36" id="nifid_12-lib-Normal0-array">0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 </float_array>
-     <technique_common>
-      <accessor count="12" stride="3" source="#nifid_12-lib-Normal0-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <vertices id="nifid_12-lib-Vertex">
-     <input semantic="POSITION" source="#nifid_12-lib-Position"/>
-    </vertices>
-    <triangles count="6">
-     <input offset="0" semantic="VERTEX" source="#nifid_12-lib-Vertex"/>
-     <input offset="1" semantic="NORMAL" source="#nifid_12-lib-Normal0"/>
-     <p>0 0 1 1 2 2 2 2 3 3 0 0 4 4 5 5 6 6 6 6 7 7 4 4 8 8 9 9 10 10 10 10 11 11 8 8 </p>
-    </triangles>
-   </mesh>
-  </geometry>
-  <geometry id="nifid_14-lib" name="-lib">
-   <mesh>
-    <source id="nifid_14-lib-Position">
-     <float_array count="36" id="nifid_14-lib-Position-array">-19.337646 -122.167488 11.598925 1.461914 -122.167480 11.598924 1.461914 72.319710 11.598926 -19.337646 72.319717 11.598927 1.461914 -122.167473 -13.432715 1.461914 72.319702 -13.432714 1.461914 72.319710 11.598926 1.461914 -122.167480 11.598924 -19.337646 72.319710 -13.432714 -19.337646 -122.167480 -13.432715 -19.337646 -122.167488 11.598925 -19.337646 72.319717 11.598927 </float_array>
-     <technique_common>
-      <accessor count="12" stride="3" source="#nifid_14-lib-Position-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <source id="nifid_14-lib-Normal0">
-     <float_array count="36" id="nifid_14-lib-Normal0-array">0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 </float_array>
-     <technique_common>
-      <accessor count="12" stride="3" source="#nifid_14-lib-Normal0-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <vertices id="nifid_14-lib-Vertex">
-     <input semantic="POSITION" source="#nifid_14-lib-Position"/>
-    </vertices>
-    <triangles count="6">
-     <input offset="0" semantic="VERTEX" source="#nifid_14-lib-Vertex"/>
-     <input offset="1" semantic="NORMAL" source="#nifid_14-lib-Normal0"/>
-     <p>0 0 1 1 2 2 2 2 3 3 0 0 4 4 5 5 6 6 6 6 7 7 4 4 8 8 9 9 10 10 10 10 11 11 8 8 </p>
-    </triangles>
-   </mesh>
-  </geometry>
-  <geometry id="nifid_16-lib" name="-lib">
-   <mesh>
-    <source id="nifid_16-lib-Position">
-     <float_array count="60" id="nifid_16-lib-Position-array">-123.780457 39.298279 11.151162 -80.632019 -50.362534 11.151161 0.000000 39.488541 11.151163 -0.959961 -63.812698 11.151161 98.909958 39.488541 11.151162 86.396423 -49.163345 11.151161 -0.959961 -63.812698 11.151161 -80.632019 -50.362534 11.151161 0.056641 -101.603287 -40.661476 -100.589050 -89.864700 -40.661476 86.396423 -49.163345 11.151161 121.810486 -81.293900 -40.661476 98.909958 39.488541 11.151162 86.396423 -49.163345 11.151161 138.558777 39.488541 -40.661476 121.810486 -81.293900 -40.661476 -80.632019 -50.362534 11.151161 -123.780457 39.298279 11.151162 -100.589050 -89.864700 -40.661476 -173.342957 39.488541 -40.661476 </float_array>
-     <technique_common>
-      <accessor count="20" stride="3" source="#nifid_16-lib-Position-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <source id="nifid_16-lib-Normal0">
-     <float_array count="60" id="nifid_16-lib-Normal0-array">-0.000000 -0.000000 1.000000 -0.000000 -0.000000 1.000000 -0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 0.000000 -0.000000 1.000000 0.044334 -0.806453 0.589634 -0.112930 -0.788783 0.604208 -0.031014 -0.797782 0.602148 -0.090378 -0.774895 0.625595 0.133922 -0.798601 0.586772 0.133639 -0.799033 0.586248 0.789212 -0.111400 0.603932 0.788498 -0.110319 0.605063 0.788498 -0.110319 0.605063 0.787781 -0.109238 0.606192 -0.745934 -0.358974 0.561000 -0.709072 -0.368480 0.601198 -0.709072 -0.368480 0.601198 -0.670036 -0.376858 0.639554 </float_array>
-     <technique_common>
-      <accessor count="20" stride="3" source="#nifid_16-lib-Normal0-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <vertices id="nifid_16-lib-Vertex">
-     <input semantic="POSITION" source="#nifid_16-lib-Position"/>
-    </vertices>
-    <triangles count="12">
-     <input offset="0" semantic="VERTEX" source="#nifid_16-lib-Vertex"/>
-     <input offset="1" semantic="NORMAL" source="#nifid_16-lib-Normal0"/>
-     <p>0 0 1 1 2 2 3 3 2 2 1 1 2 2 3 3 4 4 5 5 4 4 3 3 6 6 7 7 8 8 9 9 8 8 7 7 10 10 6 6 11 11 8 8 11 11 6 6 12 12 13 13 14 14 15 15 14 14 13 13 16 16 17 17 18 18 19 19 18 18 17 17 </p>
-    </triangles>
-   </mesh>
-  </geometry>
-  <geometry id="nifid_18-lib" name="-lib">
-   <mesh>
-    <source id="nifid_18-lib-Position">
-     <float_array count="60" id="nifid_18-lib-Position-array">-83.029297 -10.704786 28.227526 72.149658 -10.704786 28.227526 72.149658 10.389402 28.227526 -83.029297 10.389402 28.227526 -83.029297 -10.704786 3.587912 72.149658 -10.704786 3.587913 72.149658 -10.704786 28.227526 -83.029297 -10.704786 28.227526 72.149658 -10.704786 3.587913 72.149658 10.389402 3.587913 72.149658 10.389402 28.227526 72.149658 -10.704786 28.227526 72.149658 10.389402 3.587913 -83.029297 10.389402 3.587913 -83.029297 10.389402 28.227526 72.149658 10.389402 28.227526 -83.029297 10.389402 3.587913 -83.029297 -10.704786 3.587912 -83.029297 -10.704786 28.227526 -83.029297 10.389402 28.227526 </float_array>
-     <technique_common>
-      <accessor count="20" stride="3" source="#nifid_18-lib-Position-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <source id="nifid_18-lib-Normal0">
-     <float_array count="60" id="nifid_18-lib-Normal0-array">0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 </float_array>
-     <technique_common>
-      <accessor count="20" stride="3" source="#nifid_18-lib-Normal0-array">
-       <param type="float" name="X"/>
-       <param type="float" name="Y"/>
-       <param type="float" name="Z"/>
-      </accessor>
-     </technique_common>
-    </source>
-    <vertices id="nifid_18-lib-Vertex">
-     <input semantic="POSITION" source="#nifid_18-lib-Position"/>
-    </vertices>
-    <triangles count="10">
-     <input offset="0" semantic="VERTEX" source="#nifid_18-lib-Vertex"/>
-     <input offset="1" semantic="NORMAL" source="#nifid_18-lib-Normal0"/>
-     <p>0 0 1 1 2 2 2 2 3 3 0 0 4 4 5 5 6 6 6 6 7 7 4 4 8 8 9 9 10 10 10 10 11 11 8 8 12 12 13 13 14 14 14 14 15 15 12 12 16 16 17 17 18 18 18 18 19 19 16 16 </p>
-    </triangles>
-   </mesh>
-  </geometry>
  </library_geometries>
  <library_visual_scenes>
   <visual_scene id="NifRootScene">
@@ -416,74 +288,6 @@
        </technique_common>
       </bind_material>
      </instance_geometry>
-    </node>
-    <node id="nifid_11_node" name="nifid_11_node">
-     <matrix sid="matrix">
-1.000000 0.000000 0.000000 0.000000
-0.000000 1.000000 0.000000 0.000000
-0.000000 0.000000 1.000000 0.000000
-0.000000 0.000000 0.000000 1.000000
-</matrix>
-     <node id="nifid_12-matrix">
-      <matrix sid="matrix">
-1.000000 0.000000 0.000000 -56.437988
-0.000000 0.000000 -1.000000 42.333923
-0.000000 1.000000 0.000000 32.287827
-0.000000 0.000000 0.000000 1.000000
-</matrix>
-      <instance_geometry url="#nifid_12-lib">
-       <bind_material>
-        <technique_common>
-         <instance_material target="#nifid_12-material" symbol="material_nifid_12"/>
-        </technique_common>
-       </bind_material>
-      </instance_geometry>
-     </node>
-     <node id="nifid_14-matrix">
-      <matrix sid="matrix">
-1.000000 0.000000 0.000000 81.375488
-0.000000 0.000000 -1.000000 42.333923
-0.000000 1.000000 0.000000 32.287827
-0.000000 0.000000 0.000000 1.000000
-</matrix>
-      <instance_geometry url="#nifid_14-lib">
-       <bind_material>
-        <technique_common>
-         <instance_material target="#nifid_14-material" symbol="material_nifid_14"/>
-        </technique_common>
-       </bind_material>
-      </instance_geometry>
-     </node>
-     <node id="nifid_16-matrix">
-      <matrix sid="matrix">
-1.000000 0.000000 0.000000 11.347168
-0.000000 1.000000 0.000000 24.756790
-0.000000 0.000000 1.000000 -90.912750
-0.000000 0.000000 0.000000 1.000000
-</matrix>
-      <instance_geometry url="#nifid_16-lib">
-       <bind_material>
-        <technique_common>
-         <instance_material target="#nifid_16-material" symbol="material_nifid_16"/>
-        </technique_common>
-       </bind_material>
-      </instance_geometry>
-     </node>
-     <node id="nifid_18-matrix">
-      <matrix sid="matrix">
-1.000000 0.000000 0.000000 16.809082
-0.000000 0.000000 -1.000000 53.224274
-0.000000 1.000000 0.000000 111.633575
-0.000000 0.000000 0.000000 1.000000
-</matrix>
-      <instance_geometry url="#nifid_18-lib">
-       <bind_material>
-        <technique_common>
-         <instance_material target="#nifid_18-material" symbol="material_nifid_18"/>
-        </technique_common>
-       </bind_material>
-      </instance_geometry>
-     </node>
     </node>
    </node>
   </visual_scene>

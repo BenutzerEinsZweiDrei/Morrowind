@@ -86,7 +86,7 @@ mw.resources = ->
 				asd.anisotropy = mw.maxAnisotropy
 				asd.repeat.set 64, 64
 				mw.textures[a] = asd
-				console.log "got #{a}"
+				# console.log "got #{a}"
 				mw.got.call mw
 
 		go()

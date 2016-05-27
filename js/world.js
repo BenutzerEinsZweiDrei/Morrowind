@@ -67,9 +67,12 @@
       var cb, loader, model;
       model = p.model;
       this.queue++;
+      mw.models[model] = null;
       cb = function(dae) {
         var dad;
-        console.log(dae);
+        if (model === 'ex_common_house_tall_02') {
+          console.log(dae);
+        }
         dad = dae.scene;
         mw.models[model] = dad;
         dad.scale.x = dad.scale.y = dad.scale.z = 1;
@@ -77,7 +80,11 @@
         dad.traverse(function(child) {
           if (child instanceof THREE.Mesh) {
             console.log('crayons');
-            return child.material.vertexColors = THREE.VertexColors;
+            child.material.vertexColors = THREE.VertexColors;
+            child.material.alphaTest = 0.5;
+            if (child.material.map) {
+              return child.material.map.anisotropy = mw.maxAnisotropy;
+            }
           }
         });
         mw.world.cachcb();
