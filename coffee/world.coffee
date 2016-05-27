@@ -91,7 +91,7 @@ class mw.World
 					child.material.alphaTest = 0.5
 
 					if child.material.map
-						
+
 						if showme
 							console.log "has map"
 							console.log child.material
@@ -100,6 +100,10 @@ class mw.World
 
 			mw.world.cachcb()
 			return
+
+		for k, v of mw.models
+			v.traverse (child) ->
+				console.log 'ok'
 
 		loader = new THREE.ColladaLoader
 		loader.load "models/#{model}.dae", cb

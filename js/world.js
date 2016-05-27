@@ -64,7 +64,7 @@
     };
 
     World.prototype.cache = function(p) {
-      var cb, loader, model;
+      var cb, k, loader, model, ref, v;
       model = p.model;
       this.queue++;
       mw.models[model] = null;
@@ -98,6 +98,13 @@
         });
         mw.world.cachcb();
       };
+      ref = mw.models;
+      for (k in ref) {
+        v = ref[k];
+        v.traverse(function(child) {
+          return console.log('ok');
+        });
+      }
       loader = new THREE.ColladaLoader;
       loader.load("models/" + model + ".dae", cb);
       return true;
