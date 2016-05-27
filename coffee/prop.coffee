@@ -11,12 +11,7 @@ class mw.Prop
 
 		# return unless mw.models[@model]?
 
-		# console.log "#{@model} is ok"
-
-		if mw.models[@model].clone
-			@mesh = mw.models[@model].clone()
-		else
-			@mesh = mw.models[@model]	
+		@mesh = mw.models[@model].clone()
 
 		@mesh.position.set @x, @y, @z
 
