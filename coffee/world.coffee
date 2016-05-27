@@ -21,7 +21,7 @@ class mw.World
 
 		for p in @data
 			if typeof p is "object"
-				@cache p.model
+				@cache p
 
 		@waterStep = 0
 		@waterMoment = 0
@@ -62,30 +62,39 @@ class mw.World
 		mw.watershed.call mw
 		true
 
-	cache: (model) ->
+	cache: (p) ->
+		model = p.model
+
 		@queue++
 		cb = (object) ->
-			mw.models[model] = object
-			console.log object if model is 'vurt_neentree'
-			
-			for c, i in object.children
-				#if not c.name
-					#c.visible = false
+			if not p.collada
+				mw.models[model] = object
+				console.log object if model is 'flora_bc_tree_02'
+				
+				for c, i in object.children
+					#if not c.name
+						#c.visible = false
 
-				c.material.transparent = true
-				c.material.alphaTest = 0.5 # fixes all my problems c.x 
-				#c.material.depthWrite = false
-				#c.material.depthTest = false
+					c.material.transparent = true
+					c.material.alphaTest = 0.5 # fixes all my problems c.x 
+					#c.material.depthWrite = false
+					#c.material.depthTest = false
 
-				if m = c.material.map
-					m.anisotropy = mw.maxAnisotropy
-					m.needsUpdate = true
-					m.repeat.y = -1
+					if m = c.material.map
+						m.anisotropy = mw.maxAnisotropy
+						m.needsUpdate = true
+						m.repeat.y = -1
+
 			mw.world.cachcb()
 
 		# console.log loader
-		loader = new THREE.OBJMTLLoader
-		loader.load "models/#{model}.obj", "models/#{model}.mtl", cb
+		if p.collada
+			loader = new THREE.ColladaLoader
+			loader.load "models/#{model}.dae", cb
+		else
+			loader = new THREE.OBJMTLLoader
+			loader.load "models/#{model}.obj", "models/#{model}.mtl", cb
+
 
 		true
 

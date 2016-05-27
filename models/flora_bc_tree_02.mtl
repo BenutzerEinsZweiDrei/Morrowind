@@ -1,0 +1,63 @@
+
+newmtl Material.000001
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ../textures/v_bcbark03.dds
+
+
+newmtl Material.0008e4
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ../textures/vurt_cypress01.dds
+
+
+newmtl Material.000bbe
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ../textures/v_spmoss.dds
+
+
+newmtl Material.000db6
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ../textures/v_spmoss2.dds
+
+
+newmtl Material.000eec
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ../textures/vurt_cypress01.dds
+
+
+newmtl Material.0011c6
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ../textures/v_spmoss.dds
+
+
+newmtl Material.0013be
+Ka 1 1 1
+Kd 1 1 1
+Ks 0 0 0
+d 1
+Ns 0.25
+map_Kd ../textures/v_spmoss2.dds
+

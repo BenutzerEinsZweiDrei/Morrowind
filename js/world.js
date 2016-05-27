@@ -15,7 +15,7 @@
       for (j = 0, len = ref.length; j < len; j++) {
         p = ref[j];
         if (typeof p === "object") {
-          this.cache(p.model);
+          this.cache(p);
         }
       }
       this.waterStep = 0;
@@ -63,30 +63,38 @@
       return true;
     };
 
-    World.prototype.cache = function(model) {
-      var cb, loader;
+    World.prototype.cache = function(p) {
+      var cb, loader, model;
+      model = p.model;
       this.queue++;
       cb = function(object) {
         var c, i, j, len, m, ref;
-        mw.models[model] = object;
-        if (model === 'vurt_neentree') {
-          console.log(object);
-        }
-        ref = object.children;
-        for (i = j = 0, len = ref.length; j < len; i = ++j) {
-          c = ref[i];
-          c.material.transparent = true;
-          c.material.alphaTest = 0.5;
-          if (m = c.material.map) {
-            m.anisotropy = mw.maxAnisotropy;
-            m.needsUpdate = true;
-            m.repeat.y = -1;
+        if (!p.collada) {
+          mw.models[model] = object;
+          if (model === 'flora_bc_tree_02') {
+            console.log(object);
+          }
+          ref = object.children;
+          for (i = j = 0, len = ref.length; j < len; i = ++j) {
+            c = ref[i];
+            c.material.transparent = true;
+            c.material.alphaTest = 0.5;
+            if (m = c.material.map) {
+              m.anisotropy = mw.maxAnisotropy;
+              m.needsUpdate = true;
+              m.repeat.y = -1;
+            }
           }
         }
         return mw.world.cachcb();
       };
-      loader = new THREE.OBJMTLLoader;
-      loader.load("models/" + model + ".obj", "models/" + model + ".mtl", cb);
+      if (p.collada) {
+        loader = new THREE.ColladaLoader;
+        loader.load("models/" + model + ".dae", cb);
+      } else {
+        loader = new THREE.OBJMTLLoader;
+        loader.load("models/" + model + ".obj", "models/" + model + ".mtl", cb);
+      }
       return true;
     };
 
