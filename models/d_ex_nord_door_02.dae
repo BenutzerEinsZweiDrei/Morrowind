@@ -1,0 +1,483 @@
+<COLLADA version="1.4.0" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+ <asset>
+  <contributor>
+   <author/>
+   <authoring_tool>NifSkope 1.1.3</authoring_tool>
+   <comments/>
+  </contributor>
+  <created>2016-05-27T19:52:32</created>
+  <modified>2016-05-27T19:52:32</modified>
+  <revision/>
+  <title/>
+  <unit meter="0.0254" name="inch"/>
+  <up_axis>Z_UP</up_axis>
+ </asset>
+ <library_images>
+  <image id="nifid_3_image" name="Map_Tx_wood_brown_posts_02">
+   <init_from>../textures/Tx_wood_brown_posts_02.dds</init_from>
+  </image>
+  <image id="nifid_8_image" name="Map_Tx_metal_strip_01">
+   <init_from>../textures/Tx_metal_strip_01.dds</init_from>
+  </image>
+  <image id="nifid_13_image" name="Map_Tx_hinge_01">
+   <init_from>../textures/Tx_hinge_01.dds</init_from>
+  </image>
+ </library_images>
+ <library_materials>
+  <material id="nifid_1-material" name="Material_Material_#25">
+   <instance_effect url="#nifid_1-effect"/>
+  </material>
+  <material id="nifid_6-material" name="Material_Material_#31">
+   <instance_effect url="#nifid_6-effect"/>
+  </material>
+  <material id="nifid_11-material" name="Material_Material_#6909">
+   <instance_effect url="#nifid_11-effect"/>
+  </material>
+ </library_materials>
+ <library_effects>
+  <effect id="nifid_1-effect" name="Material_#25">
+   <profile_COMMON>
+    <newparam sid="nifid_3-surface">
+     <surface type="2D">
+      <init_from>nifid_3_image</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="nifid_3-sampler">
+     <sampler2D>
+      <source>nifid_3-surface</source>
+     </sampler2D>
+    </newparam>
+    <technique sid="COMMON">
+     <phong>
+      <emission>
+       <color sid="emission">0.000000 0.000000 0.000000 1.000000</color>
+      </emission>
+      <ambient>
+       <color sid="ambient">1.000000 1.000000 1.000000 1.000000</color>
+      </ambient>
+      <diffuse>
+       <texture texcoord="UVSET0" texture="nifid_3-sampler">
+        <extra>
+         <technique profile="MAYA">
+          <wrapU sid="wrapU0">TRUE</wrapU>
+          <wrapV sid="wrapV0">TRUE</wrapV>
+          <blend_mode>ADD</blend_mode>
+         </technique>
+        </extra>
+       </texture>
+      </diffuse>
+      <specular>
+       <color sid="specular">0.000000 0.000000 0.000000 1.000000</color>
+      </specular>
+      <shininess>
+       <float sid="shininess">0.000000</float>
+      </shininess>
+      <reflective>
+       <color sid="reflective">0.000000 0.000000 0.000000 1.000000</color>
+      </reflective>
+      <reflectivity>
+       <float sid="reflectivity">1.000000</float>
+      </reflectivity>
+      <transparent>
+       <color sid="transparent">1.000000 1.000000 1.000000 1.000000</color>
+      </transparent>
+      <transparency>
+       <float sid="transparency">1.000000</float>
+      </transparency>
+     </phong>
+    </technique>
+   </profile_COMMON>
+  </effect>
+  <effect id="nifid_6-effect" name="Material_#31">
+   <profile_COMMON>
+    <newparam sid="nifid_8-surface">
+     <surface type="2D">
+      <init_from>nifid_8_image</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="nifid_8-sampler">
+     <sampler2D>
+      <source>nifid_8-surface</source>
+     </sampler2D>
+    </newparam>
+    <technique sid="COMMON">
+     <phong>
+      <emission>
+       <color sid="emission">0.000000 0.000000 0.000000 1.000000</color>
+      </emission>
+      <ambient>
+       <color sid="ambient">1.000000 1.000000 1.000000 1.000000</color>
+      </ambient>
+      <diffuse>
+       <texture texcoord="UVSET0" texture="nifid_8-sampler">
+        <extra>
+         <technique profile="MAYA">
+          <wrapU sid="wrapU0">TRUE</wrapU>
+          <wrapV sid="wrapV0">TRUE</wrapV>
+          <blend_mode>ADD</blend_mode>
+         </technique>
+        </extra>
+       </texture>
+      </diffuse>
+      <specular>
+       <color sid="specular">0.000000 0.000000 0.000000 1.000000</color>
+      </specular>
+      <shininess>
+       <float sid="shininess">0.000000</float>
+      </shininess>
+      <reflective>
+       <color sid="reflective">0.000000 0.000000 0.000000 1.000000</color>
+      </reflective>
+      <reflectivity>
+       <float sid="reflectivity">1.000000</float>
+      </reflectivity>
+      <transparent>
+       <color sid="transparent">1.000000 1.000000 1.000000 1.000000</color>
+      </transparent>
+      <transparency>
+       <float sid="transparency">1.000000</float>
+      </transparency>
+     </phong>
+    </technique>
+   </profile_COMMON>
+  </effect>
+  <effect id="nifid_11-effect" name="Material_#6909">
+   <profile_COMMON>
+    <newparam sid="nifid_13-surface">
+     <surface type="2D">
+      <init_from>nifid_13_image</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="nifid_13-sampler">
+     <sampler2D>
+      <source>nifid_13-surface</source>
+     </sampler2D>
+    </newparam>
+    <technique sid="COMMON">
+     <phong>
+      <emission>
+       <color sid="emission">0.000000 0.000000 0.000000 1.000000</color>
+      </emission>
+      <ambient>
+       <color sid="ambient">1.000000 1.000000 1.000000 1.000000</color>
+      </ambient>
+      <diffuse>
+       <texture texcoord="UVSET0" texture="nifid_13-sampler">
+        <extra>
+         <technique profile="MAYA">
+          <wrapU sid="wrapU0">TRUE</wrapU>
+          <wrapV sid="wrapV0">TRUE</wrapV>
+          <blend_mode>ADD</blend_mode>
+         </technique>
+        </extra>
+       </texture>
+      </diffuse>
+      <specular>
+       <color sid="specular">0.000000 0.000000 0.000000 1.000000</color>
+      </specular>
+      <shininess>
+       <float sid="shininess">0.000000</float>
+      </shininess>
+      <reflective>
+       <color sid="reflective">0.000000 0.000000 0.000000 1.000000</color>
+      </reflective>
+      <reflectivity>
+       <float sid="reflectivity">1.000000</float>
+      </reflectivity>
+      <transparent>
+       <color sid="transparent">1.000000 1.000000 1.000000 1.000000</color>
+      </transparent>
+      <transparency>
+       <float sid="transparency">1.000000</float>
+      </transparency>
+     </phong>
+    </technique>
+   </profile_COMMON>
+  </effect>
+ </library_effects>
+ <library_geometries>
+  <geometry id="nifid_1-lib" name="Tri_Ex_nord_door_02_0-lib">
+   <mesh>
+    <source id="nifid_1-lib-Position">
+     <float_array count="24" id="nifid_1-lib-Position-array">0.308762 -440.978241 -110.486465 0.308754 -440.978210 -321.440460 114.795975 -440.978210 -321.440460 21.114899 -440.978241 -88.222359 41.904922 -440.978241 -79.272614 76.582146 -440.978241 -79.272614 98.764748 -440.978241 -88.917145 114.795975 -440.978210 -110.486465 </float_array>
+     <technique_common>
+      <accessor count="8" stride="3" source="#nifid_1-lib-Position-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_1-lib-Normal0">
+     <float_array count="24" id="nifid_1-lib-Normal0-array">0.000000 -1.000000 -0.000000 0.000000 -1.000000 -0.000000 0.000000 -1.000000 -0.000000 0.000000 -1.000000 -0.000000 0.000000 -1.000000 -0.000000 -0.000000 -1.000000 -0.000000 0.000001 -1.000000 -0.000000 0.000002 -1.000000 0.000000 </float_array>
+     <technique_common>
+      <accessor count="8" stride="3" source="#nifid_1-lib-Normal0-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_1-lib-UV0">
+     <float_array count="16" id="nifid_1-lib-UV0-array">0.000749409 1.74147 0.00074932 0.000998855 1.49925 0.000998855 0.273077 1.92516 0.545194 1.999 0.999077 1.999 1.28942 1.91943 1.49925 1.74147 </float_array>
+     <technique_common>
+      <accessor count="8" stride="2" source="#nifid_1-lib-UV0-array">
+       <param type="float" name="S"/>
+       <param type="float" name="T"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_1-lib_colors">
+     <float_array count="32" id="nifid_1-lib_colors-array">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </float_array>
+     <technique_common>
+      <accessor count="8" stride="4" source="#nifid_1-lib_colors-array">
+       <param type="float" name="R"/>
+       <param type="float" name="G"/>
+       <param type="float" name="B"/>
+       <param type="float" name="A"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="nifid_1-lib-Vertex">
+     <input semantic="POSITION" source="#nifid_1-lib-Position"/>
+    </vertices>
+    <triangles count="6" material="material_nifid_1">
+     <input offset="0" semantic="VERTEX" source="#nifid_1-lib-Vertex"/>
+     <input offset="1" semantic="NORMAL" source="#nifid_1-lib-Normal0"/>
+     <input offset="2" semantic="TEXCOORD" set="0" source="#nifid_1-lib-UV0"/>
+     <input offset="3" semantic="COLOR" source="#nifid_1-lib_colors"/>
+     <p>0 0 0 0 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 0 0 0 0 2 2 2 2 4 4 4 4 3 3 3 3 2 2 2 2 5 5 5 5 4 4 4 4 2 2 2 2 6 6 6 6 5 5 5 5 2 2 2 2 7 7 7 7 6 6 6 6 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="nifid_6-lib" name="Tri_Ex_nord_door_02_1-lib">
+   <mesh>
+    <source id="nifid_6-lib-Position">
+     <float_array count="390" id="nifid_6-lib-Position-array">19.743896 -444.759399 -151.077484 113.467590 -444.759399 -151.077484 113.467590 -444.759399 -139.987610 19.743896 -444.759399 -139.987610 19.743896 -432.560577 -155.739517 113.467590 -432.560577 -155.739517 113.467590 -444.759399 -151.077484 19.743896 -444.759399 -151.077484 113.467590 -432.560547 -135.287201 19.743896 -432.560547 -135.287201 19.743896 -444.759399 -139.987610 113.467590 -444.759399 -139.987610 95.574821 -440.843109 -198.683319 94.771965 -443.997803 -193.462509 99.326988 -443.997803 -193.462509 98.524071 -440.843140 -198.683319 95.574814 -442.671661 -198.683334 98.524071 -442.671661 -198.683319 99.326981 -446.800049 -193.462509 94.771965 -446.800049 -193.462509 95.574821 -440.843109 -204.024475 98.524071 -440.843140 -204.024475 98.524071 -441.988678 -203.083328 95.574821 -441.988678 -203.083328 98.524071 -440.843140 -198.683319 99.326988 -443.997803 -193.462509 99.326981 -446.800049 -193.462509 98.524071 -442.671661 -198.683319 98.692703 -440.793060 -174.269455 95.406235 -440.793060 -174.269440 95.406235 -442.062927 -175.304138 98.692703 -442.062927 -175.304138 94.771965 -443.997803 -193.462509 95.574821 -440.843109 -198.683319 95.574814 -442.671661 -198.683334 94.771965 -446.800049 -193.462509 95.574821 -440.843109 -198.683319 98.524071 -440.843140 -198.683319 98.524071 -440.843140 -204.024475 98.524071 -440.843140 -204.024475 95.574821 -440.843109 -204.024475 95.574821 -440.843109 -198.683319 98.524071 -442.671661 -198.683319 95.574814 -442.671661 -198.683334 95.574821 -441.988678 -203.083328 95.574821 -441.988678 -203.083328 98.524071 -441.988678 -203.083328 98.524071 -442.671661 -198.683319 98.524071 -440.843140 -198.683319 98.524071 -442.671661 -198.683319 98.524071 -441.988678 -203.083328 98.524071 -441.988678 -203.083328 98.524071 -440.843140 -204.024475 98.524071 -440.843140 -198.683319 95.574814 -442.671661 -198.683334 95.574821 -440.843109 -198.683319 95.574821 -440.843109 -204.024475 95.574821 -440.843109 -204.024475 95.574821 -441.988678 -203.083328 95.574814 -442.671661 -198.683334 99.326988 -443.997803 -193.462509 94.771965 -443.997803 -193.462509 94.771965 -443.997803 -184.268173 99.326981 -443.997803 -184.268173 94.771965 -446.800049 -193.462509 99.326981 -446.800049 -193.462509 99.326981 -446.800049 -184.268173 94.771965 -446.800049 -184.268173 99.326981 -446.800049 -193.462509 99.326988 -443.997803 -193.462509 99.326981 -443.997803 -184.268173 99.326981 -443.997803 -184.268173 99.326981 -446.800049 -184.268173 99.326981 -446.800049 -193.462509 94.771965 -443.997803 -193.462509 94.771965 -446.800049 -193.462509 94.771965 -446.800049 -184.268173 94.771965 -446.800049 -184.268173 94.771965 -443.997803 -184.268173 94.771965 -443.997803 -193.462509 99.326981 -443.997803 -184.268173 94.771965 -443.997803 -184.268173 95.406235 -440.793060 -180.095474 98.692703 -440.793060 -180.095474 94.771965 -443.997803 -184.268173 94.771965 -446.800049 -184.268173 95.406235 -442.814880 -180.095474 95.406235 -440.793060 -180.095474 94.771965 -446.800049 -184.268173 99.326981 -446.800049 -184.268173 98.692703 -442.814880 -180.095474 95.406235 -442.814880 -180.095474 99.326981 -446.800049 -184.268173 99.326981 -443.997803 -184.268173 98.692703 -440.793060 -180.095474 98.692703 -440.793060 -180.095474 98.692703 -442.814880 -180.095474 99.326981 -446.800049 -184.268173 98.692703 -440.793060 -180.095474 95.406235 -440.793060 -180.095474 95.406235 -440.793060 -174.269440 98.692703 -440.793060 -174.269455 95.406235 -440.793060 -180.095474 95.406235 -442.814880 -180.095474 95.406235 -442.062927 -175.304138 95.406235 -442.062927 -175.304138 95.406235 -440.793060 -174.269440 95.406235 -440.793060 -180.095474 95.406235 -442.814880 -180.095474 98.692703 -442.814880 -180.095474 98.692703 -442.062927 -175.304138 95.406235 -442.062927 -175.304138 98.692703 -442.814880 -180.095474 98.692703 -440.793060 -180.095474 98.692703 -440.793060 -174.269455 98.692703 -440.793060 -174.269455 98.692703 -442.062927 -175.304138 98.692703 -442.814880 -180.095474 19.743896 -444.759399 -237.840530 113.467590 -444.759399 -237.840530 113.467590 -444.759399 -226.750656 19.743896 -444.759399 -226.750656 19.743896 -432.560577 -242.502563 113.467590 -432.560577 -242.502563 113.467590 -444.759399 -237.840530 19.743896 -444.759399 -237.840530 113.467590 -432.560547 -222.050262 19.743896 -432.560547 -222.050262 19.743896 -444.759399 -226.750656 113.467590 -444.759399 -226.750656 </float_array>
+     <technique_common>
+      <accessor count="130" stride="3" source="#nifid_6-lib-Position-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_6-lib-Normal0">
+     <float_array count="390" id="nifid_6-lib-Normal0-array">0.000000 -0.823708 -0.567015 0.000000 -0.676034 -0.736870 0.000000 -0.929923 0.367755 0.000000 -0.824484 0.565885 0.000000 -0.356989 -0.934109 0.000000 -0.356989 -0.934109 0.000000 -0.676034 -0.736870 0.000000 -0.823708 -0.567015 0.000000 -0.359548 0.933127 0.000000 -0.359548 0.933127 0.000000 -0.824484 0.565885 0.000000 -0.929923 0.367755 0.000004 0.855884 0.517168 0.000000 0.855883 0.517170 0.000004 0.855884 0.517168 0.000009 0.855885 0.517166 0.000002 -0.784394 -0.620263 0.000003 -0.784393 -0.620264 0.000002 -0.784394 -0.620263 0.000000 -0.784394 -0.620263 -0.000003 -0.634802 -0.772675 -0.000007 -0.634807 -0.772670 -0.000003 -0.634802 -0.772675 0.000000 -0.634797 -0.772679 0.988380 -0.000001 -0.152005 0.988380 -0.000003 -0.152006 0.988380 -0.000001 -0.152005 0.988380 0.000000 -0.152003 0.000002 -0.631667 0.775240 0.000004 -0.631670 0.775237 0.000002 -0.631667 0.775240 0.000000 -0.631664 0.775242 -0.988382 0.000003 -0.151991 -0.988382 0.000005 -0.151990 -0.988382 0.000003 -0.151991 -0.988382 0.000000 -0.151992 0.000010 1.000000 0.000000 0.000010 1.000000 0.000000 0.000010 1.000000 0.000000 0.000010 1.000000 0.000000 0.000010 1.000000 0.000000 0.000010 1.000000 0.000000 0.000001 -0.988166 -0.153387 0.000001 -0.988166 -0.153387 0.000001 -0.988166 -0.153387 0.000000 -0.988166 -0.153386 0.000000 -0.988166 -0.153386 0.000000 -0.988166 -0.153386 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 -1.000000 0.000004 0.000000 -1.000000 0.000004 0.000000 -1.000000 0.000004 0.000000 -1.000000 -0.000002 -0.000002 -1.000000 -0.000002 -0.000002 -1.000000 -0.000002 -0.000002 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 1.000000 -0.000003 0.000001 1.000000 -0.000003 0.000001 1.000000 -0.000003 0.000001 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 0.000000 0.793085 -0.609110 0.000000 0.793085 -0.609110 0.000000 0.793085 -0.609110 0.000000 0.793085 -0.609110 -0.988644 0.000000 0.150278 -0.988644 0.000000 0.150278 -0.988644 0.000000 0.150278 -0.988644 0.000000 0.150278 0.000000 -0.723170 0.690670 0.000000 -0.723170 0.690670 0.000000 -0.723170 0.690670 0.000000 -0.723170 0.690670 0.988643 0.000000 0.150280 0.988643 0.000000 0.150280 0.988643 0.000000 0.150280 0.988643 0.000000 0.150280 0.988643 0.000000 0.150280 0.988643 0.000000 0.150280 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 0.000000 -0.987908 0.155042 0.000000 -0.987908 0.155042 0.000000 -0.987908 0.155042 0.000000 -0.987908 0.155042 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 -0.823708 -0.567015 0.000000 -0.676034 -0.736870 0.000000 -0.929923 0.367755 0.000000 -0.824484 0.565885 0.000000 -0.356989 -0.934109 0.000000 -0.356989 -0.934109 0.000000 -0.676034 -0.736870 0.000000 -0.823708 -0.567015 0.000000 -0.359547 0.933127 0.000000 -0.359547 0.933127 0.000000 -0.824484 0.565885 0.000000 -0.929923 0.367755 </float_array>
+     <technique_common>
+      <accessor count="130" stride="3" source="#nifid_6-lib-Normal0-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_6-lib-UV0">
+     <float_array count="260" id="nifid_6-lib-UV0-array">0 1 1 1 1 0 0 0 0 1 1 1 1 0 0 0 0 1 1 1 1 0 0 0 0.843126 0.176582 0.690274 0.000499964 0.690274 0.999499 0.843126 0.823406 0.843126 0.176582 0.843126 0.823406 0.690274 0.999499 0.690274 0.000499785 0.999501 0.176582 0.999501 0.823406 0.971946 0.823406 0.971946 0.176582 0.843126 0.000499368 0.690274 0.529554 0.690274 0.9995 0.843126 0.307155 0.000499517 0.9995 0.000499427 0.000501394 0.0424856 0.000501037 0.0424857 0.9995 0.690274 0.529554 0.843126 0.000499487 0.843126 0.307155 0.690274 0.9995 0.843126 0.176582 0.843126 0.823406 0.999501 0.823406 0.999501 0.823406 0.999501 0.176582 0.843126 0.176582 0.843126 0.823406 0.843126 0.176582 0.971946 0.176582 0.971946 0.176582 0.971946 0.823406 0.843126 0.823406 0.843126 0.000499368 0.843126 0.307155 0.971946 0.192616 0.971946 0.192616 0.999501 0.000499368 0.843126 0.000499368 0.843126 0.307155 0.843126 0.000499487 0.999501 0.000499427 0.999501 0.000499427 0.971946 0.192616 0.843126 0.307155 0.690274 0.999499 0.690274 0.000499964 0.421088 0.0005005 0.421088 0.999499 0.690274 0.000499785 0.690274 0.999499 0.421088 0.999499 0.421088 0.000500321 0.690274 0.9995 0.690274 0.529554 0.421088 0.529554 0.421088 0.529554 0.421088 0.9995 0.690274 0.9995 0.690274 0.529554 0.690274 0.9995 0.421088 0.999501 0.421088 0.999501 0.421088 0.529555 0.690274 0.529554 0.421088 0.999499 0.421088 0.0005005 0.287658 0.000500679 0.287658 0.9995 0.421088 0.529555 0.421088 0.999501 0.287658 0.479315 0.287658 0.00936913 0.421088 0.000500321 0.421088 0.999499 0.287658 0.9995 0.287658 0.00050056 0.421088 0.9995 0.421088 0.529554 0.287658 0.00936902 0.287658 0.00936902 0.287658 0.479315 0.421088 0.9995 0.287658 0.9995 0.287658 0.000500679 0.000499427 0.000501394 0.000499517 0.9995 0.287658 0.00936913 0.287658 0.479315 0.0424856 0.479315 0.0424856 0.479315 0.000499457 0.00936925 0.287658 0.00936913 0.287658 0.00050056 0.287658 0.9995 0.0424857 0.9995 0.0424856 0.000501037 0.287658 0.479315 0.287658 0.00936902 0.000499517 0.00936913 0.000499517 0.00936913 0.0424856 0.479315 0.287658 0.479315 0 1 1 1 1 0 0 0 0 1 1 1 1 0 0 0 0 1 1 1 1 0 0 0 </float_array>
+     <technique_common>
+      <accessor count="130" stride="2" source="#nifid_6-lib-UV0-array">
+       <param type="float" name="S"/>
+       <param type="float" name="T"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_6-lib_colors">
+     <float_array count="520" id="nifid_6-lib_colors-array">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </float_array>
+     <technique_common>
+      <accessor count="130" stride="4" source="#nifid_6-lib_colors-array">
+       <param type="float" name="R"/>
+       <param type="float" name="G"/>
+       <param type="float" name="B"/>
+       <param type="float" name="A"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="nifid_6-lib-Vertex">
+     <input semantic="POSITION" source="#nifid_6-lib-Position"/>
+    </vertices>
+    <triangles count="56" material="material_nifid_6">
+     <input offset="0" semantic="VERTEX" source="#nifid_6-lib-Vertex"/>
+     <input offset="1" semantic="NORMAL" source="#nifid_6-lib-Normal0"/>
+     <input offset="2" semantic="TEXCOORD" set="0" source="#nifid_6-lib-UV0"/>
+     <input offset="3" semantic="COLOR" source="#nifid_6-lib_colors"/>
+     <p>0 0 0 0 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 0 0 0 0 4 4 4 4 5 5 5 5 6 6 6 6 6 6 6 6 7 7 7 7 4 4 4 4 8 8 8 8 9 9 9 9 10 10 10 10 10 10 10 10 11 11 11 11 8 8 8 8 12 12 12 12 13 13 13 13 14 14 14 14 14 14 14 14 15 15 15 15 12 12 12 12 16 16 16 16 17 17 17 17 18 18 18 18 18 18 18 18 19 19 19 19 16 16 16 16 20 20 20 20 21 21 21 21 22 22 22 22 22 22 22 22 23 23 23 23 20 20 20 20 24 24 24 24 25 25 25 25 26 26 26 26 26 26 26 26 27 27 27 27 24 24 24 24 28 28 28 28 29 29 29 29 30 30 30 30 30 30 30 30 31 31 31 31 28 28 28 28 32 32 32 32 33 33 33 33 34 34 34 34 34 34 34 34 35 35 35 35 32 32 32 32 36 36 36 36 37 37 37 37 38 38 38 38 39 39 39 39 40 40 40 40 41 41 41 41 42 42 42 42 43 43 43 43 44 44 44 44 45 45 45 45 46 46 46 46 47 47 47 47 48 48 48 48 49 49 49 49 50 50 50 50 51 51 51 51 52 52 52 52 53 53 53 53 54 54 54 54 55 55 55 55 56 56 56 56 57 57 57 57 58 58 58 58 59 59 59 59 60 60 60 60 61 61 61 61 62 62 62 62 62 62 62 62 63 63 63 63 60 60 60 60 64 64 64 64 65 65 65 65 66 66 66 66 66 66 66 66 67 67 67 67 64 64 64 64 68 68 68 68 69 69 69 69 70 70 70 70 71 71 71 71 72 72 72 72 73 73 73 73 74 74 74 74 75 75 75 75 76 76 76 76 77 77 77 77 78 78 78 78 79 79 79 79 80 80 80 80 81 81 81 81 82 82 82 82 82 82 82 82 83 83 83 83 80 80 80 80 84 84 84 84 85 85 85 85 86 86 86 86 86 86 86 86 87 87 87 87 84 84 84 84 88 88 88 88 89 89 89 89 90 90 90 90 90 90 90 90 91 91 91 91 88 88 88 88 92 92 92 92 93 93 93 93 94 94 94 94 95 95 95 95 96 96 96 96 97 97 97 97 98 98 98 98 99 99 99 99 100 100 100 100 100 100 100 100 101 101 101 101 98 98 98 98 102 102 102 102 103 103 103 103 104 104 104 104 105 105 105 105 106 106 106 106 107 107 107 107 108 108 108 108 109 109 109 109 110 110 110 110 110 110 110 110 111 111 111 111 108 108 108 108 112 112 112 112 113 113 113 113 114 114 114 114 115 115 115 115 116 116 116 116 117 117 117 117 118 118 118 118 119 119 119 119 120 120 120 120 120 120 120 120 121 121 121 121 118 118 118 118 122 122 122 122 123 123 123 123 124 124 124 124 124 124 124 124 125 125 125 125 122 122 122 122 126 126 126 126 127 127 127 127 128 128 128 128 128 128 128 128 129 129 129 129 126 126 126 126 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="nifid_11-lib" name="Tri_Ex_nord_door_02_2-lib">
+   <mesh>
+    <source id="nifid_11-lib-Position">
+     <float_array count="60" id="nifid_11-lib-Position-array">8.102600 -444.759399 -151.077484 19.743896 -444.759399 -151.077484 19.743896 -444.759399 -139.987610 8.102600 -444.759399 -139.987610 8.102600 -432.560577 -155.739517 19.743896 -432.560577 -155.739517 19.743896 -444.759399 -151.077484 8.102600 -444.759399 -151.077484 19.743896 -432.560547 -135.287201 8.102600 -432.560547 -135.287201 8.102600 -444.759399 -237.840530 19.743896 -444.759399 -237.840530 19.743896 -444.759399 -226.750656 8.102600 -444.759399 -226.750656 8.102600 -432.560577 -242.502563 19.743896 -432.560577 -242.502563 19.743896 -444.759399 -237.840530 8.102600 -444.759399 -237.840530 19.743896 -432.560547 -222.050262 8.102600 -432.560547 -222.050262 </float_array>
+     <technique_common>
+      <accessor count="20" stride="3" source="#nifid_11-lib-Position-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_11-lib-Normal0">
+     <float_array count="60" id="nifid_11-lib-Normal0-array">0.000000 -0.929654 -0.368435 0.000000 -0.823708 -0.567015 0.000000 -0.824484 0.565885 0.000000 -0.677514 0.735510 0.000000 -0.356989 -0.934109 0.000000 -0.356989 -0.934109 0.000000 -0.823708 -0.567015 0.000000 -0.929654 -0.368435 0.000000 -0.359548 0.933127 0.000000 -0.359548 0.933127 0.000000 -0.929654 -0.368435 0.000000 -0.823708 -0.567015 0.000000 -0.824484 0.565885 0.000000 -0.677513 0.735510 0.000000 -0.356989 -0.934109 0.000000 -0.356989 -0.934109 0.000000 -0.823708 -0.567015 0.000000 -0.929654 -0.368435 0.000000 -0.359547 0.933127 0.000000 -0.359547 0.933127 </float_array>
+     <technique_common>
+      <accessor count="20" stride="3" source="#nifid_11-lib-Normal0-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_11-lib-UV0">
+     <float_array count="40" id="nifid_11-lib-UV0-array">0 1 1 1 1 0 0 0 0 1 1 1 1 0 0 0 1 1 0 1 0 1 1 1 1 0 0 0 0 1 1 1 1 0 0 0 1 1 0 1 </float_array>
+     <technique_common>
+      <accessor count="20" stride="2" source="#nifid_11-lib-UV0-array">
+       <param type="float" name="S"/>
+       <param type="float" name="T"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_11-lib_colors">
+     <float_array count="80" id="nifid_11-lib_colors-array">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </float_array>
+     <technique_common>
+      <accessor count="20" stride="4" source="#nifid_11-lib_colors-array">
+       <param type="float" name="R"/>
+       <param type="float" name="G"/>
+       <param type="float" name="B"/>
+       <param type="float" name="A"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="nifid_11-lib-Vertex">
+     <input semantic="POSITION" source="#nifid_11-lib-Position"/>
+    </vertices>
+    <triangles count="12" material="material_nifid_11">
+     <input offset="0" semantic="VERTEX" source="#nifid_11-lib-Vertex"/>
+     <input offset="1" semantic="NORMAL" source="#nifid_11-lib-Normal0"/>
+     <input offset="2" semantic="TEXCOORD" set="0" source="#nifid_11-lib-UV0"/>
+     <input offset="3" semantic="COLOR" source="#nifid_11-lib_colors"/>
+     <p>0 0 0 0 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 0 0 0 0 4 4 4 4 5 5 5 5 6 6 6 6 6 6 6 6 7 7 7 7 4 4 4 4 8 8 8 8 9 9 9 9 3 3 3 3 3 3 3 3 2 2 2 2 8 8 8 8 10 10 10 10 11 11 11 11 12 12 12 12 12 12 12 12 13 13 13 13 10 10 10 10 14 14 14 14 15 15 15 15 16 16 16 16 16 16 16 16 17 17 17 17 14 14 14 14 18 18 18 18 19 19 19 19 13 13 13 13 13 13 13 13 12 12 12 12 18 18 18 18 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="nifid_17-lib" name="-lib">
+   <mesh>
+    <source id="nifid_17-lib-Position">
+     <float_array count="12" id="nifid_17-lib-Position-array">-59.971680 99.952904 0.000000 -59.971680 -143.707184 0.000008 59.971680 99.952904 0.000000 59.971680 -143.707184 0.000008 </float_array>
+     <technique_common>
+      <accessor count="4" stride="3" source="#nifid_17-lib-Position-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_17-lib-Normal0">
+     <float_array count="12" id="nifid_17-lib-Normal0-array">0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 </float_array>
+     <technique_common>
+      <accessor count="4" stride="3" source="#nifid_17-lib-Normal0-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="nifid_17-lib-Vertex">
+     <input semantic="POSITION" source="#nifid_17-lib-Position"/>
+    </vertices>
+    <triangles count="2">
+     <input offset="0" semantic="VERTEX" source="#nifid_17-lib-Vertex"/>
+     <input offset="1" semantic="NORMAL" source="#nifid_17-lib-Normal0"/>
+     <p>0 0 1 1 2 2 3 3 2 2 1 1 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+ </library_geometries>
+ <library_visual_scenes>
+  <visual_scene id="NifRootScene">
+   <node id="nifid_0_node" name="Ex_nord_door_02">
+    <matrix sid="matrix">
+1.000000 0.000000 0.000000 0.000000
+0.000000 1.000000 0.000000 0.000000
+0.000000 0.000000 1.000000 0.000000
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+    <node id="nifid_1-matrix">
+     <matrix sid="matrix">
+1.000000 0.000000 0.000000 -57.552364
+0.000000 1.000000 0.000000 439.680298
+0.000000 0.000000 1.000000 200.356552
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+     <instance_geometry url="#nifid_1-lib">
+      <bind_material>
+       <technique_common>
+        <instance_material target="#nifid_1-material" symbol="material_nifid_1">
+         <bind_vertex_input input_set="0" semantic="UVSET0" input_semantic="TEXCOORD"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="nifid_6-matrix">
+     <matrix sid="matrix">
+1.000000 0.000000 0.000000 -57.552364
+0.000000 1.000000 0.000000 439.680298
+0.000000 0.000000 1.000000 200.356552
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+     <instance_geometry url="#nifid_6-lib">
+      <bind_material>
+       <technique_common>
+        <instance_material target="#nifid_6-material" symbol="material_nifid_6">
+         <bind_vertex_input input_set="0" semantic="UVSET0" input_semantic="TEXCOORD"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="nifid_11-matrix">
+     <matrix sid="matrix">
+1.000000 0.000000 0.000000 -57.552364
+0.000000 1.000000 0.000000 439.680298
+0.000000 0.000000 1.000000 200.356552
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+     <instance_geometry url="#nifid_11-lib">
+      <bind_material>
+       <technique_common>
+        <instance_material target="#nifid_11-material" symbol="material_nifid_11">
+         <bind_vertex_input input_set="0" semantic="UVSET0" input_semantic="TEXCOORD"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="nifid_16_node" name="nifid_16_node">
+     <matrix sid="matrix">
+1.000000 0.000000 0.000000 0.000000
+0.000000 1.000000 0.000000 0.000000
+0.000000 0.000000 1.000000 0.000000
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+     <node id="nifid_17-matrix">
+      <matrix sid="matrix">
+1.000000 0.000000 0.000000 3.088749
+0.000000 0.000000 -1.000000 -2.322723
+0.000000 1.000000 0.000000 20.177574
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+      <instance_geometry url="#nifid_17-lib">
+       <bind_material>
+        <technique_common>
+         <instance_material target="#nifid_17-material" symbol="material_nifid_17"/>
+        </technique_common>
+       </bind_material>
+      </instance_geometry>
+     </node>
+    </node>
+   </node>
+  </visual_scene>
+ </library_visual_scenes>
+ <scene>
+  <instance_visual_scene url="#NifRootScene"/>
+ </scene>
+</COLLADA>

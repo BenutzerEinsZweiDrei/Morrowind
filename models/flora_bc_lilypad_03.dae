@@ -1,0 +1,294 @@
+<COLLADA version="1.4.0" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+ <asset>
+  <contributor>
+   <author/>
+   <authoring_tool>NifSkope 1.1.3</authoring_tool>
+   <comments/>
+  </contributor>
+  <created>2016-05-27T19:42:46</created>
+  <modified>2016-05-27T19:42:46</modified>
+  <revision/>
+  <title/>
+  <unit meter="0.0254" name="inch"/>
+  <up_axis>Z_UP</up_axis>
+ </asset>
+ <library_images>
+  <image id="nifid_6_image" name="Map_Tx_BC_lilypad_03">
+   <init_from>../textures/Tx_BC_lilypad_03.dds</init_from>
+  </image>
+  <image id="nifid_11_image" name="Map_Tx_BC_fern_stem">
+   <init_from>../textures/Tx_BC_fern_stem.dds</init_from>
+  </image>
+ </library_images>
+ <library_materials>
+  <material id="nifid_3-material" name="Material_Material_#8">
+   <instance_effect url="#nifid_3-effect"/>
+  </material>
+  <material id="nifid_9-material" name="Material_Material_#7">
+   <instance_effect url="#nifid_9-effect"/>
+  </material>
+ </library_materials>
+ <library_effects>
+  <effect id="nifid_3-effect" name="Material_#8">
+   <profile_COMMON>
+    <newparam sid="nifid_6-surface">
+     <surface type="2D">
+      <init_from>nifid_6_image</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="nifid_6-sampler">
+     <sampler2D>
+      <source>nifid_6-surface</source>
+     </sampler2D>
+    </newparam>
+    <technique sid="COMMON">
+     <phong>
+      <emission>
+       <color sid="emission">0.000000 0.000000 0.000000 1.000000</color>
+      </emission>
+      <ambient>
+       <color sid="ambient">1.000000 1.000000 1.000000 1.000000</color>
+      </ambient>
+      <diffuse>
+       <texture texcoord="UVSET0" texture="nifid_6-sampler">
+        <extra>
+         <technique profile="MAYA">
+          <wrapU sid="wrapU0">TRUE</wrapU>
+          <wrapV sid="wrapV0">TRUE</wrapV>
+          <blend_mode>ADD</blend_mode>
+         </technique>
+        </extra>
+       </texture>
+      </diffuse>
+      <specular>
+       <color sid="specular">0.000000 0.000000 0.000000 1.000000</color>
+      </specular>
+      <shininess>
+       <float sid="shininess">0.000000</float>
+      </shininess>
+      <reflective>
+       <color sid="reflective">0.000000 0.000000 0.000000 1.000000</color>
+      </reflective>
+      <reflectivity>
+       <float sid="reflectivity">1.000000</float>
+      </reflectivity>
+      <transparent>
+       <color sid="transparent">1.000000 1.000000 1.000000 1.000000</color>
+      </transparent>
+      <transparency>
+       <float sid="transparency">1.000000</float>
+      </transparency>
+     </phong>
+    </technique>
+   </profile_COMMON>
+  </effect>
+  <effect id="nifid_9-effect" name="Material_#7">
+   <profile_COMMON>
+    <newparam sid="nifid_11-surface">
+     <surface type="2D">
+      <init_from>nifid_11_image</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="nifid_11-sampler">
+     <sampler2D>
+      <source>nifid_11-surface</source>
+     </sampler2D>
+    </newparam>
+    <technique sid="COMMON">
+     <phong>
+      <emission>
+       <color sid="emission">0.000000 0.000000 0.000000 1.000000</color>
+      </emission>
+      <ambient>
+       <color sid="ambient">1.000000 1.000000 1.000000 1.000000</color>
+      </ambient>
+      <diffuse>
+       <texture texcoord="UVSET0" texture="nifid_11-sampler">
+        <extra>
+         <technique profile="MAYA">
+          <wrapU sid="wrapU0">TRUE</wrapU>
+          <wrapV sid="wrapV0">TRUE</wrapV>
+          <blend_mode>ADD</blend_mode>
+         </technique>
+        </extra>
+       </texture>
+      </diffuse>
+      <specular>
+       <color sid="specular">0.000000 0.000000 0.000000 1.000000</color>
+      </specular>
+      <shininess>
+       <float sid="shininess">0.000000</float>
+      </shininess>
+      <reflective>
+       <color sid="reflective">0.000000 0.000000 0.000000 1.000000</color>
+      </reflective>
+      <reflectivity>
+       <float sid="reflectivity">1.000000</float>
+      </reflectivity>
+      <transparent>
+       <color sid="transparent">1.000000 1.000000 1.000000 1.000000</color>
+      </transparent>
+      <transparency>
+       <float sid="transparency">1.000000</float>
+      </transparency>
+     </phong>
+    </technique>
+   </profile_COMMON>
+  </effect>
+ </library_effects>
+ <library_geometries>
+  <geometry id="nifid_3-lib" name="Tri_Pad_0-lib">
+   <mesh>
+    <source id="nifid_3-lib-Position">
+     <float_array count="24" id="nifid_3-lib-Position-array">-15.889831 -15.889831 -0.000050 15.889831 -15.889831 -0.000050 15.889831 15.889831 -0.000050 -15.889831 15.889831 -0.000050 15.889831 15.889831 -0.000050 15.889831 -15.889831 -0.000050 -15.889831 -15.889831 -0.000050 -15.889831 15.889831 -0.000050 </float_array>
+     <technique_common>
+      <accessor count="8" stride="3" source="#nifid_3-lib-Position-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_3-lib-Normal0">
+     <float_array count="24" id="nifid_3-lib-Normal0-array">0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 -1.000000 </float_array>
+     <technique_common>
+      <accessor count="8" stride="3" source="#nifid_3-lib-Normal0-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_3-lib-UV0">
+     <float_array count="16" id="nifid_3-lib-UV0-array">0.000499547 0.000499785 0.9995 0.000499547 0.9995 0.9995 0.000499785 0.9995 0.9995 0.9995 0.9995 0.000499547 0.000499547 0.000499785 0.000499785 0.9995 </float_array>
+     <technique_common>
+      <accessor count="8" stride="2" source="#nifid_3-lib-UV0-array">
+       <param type="float" name="S"/>
+       <param type="float" name="T"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="nifid_3-lib-Vertex">
+     <input semantic="POSITION" source="#nifid_3-lib-Position"/>
+    </vertices>
+    <triangles count="4" material="material_nifid_3">
+     <input offset="0" semantic="VERTEX" source="#nifid_3-lib-Vertex"/>
+     <input offset="1" semantic="NORMAL" source="#nifid_3-lib-Normal0"/>
+     <input offset="2" semantic="TEXCOORD" set="0" source="#nifid_3-lib-UV0"/>
+     <p>0 0 0 1 1 1 2 2 2 2 2 2 3 3 3 0 0 0 4 4 4 5 5 5 6 6 6 6 6 6 7 7 7 4 4 4 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="nifid_9-lib" name="Tri_Flora_BC_Lilypad_03_0-lib">
+   <mesh>
+    <source id="nifid_9-lib-Position">
+     <float_array count="51" id="nifid_9-lib-Position-array">-3.632036 4.654610 -82.769310 -3.632036 7.141063 -80.188126 2.763183 -2.991996 -0.061261 -2.955388 -1.243653 -0.061261 -5.846555 5.897837 -81.478714 -2.955388 -1.243653 -0.061261 1.418007 2.834602 -0.061261 -5.846555 5.897837 -81.478714 1.418007 2.834602 -0.061261 2.763183 -2.991996 -0.061261 -3.632036 4.654610 -82.769310 -16.584867 19.559958 -236.336227 -3.632036 7.141063 -80.188126 -16.584867 19.559958 -236.336227 -5.846555 5.897837 -81.478714 -16.584867 19.559958 -236.336227 -5.846555 5.897837 -81.478714 </float_array>
+     <technique_common>
+      <accessor count="17" stride="3" source="#nifid_9-lib-Position-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_9-lib-Normal0">
+     <float_array count="51" id="nifid_9-lib-Normal0-array">0.257447 -0.959075 -0.117882 0.678304 0.734778 -0.002160 0.926218 -0.362847 -0.102281 -0.808094 -0.588754 -0.018769 -0.967478 0.244952 0.063130 -0.808094 -0.588754 -0.018769 -0.125573 0.989989 0.064448 -0.967478 0.244952 0.063130 -0.125573 0.989989 0.064448 0.926218 -0.362847 -0.102281 0.257447 -0.959075 -0.117882 -0.650791 0.754944 -0.080814 0.678304 0.734778 -0.002160 -0.650791 0.754944 -0.080814 -0.967478 0.244952 0.063130 -0.650791 0.754944 -0.080814 -0.967478 0.244952 0.063130 </float_array>
+     <technique_common>
+      <accessor count="17" stride="3" source="#nifid_9-lib-Normal0-array">
+       <param type="float" name="X"/>
+       <param type="float" name="Y"/>
+       <param type="float" name="Z"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_9-lib-UV0">
+     <float_array count="34" id="nifid_9-lib-UV0-array">0.33 0 0.66 0 0.66 2 0.33 2 0 0 0.33 2 0 2 1 0 1 2 0.66 2 0.33 4 0.33 0 0.66 4 0 0 0 4 0.66 0 1 4 </float_array>
+     <technique_common>
+      <accessor count="17" stride="2" source="#nifid_9-lib-UV0-array">
+       <param type="float" name="S"/>
+       <param type="float" name="T"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="nifid_9-lib_colors">
+     <float_array count="68" id="nifid_9-lib_colors-array">1 1 1 1 1 1 1 1 0.941176 0.941176 0.933333 1 0.976471 0.972549 0.972549 1 1 1 1 1 0.929412 0.92549 0.917647 1 0.964706 0.964706 0.960784 1 1 1 1 1 0.941176 0.941176 0.933333 1 0.972549 0.968627 0.968627 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </float_array>
+     <technique_common>
+      <accessor count="17" stride="4" source="#nifid_9-lib_colors-array">
+       <param type="float" name="R"/>
+       <param type="float" name="G"/>
+       <param type="float" name="B"/>
+       <param type="float" name="A"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="nifid_9-lib-Vertex">
+     <input semantic="POSITION" source="#nifid_9-lib-Position"/>
+    </vertices>
+    <triangles count="9" material="material_nifid_9">
+     <input offset="0" semantic="VERTEX" source="#nifid_9-lib-Vertex"/>
+     <input offset="1" semantic="NORMAL" source="#nifid_9-lib-Normal0"/>
+     <input offset="2" semantic="TEXCOORD" set="0" source="#nifid_9-lib-UV0"/>
+     <input offset="3" semantic="COLOR" source="#nifid_9-lib_colors"/>
+     <p>0 0 0 0 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 0 0 0 0 4 4 4 4 0 0 0 0 5 5 5 5 5 5 5 5 6 6 6 6 4 4 4 4 1 1 1 1 7 7 7 7 8 8 8 8 8 8 8 8 9 9 9 9 1 1 1 1 10 10 10 10 11 11 11 11 12 12 12 12 13 13 13 13 10 10 10 10 14 14 14 14 12 12 12 12 15 15 15 15 16 16 16 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+ </library_geometries>
+ <library_visual_scenes>
+  <visual_scene id="NifRootScene">
+   <node id="nifid_0_node" name="Flora_BC_Lilypad_03">
+    <matrix sid="matrix">
+1.000000 0.000000 0.000000 0.000000
+0.000000 1.000000 0.000000 0.000000
+0.000000 0.000000 1.000000 0.000000
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+    <node id="nifid_2_node" name="Pad">
+     <matrix sid="matrix">
+1.000000 0.000000 0.000000 -2.285027
+0.000000 1.000000 0.000000 -0.551085
+0.000000 0.000000 1.000000 3.000012
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+     <node id="nifid_3-matrix">
+      <matrix sid="matrix">
+1.000000 0.000000 0.000000 0.000000
+0.000000 1.000000 0.000000 0.000000
+0.000000 0.000000 1.000000 0.000000
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+      <instance_geometry url="#nifid_3-lib">
+       <bind_material>
+        <technique_common>
+         <instance_material target="#nifid_3-material" symbol="material_nifid_3">
+          <bind_vertex_input input_set="0" semantic="UVSET0" input_semantic="TEXCOORD"/>
+         </instance_material>
+        </technique_common>
+       </bind_material>
+      </instance_geometry>
+     </node>
+    </node>
+    <node id="nifid_9-matrix">
+     <matrix sid="matrix">
+1.000000 0.000000 0.000000 -0.000000
+0.000000 1.000000 0.000000 -0.000000
+0.000000 0.000000 1.000000 3.000000
+0.000000 0.000000 0.000000 1.000000
+</matrix>
+     <instance_geometry url="#nifid_9-lib">
+      <bind_material>
+       <technique_common>
+        <instance_material target="#nifid_9-material" symbol="material_nifid_9">
+         <bind_vertex_input input_set="0" semantic="UVSET0" input_semantic="TEXCOORD"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+   </node>
+  </visual_scene>
+ </library_visual_scenes>
+ <scene>
+  <instance_visual_scene url="#NifRootScene"/>
+ </scene>
+</COLLADA>

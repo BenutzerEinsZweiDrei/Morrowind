@@ -67,52 +67,19 @@ class mw.World
 
 		@queue++
 
-		if not p.collada
+		cb = (dae) ->
+			mw.models[model] = dae.scene
 
-			cb = (object) ->
-				mw.models[model] = object
-					
-				for c, i in object.children
-					#if not c.name
-						#c.visible = false
+			dae.scene.traverse (child) ->
+				if child instanceof THREE.Mesh
+					console.log 'ok'
+					child.material.vertexColors = THREE.VertexColors
 
-					c.material.transparent = true
-					c.material.alphaTest = 0.5 # fixes all my problems c.x 
-					#c.material.depthWrite = false
-					#c.material.depthTest = false
+			mw.world.cachcb()
+			return
 
-					if m = c.material.map
-						m.anisotropy = mw.maxAnisotropy
-						m.needsUpdate = true
-						m.repeat.y = -1
-
-				mw.world.cachcb()
-				return
-
-		else
-			cb = (dae) ->
-				mw.models[model] = dae.scene
-
-				console.log "blessed are the children, our greatest reward"
-
-				dae.scene.traverse (child) ->
-                    if child instanceof THREE.Mesh
-                        # child.material = new THREE.MeshBasicMaterial vertexColors: true
-                        console.log 'ok'
-                        child.material.vertexColors = THREE.VertexColors
-
-				mw.world.cachcb()
-				return
-
-		# console.log loader
-		if p.collada
-			loader = new THREE.ColladaLoader
-			loader.load "models/#{model}.dae", cb
-
-		else
-			loader = new THREE.OBJMTLLoader
-			loader.load "models/#{model}.obj", "models/#{model}.mtl", cb
-
+		loader = new THREE.ColladaLoader
+		loader.load "models/#{model}.dae", cb
 
 		true
 

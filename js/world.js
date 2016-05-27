@@ -67,43 +67,18 @@
       var cb, loader, model;
       model = p.model;
       this.queue++;
-      if (!p.collada) {
-        cb = function(object) {
-          var c, i, j, len, m, ref;
-          mw.models[model] = object;
-          ref = object.children;
-          for (i = j = 0, len = ref.length; j < len; i = ++j) {
-            c = ref[i];
-            c.material.transparent = true;
-            c.material.alphaTest = 0.5;
-            if (m = c.material.map) {
-              m.anisotropy = mw.maxAnisotropy;
-              m.needsUpdate = true;
-              m.repeat.y = -1;
-            }
+      cb = function(dae) {
+        mw.models[model] = dae.scene;
+        dae.scene.traverse(function(child) {
+          if (child instanceof THREE.Mesh) {
+            console.log('ok');
+            return child.material.vertexColors = THREE.VertexColors;
           }
-          mw.world.cachcb();
-        };
-      } else {
-        cb = function(dae) {
-          mw.models[model] = dae.scene;
-          console.log("blessed are the children, our greatest reward");
-          dae.scene.traverse(function(child) {
-            if (child instanceof THREE.Mesh) {
-              console.log('ok');
-              return child.material.vertexColors = THREE.VertexColors;
-            }
-          });
-          mw.world.cachcb();
-        };
-      }
-      if (p.collada) {
-        loader = new THREE.ColladaLoader;
-        loader.load("models/" + model + ".dae", cb);
-      } else {
-        loader = new THREE.OBJMTLLoader;
-        loader.load("models/" + model + ".obj", "models/" + model + ".mtl", cb);
-      }
+        });
+        mw.world.cachcb();
+      };
+      loader = new THREE.ColladaLoader;
+      loader.load("models/" + model + ".dae", cb);
       return true;
     };
 
