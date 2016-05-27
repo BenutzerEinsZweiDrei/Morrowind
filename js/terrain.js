@@ -123,11 +123,9 @@
         t.needsUpdate = true;
         this.masks[i] = t;
       }
-      console.log(blues.length + " blues for " + this.x + ", " + this.y);
       while (this.textures.length > 9) {
         this.textures.pop();
       }
-      console.log(this.textures.length + " t length");
       return true;
     };
 
@@ -171,7 +169,8 @@
         vertexShader: document.getElementById('splatVertexShader').textContent,
         fragmentShader: document.getElementById('splatFragmentShader').textContent,
         fog: true,
-        transparent: true
+        transparent: false,
+        side: THREE.FrontSide
       });
       return material;
     };

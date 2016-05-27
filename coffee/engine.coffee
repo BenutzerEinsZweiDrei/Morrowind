@@ -10,10 +10,9 @@ mw.boot = () ->
 	container = document.createElement 'div'
 	document.body.appendChild container
 
-	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 1, 10000000
+	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 1, 100000
 	@camera.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
 	@camera.up = new THREE.Vector3 0, 0, 1
-
 
 	@controls = new THREE.FirstPersonControls @camera
 	@controls.movementSpeed = 1000

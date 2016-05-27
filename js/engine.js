@@ -14,7 +14,7 @@
     var container;
     container = document.createElement('div');
     document.body.appendChild(container);
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000000);
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 100000);
     this.camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
     this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);

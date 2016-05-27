@@ -162,10 +162,10 @@ class mw.Terrain
 			t.needsUpdate = true
 			@masks[i] = t
 
-		console.log "#{blues.length} blues for #{@x}, #{@y}"
+		# console.log "#{blues.length} blues for #{@x}, #{@y}"
 
 		@textures.pop() while @textures.length > 9
-		console.log "#{@textures.length} t length"
+		# console.log "#{@textures.length} t length"
 
 		true
 
@@ -187,7 +187,7 @@ class mw.Terrain
 			vertexShader:   document.getElementById( 'splatVertexShader'   ).textContent
 			fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
 			fog: true
-			transparent: true
-			#side: THREE.DoubleSide
+			transparent: false
+			side: THREE.FrontSide
 
 		return material

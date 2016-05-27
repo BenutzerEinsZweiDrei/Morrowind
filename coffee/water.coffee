@@ -98,6 +98,9 @@ mw.watershed = ->
 		map: mw.textures['water/water0.dds']
 		transparent: true
 		opacity: .5
+		# alphaTest: 0.5
+		depthWrite: false
+		# depthTest: false
 
 	@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@waterMaterial, @mirror.material]
 	#@water = new THREE.Mesh geometry, @mirror.material
