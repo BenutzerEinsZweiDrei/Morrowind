@@ -160,5 +160,15 @@
 	"r": 0,
 	"scale": 1.27,
 	"transparent": true
+	},
+
+	"# BACK OF TERURISE HOUSE",
+	"# SWAMP POOL",
+	{
+	"model": "terrain_bc_scum_02",
+	"x": -12558.747,
+	"y": -71096.273,
+	"z": 0,
+	"r": 0
 	}
 ]
