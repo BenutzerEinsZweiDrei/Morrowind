@@ -69,7 +69,9 @@ class mw.World
 		mw.models[model] = null
 
 		cb = (dae) ->
-			console.log dae if model is 'ex_common_house_tall_02'
+			showme = true if model is 'ex_common_house_tall_02'
+
+			console.log dae if showme
 
 			dad = dae.scene
 
@@ -80,14 +82,20 @@ class mw.World
 
 			dad.traverse (child) ->
 				if child instanceof THREE.Mesh
-					# console.log child.material
-					console.log 'crayons'
+					# console.log 'crayons'
+
+					console.log child if showme
 
 					child.material.vertexColors = THREE.VertexColors
 
 					child.material.alphaTest = 0.5
 
 					if child.material.map
+						
+						if showme
+							console.log "has map"
+							console.log child.material
+
 						child.material.map.anisotropy = mw.maxAnisotropy
 
 			mw.world.cachcb()

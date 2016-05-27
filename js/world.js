@@ -69,8 +69,11 @@
       this.queue++;
       mw.models[model] = null;
       cb = function(dae) {
-        var dad;
+        var dad, showme;
         if (model === 'ex_common_house_tall_02') {
+          showme = true;
+        }
+        if (showme) {
           console.log(dae);
         }
         dad = dae.scene;
@@ -79,10 +82,16 @@
         dad.updateMatrix();
         dad.traverse(function(child) {
           if (child instanceof THREE.Mesh) {
-            console.log('crayons');
+            if (showme) {
+              console.log(child);
+            }
             child.material.vertexColors = THREE.VertexColors;
             child.material.alphaTest = 0.5;
             if (child.material.map) {
+              if (showme) {
+                console.log("has map");
+                console.log(child.material);
+              }
               return child.material.map.anisotropy = mw.maxAnisotropy;
             }
           }
