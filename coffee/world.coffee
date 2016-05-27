@@ -68,11 +68,18 @@ class mw.World
 		@queue++
 
 		cb = (dae) ->
-			mw.models[model] = dae.scene
+			console.log dae
 
-			dae.scene.traverse (child) ->
+			dad = dae.scene
+
+			mw.models[model] = dad
+
+			dad.scale.x = dad.scale.y = dad.scale.z = 1
+			dad.updateMatrix()
+
+			dad.traverse (child) ->
 				if child instanceof THREE.Mesh
-					console.log 'ok'
+					console.log 'crayons'
 					child.material.vertexColors = THREE.VertexColors
 
 			mw.world.cachcb()

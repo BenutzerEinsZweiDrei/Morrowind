@@ -68,10 +68,15 @@
       model = p.model;
       this.queue++;
       cb = function(dae) {
-        mw.models[model] = dae.scene;
-        dae.scene.traverse(function(child) {
+        var dad;
+        console.log(dae);
+        dad = dae.scene;
+        mw.models[model] = dad;
+        dad.scale.x = dad.scale.y = dad.scale.z = 1;
+        dad.updateMatrix();
+        dad.traverse(function(child) {
           if (child instanceof THREE.Mesh) {
-            console.log('ok');
+            console.log('crayons');
             return child.material.vertexColors = THREE.VertexColors;
           }
         });
