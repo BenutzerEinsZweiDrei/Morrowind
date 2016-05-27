@@ -87,8 +87,7 @@
     this.waterMaterial = new THREE.MeshLambertMaterial({
       map: mw.textures['water/water0.dds'],
       transparent: true,
-      opacity: .5,
-      depthWrite: false
+      opacity: .5
     });
     this.water = THREE.SceneUtils.createMultiMaterialObject(geometry, [this.waterMaterial, this.mirror.material]);
     this.water.add(this.mirror);
