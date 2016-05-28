@@ -132,43 +132,22 @@
     Terrain.prototype.splat = function() {
       var material;
       material = new THREE.ShaderMaterial({
-        uniforms: {
-          vertexColour: {
-            type: "t",
-            value: this.vclr
-          },
-          uTextures: {
-            type: "tv",
-            value: this.textures
-          },
-          amount: {
-            type: "i",
-            value: this.textures.length
-          },
-          uMasks: {
-            type: "tv",
-            value: this.masks
-          },
-          fogColor: {
-            type: "c",
-            value: mw.scene.fog.color
-          },
-          fogDensity: {
-            type: "f",
-            value: mw.scene.fog.density
-          },
-          fogNear: {
-            type: "f",
-            value: mw.scene.fog.near
-          },
-          fogFar: {
-            type: "f",
-            value: mw.scene.fog.far
+        uniforms: THREE.UniformsUtils.merge([
+          THREE.UniformsLib['common'], THREE.UniformsLib['aomap'], THREE.UniformsLib['lightmap'], THREE.UniformsLib['emissivemap'], THREE.UniformsLib['fog'], THREE.UniformsLib['lights'], {
+            emissive: {
+              type: "c",
+              value: new THREE.Color(0x0000cc)
+            },
+            cat: {
+              type: "t",
+              value: THREE.ImageUtils.loadTexture("textures/cat.dds")
+            }
           }
-        },
+        ]),
         vertexShader: document.getElementById('splatVertexShader').textContent,
         fragmentShader: document.getElementById('splatFragmentShader').textContent,
         fog: true,
+        lights: true,
         transparent: false,
         side: THREE.FrontSide
       });

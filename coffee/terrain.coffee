@@ -173,20 +173,29 @@ class mw.Terrain
 
 		material = new THREE.ShaderMaterial
 			uniforms:
-				vertexColour: 		{ type: "t", value: @vclr }
+				THREE.UniformsUtils.merge([
 
-				uTextures: 			{ type: "tv", value: @textures }
-				amount:				{ type: "i", value: @textures.length }
-				uMasks: 			{ type: "tv", value: @masks }
+						THREE.UniformsLib[ 'common' ],
+						THREE.UniformsLib[ 'aomap' ],
+						THREE.UniformsLib[ 'lightmap' ],
+						THREE.UniformsLib[ 'emissivemap' ],
+						THREE.UniformsLib[ 'fog' ],
+						THREE.UniformsLib[ 'lights' ],
 
-				fogColor:			{ type: "c", value: mw.scene.fog.color }
-				fogDensity:			{ type: "f", value: mw.scene.fog.density }
-				fogNear:			{ type: "f", value: mw.scene.fog.near }
-				fogFar:				{ type: "f", value: mw.scene.fog.far }
+						{
+							emissive : { type: "c", value: new THREE.Color( 0x0000cc ) }
+							# vertexColour: 		{ type: "t", value: @vclr }
+			
+							#uTextures: 			{ type: "tv", value: @textures }
+							cat: 				{ type: "t", value: THREE.ImageUtils.loadTexture( "textures/cat.dds" ) }
+							#amount:				{ type: "i", value: @textures.length }
+							#uMasks: 			{ type: "tv", value: @masks }
+						}])
 
 			vertexShader:   document.getElementById( 'splatVertexShader'   ).textContent
 			fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
 			fog: true
+			lights: true
 			transparent: false
 			side: THREE.FrontSide
 

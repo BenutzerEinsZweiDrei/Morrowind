@@ -57,29 +57,6 @@ class mw.World
 
 		mw.watershed.call mw
 
-		for k, v of mw.models
-
-			continue unless k is 'ex_common_house_tall_02'
-
-			console.log v
-
-			lastMatrix = null
-
-			v.scene.traverse (child) ->
-				if child instanceof THREE.Mesh
-
-					if lastMatrix?
-						;
-					#console.log child.colladaId
-					#map.repeat.y = -1
-					#map.anisotropy = mw.maxAnisotropy
-					#console.log child
-					;
-
-				else if child instanceof THREE.Object3D
-					lastMatrix = child
-					console.log "We're at #{child.colladaId}"
-
 		true
 
 	cache: (p) ->
