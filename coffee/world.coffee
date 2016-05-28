@@ -83,6 +83,15 @@ class mw.World
 			dad.updateMatrix()
 
 			dad.traverse (child) ->
+
+				if child instanceof THREE.SkinnedMesh
+
+					animation = new THREE.Animation child, child.geometry.animation
+					animation.play()
+
+					console.log 'Oh ye'
+
+					
 				if child instanceof THREE.Mesh
 					# console.log 'crayons'
 

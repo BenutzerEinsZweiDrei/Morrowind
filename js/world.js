@@ -79,7 +79,12 @@
         dad.scale.x = dad.scale.y = dad.scale.z = 1;
         dad.updateMatrix();
         dad.traverse(function(child) {
-          var map;
+          var animation, map;
+          if (child instanceof THREE.SkinnedMesh) {
+            animation = new THREE.Animation(child, child.geometry.animation);
+            animation.play();
+            console.log('Oh ye');
+          }
           if (child instanceof THREE.Mesh) {
             child.material.vertexColors = THREE.VertexColors;
             child.material.alphaTest = 0.5;

@@ -116,6 +116,7 @@ mw.animate = () ->
 
 	return
 
+clock = new THREE.Clock()
 render = ->
 
 	angle = Date.now()/200 * Math.PI;
@@ -131,6 +132,8 @@ render = ->
 
 	if mw.water
 		mw.mirror.render()
+
+	THREE.AnimationHandler.update clock.getDelta()
 
 	@renderer.render @scene, @camera
 
