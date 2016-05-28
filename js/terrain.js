@@ -153,6 +153,10 @@
         type: "tv",
         value: this.textures
       };
+      material.uniforms.amount = {
+        type: "i",
+        value: this.textures.length
+      };
       material.uniforms.masks = {
         type: "tv",
         value: this.masks

@@ -15,6 +15,9 @@
 	<script src="three.js-master/examples/js/Mirror.js"></script>
 	<script src="three.js-master/examples/js/loaders/DDSLoader.js"></script>
 	<script src="three.js-master/examples/js/loaders/ColladaLoader.js"></script>
+	<script src="three.js-master/examples/js/loaders/collada/Animation.js"></script>
+	<script src="three.js-master/examples/js/loaders/collada/AnimationHandler.js"></script>
+	<script src="three.js-master/examples/js/loaders/collada/KeyFrameAnimation.js"></script>
 	<script src="three.js-master/examples/js/controls/PointerLockControls.js"></script>
 	<!--<script src="three.js-master/examples/js/controls/FirstPersonControls.js"></script>-->
 	<script src="js/dat.gui.min.js"></script>
@@ -166,12 +169,13 @@ varying vec3 vLightFront;
 // START MW
 varying vec2 vUv;
 
-//uniform sampler2D uTextures[ 5 ];
+uniform sampler2D textures[ 6 ];
+uniform int amount;
+
 uniform sampler2D cat;
 uniform sampler2D vclr;
 
-//uniform int amount;
-//uniform sampler2D uMasks[ 3 ];
+uniform sampler2D masks[ 3 ];
 // END MW
 
 void main() {
@@ -184,12 +188,26 @@ void main() {
 
 	#include <logdepthbuf_fragment>
 	#include <map_fragment>
+	#include <color_fragment>
 
 	// START MW
 	diffuseColor = texture2D(cat, vUv);
+
+	vec2 uv1 = vUv;
+
+	//  0.9846153846153846 1.015625
+	vec3 soil = vec3(0.0);
+
+	vec4 M = vec4(0.0);
+
+		M = texture2D(masks[0], uv1);
+
+	//soil += vec3( vec4(p, p, p, 0) * c );
+
+	vec4 lol = texture2D(vclr, vUv);
+	gl_FragColor = gl_FragColor * lol*2.;
 	// END MW 
 
-	#include <color_fragment>
 	#include <alphamap_fragment>
 	#include <alphatest_fragment>
 	#include <specularmap_fragment>
@@ -222,24 +240,6 @@ void main() {
 	#include <envmap_fragment>
 
 	gl_FragColor = vec4( outgoingLight, diffuseColor.a );
-	
-
-	// START MW
-	vec2 uv1 = vUv;
-
-	//vec4 M = texture2D(uTextures[0], uv1);
-	//vec3 LOL = M.xyz;
-			
-	//vec4 M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
-	//float p = M.g;
-	//vec4 c = texture2D(uTextures[1], vUv * 16.0);
-	//soil = vec3( c * vec4(p, p, p, 1.0) );
-
-	//gl_FragColor = cat * (vclr*2.);
-	vec4 lol = texture2D(vclr, vUv);
-	gl_FragColor = gl_FragColor * lol*2.;
-	// gl_FragColor = texture2D(cat, vUv); // vec4(LOL, 1.0);
-	// END MW
 
 	#include <premultiplied_alpha_fragment>
 	#include <tonemapping_fragment>
