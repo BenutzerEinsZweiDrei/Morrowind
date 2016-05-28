@@ -40,7 +40,8 @@
       m = new THREE.MeshBasicMaterial({
         map: mw.textures['tx_bc_mud.dds']
       });
-      this.ground = new THREE.Mesh(this.geometry, this.splat());
+      this.material = this.splat();
+      this.ground = new THREE.Mesh(this.geometry, this.material);
       this.ground.position.set(this.mx, this.my, 0);
       mw.scene.add(this.ground);
       return true;
@@ -130,27 +131,36 @@
     };
 
     Terrain.prototype.splat = function() {
-      var material;
+      var a, material;
+      a = new THREE.TextureLoader().load("textures/cat.dds");
       material = new THREE.ShaderMaterial({
-        uniforms: THREE.UniformsUtils.merge([
-          THREE.UniformsLib['common'], THREE.UniformsLib['aomap'], THREE.UniformsLib['lightmap'], THREE.UniformsLib['emissivemap'], THREE.UniformsLib['fog'], THREE.UniformsLib['lights'], {
-            emissive: {
-              type: "c",
-              value: new THREE.Color(0x0000cc)
-            },
-            cat: {
-              type: "t",
-              value: THREE.ImageUtils.loadTexture("textures/cat.dds")
-            }
-          }
-        ]),
+        uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib['common'], THREE.UniformsLib['aomap'], THREE.UniformsLib['lightmap'], THREE.UniformsLib['emissivemap'], THREE.UniformsLib['fog'], THREE.UniformsLib['lights']]),
         vertexShader: document.getElementById('splatVertexShader').textContent,
         fragmentShader: document.getElementById('splatFragmentShader').textContent,
-        fog: true,
         lights: true,
-        transparent: false,
+        fog: true,
         side: THREE.FrontSide
       });
+      material.uniforms.emissive = {
+        type: "c",
+        value: new THREE.Color(0x0000cc)
+      };
+      material.uniforms.cat = {
+        type: "t",
+        value: mw.textures['tx_sky_clear.dds']
+      };
+      material.uniforms.textures = {
+        type: "tv",
+        value: this.textures
+      };
+      material.uniforms.masks = {
+        type: "tv",
+        value: this.masks
+      };
+      material.uniforms.vclr = {
+        type: "tv",
+        value: this.vclr
+      };
       return material;
     };
 

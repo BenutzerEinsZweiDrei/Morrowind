@@ -165,9 +165,11 @@ varying vec3 vLightFront;
 
 // START MW
 varying vec2 vUv;
-//uniform sampler2D vertexColour;
+
 //uniform sampler2D uTextures[ 5 ];
 uniform sampler2D cat;
+uniform sampler2D vclr;
+
 //uniform int amount;
 //uniform sampler2D uMasks[ 3 ];
 // END MW
@@ -182,6 +184,11 @@ void main() {
 
 	#include <logdepthbuf_fragment>
 	#include <map_fragment>
+
+	// START MW
+	diffuseColor = texture2D(cat, vUv);
+	// END MW 
+
 	#include <color_fragment>
 	#include <alphamap_fragment>
 	#include <alphatest_fragment>
@@ -228,7 +235,10 @@ void main() {
 	//vec4 c = texture2D(uTextures[1], vUv * 16.0);
 	//soil = vec3( c * vec4(p, p, p, 1.0) );
 
-	gl_FragColor = texture2D(cat, vUv); // vec4(LOL, 1.0);
+	//gl_FragColor = cat * (vclr*2.);
+	vec4 lol = texture2D(vclr, vUv);
+	gl_FragColor = gl_FragColor * lol*2.;
+	// gl_FragColor = texture2D(cat, vUv); // vec4(LOL, 1.0);
 	// END MW
 
 	#include <premultiplied_alpha_fragment>

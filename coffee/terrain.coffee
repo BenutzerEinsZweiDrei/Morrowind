@@ -45,7 +45,9 @@ class mw.Terrain
 	mkground: ->
 		m = new THREE.MeshBasicMaterial map: mw.textures['tx_bc_mud.dds']
 
-		@ground = new THREE.Mesh @geometry, @splat()
+		@material = @splat()
+
+		@ground = new THREE.Mesh @geometry, @material
 		@ground.position.set @mx, @my, 0
 
 		mw.scene.add @ground
@@ -171,32 +173,29 @@ class mw.Terrain
 
 	splat: ->
 
+		a = new THREE.TextureLoader().load "textures/cat.dds"
+
 		material = new THREE.ShaderMaterial
 			uniforms:
 				THREE.UniformsUtils.merge([
-
 						THREE.UniformsLib[ 'common' ],
 						THREE.UniformsLib[ 'aomap' ],
 						THREE.UniformsLib[ 'lightmap' ],
 						THREE.UniformsLib[ 'emissivemap' ],
 						THREE.UniformsLib[ 'fog' ],
-						THREE.UniformsLib[ 'lights' ],
-
-						{
-							emissive : { type: "c", value: new THREE.Color( 0x0000cc ) }
-							# vertexColour: 		{ type: "t", value: @vclr }
-			
-							#uTextures: 			{ type: "tv", value: @textures }
-							cat: 				{ type: "t", value: THREE.ImageUtils.loadTexture( "textures/cat.dds" ) }
-							#amount:				{ type: "i", value: @textures.length }
-							#uMasks: 			{ type: "tv", value: @masks }
-						}])
+						THREE.UniformsLib[ 'lights' ]
+				])
 
 			vertexShader:   document.getElementById( 'splatVertexShader'   ).textContent
 			fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
-			fog: true
 			lights: true
-			transparent: false
+			fog: true
 			side: THREE.FrontSide
+
+		material.uniforms.emissive = 	type: "c", 	value: new THREE.Color 0x0000cc
+		material.uniforms.cat = 		type: "t", 	value: mw.textures['tx_sky_clear.dds']
+		material.uniforms.textures =	type: "tv", value: @textures
+		material.uniforms.masks = 		type: "tv", value: @masks
+		material.uniforms.vclr = 		type: "tv", value: @vclr
 
 		return material

@@ -1,6 +1,8 @@
 class mw.World
 	constructor: (@data) ->
 
+		# todo: revamp ygky
+
 		@x = -2
 		@y = -9
 

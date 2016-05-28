@@ -51,7 +51,7 @@
     };
 
     World.prototype.ransack = function() {
-      var j, k, lastMatrix, len, p, ref, ref1, v;
+      var j, len, p, ref;
       ref = this.data;
       for (j = 0, len = ref.length; j < len; j++) {
         p = ref[j];
@@ -60,25 +60,6 @@
         }
       }
       mw.watershed.call(mw);
-      ref1 = mw.models;
-      for (k in ref1) {
-        v = ref1[k];
-        if (k !== 'ex_common_house_tall_02') {
-          continue;
-        }
-        console.log(v);
-        lastMatrix = null;
-        v.scene.traverse(function(child) {
-          if (child instanceof THREE.Mesh) {
-            if (lastMatrix != null) {
-
-            }
-          } else if (child instanceof THREE.Object3D) {
-            lastMatrix = child;
-            return console.log("We're at " + child.colladaId);
-          }
-        });
-      }
       return true;
     };
 
