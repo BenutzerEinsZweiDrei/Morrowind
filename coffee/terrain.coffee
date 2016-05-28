@@ -190,9 +190,4 @@ class mw.Terrain
 			transparent: false
 			side: THREE.FrontSide
 
-		#material = new THREE.MeshLambertMaterial
-			#map: mw.textures['water/water0.dds']
-
-		console.log material
-
 		return material

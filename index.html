@@ -99,6 +99,8 @@ varying vec3 vLightFront;
 #include <logdepthbuf_pars_vertex>
 #include <clipping_planes_pars_vertex>
 
+varying vec2 vUv;
+
 void main() {
 
 	#include <uv_vertex>
@@ -159,6 +161,14 @@ varying vec3 vLightFront;
 #include <logdepthbuf_pars_fragment>
 #include <clipping_planes_pars_fragment>
 
+// START MW
+varying vec2 vUv;
+uniform sampler2D vertexColour;
+uniform sampler2D uTextures[ 9 ];
+uniform int amount;
+uniform sampler2D uMasks[ 3 ];
+// END MW
+
 void main() {
 
 	#include <clipping_planes_fragment>
@@ -202,6 +212,69 @@ void main() {
 	#include <envmap_fragment>
 
 	gl_FragColor = vec4( outgoingLight, diffuseColor.a );
+	
+
+	// START MW
+	vec2 uv1 = vUv;
+	uv1.x = uv1.x + 0.0625;
+	uv1.y = uv1.y + 0.0625;
+	//vec3 map = vec3( texture2D(texturePlacement, uv1 * 0.8888888888888889) );
+	//vec3 mapl = vec3( texture2D(texturePlacementLinear, uv1 * 0.8888888888888889) );
+
+	vec2 uv2 = vUv;
+	uv2.x = uv2.x + 0.0078125;
+	uv2.y = uv2.y + 0.0078125;
+	vec4 vcolor = texture2D(vertexColour, uv2 * 0.9846153846153846);
+	vec3 vclr = vec3(vcolor);
+
+	//  0.9846153846153846 1.015625
+	vec3 soil = vec3(0.0);
+
+	for (int i = 0; i <= 9; i ++) {
+		if ( i < amount ) {
+			int m = int(floor(float(i)/3.0));
+			vec4 M = vec4(0.0);
+			float p = 0.0;
+			vec4 c = texture2D(uTextures[i], vUv * 16.0);
+
+			if ( m == 0 ) {
+				M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
+			}
+			else if ( m == 1) {
+				M = texture2D(uMasks[1], uv1 * 0.8888888888888889);
+			}
+			else if ( m == 2 ) {
+				M = texture2D(uMasks[2], uv1 * 0.8888888888888889);
+			}
+
+			int I = int(floor(float(i)/4.0));
+			int ch = i - (I*4);
+			if ( ch == 0 ) {
+				p = M.r;
+			}
+			else if ( ch == 1) {
+				p = M.g;
+			}
+			else if ( ch == 2) {
+				p = M.b;
+			}
+			else if ( ch == 3 ) {
+				p = M.a;
+			}
+
+			soil += vec3( vec4(p, p, p, 0) * c );
+		}
+	}
+
+	soil = soil * (vclr*2.);
+
+	//vec4 M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
+	//float p = M.g;
+	//vec4 c = texture2D(uTextures[1], vUv * 16.0);
+	//soil = vec3( c * vec4(p, p, p, 1.0) );
+
+	gl_FragColor = vec4(soil, 1.0);
+	// END MW
 
 	#include <premultiplied_alpha_fragment>
 	#include <tonemapping_fragment>

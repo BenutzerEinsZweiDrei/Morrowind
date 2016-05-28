@@ -172,7 +172,6 @@
         transparent: false,
         side: THREE.FrontSide
       });
-      console.log(material);
       return material;
     };
 
