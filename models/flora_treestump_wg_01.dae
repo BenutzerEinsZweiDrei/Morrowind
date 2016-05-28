@@ -5,40 +5,40 @@
    <authoring_tool>NifSkope 1.1.3</authoring_tool>
    <comments/>
   </contributor>
-  <created>2016-05-27T22:05:36</created>
-  <modified>2016-05-27T22:05:36</modified>
+  <created>2016-05-28T18:20:03</created>
+  <modified>2016-05-28T18:20:03</modified>
   <revision/>
   <title/>
   <unit meter="0.0254" name="inch"/>
   <up_axis>Z_UP</up_axis>
  </asset>
  <library_images>
-  <image id="nifid_3_image" name="Map_Tx_bark_05">
-   <init_from>../textures/Tx_bark_05.dds</init_from>
+  <image id="nifid_4_image" name="Map_tx_bark_05">
+   <init_from>../textures/tx_bark_05.dds</init_from>
   </image>
-  <image id="nifid_8_image" name="Map_Tx_treering_WG_01">
-   <init_from>../textures/Tx_treering_WG_01.dds</init_from>
+  <image id="nifid_9_image" name="Map_tx_treering_wg_01">
+   <init_from>../textures/tx_treering_wg_01.dds</init_from>
   </image>
  </library_images>
  <library_materials>
-  <material id="nifid_1-material" name="Material_Material_#26">
+  <material id="nifid_1-material" name="Material_">
    <instance_effect url="#nifid_1-effect"/>
   </material>
-  <material id="nifid_6-material" name="Material_Material_#26">
+  <material id="nifid_6-material" name="Material_">
    <instance_effect url="#nifid_6-effect"/>
   </material>
  </library_materials>
  <library_effects>
-  <effect id="nifid_1-effect" name="Material_#26">
+  <effect id="nifid_1-effect" name="nifid_1-effect">
    <profile_COMMON>
-    <newparam sid="nifid_3-surface">
+    <newparam sid="nifid_4-surface">
      <surface type="2D">
-      <init_from>nifid_3_image</init_from>
+      <init_from>nifid_4_image</init_from>
      </surface>
     </newparam>
-    <newparam sid="nifid_3-sampler">
+    <newparam sid="nifid_4-sampler">
      <sampler2D>
-      <source>nifid_3-surface</source>
+      <source>nifid_4-surface</source>
      </sampler2D>
     </newparam>
     <technique sid="COMMON">
@@ -50,7 +50,7 @@
        <color sid="ambient">1.000000 1.000000 1.000000 1.000000</color>
       </ambient>
       <diffuse>
-       <texture texcoord="UVSET0" texture="nifid_3-sampler">
+       <texture texcoord="UVSET0" texture="nifid_4-sampler">
         <extra>
          <technique profile="MAYA">
           <wrapU sid="wrapU0">TRUE</wrapU>
@@ -82,8 +82,18 @@
     </technique>
    </profile_COMMON>
   </effect>
-  <effect id="nifid_6-effect" name="Material_#26">
+  <effect id="nifid_6-effect" name="nifid_6-effect">
    <profile_COMMON>
+    <newparam sid="nifid_9-surface">
+     <surface type="2D">
+      <init_from>nifid_9_image</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="nifid_9-sampler">
+     <sampler2D>
+      <source>nifid_9-surface</source>
+     </sampler2D>
+    </newparam>
     <technique sid="COMMON">
      <phong>
       <emission>
@@ -93,7 +103,15 @@
        <color sid="ambient">1.000000 1.000000 1.000000 1.000000</color>
       </ambient>
       <diffuse>
-       <color sid="diffuse">1.000000 1.000000 1.000000 1.000000</color>
+       <texture texcoord="UVSET0" texture="nifid_9-sampler">
+        <extra>
+         <technique profile="MAYA">
+          <wrapU sid="wrapU0">TRUE</wrapU>
+          <wrapV sid="wrapV0">TRUE</wrapV>
+          <blend_mode>ADD</blend_mode>
+         </technique>
+        </extra>
+       </texture>
       </diffuse>
       <specular>
        <color sid="specular">0.000000 0.000000 0.000000 1.000000</color>
@@ -115,16 +133,6 @@
       </transparency>
      </phong>
     </technique>
-    <newparam sid="nifid_8-surface">
-     <surface type="2D">
-      <init_from>nifid_8_image</init_from>
-     </surface>
-    </newparam>
-    <newparam sid="nifid_8-sampler">
-     <sampler2D>
-      <source>nifid_8-surface</source>
-     </sampler2D>
-    </newparam>
    </profile_COMMON>
   </effect>
  </library_effects>

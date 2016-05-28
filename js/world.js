@@ -51,7 +51,7 @@
     };
 
     World.prototype.ransack = function() {
-      var j, len, p, ref;
+      var j, k, lastMatrix, len, p, ref, ref1, v;
       ref = this.data;
       for (j = 0, len = ref.length; j < len; j++) {
         p = ref[j];
@@ -60,11 +60,30 @@
         }
       }
       mw.watershed.call(mw);
+      ref1 = mw.models;
+      for (k in ref1) {
+        v = ref1[k];
+        if (k !== 'ex_common_house_tall_02') {
+          continue;
+        }
+        console.log(v);
+        lastMatrix = null;
+        v.scene.traverse(function(child) {
+          if (child instanceof THREE.Mesh) {
+            if (lastMatrix != null) {
+
+            }
+          } else if (child instanceof THREE.Object3D) {
+            lastMatrix = child;
+            return console.log("We're at " + child.colladaId);
+          }
+        });
+      }
       return true;
     };
 
     World.prototype.cache = function(p) {
-      var cb, k, loader, model, ref, v;
+      var cb, loader, model;
       model = p.model;
       this.queue++;
       mw.models[model] = null;
@@ -73,38 +92,24 @@
         if (model === 'ex_common_house_tall_02') {
           showme = true;
         }
-        if (showme) {
-          console.log(dae);
-        }
         dad = dae.scene;
-        mw.models[model] = dad;
+        dad.mw = model;
+        mw.models[model] = dae;
         dad.scale.x = dad.scale.y = dad.scale.z = 1;
         dad.updateMatrix();
         dad.traverse(function(child) {
+          var map;
           if (child instanceof THREE.Mesh) {
-            if (showme) {
-              console.log(child);
-            }
             child.material.vertexColors = THREE.VertexColors;
             child.material.alphaTest = 0.5;
-            if (child.material.map) {
-              if (showme) {
-                console.log("has map");
-                console.log(child.material);
-              }
-              return child.material.map.anisotropy = mw.maxAnisotropy;
+            if (map = child.material.map) {
+              map.repeat.y = -1;
+              return map.anisotropy = mw.maxAnisotropy;
             }
           }
         });
         mw.world.cachcb();
       };
-      ref = mw.models;
-      for (k in ref) {
-        v = ref[k];
-        v.traverse(function(child) {
-          return console.log('ok');
-        });
-      }
       loader = new THREE.ColladaLoader;
       loader.load("models/" + model + ".dae", cb);
       return true;

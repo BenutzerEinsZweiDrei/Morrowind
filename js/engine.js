@@ -23,12 +23,6 @@
     this.scene = new THREE.Scene;
     this.scene.fog = new THREE.Fog(0xefd1b5, 2500, 10000);
     this.scene.add(new THREE.AmbientLight(0xffffff));
-    this.sun = new THREE.SpotLight(0xffeedd);
-    this.sun.castShadow = true;
-    this.sun.shadowDarkness = 0.5;
-    this.sun.shadowCameraVisible = true;
-    this.sun.target.position.set(-12722.207, -71304.219, 0);
-    this.sun.shadowMapWidth = this.sun.shadowMapHeight = 2048;
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer;
     this.maxAnisotropy = this.renderer.getMaxAnisotropy();
@@ -85,9 +79,6 @@
   render = function() {
     var angle;
     angle = Date.now() / 200 * Math.PI;
-    this.sun.position.x = -13222.207 + (Math.cos(angle * -0.1) * 600);
-    this.sun.position.y = -72304.219 + (Math.sin(angle * -0.1) * 600);
-    this.sun.position.z = 800 + (Math.sin(angle * 0.5) * 100);
     if (mw.water) {
       mw.mirror.render();
     }

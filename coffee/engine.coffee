@@ -31,15 +31,15 @@ mw.boot = () ->
 	# neutral 0x777777
 	@scene.add new THREE.AmbientLight 0xffffff
 	
-	@sun = new THREE.SpotLight 0xffeedd
+	#@sun = new THREE.SpotLight 0xffeedd
 	#@sun.shadowCameraNear 
-	@sun.castShadow = true
-	@sun.shadowDarkness = 0.5
-	@sun.shadowCameraVisible = true
+	#@sun.castShadow = true
+	#@sun.shadowDarkness = 0.5
+	#@sun.shadowCameraVisible = true
 
-	@sun.target.position.set( -12722.207, -71304.219, 0 );
+	#@sun.target.position.set( -12722.207, -71304.219, 0 );
 	#@sun.position.set( -13722.207, -71304.219, 500 ) #.normalize()
-	@sun.shadowMapWidth = @sun.shadowMapHeight = 2048
+	#@sun.shadowMapWidth = @sun.shadowMapHeight = 2048
 	#@scene.add @sun
 
 	# model
@@ -119,9 +119,9 @@ mw.animate = () ->
 render = ->
 
 	angle = Date.now()/200 * Math.PI;
-	@sun.position.x	= -13222.207 + (Math.cos(angle*-0.1)*600);
-	@sun.position.y	= -72304.219 + (Math.sin(angle*-0.1)*600);
-	@sun.position.z	= 800 + (Math.sin(angle*0.5)*100);
+	# @sun.position.x	= -13222.207 + (Math.cos(angle*-0.1)*600);
+	# @sun.position.y	= -72304.219 + (Math.sin(angle*-0.1)*600);
+	# @sun.position.z	= 800 + (Math.sin(angle*0.5)*100);
 
 	#@camera.position.x = -11699.271 + @mouseX
 	#@camera.position.y = -70396.516 + @mouseY

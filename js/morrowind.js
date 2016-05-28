@@ -9,6 +9,7 @@
     gots: 0,
     gets: 3,
     keys: [],
+    models: {},
     world: null,
     ply: null,
     circle: [

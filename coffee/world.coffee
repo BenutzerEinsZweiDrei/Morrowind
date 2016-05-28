@@ -9,9 +9,6 @@ class mw.World
 		#for i in [0..8]
 		#	@cells.push new mw.Cell @x + mw.circle[i].x, @y + mw.circle[i].y
 		#new mw.Cell @x, @y
-
-		#if mw.models
-		#	true
 		
 		@doskybox()
 
@@ -59,6 +56,30 @@ class mw.World
 				@props.push new mw.Prop p
 
 		mw.watershed.call mw
+
+		for k, v of mw.models
+
+			continue unless k is 'ex_common_house_tall_02'
+
+			console.log v
+
+			lastMatrix = null
+
+			v.scene.traverse (child) ->
+				if child instanceof THREE.Mesh
+
+					if lastMatrix?
+						;
+					#console.log child.colladaId
+					#map.repeat.y = -1
+					#map.anisotropy = mw.maxAnisotropy
+					#console.log child
+					;
+
+				else if child instanceof THREE.Object3D
+					lastMatrix = child
+					console.log "We're at #{child.colladaId}"
+
 		true
 
 	cache: (p) ->
@@ -71,11 +92,13 @@ class mw.World
 		cb = (dae) ->
 			showme = true if model is 'ex_common_house_tall_02'
 
-			console.log dae if showme
+			# console.log dae if showme
 
 			dad = dae.scene
 
-			mw.models[model] = dad
+			dad.mw = model
+
+			mw.models[model] = dae
 
 			dad.scale.x = dad.scale.y = dad.scale.z = 1
 			dad.updateMatrix()
@@ -84,26 +107,29 @@ class mw.World
 				if child instanceof THREE.Mesh
 					# console.log 'crayons'
 
-					console.log child if showme
+					# console.log child if showme
 
 					child.material.vertexColors = THREE.VertexColors
 
 					child.material.alphaTest = 0.5
 
-					if child.material.map
+					if map = child.material.map
 
-						if showme
-							console.log "has map"
-							console.log child.material
+						map.repeat.y = -1
 
-						child.material.map.anisotropy = mw.maxAnisotropy
+						map.anisotropy = mw.maxAnisotropy
+
+						# map.minFilter = THREE.NearestFilter
+
+						#if showme
+							#console.log "has map"
+							#console.log child.material
+					#else
+						#child.material.map = mw.textures['cat.dds']
+
 
 			mw.world.cachcb()
 			return
-
-		for k, v of mw.models
-			v.traverse (child) ->
-				console.log 'ok'
 
 		loader = new THREE.ColladaLoader
 		loader.load "models/#{model}.dae", cb

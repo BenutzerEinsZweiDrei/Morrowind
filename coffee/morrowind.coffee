@@ -6,6 +6,7 @@ mw = root.mw =
 	gets: 3
 
 	keys: []
+	models: {}
 	world: null
 	ply: null
 

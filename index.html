@@ -10,23 +10,19 @@
 		
 	<script src="js/jquery-2.1.3.min.js"></script>
 
-	<script src="mrdoob-three.js-d6384d2/build/three.min.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/libs/stats.min.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/Mirror.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/loaders/DDSLoader.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/loaders/TGALoader.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/loaders/MTLLoader.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/loaders/OBJMTLLoader.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/loaders/ColladaLoader.js"></script>
-	<script src="mrdoob-three.js-d6384d2/examples/js/controls/PointerLockControls.js"></script>
-	<!--<script src="mrdoob-three.js-d6384d2/examples/js/controls/FirstPersonControls.js"></script>-->
+	<script src="three.js-master/build/three.min.js"></script>
+	<script src="three.js-master/examples/js/libs/stats.min.js"></script>
+	<script src="three.js-master/examples/js/Mirror.js"></script>
+	<script src="three.js-master/examples/js/loaders/DDSLoader.js"></script>
+	<script src="three.js-master/examples/js/loaders/ColladaLoader.js"></script>
+	<script src="three.js-master/examples/js/controls/PointerLockControls.js"></script>
+	<!--<script src="three.js-master/examples/js/controls/FirstPersonControls.js"></script>-->
 	<script src="js/dat.gui.min.js"></script>
 
 	<script src="js/FirstPersonControls.js"></script>
 	<script src="js/morrowind.js"></script>
 	<script src="js/toolshack.js"></script>
 	<script src="js/engine.js"></script>
-	<script src="js/models.js"></script>
 	<script src="js/world.js"></script>
 	<script src="js/water.js"></script>
 	<script src="js/cell.js"></script>
@@ -46,6 +42,8 @@
 	</style>
 </head>
 <body>
+
+<!-- <iframe style="display: none" id="audio" width="1280" height="720" src="https://www.youtube.com/embed/hnz3t2RN0ns?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allowfullscreen=""></iframe> -->
 
 <script id="vertexShader" type="x-shader/x-vertex">
 varying vec2 vUv;
@@ -78,176 +76,138 @@ void main()
 </script>
 
 <script id="splatVertexShader" type="x-shader/x-vertex">
-varying vec2 vUv;
+#define LAMBERT
 
-void main() 
-{
-	vUv = uv;
-	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+varying vec3 vLightFront;
+
+#ifdef DOUBLE_SIDED
+
+	varying vec3 vLightBack;
+
+#endif
+
+#include <common>
+#include <uv_pars_vertex>
+#include <uv2_pars_vertex>
+#include <envmap_pars_vertex>
+#include <bsdfs>
+#include <lights_pars>
+#include <color_pars_vertex>
+#include <morphtarget_pars_vertex>
+#include <skinning_pars_vertex>
+#include <shadowmap_pars_vertex>
+#include <logdepthbuf_pars_vertex>
+#include <clipping_planes_pars_vertex>
+
+void main() {
+
+	#include <uv_vertex>
+	#include <uv2_vertex>
+	#include <color_vertex>
+
+	#include <beginnormal_vertex>
+	#include <morphnormal_vertex>
+	#include <skinbase_vertex>
+	#include <skinnormal_vertex>
+	#include <defaultnormal_vertex>
+
+	#include <begin_vertex>
+	#include <morphtarget_vertex>
+	#include <skinning_vertex>
+	#include <project_vertex>
+	#include <logdepthbuf_vertex>
+	#include <clipping_planes_vertex>
+
+	#include <worldpos_vertex>
+	#include <envmap_vertex>
+	#include <lights_lambert_vertex>
+	#include <shadowmap_vertex>
+
 }
 </script>
 
 <script id="splatFragmentShader" type="x-shader/x-vertex">
-uniform sampler2D vertexColour;
+uniform vec3 diffuse;
+uniform vec3 emissive;
+uniform float opacity;
 
-uniform sampler2D uTextures[ 9 ];
-uniform int amount;
-uniform sampler2D uMasks[ 3 ];
-//uniform sampler2D rockyTexture;
-//uniform sampler2D snowyTexture;
+varying vec3 vLightFront;
 
-varying vec2 vUv;
+#ifdef DOUBLE_SIDED
 
-#define PI 3.14159
-#define PI2 6.28318
-#define RECIPROCAL_PI2 0.15915494
-#define LOG2 1.442695
-#define EPSILON 1e-6
-
-float square( in float a ) { return a*a; }
-vec2  square( in vec2 a )  { return vec2( a.x*a.x, a.y*a.y ); }
-vec3  square( in vec3 a )  { return vec3( a.x*a.x, a.y*a.y, a.z*a.z ); }
-vec4  square( in vec4 a )  { return vec4( a.x*a.x, a.y*a.y, a.z*a.z, a.w*a.w ); }
-float saturate( in float a ) { return clamp( a, 0.0, 1.0 ); }
-vec2  saturate( in vec2 a )  { return clamp( a, 0.0, 1.0 ); }
-vec3  saturate( in vec3 a )  { return clamp( a, 0.0, 1.0 ); }
-vec4  saturate( in vec4 a )  { return clamp( a, 0.0, 1.0 ); }
-float average( in float a ) { return a; }
-float average( in vec2 a )  { return ( a.x + a.y) * 0.5; }
-float average( in vec3 a )  { return ( a.x + a.y + a.z) / 3.0; }
-float average( in vec4 a )  { return ( a.x + a.y + a.z + a.w) * 0.25; }
-float whiteCompliment( in float a ) { return saturate( 1.0 - a ); }
-vec2  whiteCompliment( in vec2 a )  { return saturate( vec2(1.0) - a ); }
-vec3  whiteCompliment( in vec3 a )  { return saturate( vec3(1.0) - a ); }
-vec4  whiteCompliment( in vec4 a )  { return saturate( vec4(1.0) - a ); }
-
-#ifdef USE_FOG
-
-	uniform vec3 fogColor;
-
-	#ifdef FOG_EXP2
-
-		uniform float fogDensity;
-
-	#else
-
-		uniform float fogNear;
-		uniform float fogFar;
-	#endif
+	varying vec3 vLightBack;
 
 #endif
 
-float dirtb = 0.8392156862745098;
-float mossb = 0.9019607843137255;
-float mudb = 0.9686274509803922;
-vec3 btex( in float b ) {
-	return vec3(0.0);
-}
+#include <common>
+#include <packing>
+#include <color_pars_fragment>
+#include <uv_pars_fragment>
+#include <uv2_pars_fragment>
+#include <map_pars_fragment>
+#include <alphamap_pars_fragment>
+#include <aomap_pars_fragment>
+#include <lightmap_pars_fragment>
+#include <emissivemap_pars_fragment>
+#include <envmap_pars_fragment>
+#include <bsdfs>
+#include <lights_pars>
+#include <fog_pars_fragment>
+#include <shadowmap_pars_fragment>
+#include <shadowmask_pars_fragment>
+#include <specularmap_pars_fragment>
+#include <logdepthbuf_pars_fragment>
+#include <clipping_planes_pars_fragment>
 
+void main() {
 
-void main()
-{
+	#include <clipping_planes_fragment>
 
-	//vec4 water = (smoothstep(0.01, 0.25, 1.0) - smoothstep(0.24, 0.26, 1.0)) * texture2D( texturePlacement, vUv * 10.0 );
-	//vec4 sandy = (smoothstep(0.24, 0.27, 1.0) - smoothstep(0.28, 0.31, 1.0)) * texture2D( vertexColour, vUv * 10.0 );
-	//vec4 grass = (smoothstep(0.28, 0.32, vAmount) - smoothstep(0.35, 0.40, vAmount)) * texture2D( grassTexture, vUV * 20.0 );
-	//vec4 rocky = (smoothstep(0.30, 0.50, vAmount) - smoothstep(0.40, 0.70, vAmount)) * texture2D( rockyTexture, vUV * 20.0 );
-	//vec4 snowy = (smoothstep(0.50, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 );
+	vec4 diffuseColor = vec4( diffuse, opacity );
+	ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
+	vec3 totalEmissiveRadiance = emissive;
 
-	//vec3 color = vec3( 0.0 );
+	#include <logdepthbuf_fragment>
+	#include <map_fragment>
+	#include <color_fragment>
+	#include <alphamap_fragment>
+	#include <alphatest_fragment>
+	#include <specularmap_fragment>
+	#include <emissivemap_fragment>
 
-	vec2 uv1 = vUv;
-	uv1.x = uv1.x + 0.0625;
-	uv1.y = uv1.y + 0.0625;
-	//vec3 map = vec3( texture2D(texturePlacement, uv1 * 0.8888888888888889) );
-	//vec3 mapl = vec3( texture2D(texturePlacementLinear, uv1 * 0.8888888888888889) );
+	// accumulation
+	reflectedLight.indirectDiffuse = getAmbientLightIrradiance( ambientLightColor );
 
-	vec2 uv2 = vUv;
-	uv2.x = uv2.x + 0.0078125;
-	uv2.y = uv2.y + 0.0078125;
-	vec4 vcolor = texture2D(vertexColour, uv2 * 0.9846153846153846);
-	vec3 vclr = vec3(vcolor);
+	#include <lightmap_fragment>
 
-	//  0.9846153846153846 1.015625
-	vec3 color = vec3(0.0);
-	vec3 soil = vec3(0.0);
+	reflectedLight.indirectDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb );
 
-	for (int i = 0; i <= 9; i ++) {
-		if ( i < amount ) {
-			int m = int(floor(float(i)/3.0));
-			vec4 M = vec4(0.0);
-			float p = 0.0;
-			vec4 c = texture2D(uTextures[i], vUv * 16.0);
+	#ifdef DOUBLE_SIDED
 
-			if ( m == 0 ) {
-				M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
-			}
-			else if ( m == 1) {
-				M = texture2D(uMasks[1], uv1 * 0.8888888888888889);
-			}
-			else if ( m == 2 ) {
-				M = texture2D(uMasks[2], uv1 * 0.8888888888888889);
-			}
+		reflectedLight.directDiffuse = ( gl_FrontFacing ) ? vLightFront : vLightBack;
 
-			int I = int(floor(float(i)/4.0));
-			int ch = i - (I*4);
-			if ( ch == 0 ) {
-				p = M.r;
-			}
-			else if ( ch == 1) {
-				p = M.g;
-			}
-			else if ( ch == 2) {
-				p = M.b;
-			}
-			else if ( ch == 3 ) {
-				p = M.a;
-			}
+	#else
 
-			soil += vec3( vec4(p, p, p, 0) * c );
-		}
-	}
-
-	soil = soil * (vclr*2.);
-
-	//vec4 M = texture2D(uMasks[0], uv1 * 0.8888888888888889);
-	//float p = M.g;
-	//vec4 c = texture2D(uTextures[1], vUv * 16.0);
-	//soil = vec3( c * vec4(p, p, p, 1.0) );
-
-
-	color = soil;
-
-	#ifdef USE_FOG
-
-		#ifdef USE_LOGDEPTHBUF_EXT
-
-			float depth = gl_FragDepthEXT / gl_FragCoord.w;
-
-		#else
-
-			float depth = gl_FragCoord.z / gl_FragCoord.w;
-
-		#endif
-
-		#ifdef FOG_EXP2
-
-			float fogFactor = exp2( - square( fogDensity ) * square( depth ) * LOG2 );
-			fogFactor = whiteCompliment( fogFactor );
-
-		#else
-
-			float fogFactor = smoothstep( fogNear, fogFar, depth );
-
-		#endif
-		
-		color = mix( color, fogColor, fogFactor );
+		reflectedLight.directDiffuse = vLightFront;
 
 	#endif
 
-	gl_FragColor = vec4(color, 1.0);
-	
-	//gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy;// + grass + rocky + snowy;
+	reflectedLight.directDiffuse *= BRDF_Diffuse_Lambert( diffuseColor.rgb ) * getShadowMask();
+
+	// modulation
+	#include <aomap_fragment>
+
+	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;
+
+	#include <envmap_fragment>
+
+	gl_FragColor = vec4( outgoingLight, diffuseColor.a );
+
+	#include <premultiplied_alpha_fragment>
+	#include <tonemapping_fragment>
+	#include <encodings_fragment>
+	#include <fog_fragment>
+
 }
 </script>
 
