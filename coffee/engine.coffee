@@ -23,12 +23,12 @@ mw.boot = () ->
 	# scene
 	@scene = new THREE.Scene
 	#@scene.fog = new THREE.FogExp2 0xefd1b5, 0.0002
-	@scene.fog = new THREE.Fog 0xefd1b5, 2250, 9000
+	@scene.fog = new THREE.Fog mw.Fog, 2250, 9000
 	#@scene.rotation.z = 180 * Math.PI / 180
 
-	@scene.add new THREE.AmbientLight mw.AmbientDay
+	@scene.add new THREE.AmbientLight mw.Ambient
 
-	@sun = new THREE.DirectionalLight mw.SunDay, 1
+	@sun = new THREE.DirectionalLight mw.Sun, 1
 	@sun.name = 'Sun ^^'
 	@sun.position.set -9736.193505934018, -71181.47477616863, 1385.0809414861014
 
@@ -53,7 +53,7 @@ mw.boot = () ->
 	@scene.add @sun.target
 	# @scene.add new THREE.CameraHelper @sun.shadow.camera
 
-	wisp = new THREE.Light 0x0000cc
+	wisp = new THREE.PointLight 0xf58c28, 1, 100
 	wisp.position.set -11738.976, -70195.289, 385.415
 	@scene.add wisp
 

@@ -21,9 +21,9 @@
     this.controls.movementSpeed = 1000;
     this.controls.lookSpeed = 0.25;
     this.scene = new THREE.Scene;
-    this.scene.fog = new THREE.Fog(0xefd1b5, 2250, 9000);
-    this.scene.add(new THREE.AmbientLight(mw.AmbientDay));
-    this.sun = new THREE.DirectionalLight(mw.SunDay, 1);
+    this.scene.fog = new THREE.Fog(mw.Fog, 2250, 9000);
+    this.scene.add(new THREE.AmbientLight(mw.Ambient));
+    this.sun = new THREE.DirectionalLight(mw.Sun, 1);
     this.sun.name = 'Sun ^^';
     this.sun.position.set(-9736.193505934018, -71181.47477616863, 1385.0809414861014);
     this.sun.target.position.set(-11224, -70869, 300);
@@ -40,7 +40,7 @@
     this.sun.shadow.mapSize.height = 2048;
     this.scene.add(this.sun);
     this.scene.add(this.sun.target);
-    wisp = new THREE.Light(0x0000cc);
+    wisp = new THREE.PointLight(0xf58c28, 1, 100);
     wisp.position.set(-11738.976, -70195.289, 385.415);
     this.scene.add(wisp);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);

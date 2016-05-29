@@ -50,17 +50,60 @@
       '247': 'tx_bc_mud.dds'
     },
     noshadow: ['light_com_lantern_02', 'furn_com_lantern_hook'],
+    nolight: ['light_com_lantern_02', 'furn_com_lantern_hook'],
     textures: [],
     wireframe: new THREE.MeshBasicMaterial({
       wireframe: true,
       transparent: true,
       opacity: .5
     }),
-    AmbientSunrise: 0x424a57,
-    AmbientDay: 0x8991a0,
-    SunSunrise: 0xf1b163,
-    SunDay: 0xffecdd
+    weather: {
+      clear: {
+        SkySunrise: new THREE.Color('rgb(117,141,164)'),
+        SkyDay: new THREE.Color('rgb(95,135,203)'),
+        SkySunset: new THREE.Color('rgb(55,89,127)'),
+        SkyNight: new THREE.Color('rgb(5,5,5)'),
+        FogSunrise: new THREE.Color('rgb(255,188,155)'),
+        FogDay: new THREE.Color('rgb(206,227,255)'),
+        FogSunset: new THREE.Color('rgb(255,188,155)'),
+        FogNight: new THREE.Color('rgb(5,5,5)'),
+        AmbientSunrise: new THREE.Color('rgb(36,50,72)'),
+        AmbientDay: new THREE.Color('rgb(137,140,160)'),
+        AmbientSunset: new THREE.Color('rgb(55,61,77)'),
+        AmbientNight: new THREE.Color('rgb(10,11,12)'),
+        SunSunrise: new THREE.Color('rgb(242,159,119)'),
+        SunDay: new THREE.Color('rgb(255,252,238)'),
+        SunSunset: new THREE.Color('rgb(255,114,79)'),
+        SunNight: new THREE.Color('rgb(45,73,131)'),
+        SunDiscSunset: new THREE.Color('rgb(255,189,157)')
+      },
+      cloudy: {
+        SkySunrise: new THREE.Color('rgb(125,158,173)'),
+        SkyDay: new THREE.Color('rgb(117,160,215)'),
+        SkySunset: new THREE.Color('rgb(109,114,159)'),
+        SkyNight: new THREE.Color('rgb(5,5,5)'),
+        FogSunrise: new THREE.Color('rgb(255,203,147)'),
+        FogDay: new THREE.Color('rgb(245,235,224)'),
+        FogSunset: new THREE.Color('rgb(255,154,105)'),
+        FogNight: new THREE.Color('rgb(5,5,5)'),
+        AmbientSunrise: new THREE.Color('rgb(50,56,64)'),
+        AmbientDay: new THREE.Color('rgb(137,145,160)'),
+        AmbientSunset: new THREE.Color('rgb(55,62,71)'),
+        AmbientNight: new THREE.Color('rgb(10,12,16)'),
+        SunSunrise: new THREE.Color('rgb(241,177,99)'),
+        SunDay: new THREE.Color('rgb(255,236,221)'),
+        SunSunset: new THREE.Color('rgb(255,89,0)'),
+        SunNight: new THREE.Color('rgb(39,46,61)'),
+        SunDiscSunset: new THREE.Color('rgb(255,202,179)')
+      }
+    }
   };
+
+  mw.Ambient = mw.weather.clear.AmbientNight.getHex();
+
+  mw.Sun = mw.weather.clear.SunNight.getHex();
+
+  mw.Fog = mw.weather.clear.FogNight.getHex();
 
   $(document).ready(function() {
     $.ajaxSetup({

@@ -154,7 +154,7 @@
       };
       material.uniforms.diffuse = {
         type: "c",
-        value: new THREE.Color(mw.AmbientDay)
+        value: new THREE.Color(mw.Ambient)
       };
       material.uniforms.cat = {
         type: "t",

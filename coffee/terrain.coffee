@@ -208,7 +208,7 @@ class mw.Terrain
 			side: THREE.FrontSide
 
 		material.uniforms.emissive = 	type: "c", 	value: new THREE.Color 0x000000
-		material.uniforms.diffuse = 	type: "c", 	value: new THREE.Color mw.AmbientDay
+		material.uniforms.diffuse = 	type: "c", 	value: new THREE.Color mw.Ambient
 		material.uniforms.cat = 		type: "t", 	value: mw.textures['cat.dds']
 		material.uniforms.pastels =		type: "tv", value: @textures
 		material.uniforms.amount =		type: "i", 	value: @textures.length

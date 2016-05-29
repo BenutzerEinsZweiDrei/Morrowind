@@ -32,31 +32,75 @@ mw = root.mw =
 		'light_com_lantern_02'
 		'furn_com_lantern_hook'
 	]
+	nolight: [
+		'light_com_lantern_02'
+		'furn_com_lantern_hook'
+	]
 
 	textures: []
 	wireframe: new THREE.MeshBasicMaterial wireframe: true, transparent: true, opacity: .5
 
-	# from Morrowind.ini
-	# Sky Sunrise Color=255,100,5
-	# Sky Day Color=255,255,255
-	# Sky Sunset Color=130,50,130
-	# Sky Night Color=020,000,050
-	
-	# Fog Sunrise Color=255,155,155
-	# Fog Day Color=255,201,115
-	# Fog Sunset Color=255,100,255
-	# Fog Night Color=000,000,150
+	weather:
+		clear:
+			SkySunrise: new THREE.Color 'rgb(117,141,164)'
+			SkyDay: new THREE.Color 'rgb(95,135,203)'
+			SkySunset: new THREE.Color 'rgb(55,89,127)'
+			SkyNight: new THREE.Color 'rgb(5,5,5)'
+			FogSunrise: new THREE.Color 'rgb(255,188,155)'
+			FogDay: new THREE.Color 'rgb(206,227,255)'
+			FogSunset: new THREE.Color 'rgb(255,188,155)'
+			FogNight: new THREE.Color 'rgb(5,5,5)'
+			AmbientSunrise: new THREE.Color 'rgb(36,50,72)'
+			AmbientDay: new THREE.Color 'rgb(137,140,160)'
+			AmbientSunset: new THREE.Color 'rgb(55,61,77)'
+			AmbientNight: new THREE.Color 'rgb(10,11,12)'
+			SunSunrise: new THREE.Color 'rgb(242,159,119)'
+			SunDay: new THREE.Color 'rgb(255,252,238)'
+			SunSunset: new THREE.Color 'rgb(255,114,79)'
+			SunNight: new THREE.Color 'rgb(45,73,131)'
+			SunDiscSunset: new THREE.Color 'rgb(255,189,157)'
+			# Transition Delta=.015
+			# Land Fog Day Depth=.69
+			# Land Fog Night Depth=.69
+			# Clouds Maximum Percent=1.0
+			# Wind Speed=.1
+			# Cloud Speed=1.25
+			# Glare View=1
+			# Cloud Texture=Tx_Sky_Clear.tga
+			# Ambient Loop Sound ID=_ase_clear loop01
 
-	AmbientSunrise: 	0x424a57 # Ambient Sunrise Color=066,074,087
-	AmbientDay: 		0x8991a0 # Ambient Day Color=137,145,160
-	# Ambient Sunset Color=071,080,092
-	# Ambient Night Color=032,039,054
+		cloudy:
+			SkySunrise: new THREE.Color 'rgb(125,158,173)'
+			SkyDay: new THREE.Color 'rgb(117,160,215)'
+			SkySunset: new THREE.Color 'rgb(109,114,159)'
+			SkyNight: new THREE.Color 'rgb(5,5,5)'
+			FogSunrise: new THREE.Color 'rgb(255,203,147)'
+			FogDay: new THREE.Color 'rgb(245,235,224)'
+			FogSunset: new THREE.Color 'rgb(255,154,105)'
+			FogNight: new THREE.Color 'rgb(5,5,5)'
+			AmbientSunrise: new THREE.Color 'rgb(50,56,64)'
+			AmbientDay: new THREE.Color 'rgb(137,145,160)'
+			AmbientSunset: new THREE.Color 'rgb(55,62,71)'
+			AmbientNight: new THREE.Color 'rgb(10,12,16)'
+			SunSunrise: new THREE.Color 'rgb(241,177,99)'
+			SunDay: new THREE.Color 'rgb(255,236,221)'
+			SunSunset: new THREE.Color 'rgb(255,89,0)'
+			SunNight: new THREE.Color 'rgb(39,46,61)'
+			SunDiscSunset: new THREE.Color 'rgb(255,202,179)'
+			# Transition Delta=.015
+			# Land Fog Day Depth=.72
+			# Land Fog Night Depth=.72
+			# Clouds Maximum Percent=1.0
+			# Wind Speed=.2
+			# Cloud Speed=2
+			# Glare View=1
+			# Cloud Texture=Tx_Sky_Cloudy.tga
+			# Ambient Loop Sound ID=_ase_cloudy loop01
 
-	SunSunrise: 		0xf1b163 # Sun Sunrise Color=241,177,099 f1b163
-	SunDay:				0xffecdd # Sun Day Color=255,236,221
-	# Sun Sunset Color=255,089,000
-	# Sun Night Color=077,091,124
-	# Sun Disc Sunset Color=150,000,000
+mw.Ambient = mw.weather.clear.AmbientNight.getHex()
+mw.Sun = mw.weather.clear.SunNight.getHex()
+mw.Fog = mw.weather.clear.FogNight.getHex()
+	# Sun Disc Sunset: new THREE.Color 'rgb(150,000,000
 
 
 $(document).ready ->
