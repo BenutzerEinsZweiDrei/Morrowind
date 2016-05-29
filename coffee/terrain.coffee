@@ -95,8 +95,8 @@ class mw.Terrain
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
-		@vclr.magFilter = THREE.NearestFilter
-		@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		# @vclr.magFilter = THREE.NearestFilter
+		# @vclr.minFilter = THREE.LinearMipMapLinearFilter
 
 		# -~= TEXTURE PLACEMENT MAP
 
@@ -201,12 +201,12 @@ class mw.Terrain
 		material.uniforms.masks = 		type: "tv", value: @masks
 		material.uniforms.vclr = 		type: "tv", value: @vclr
 
-		draadstaal = new THREE.MeshBasicMaterial wireframe: true, color: 0xc1c1c1
-		mesh = new THREE.Mesh @geometry, draadstaal
-		mesh.position.set @mx, @my, 0
+		# draadstaal = new THREE.MeshBasicMaterial wireframe: true, color: 0xc1c1c1
+		# mesh = new THREE.Mesh @geometry, draadstaal
+		# mesh.position.set @mx, @my, 0
 		# mesh.scale.x = mesh.scale.y = 0.99
 
-		mw.scene.add mesh
+		# mw.scene.add mesh
 
 
 		return material

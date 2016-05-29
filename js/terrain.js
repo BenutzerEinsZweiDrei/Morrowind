@@ -76,8 +76,6 @@
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
-      this.vclr.magFilter = THREE.NearestFilter;
-      this.vclr.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
       canvas.width = 18;
       canvas.height = 18;
@@ -133,7 +131,7 @@
     };
 
     Terrain.prototype.splat = function() {
-      var a, draadstaal, material, mesh;
+      var a, material;
       a = new THREE.TextureLoader().load("textures/cat.dds");
       material = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib['common'], THREE.UniformsLib['aomap'], THREE.UniformsLib['lightmap'], THREE.UniformsLib['emissivemap'], THREE.UniformsLib['fog'], THREE.UniformsLib['lights']]),
@@ -167,13 +165,6 @@
         type: "tv",
         value: this.vclr
       };
-      draadstaal = new THREE.MeshBasicMaterial({
-        wireframe: true,
-        color: 0xc1c1c1
-      });
-      mesh = new THREE.Mesh(this.geometry, draadstaal);
-      mesh.position.set(this.mx, this.my, 0);
-      mw.scene.add(mesh);
       return material;
     };
 
