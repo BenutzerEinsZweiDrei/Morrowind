@@ -8,8 +8,8 @@
     this.waterNormals = new THREE.TextureLoader().load('textures/waternormals.jpg');
     this.waterNormals.wrapS = this.waterNormals.wrapT = THREE.RepeatWrapping;
     this.water = new THREE.Water(mw.renderer, mw.camera, mw.scene, {
-      textureWidth: 512,
-      textureHeight: 512,
+      textureWidth: 256,
+      textureHeight: 256,
       waterNormals: this.waterNormals,
       alpha: 1.0,
       sunColor: 0xffffff,

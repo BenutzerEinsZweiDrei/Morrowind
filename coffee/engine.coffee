@@ -10,7 +10,7 @@ mw.boot = () ->
 	container = document.createElement 'div'
 	document.body.appendChild container
 
-	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 10000
+	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 20000
 	@camera.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
 	@camera.up = new THREE.Vector3 0, 0, 1
 
@@ -23,7 +23,7 @@ mw.boot = () ->
 	# scene
 	@scene = new THREE.Scene
 	#@scene.fog = new THREE.FogExp2 0xefd1b5, 0.0002
-	@scene.fog = new THREE.Fog 0xefd1b5, 2500, 10000
+	@scene.fog = new THREE.Fog 0xefd1b5, 2250, 9000
 	#@scene.rotation.z = 180 * Math.PI / 180
 
 	# dawn 0x424a57
@@ -60,8 +60,8 @@ mw.boot = () ->
 	@sun.target.position.set -11224, -70869, 300
 
 	@sun.castShadow = true
-	@sun.shadow.darkness = 1
-	@sun.castShadow = true
+	# @sun.shadow.bias = - 0.01
+	@sun.shadow.darkness = 5
 
 	@sun.shadow.camera.near = 5
 	@sun.shadow.camera.far = 6000
@@ -70,8 +70,8 @@ mw.boot = () ->
 	@sun.shadow.camera.top	= 2000
 	@sun.shadow.camera.bottom = -2000
 
-	@sun.shadow.mapSize.width = 1024
-	@sun.shadow.mapSize.height = 1024
+	@sun.shadow.mapSize.width = 2048
+	@sun.shadow.mapSize.height = 2048
 	@scene.add @sun
 	@scene.add @sun.target
 	# @scene.add new THREE.CameraHelper @sun.shadow.camera
@@ -125,7 +125,7 @@ mw.boot = () ->
 	@renderer.setPixelRatio window.devicePixelRatio
 	@renderer.setSize window.innerWidth, window.innerHeight
 	@renderer.shadowMap.enabled = true
-	@renderer.shadowMap.type = THREE.BasicShadowMap # THREE.PCFShadowMap
+	@renderer.shadowMap.type = THREE.PCFShadowMap
 
 	@stats = new Stats()
 	@stats.domElement.style.position = 'absolute'

@@ -14,14 +14,14 @@
     var AmbientSunrise, SunDay, SunSunrise, container;
     container = document.createElement('div');
     document.body.appendChild(container);
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 10000);
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 20000);
     this.camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
     this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);
     this.controls.movementSpeed = 1000;
     this.controls.lookSpeed = 0.25;
     this.scene = new THREE.Scene;
-    this.scene.fog = new THREE.Fog(0xefd1b5, 2500, 10000);
+    this.scene.fog = new THREE.Fog(0xefd1b5, 2250, 9000);
     AmbientSunrise = 0x424a57;
     this.AmbientDay = 0x8991a0;
     SunSunrise = 0xf1b163;
@@ -32,16 +32,15 @@
     this.sun.position.set(-9736.193505934018, -71181.47477616863, 1385.0809414861014);
     this.sun.target.position.set(-11224, -70869, 300);
     this.sun.castShadow = true;
-    this.sun.shadow.darkness = 1;
-    this.sun.castShadow = true;
+    this.sun.shadow.darkness = 5;
     this.sun.shadow.camera.near = 5;
     this.sun.shadow.camera.far = 6000;
     this.sun.shadow.camera.right = 2000;
     this.sun.shadow.camera.left = -2000;
     this.sun.shadow.camera.top = 2000;
     this.sun.shadow.camera.bottom = -2000;
-    this.sun.shadow.mapSize.width = 1024;
-    this.sun.shadow.mapSize.height = 1024;
+    this.sun.shadow.mapSize.width = 2048;
+    this.sun.shadow.mapSize.height = 2048;
     this.scene.add(this.sun);
     this.scene.add(this.sun.target);
 
@@ -88,7 +87,7 @@
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.BasicShadowMap;
+    this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.stats = new Stats();
     this.stats.domElement.style.position = 'absolute';
     this.stats.domElement.style.top = '0px';
