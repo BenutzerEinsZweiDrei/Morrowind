@@ -79,8 +79,6 @@
         }
         dad = dae.scene;
         dad.mw = model;
-        dad.castShadow = true;
-        dad.receiveShadow = true;
         mw.models[model] = dae;
         dad.scale.x = dad.scale.y = dad.scale.z = 1;
         dad.updateMatrix();
@@ -92,6 +90,8 @@
             console.log('Oh ye');
           }
           if (child instanceof THREE.Mesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
             child.material.vertexColors = THREE.VertexColors;
             child.material.alphaTest = 0.5;
             if (map = child.material.map) {

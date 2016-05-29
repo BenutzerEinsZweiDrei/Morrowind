@@ -12,14 +12,17 @@
 
 	<script src="three.js-master/build/three.min.js"></script>
 	<script src="three.js-master/examples/js/libs/stats.min.js"></script>
+
+	<script src="three.js-master/examples/js/controls/PointerLockControls.js"></script>
 	<script src="three.js-master/examples/js/Mirror.js"></script>
 	<script src="three.js-master/examples/js/WaterShader.js"></script>
+
 	<script src="three.js-master/examples/js/loaders/DDSLoader.js"></script>
 	<script src="three.js-master/examples/js/loaders/ColladaLoader.js"></script>
 	<script src="three.js-master/examples/js/loaders/collada/Animation.js"></script>
 	<script src="three.js-master/examples/js/loaders/collada/AnimationHandler.js"></script>
 	<script src="three.js-master/examples/js/loaders/collada/KeyFrameAnimation.js"></script>
-	<script src="three.js-master/examples/js/controls/PointerLockControls.js"></script>
+
 	<!--<script src="three.js-master/examples/js/controls/FirstPersonControls.js"></script>-->
 	<script src="js/dat.gui.min.js"></script>
 
@@ -188,7 +191,7 @@ void main() {
 	vec3 totalEmissiveRadiance = emissive;
 
 	#include <logdepthbuf_fragment>
-	// include <map_fragment>
+	#include <map_fragment>
 
 	// START MW
 	{

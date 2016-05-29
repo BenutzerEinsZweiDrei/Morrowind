@@ -12,13 +12,14 @@ class mw.Prop
 		# return unless mw.models[@model]?
 
 		return unless mw.models[@model]?
-		
+
 		@mesh = mw.models[@model].scene.clone()
+
+		@mesh.castShadow = true
+		@mesh.receiveShadow = true
 
 		@mesh.position.set @x, @y, @z
 
-		#@mesh.castShadow = true
-		#@mesh.receiveShadow = false
 		
 		@mesh.scale.set @scale, @scale, @scale if @scale
 		

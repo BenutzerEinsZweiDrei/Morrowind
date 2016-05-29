@@ -43,13 +43,23 @@ class mw.Terrain
 		true
 
 	mkground: ->
-		m = new THREE.MeshBasicMaterial map: mw.textures['tx_bc_mud.dds']
+		m = new THREE.MeshPhongMaterial
+			map: mw.textures['tx_bc_moss.dds']
+			shading: THREE.FlatShading
+			# color: 0xffffff
+			# emissive: 0xc1c1c1
+			# shininess: 150
 
-		@material = @splat()
+		@material = m
+
+		@material.shading = THREE.FlatShading
+
+		geometry = new THREE.PlaneGeometry 8192, 8192
 
 		@ground = new THREE.Mesh @geometry, @material
 		@ground.position.set @mx, @my, 0
 		@ground.receiveShadow = true
+		@ground.castShadow = true
 
 		mw.scene.add @ground
 

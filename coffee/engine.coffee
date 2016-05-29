@@ -55,10 +55,41 @@ mw.boot = () ->
 	@scene.add new THREE.AmbientLight AmbientDay
 
 	@sun = new THREE.DirectionalLight SunDay, 1
-	@sun.castShadow = true
+	@sun.name = 'Sun ^^'
 	@sun.position.set -600, 300, 600
+	# @sun.target.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
 
+	@sun.shadowCameraVisible = true
+	@sun.castShadow = true
+	@sun.shadow.camera.near = 45;
+	@sun.shadow.camera.far = 10000;
+	@sun.shadow.camera.right = 15;
+	@sun.shadow.camera.left = - 15;
+	@sun.shadow.camera.top	= 15;
+	@sun.shadow.camera.bottom = - 15;
+	@sun.shadow.mapSize.width = 1024;
+	@sun.shadow.mapSize.height = 1024;
 	@scene.add @sun
+	@scene.add new THREE.CameraHelper @sun.shadow.camera
+
+	spotLight = new THREE.SpotLight( 0xcc0000 );
+	spotLight.name = 'Spot Light';
+	# spotLight.angle = Math.PI / 5;
+	spotLight.penumbra = 0.3;
+	spotLight.position.set( -10894, -71081, 1760 );
+	spotLight.target.position.set -11374, -70615, 642
+	@scene.add spotLight.target
+
+	spotLight.castShadow = true
+	spotLight.shadow.camera.near = 8
+	spotLight.shadow.camera.far = 3000
+	spotLight.shadow.mapSize.width = 1024
+	spotLight.shadow.mapSize.height = 1024
+
+	@scene.add spotLight
+	@scene.add new THREE.CameraHelper spotLight.shadow.camera
+
+	@wisp = spotLight
 
 	# model
 
@@ -74,16 +105,7 @@ mw.boot = () ->
 	@renderer.setPixelRatio window.devicePixelRatio
 	@renderer.setSize window.innerWidth, window.innerHeight
 	@renderer.shadowMap.enabled = true
-	@renderer.shadowMapSoft = true
-
-	@renderer.shadowCameraNear = 3
-	@renderer.shadowCameraFar = @camera.far
-	@renderer.shadowCameraFov = 50
-
-	@renderer.shadowMapBias = 0.0039
-	@renderer.shadowMapDarkness = 0.5
-	@renderer.shadowMapWidth = 1024
-	@renderer.shadowMapHeight = 1024
+	@renderer.shadowMap.type = THREE.BasicShadowMap # THREE.PCFShadowMap
 
 	@stats = new Stats()
 	@stats.domElement.style.position = 'absolute'

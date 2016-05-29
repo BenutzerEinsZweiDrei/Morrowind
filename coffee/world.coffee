@@ -80,8 +80,6 @@ class mw.World
 			dad = dae.scene
 
 			dad.mw = model
-			dad.castShadow = true
-			dad.receiveShadow = true
 
 			mw.models[model] = dae
 
@@ -99,6 +97,10 @@ class mw.World
 
 					
 				if child instanceof THREE.Mesh
+
+					child.castShadow = true
+					child.receiveShadow = true
+					
 					# console.log 'crayons'
 
 					# console.log child if showme
