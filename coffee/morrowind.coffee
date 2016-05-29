@@ -5,6 +5,7 @@ mw = root.mw =
 	gots: 0
 	gets: 3
 
+	slow: false
 	keys: []
 	models: {}
 	world: null

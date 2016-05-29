@@ -9,13 +9,14 @@ mw.watershed = ->
 
 	@water = new THREE.Water mw.renderer, mw.camera, mw.scene,
 			map: mw.textures['water/water0.dds']
-			textureWidth: 1024, 
-			textureHeight: 1024,
-			waterNormals: @waterNormals,
-			alpha: .4,
-			# sunDirection: # mw.sun.position.normalize(),
-			sunColor: 0xffffff,
-			waterColor: 0x001e0f,
+			textureWidth: 1024,
+			textureHeight: 1024
+			waterNormals: @waterNormals
+			alpha: .4
+			transparent: true
+			# sunDirection: # mw.sun.position.normalize()
+			sunColor: 0xffffff
+			waterColor: 0x001e0f
 			distortionScale: 30.0
 			fog: true
 
@@ -25,6 +26,7 @@ mw.watershed = ->
 
 	aMeshMirror.add @water
 	# aMeshMirror.rotation.x = - Math.PI * 0.5;
+	
 	mw.scene.add aMeshMirror
 
 	true

@@ -39,7 +39,7 @@ mw.boot = () ->
 	# @sun.shadow.bias = - 0.01
 	@sun.shadow.darkness = 5
 
-	span = 1250
+	span = 1500
 	@sun.shadow.camera.near = 5
 	@sun.shadow.camera.far = 6000
 	@sun.shadow.camera.right = span
@@ -115,6 +115,16 @@ mw.animate = () ->
 
 	if mw.keys[77] is 1
 		mw.freeze = ! mw.freeze
+
+	if mw.keys[20] is 1
+		mw.slow = ! mw.slow
+
+		if mw.slow
+			mw.controls.movementSpeed = 200
+			mw.controls.lookSpeed = 0.15
+		else
+			mw.controls.movementSpeed = 1000
+			mw.controls.lookSpeed = 0.25
 
 	if mw.world
 		mw.world.step()

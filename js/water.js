@@ -13,6 +13,7 @@
       textureHeight: 1024,
       waterNormals: this.waterNormals,
       alpha: .4,
+      transparent: true,
       sunColor: 0xffffff,
       waterColor: 0x001e0f,
       distortionScale: 30.0,

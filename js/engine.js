@@ -29,7 +29,7 @@
     this.sun.target.position.set(-11224, -70869, 300);
     this.sun.castShadow = true;
     this.sun.shadow.darkness = 5;
-    span = 1250;
+    span = 1500;
     this.sun.shadow.camera.near = 5;
     this.sun.shadow.camera.far = 6000;
     this.sun.shadow.camera.right = span;
@@ -92,6 +92,16 @@
     }
     if (mw.keys[77] === 1) {
       mw.freeze = !mw.freeze;
+    }
+    if (mw.keys[20] === 1) {
+      mw.slow = !mw.slow;
+      if (mw.slow) {
+        mw.controls.movementSpeed = 200;
+        mw.controls.lookSpeed = 0.15;
+      } else {
+        mw.controls.movementSpeed = 1000;
+        mw.controls.lookSpeed = 0.25;
+      }
     }
     if (mw.world) {
       mw.world.step();

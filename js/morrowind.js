@@ -8,6 +8,7 @@
     freeze: false,
     gots: 0,
     gets: 3,
+    slow: false,
     keys: [],
     models: {},
     world: null,
