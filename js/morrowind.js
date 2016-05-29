@@ -99,11 +99,11 @@
     }
   };
 
-  mw.Ambient = mw.weather.clear.AmbientNight.getHex();
+  mw.Ambient = mw.weather.clear.AmbientDay.getHex();
 
-  mw.Sun = mw.weather.clear.SunNight.getHex();
+  mw.Sun = mw.weather.clear.SunDay.getHex();
 
-  mw.Fog = mw.weather.clear.FogNight.getHex();
+  mw.Fog = mw.weather.clear.FogDay.getHex();
 
   $(document).ready(function() {
     $.ajaxSetup({

@@ -106,6 +106,9 @@
         mw.controls.lookSpeed = 0.25;
       }
     }
+    if (mw.keys[72] === 1) {
+
+    }
     if (mw.world) {
       mw.world.step();
     }

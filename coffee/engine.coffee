@@ -130,6 +130,10 @@ mw.animate = () ->
 			mw.controls.movementSpeed = 1000
 			mw.controls.lookSpeed = 0.25
 
+	if mw.keys[72] is 1
+		;
+		# remove hud
+
 	if mw.world
 		mw.world.step()
 

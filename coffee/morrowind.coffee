@@ -97,9 +97,9 @@ mw = root.mw =
 			# Cloud Texture=Tx_Sky_Cloudy.tga
 			# Ambient Loop Sound ID=_ase_cloudy loop01
 
-mw.Ambient = mw.weather.clear.AmbientNight.getHex()
-mw.Sun = mw.weather.clear.SunNight.getHex()
-mw.Fog = mw.weather.clear.FogNight.getHex()
+mw.Ambient = mw.weather.clear.AmbientDay.getHex()
+mw.Sun = mw.weather.clear.SunDay.getHex()
+mw.Fog = mw.weather.clear.FogDay.getHex()
 	# Sun Disc Sunset: new THREE.Color 'rgb(150,000,000
 
 
