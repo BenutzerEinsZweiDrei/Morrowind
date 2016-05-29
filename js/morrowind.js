@@ -53,7 +53,11 @@
       wireframe: true,
       transparent: true,
       opacity: .5
-    })
+    }),
+    AmbientSunrise: 0x424a57,
+    AmbientDay: 0x8991a0,
+    SunSunrise: 0xf1b163,
+    SunDay: 0xffecdd
   };
 
   $(document).ready(function() {

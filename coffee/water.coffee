@@ -8,10 +8,11 @@ mw.watershed = ->
 	@waterNormals.wrapS = @waterNormals.wrapT = THREE.RepeatWrapping; 
 
 	@water = new THREE.Water mw.renderer, mw.camera, mw.scene,
-			textureWidth: 256, 
-			textureHeight: 256,
+			map: mw.textures['water/water0.dds']
+			textureWidth: 1024, 
+			textureHeight: 1024,
 			waterNormals: @waterNormals,
-			alpha: 1.0,
+			alpha: .4,
 			# sunDirection: # mw.sun.position.normalize(),
 			sunColor: 0xffffff,
 			waterColor: 0x001e0f,

@@ -11,7 +11,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var AmbientSunrise, SunDay, SunSunrise, container, span;
+    var container, span;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 50000);
@@ -22,18 +22,14 @@
     this.controls.lookSpeed = 0.25;
     this.scene = new THREE.Scene;
     this.scene.fog = new THREE.Fog(0xefd1b5, 2250, 9000);
-    AmbientSunrise = 0x424a57;
-    this.AmbientDay = 0x8991a0;
-    SunSunrise = 0xf1b163;
-    SunDay = 0xffecdd;
-    this.scene.add(new THREE.AmbientLight(this.AmbientDay));
-    this.sun = new THREE.DirectionalLight(SunDay, 1);
+    this.scene.add(new THREE.AmbientLight(mw.AmbientDay));
+    this.sun = new THREE.DirectionalLight(mw.SunDay, 1);
     this.sun.name = 'Sun ^^';
     this.sun.position.set(-9736.193505934018, -71181.47477616863, 1385.0809414861014);
     this.sun.target.position.set(-11224, -70869, 300);
     this.sun.castShadow = true;
     this.sun.shadow.darkness = 5;
-    span = 1500;
+    span = 1250;
     this.sun.shadow.camera.near = 5;
     this.sun.shadow.camera.far = 6000;
     this.sun.shadow.camera.right = span;
@@ -44,42 +40,6 @@
     this.sun.shadow.mapSize.height = 2048;
     this.scene.add(this.sun);
     this.scene.add(this.sun.target);
-
-    /*wisp = new THREE.SpotLight( 0x0000cc );
-    	wisp.name = 'Zrrvrbbr';
-    	 * wisp.angle = Math.PI / 5;
-    	wisp.penumbra = 0.3
-    	wisp.position.set -10894, -71081, 1760
-    	wisp.target.position.set -11374, -70615, 642
-    	@scene.add wisp.target
-    
-    	wisp.castShadow = true
-    	wisp.shadow.camera.near = 8
-    	wisp.shadow.camera.far = 3000
-    	wisp.shadow.mapSize.width = 1024
-    	wisp.shadow.mapSize.height = 1024
-    
-    	@scene.add wisp
-    	@scene.add new THREE.CameraHelper wisp.shadow.camera
-    
-    	@wisp = wisp
-     */
-
-    /*m = new THREE.MeshPhongMaterial
-    			color: 0xff0000
-    			shininess: 150
-    			specular: 0x222222
-    			shading: THREE.SmoothShading
-    
-    	g = new THREE.BoxGeometry 1000, 100, 100
-    
-    	cube = new THREE.Mesh g, m
-    	cube.position.set -11224, -70869, 300
-    	cube.castShadow = true
-    	cube.receiveShadow = true
-    
-    	@scene.add cube
-     */
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer({
       antialias: true
@@ -99,6 +59,16 @@
     this.clock = new THREE.Clock();
     return true;
   };
+
+  ({
+    audios: function() {
+      var loader;
+      return loader = new THREE.SEA3D({
+        autoPlay: true,
+        container: scene
+      });
+    }
+  });
 
   onWindowResize = function() {
     windowHalfX = window.innerWidth / 2;
@@ -143,8 +113,16 @@
   clock = new THREE.Clock();
 
   render = function() {
-    var angle;
+    var angle, x, y, z;
     angle = Date.now() / 200 * Math.PI;
+    x = -11576.443208275043 - -9736.193505934018;
+    y = -70815.55892959078 - -71181.47477616863;
+    z = 381.1055788146208 - 1385.0809414861014;
+    mw.sun.position.set(mw.camera.position.x - x, mw.camera.position.y - y, mw.camera.position.z - z);
+    x = -11224 - -9736.193505934018;
+    y = -70869 - -71181.47477616863;
+    z = 300 - 1385.0809414861014;
+    mw.sun.target.position.set(mw.sun.position.x + x, mw.sun.position.y + y, mw.sun.position.z + z);
     if (mw.water) {
       mw.water.render();
     }

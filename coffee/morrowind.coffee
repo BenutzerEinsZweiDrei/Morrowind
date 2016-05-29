@@ -30,6 +30,28 @@ mw = root.mw =
 	textures: []
 	wireframe: new THREE.MeshBasicMaterial wireframe: true, transparent: true, opacity: .5
 
+	# from Morrowind.ini
+	# Sky Sunrise Color=255,100,5
+	# Sky Day Color=255,255,255
+	# Sky Sunset Color=130,50,130
+	# Sky Night Color=020,000,050
+	
+	# Fog Sunrise Color=255,155,155
+	# Fog Day Color=255,201,115
+	# Fog Sunset Color=255,100,255
+	# Fog Night Color=000,000,150
+
+	AmbientSunrise: 	0x424a57 # Ambient Sunrise Color=066,074,087
+	AmbientDay: 		0x8991a0 # Ambient Day Color=137,145,160
+	# Ambient Sunset Color=071,080,092
+	# Ambient Night Color=032,039,054
+
+	SunSunrise: 		0xf1b163 # Sun Sunrise Color=241,177,099 f1b163
+	SunDay:				0xffecdd # Sun Day Color=255,236,221
+	# Sun Sunset Color=255,089,000
+	# Sun Night Color=077,091,124
+	# Sun Disc Sunset Color=150,000,000
+
 
 $(document).ready ->
 	$.ajaxSetup 'async': false

@@ -26,44 +26,20 @@ mw.boot = () ->
 	@scene.fog = new THREE.Fog 0xefd1b5, 2250, 9000
 	#@scene.rotation.z = 180 * Math.PI / 180
 
-	# dawn 0x424a57
-	# day 0x898ca0
-	# neutral 0x777777
-	
-	# from Morrowind.ini
-	# Sky Sunrise Color=255,100,5
-	# Sky Day Color=255,255,255
-	# Sky Sunset Color=130,50,130
-	# Sky Night Color=020,000,050
-	
-	# Fog Sunrise Color=255,155,155
-	# Fog Day Color=255,201,115
-	# Fog Sunset Color=255,100,255
-	# Fog Night Color=000,000,150
+	@scene.add new THREE.AmbientLight mw.AmbientDay
 
-	AmbientSunrise = 	0x424a57 # Ambient Sunrise Color=066,074,087
-	@AmbientDay = 		0x8991a0 # Ambient Day Color=137,145,160
-	# Ambient Sunset Color=071,080,092
-	# Ambient Night Color=032,039,054
-
-	SunSunrise = 		0xf1b163 # Sun Sunrise Color=241,177,099 f1b163
-	SunDay = 			0xffecdd # Sun Day Color=255,236,221
-	# Sun Sunset Color=255,089,000
-	# Sun Night Color=077,091,124
-	# Sun Disc Sunset Color=150,000,000
-
-	@scene.add new THREE.AmbientLight @AmbientDay
-
-	@sun = new THREE.DirectionalLight SunDay, 1
+	@sun = new THREE.DirectionalLight mw.SunDay, 1
 	@sun.name = 'Sun ^^'
 	@sun.position.set -9736.193505934018, -71181.47477616863, 1385.0809414861014
+
+	# @sun.rotation.set -2.861205354046808, -0.9215890070515675, -2.9161043692883983
 	@sun.target.position.set -11224, -70869, 300
 
 	@sun.castShadow = true
 	# @sun.shadow.bias = - 0.01
 	@sun.shadow.darkness = 5
 
-	span = 1500
+	span = 1250
 	@sun.shadow.camera.near = 5
 	@sun.shadow.camera.far = 6000
 	@sun.shadow.camera.right = span
@@ -77,51 +53,11 @@ mw.boot = () ->
 	@scene.add @sun.target
 	# @scene.add new THREE.CameraHelper @sun.shadow.camera
 
-	###wisp = new THREE.SpotLight( 0x0000cc );
-	wisp.name = 'Zrrvrbbr';
-	# wisp.angle = Math.PI / 5;
-	wisp.penumbra = 0.3
-	wisp.position.set -10894, -71081, 1760
-	wisp.target.position.set -11374, -70615, 642
-	@scene.add wisp.target
-
-	wisp.castShadow = true
-	wisp.shadow.camera.near = 8
-	wisp.shadow.camera.far = 3000
-	wisp.shadow.mapSize.width = 1024
-	wisp.shadow.mapSize.height = 1024
-
-	@scene.add wisp
-	@scene.add new THREE.CameraHelper wisp.shadow.camera
-
-	@wisp = wisp###
-
-	# test cube:
-	###m = new THREE.MeshPhongMaterial
-			color: 0xff0000
-			shininess: 150
-			specular: 0x222222
-			shading: THREE.SmoothShading
-
-	g = new THREE.BoxGeometry 1000, 100, 100
-
-	cube = new THREE.Mesh g, m
-	cube.position.set -11224, -70869, 300
-	cube.castShadow = true
-	cube.receiveShadow = true
-
-	@scene.add cube###
-
-	# model
-
 	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
-	#THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
 	@renderer = new THREE.WebGLRenderer antialias: true
 
 	@maxAnisotropy = @renderer.getMaxAnisotropy()
-	#@renderer.shadowMapEnabled = true
-	#@renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
 	@renderer.setPixelRatio window.devicePixelRatio
 	@renderer.setSize window.innerWidth, window.innerHeight
@@ -144,6 +80,10 @@ mw.boot = () ->
 
 	true
 
+audios: ->
+	loader = new THREE.SEA3D
+		autoPlay : true # Auto play animations
+		container : scene # Container to add models
 
 onWindowResize = () ->
 
@@ -198,6 +138,16 @@ render = ->
 	# @sun.position.x	= -13222.207 + (Math.cos(angle*-0.1)*600);
 	# @sun.position.y	= -72304.219 + (Math.sin(angle*-0.1)*600);
 	# @sun.position.z	= 800 + (Math.sin(angle*0.5)*100);
+
+	x = -11576.443208275043 - -9736.193505934018
+	y = -70815.55892959078 - -71181.47477616863
+	z = 381.1055788146208 - 1385.0809414861014
+	mw.sun.position.set mw.camera.position.x - x, mw.camera.position.y - y, mw.camera.position.z - z
+
+	x = -11224 - -9736.193505934018
+	y = -70869 - -71181.47477616863
+	z = 300 - 1385.0809414861014
+	mw.sun.target.position.set mw.sun.position.x + x, mw.sun.position.y + y, mw.sun.position.z + z
 
 	#@camera.lookAt new THREE.Vector3 -12000.271,-70296.516, 270.629 #@scene.position
 	#@camera.rotation.y += 180 * Math.PI / 180
