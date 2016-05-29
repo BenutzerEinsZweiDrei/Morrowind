@@ -206,8 +206,7 @@ void main() {
 		p = mask.g;
 		coat = vec4(p, p, p, 0) * pastel;
 
-		vec4 shade = texture2D(vclr, vUv);
-		diffuseColor *= coat;
+		diffuseColor *= texture2D(vclr, vUv * 0.5);
 	}
 	// END MW 
 

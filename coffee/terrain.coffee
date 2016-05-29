@@ -56,6 +56,8 @@ class mw.Terrain
 
 	maps: ->
 
+		# -~= HEIGHTS
+
 		canvas = document.createElement 'canvas'
 		context = canvas.getContext '2d'
 		canvas.width = 65
@@ -82,21 +84,21 @@ class mw.Terrain
 		@height.magFilter = THREE.NearestFilter
 		@height.minFilter = THREE.LinearMipMapLinearFilter
 
-		# vertex colour map
+		# -~= VERTEX COLOUR MAP
 
 		canvas = document.createElement 'canvas'
 		context = canvas.getContext '2d'
-		canvas.width = 65
-		canvas.height = 65
+		canvas.width = 128
+		canvas.height = 128
 		context.restore() # pop
 		context.translate 1, 0
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true
-		#@vclr.magFilter = THREE.NearestFilter
-		#@vclr.minFilter = THREE.LinearMipMapLinearFilter
+		@vclr.magFilter = THREE.NearestFilter
+		@vclr.minFilter = THREE.LinearMipMapLinearFilter
 
-		# texture placement map
+		# -~= TEXTURE PLACEMENT MAP
 
 		canvas = document.createElement 'canvas'
 		#document.body.appendChild canvas
@@ -144,8 +146,8 @@ class mw.Terrain
 				$(canvas).attr 'mw', "cell #{@x}, #{@y}"
 				#document.body.appendChild canvas if @x is -2 and @y is -9
 				context = canvas.getContext '2d'
-				canvas.width = 18
-				canvas.height = 18
+				canvas.width = 32
+				canvas.height = 32
 				color = 0
 				data = context.createImageData 18, 18
 				#data = new Array 18*18*4
@@ -198,5 +200,12 @@ class mw.Terrain
 		material.uniforms.amount =		type: "i", 	value: @textures.length
 		material.uniforms.masks = 		type: "tv", value: @masks
 		material.uniforms.vclr = 		type: "tv", value: @vclr
+
+		draadstaal = new THREE.MeshBasicMaterial wireframe: true, color: 0xc1c1c1
+		mesh = new THREE.Mesh @geometry, draadstaal
+		mesh.position.set @mx, @my, 0
+
+		mw.scene.add mesh
+
 
 		return material

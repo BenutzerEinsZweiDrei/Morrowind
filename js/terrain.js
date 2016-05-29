@@ -69,13 +69,15 @@
       this.height.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
       context = canvas.getContext('2d');
-      canvas.width = 65;
-      canvas.height = 65;
+      canvas.width = 128;
+      canvas.height = 128;
       context.restore();
       context.translate(1, 0);
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
+      this.vclr.magFilter = THREE.NearestFilter;
+      this.vclr.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
       canvas.width = 18;
       canvas.height = 18;
@@ -105,8 +107,8 @@
           canvas = document.createElement('canvas');
           $(canvas).attr('mw', "cell " + this.x + ", " + this.y);
           context = canvas.getContext('2d');
-          canvas.width = 18;
-          canvas.height = 18;
+          canvas.width = 32;
+          canvas.height = 32;
           color = 0;
           data = context.createImageData(18, 18);
           this.masks.push(canvas);
@@ -131,7 +133,7 @@
     };
 
     Terrain.prototype.splat = function() {
-      var a, material;
+      var a, draadstaal, material, mesh;
       a = new THREE.TextureLoader().load("textures/cat.dds");
       material = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib['common'], THREE.UniformsLib['aomap'], THREE.UniformsLib['lightmap'], THREE.UniformsLib['emissivemap'], THREE.UniformsLib['fog'], THREE.UniformsLib['lights']]),
@@ -165,6 +167,13 @@
         type: "tv",
         value: this.vclr
       };
+      draadstaal = new THREE.MeshBasicMaterial({
+        wireframe: true,
+        color: 0xc1c1c1
+      });
+      mesh = new THREE.Mesh(this.geometry, draadstaal);
+      mesh.position.set(this.mx, this.my, 0);
+      mw.scene.add(mesh);
       return material;
     };
 
