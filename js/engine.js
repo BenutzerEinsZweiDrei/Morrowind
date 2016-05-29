@@ -11,10 +11,10 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var AmbientSunrise, SunDay, SunSunrise, container;
+    var AmbientSunrise, SunDay, SunSunrise, container, span;
     container = document.createElement('div');
     document.body.appendChild(container);
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 20000);
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 50000);
     this.camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
     this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);
@@ -33,12 +33,13 @@
     this.sun.target.position.set(-11224, -70869, 300);
     this.sun.castShadow = true;
     this.sun.shadow.darkness = 5;
+    span = 1500;
     this.sun.shadow.camera.near = 5;
     this.sun.shadow.camera.far = 6000;
-    this.sun.shadow.camera.right = 2000;
-    this.sun.shadow.camera.left = -2000;
-    this.sun.shadow.camera.top = 2000;
-    this.sun.shadow.camera.bottom = -2000;
+    this.sun.shadow.camera.right = span;
+    this.sun.shadow.camera.left = -span;
+    this.sun.shadow.camera.top = span;
+    this.sun.shadow.camera.bottom = -span;
     this.sun.shadow.mapSize.width = 2048;
     this.sun.shadow.mapSize.height = 2048;
     this.scene.add(this.sun);

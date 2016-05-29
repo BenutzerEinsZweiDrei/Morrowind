@@ -10,7 +10,7 @@ mw.boot = () ->
 	container = document.createElement 'div'
 	document.body.appendChild container
 
-	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 20000
+	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 50000
 	@camera.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
 	@camera.up = new THREE.Vector3 0, 0, 1
 
@@ -63,12 +63,13 @@ mw.boot = () ->
 	# @sun.shadow.bias = - 0.01
 	@sun.shadow.darkness = 5
 
+	span = 1500
 	@sun.shadow.camera.near = 5
 	@sun.shadow.camera.far = 6000
-	@sun.shadow.camera.right = 2000
-	@sun.shadow.camera.left = -2000
-	@sun.shadow.camera.top	= 2000
-	@sun.shadow.camera.bottom = -2000
+	@sun.shadow.camera.right = span
+	@sun.shadow.camera.left = -span
+	@sun.shadow.camera.top	= span
+	@sun.shadow.camera.bottom = -span
 
 	@sun.shadow.mapSize.width = 2048
 	@sun.shadow.mapSize.height = 2048

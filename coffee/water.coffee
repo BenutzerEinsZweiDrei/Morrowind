@@ -15,10 +15,9 @@ mw.watershed = ->
 			# sunDirection: # mw.sun.position.normalize(),
 			sunColor: 0xffffff,
 			waterColor: 0x001e0f,
-			distortionScale: 50.0
-			opacity: .5
-			transparent: true
-			# fog: true
+			distortionScale: 30.0
+			fog: true
+
 
 	aMeshMirror = new THREE.Mesh geometry, @water.material
 	aMeshMirror.position.set x, y, 0.5
