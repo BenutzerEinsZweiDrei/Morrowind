@@ -59,8 +59,8 @@ mw.boot = () ->
 	@sun.position.set -600, 300, 600
 	# @sun.target.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
 
-	@sun.shadowCameraVisible = true
-	@sun.castShadow = true
+	###@sun.castShadow = true
+	@sun.shadow.darkness = 1;
 	@sun.shadow.camera.near = 45;
 	@sun.shadow.camera.far = 10000;
 	@sun.shadow.camera.right = 15;
@@ -70,26 +70,44 @@ mw.boot = () ->
 	@sun.shadow.mapSize.width = 1024;
 	@sun.shadow.mapSize.height = 1024;
 	@scene.add @sun
-	@scene.add new THREE.CameraHelper @sun.shadow.camera
+	@scene.add new THREE.CameraHelper @sun.shadow.camera###
 
-	spotLight = new THREE.SpotLight( 0x0000cc );
-	spotLight.name = 'Spot Light';
-	# spotLight.angle = Math.PI / 5;
-	spotLight.penumbra = 0.3;
-	spotLight.position.set( -10894, -71081, 1760 );
-	spotLight.target.position.set -11374, -70615, 642
-	@scene.add spotLight.target
+	wisp = new THREE.SpotLight( 0x0000cc );
+	wisp.name = 'Zrrvrbbr';
+	# wisp.angle = Math.PI / 5;
+	wisp.penumbra = 0.3
+	wisp.position.set -10894, -71081, 1760
+	wisp.target.position.set -11374, -70615, 642
+	@scene.add wisp.target
 
-	spotLight.castShadow = true
-	spotLight.shadow.camera.near = 8
-	spotLight.shadow.camera.far = 3000
-	spotLight.shadow.mapSize.width = 1024
-	spotLight.shadow.mapSize.height = 1024
+	wisp.castShadow = true
+	wisp.shadow.camera.near = 8
+	wisp.shadow.camera.far = 3000
+	wisp.shadow.mapSize.width = 1024
+	wisp.shadow.mapSize.height = 1024
 
-	# @scene.add spotLight
-	@scene.add new THREE.CameraHelper spotLight.shadow.camera
+	@scene.add wisp
+	@scene.add new THREE.CameraHelper wisp.shadow.camera
 
-	@wisp = spotLight
+	@wisp = wisp
+
+	# test cube:
+	m = new THREE.MeshPhongMaterial
+			color: 0xff0000
+			shininess: 150
+			specular: 0x222222
+			shading: THREE.SmoothShading
+
+	g = new THREE.BoxGeometry 100, 100, 100
+
+	cube = new THREE.Mesh g, m
+	cube.position.set -11224, -70869, 645
+	cube.castShadow = true
+	cube.receiveShadow = true
+
+	@scene.add cube
+
+	x: -11224.409544363627, y: -70869.48690196892, z: 645.6708242280615
 
 	# model
 

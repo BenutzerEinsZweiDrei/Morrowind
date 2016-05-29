@@ -94,16 +94,13 @@ class mw.World
 					animation.play()
 
 					console.log 'Oh ye'
-
 					
 				if child instanceof THREE.Mesh
 
 					child.castShadow = true
 					child.receiveShadow = true
-					
-					# console.log 'crayons'
-
-					# console.log child if showme
+					#child.geometry.normalsNeedUpdate = true
+					#child.geometry.computeFaceNormals()
 
 					child.material.vertexColors = THREE.VertexColors
 
@@ -116,12 +113,6 @@ class mw.World
 						map.anisotropy = mw.maxAnisotropy
 
 						# map.minFilter = THREE.NearestFilter
-
-						#if showme
-							#console.log "has map"
-							#console.log child.material
-					#else
-						#child.material.map = mw.textures['cat.dds']
 
 
 			mw.world.cachcb()

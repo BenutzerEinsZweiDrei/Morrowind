@@ -11,7 +11,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var AmbientSunrise, SunDay, SunSunrise, container, spotLight;
+    var AmbientSunrise, SunDay, SunSunrise, container, cube, g, m, wisp;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 100000);
@@ -30,31 +30,51 @@
     this.sun = new THREE.DirectionalLight(SunDay, 1);
     this.sun.name = 'Sun ^^';
     this.sun.position.set(-600, 300, 600);
-    this.sun.shadowCameraVisible = true;
-    this.sun.castShadow = true;
-    this.sun.shadow.camera.near = 45;
-    this.sun.shadow.camera.far = 10000;
-    this.sun.shadow.camera.right = 15;
-    this.sun.shadow.camera.left = -15;
-    this.sun.shadow.camera.top = 15;
-    this.sun.shadow.camera.bottom = -15;
-    this.sun.shadow.mapSize.width = 1024;
-    this.sun.shadow.mapSize.height = 1024;
-    this.scene.add(this.sun);
-    this.scene.add(new THREE.CameraHelper(this.sun.shadow.camera));
-    spotLight = new THREE.SpotLight(0x0000cc);
-    spotLight.name = 'Spot Light';
-    spotLight.penumbra = 0.3;
-    spotLight.position.set(-10894, -71081, 1760);
-    spotLight.target.position.set(-11374, -70615, 642);
-    this.scene.add(spotLight.target);
-    spotLight.castShadow = true;
-    spotLight.shadow.camera.near = 8;
-    spotLight.shadow.camera.far = 3000;
-    spotLight.shadow.mapSize.width = 1024;
-    spotLight.shadow.mapSize.height = 1024;
-    this.scene.add(new THREE.CameraHelper(spotLight.shadow.camera));
-    this.wisp = spotLight;
+
+    /*@sun.castShadow = true
+    	@sun.shadow.darkness = 1;
+    	@sun.shadow.camera.near = 45;
+    	@sun.shadow.camera.far = 10000;
+    	@sun.shadow.camera.right = 15;
+    	@sun.shadow.camera.left = - 15;
+    	@sun.shadow.camera.top	= 15;
+    	@sun.shadow.camera.bottom = - 15;
+    	@sun.shadow.mapSize.width = 1024;
+    	@sun.shadow.mapSize.height = 1024;
+    	@scene.add @sun
+    	@scene.add new THREE.CameraHelper @sun.shadow.camera
+     */
+    wisp = new THREE.SpotLight(0x0000cc);
+    wisp.name = 'Zrrvrbbr';
+    wisp.penumbra = 0.3;
+    wisp.position.set(-10894, -71081, 1760);
+    wisp.target.position.set(-11374, -70615, 642);
+    this.scene.add(wisp.target);
+    wisp.castShadow = true;
+    wisp.shadow.camera.near = 8;
+    wisp.shadow.camera.far = 3000;
+    wisp.shadow.mapSize.width = 1024;
+    wisp.shadow.mapSize.height = 1024;
+    this.scene.add(wisp);
+    this.scene.add(new THREE.CameraHelper(wisp.shadow.camera));
+    this.wisp = wisp;
+    m = new THREE.MeshPhongMaterial({
+      color: 0xff0000,
+      shininess: 150,
+      specular: 0x222222,
+      shading: THREE.SmoothShading
+    });
+    g = new THREE.BoxGeometry(100, 100, 100);
+    cube = new THREE.Mesh(g, m);
+    cube.position.set(-11224, -70869, 645);
+    cube.castShadow = true;
+    cube.receiveShadow = true;
+    this.scene.add(cube);
+    ({
+      x: -11224.409544363627,
+      y: -70869.48690196892,
+      z: 645.6708242280615
+    });
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer;
     this.maxAnisotropy = this.renderer.getMaxAnisotropy();
