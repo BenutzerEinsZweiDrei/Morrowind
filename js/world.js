@@ -121,7 +121,7 @@
           this.waterStep = this.waterStep < 30 ? this.waterStep + 1 : 0;
           t = mw.textures["water/water" + this.waterStep + ".dds"];
           t.repeat.set(64, 64);
-          mw.waterMaterial.map = t;
+          mw.waterNormals.map = t;
           this.waterMoment = 0;
         }
       }

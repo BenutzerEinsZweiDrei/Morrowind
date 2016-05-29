@@ -11,7 +11,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var container;
+    var AmbientDay, AmbientSunrise, SunDay, SunSunrise, container;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 100000);
@@ -22,7 +22,14 @@
     this.controls.lookSpeed = 0.25;
     this.scene = new THREE.Scene;
     this.scene.fog = new THREE.Fog(0xefd1b5, 2500, 10000);
-    this.scene.add(new THREE.AmbientLight(0xffffff));
+    AmbientSunrise = 0x424a57;
+    AmbientDay = 0x8991a0;
+    SunSunrise = 0xf1b163;
+    SunDay = 0xffecdd;
+    this.scene.add(new THREE.AmbientLight(AmbientSunrise));
+    this.sun = new THREE.DirectionalLight(SunSunrise, 1);
+    this.sun.position.set(-600, 300, 600);
+    this.scene.add(this.sun);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer;
     this.maxAnisotropy = this.renderer.getMaxAnisotropy();
@@ -65,6 +72,9 @@
     if (mw.world) {
       mw.world.step();
     }
+    if (mw.water) {
+      mw.water.material.uniforms.time.value += 1.0 / 60.0;
+    }
     render.call(mw);
     mw.stats.update();
     ref = mw.keys;
@@ -82,7 +92,7 @@
     var angle;
     angle = Date.now() / 200 * Math.PI;
     if (mw.water) {
-      mw.mirror.render();
+      mw.water.render();
     }
     THREE.AnimationHandler.update(clock.getDelta());
     this.renderer.render(this.scene, this.camera);

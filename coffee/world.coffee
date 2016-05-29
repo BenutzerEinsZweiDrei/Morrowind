@@ -154,7 +154,7 @@ class mw.World
 				t = mw.textures["water/water#{@waterStep}.dds"]
 				t.repeat.set 64, 64
 
-				mw.waterMaterial.map = t
+				mw.waterNormals.map = t
 
 				@waterMoment = 0
 

@@ -29,18 +29,33 @@ mw.boot = () ->
 	# dawn 0x424a57
 	# day 0x898ca0
 	# neutral 0x777777
-	@scene.add new THREE.AmbientLight 0xffffff
 	
-	#@sun = new THREE.SpotLight 0xffeedd
-	#@sun.shadowCameraNear 
-	#@sun.castShadow = true
-	#@sun.shadowDarkness = 0.5
-	#@sun.shadowCameraVisible = true
+	# from Morrowind.ini
+	# Sky Sunrise Color=255,100,5
+	# Sky Day Color=255,255,255
+	# Sky Sunset Color=130,50,130
+	# Sky Night Color=020,000,050
+	
+	# Fog Sunrise Color=255,155,155
+	# Fog Day Color=255,201,115
+	# Fog Sunset Color=255,100,255
+	# Fog Night Color=000,000,150
 
-	#@sun.target.position.set( -12722.207, -71304.219, 0 );
-	#@sun.position.set( -13722.207, -71304.219, 500 ) #.normalize()
-	#@sun.shadowMapWidth = @sun.shadowMapHeight = 2048
-	#@scene.add @sun
+	AmbientSunrise = 	0x424a57 # Ambient Sunrise Color=066,074,087
+	AmbientDay = 		0x8991a0 # Ambient Day Color=137,145,160
+	# Ambient Sunset Color=071,080,092
+	# Ambient Night Color=032,039,054
+
+	SunSunrise = 		0xf1b163 # Sun Sunrise Color=241,177,099 f1b163
+	SunDay = 			0xffecdd # Sun Day Color=255,236,221
+	# Sun Sunset Color=255,089,000
+	# Sun Night Color=077,091,124
+	# Sun Disc Sunset Color=150,000,000
+
+	@scene.add new THREE.AmbientLight AmbientSunrise
+	@sun = new THREE.DirectionalLight SunSunrise, 1
+	@sun.position.set -600, 300, 600
+	@scene.add @sun
 
 	# model
 
@@ -107,6 +122,9 @@ mw.animate = () ->
 	if mw.world
 		mw.world.step()
 
+	if mw.water
+		mw.water.material.uniforms.time.value += 1.0 / 60.0;
+
 	render.call mw
 	mw.stats.update()
 
@@ -124,14 +142,11 @@ render = ->
 	# @sun.position.y	= -72304.219 + (Math.sin(angle*-0.1)*600);
 	# @sun.position.z	= 800 + (Math.sin(angle*0.5)*100);
 
-	#@camera.position.x = -11699.271 + @mouseX
-	#@camera.position.y = -70396.516 + @mouseY
-
 	#@camera.lookAt new THREE.Vector3 -12000.271,-70296.516, 270.629 #@scene.position
 	#@camera.rotation.y += 180 * Math.PI / 180
 
 	if mw.water
-		mw.mirror.render()
+		mw.water.render()
 
 	THREE.AnimationHandler.update clock.getDelta()
 
