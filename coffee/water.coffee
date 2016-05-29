@@ -102,8 +102,8 @@ mw.watershed = ->
 		# depthWrite: false
 		# depthTest: false
 
-	@water = THREE.SceneUtils.createMultiMaterialObject geometry, [@waterMaterial, @mirror.material]
-	#@water = new THREE.Mesh geometry, @mirror.material
+	# @water = THREE.SceneUtils.createMultiMaterialObject geometry, [@waterMaterial, @mirror.material]
+	@water = new THREE.Mesh geometry, @waterMaterial
 	@water.add @mirror
 
 	x = (mw.world.x * 8192) + 4096

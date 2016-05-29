@@ -14,43 +14,43 @@
  </asset>
  <library_images>
   <image id="nifid_3_image" name="Map_Tx_wood_brown_posts_02">
-   <init_from>../textures/Tx_wood_brown_posts_02.dds</init_from>
+   <init_from>../textures/tx_wood_brown_posts_02.dds</init_from>
   </image>
   <image id="nifid_8_image" name="Map_Tx_stone _left_01">
-   <init_from>../textures/Tx_stone _left_01.dds</init_from>
+   <init_from>../textures/tx_stone _left_01.dds</init_from>
   </image>
   <image id="nifid_13_image" name="Map_Tx_stone _right_01">
-   <init_from>../textures/Tx_stone _right_01.dds</init_from>
+   <init_from>../textures/tx_stone _right_01.dds</init_from>
   </image>
   <image id="nifid_17_image" name="Map_Tx_metal_strip_01">
-   <init_from>../textures/Tx_metal_strip_01.dds</init_from>
+   <init_from>../textures/tx_metal_strip_01.dds</init_from>
   </image>
   <image id="nifid_21_image" name="Map_Tx_stone _mid_01">
-   <init_from>../textures/Tx_stone _mid_01.dds</init_from>
+   <init_from>../textures/tx_stone _mid_01.dds</init_from>
   </image>
   <image id="nifid_26_image" name="Map_Tx_window_diamond_01">
-   <init_from>../textures/Tx_window_diamond_01.dds</init_from>
+   <init_from>../textures/tx_window_diamond_01.dds</init_from>
   </image>
   <image id="nifid_30_image" name="Map_Tx_wall_stuccostone_01">
-   <init_from>../textures/Tx_wall_stuccostone_01.dds</init_from>
+   <init_from>../textures/tx_wall_stuccostone_01.dds</init_from>
   </image>
   <image id="nifid_34_image" name="Map_Tx_wall_stone_01">
-   <init_from>../textures/Tx_wall_stone_01.dds</init_from>
+   <init_from>../textures/tx_wall_stone_01.dds</init_from>
   </image>
   <image id="nifid_38_image" name="Map_Tx_wood_brown_rings_01">
-   <init_from>../textures/Tx_wood_brown_rings_01.dds</init_from>
+   <init_from>../textures/tx_wood_brown_rings_01.dds</init_from>
   </image>
   <image id="nifid_42_image" name="Map_Tx_thatch_01">
-   <init_from>../textures/Tx_thatch_01.dds</init_from>
+   <init_from>../textures/tx_thatch_01.dds</init_from>
   </image>
   <image id="nifid_46_image" name="Map_Tx_wall_stuccostone_e_02">
-   <init_from>../textures/Tx_wall_stuccostone_e_02.dds</init_from>
+   <init_from>../textures/tx_wall_stuccostone_e_02.dds</init_from>
   </image>
   <image id="nifid_50_image" name="Map_Tx_wall_stuccostone_eL_01">
-   <init_from>../textures/Tx_wall_stuccostone_eL_01.dds</init_from>
+   <init_from>../textures/tx_wall_stuccostone_eL_01.dds</init_from>
   </image>
   <image id="nifid_54_image" name="Map_Tx_wall_stuccostone_eR_01">
-   <init_from>../textures/Tx_wall_stuccostone_eR_01.dds</init_from>
+   <init_from>../textures/tx_wall_stuccostone_eR_01.dds</init_from>
   </image>
  </library_images>
  <library_materials>

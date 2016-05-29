@@ -68,6 +68,10 @@
       model = p.model;
       this.queue++;
       mw.models[model] = null;
+      if (p.hidden) {
+        this.cached++;
+        return;
+      }
       cb = function(dae) {
         var dad, showme;
         if (model === 'ex_common_house_tall_02') {

@@ -14,7 +14,7 @@
  </asset>
  <library_images>
   <image id="nifid_3_image" name="Map_Tx_BC_scum">
-   <init_from>../textures/Tx_BC_scum.dds</init_from>
+   <init_from>../textures/tx_bc_scum.dds</init_from>
   </image>
  </library_images>
  <library_materials>

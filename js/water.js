@@ -89,7 +89,7 @@
       transparent: true,
       opacity: .5
     });
-    this.water = THREE.SceneUtils.createMultiMaterialObject(geometry, [this.waterMaterial, this.mirror.material]);
+    this.water = new THREE.Mesh(geometry, this.waterMaterial);
     this.water.add(this.mirror);
     x = (mw.world.x * 8192) + 4096;
     y = (mw.world.y * 8192) + 4096;

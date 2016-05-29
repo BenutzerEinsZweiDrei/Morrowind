@@ -14,16 +14,16 @@
  </asset>
  <library_images>
   <image id="nifid_3_image" name="Map_Tx_stone _left_01">
-   <init_from>../textures/Tx_stone _left_01.dds</init_from>
+   <init_from>../textures/tx_stone _left_01.dds</init_from>
   </image>
   <image id="nifid_8_image" name="Map_Tx_stone _right_01">
-   <init_from>../textures/Tx_stone _right_01.dds</init_from>
+   <init_from>../textures/tx_stone _right_01.dds</init_from>
   </image>
   <image id="nifid_13_image" name="Map_Tx_stone _mid_01">
-   <init_from>../textures/Tx_stone _mid_01.dds</init_from>
+   <init_from>../textures/tx_stone _mid_01.dds</init_from>
   </image>
   <image id="nifid_18_image" name="Map_Tx_stone_plain_01">
-   <init_from>../textures/Tx_stone_plain_01.dds</init_from>
+   <init_from>../textures/tx_stone_plain_01.dds</init_from>
   </image>
  </library_images>
  <library_materials>

@@ -147,9 +147,9 @@
       };
       material.uniforms.cat = {
         type: "t",
-        value: mw.textures['tx_sky_clear.dds']
+        value: mw.textures['cat.dds']
       };
-      material.uniforms.textures = {
+      material.uniforms.pastels = {
         type: "tv",
         value: this.textures
       };

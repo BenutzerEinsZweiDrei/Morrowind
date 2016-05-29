@@ -14,10 +14,10 @@
  </asset>
  <library_images>
   <image id="nifid_3_image" name="Map_Tx_wood_brown_posts_02">
-   <init_from>../textures/Tx_wood_brown_posts_02.dds</init_from>
+   <init_from>../textures/tx_wood_brown_posts_02.dds</init_from>
   </image>
   <image id="nifid_8_image" name="Map_Tx_stone_plain_01">
-   <init_from>../textures/Tx_stone_plain_01.dds</init_from>
+   <init_from>../textures/tx_stone_plain_01.dds</init_from>
   </image>
  </library_images>
  <library_materials>

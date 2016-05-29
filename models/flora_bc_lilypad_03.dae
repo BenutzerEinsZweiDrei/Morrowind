@@ -14,10 +14,10 @@
  </asset>
  <library_images>
   <image id="nifid_6_image" name="Map_Tx_BC_lilypad_03">
-   <init_from>../textures/Tx_BC_lilypad_03.dds</init_from>
+   <init_from>../textures/tx_bc_lilypad_03.dds</init_from>
   </image>
   <image id="nifid_11_image" name="Map_Tx_BC_fern_stem">
-   <init_from>../textures/Tx_BC_fern_stem.dds</init_from>
+   <init_from>../textures/tx_bc_fern_stem.dds</init_from>
   </image>
  </library_images>
  <library_materials>

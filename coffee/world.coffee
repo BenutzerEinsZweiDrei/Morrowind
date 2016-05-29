@@ -68,6 +68,10 @@ class mw.World
 
 		mw.models[model] = null
 
+		if p.hidden
+			@cached++
+			return
+
 		cb = (dae) ->
 			showme = true if model is 'ex_common_house_tall_02'
 

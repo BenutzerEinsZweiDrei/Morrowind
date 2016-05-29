@@ -193,8 +193,8 @@ class mw.Terrain
 			side: THREE.FrontSide
 
 		material.uniforms.emissive = 	type: "c", 	value: new THREE.Color 0x0000cc
-		material.uniforms.cat = 		type: "t", 	value: mw.textures['tx_sky_clear.dds']
-		material.uniforms.textures =	type: "tv", value: @textures
+		material.uniforms.cat = 		type: "t", 	value: mw.textures['cat.dds']
+		material.uniforms.pastels =		type: "tv", value: @textures
 		material.uniforms.amount =		type: "i", 	value: @textures.length
 		material.uniforms.masks = 		type: "tv", value: @masks
 		material.uniforms.vclr = 		type: "tv", value: @vclr

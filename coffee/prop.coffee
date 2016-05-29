@@ -11,6 +11,8 @@ class mw.Prop
 
 		# return unless mw.models[@model]?
 
+		return unless mw.models[@model]?
+		
 		@mesh = mw.models[@model].scene.clone()
 
 		@mesh.position.set @x, @y, @z
