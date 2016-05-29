@@ -70,10 +70,6 @@
       model = p.model;
       this.queue++;
       mw.models[model] = null;
-      if (model !== 'vurt_neentree') {
-        this.cached++;
-        return;
-      }
       if (p.hidden) {
         this.cached++;
         return;

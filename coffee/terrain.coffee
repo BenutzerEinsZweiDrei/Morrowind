@@ -49,15 +49,15 @@ class mw.Terrain
 			specular: 0xffffff
 			shading: THREE.SmoothShading
 
-		@material = m # @splat()
+		@material = @splat()
 
-		geometry = new THREE.PlaneGeometry 8192, 8192
+		# geometry = new THREE.PlaneGeometry 8192, 8192
 
-		# geometry.normalsNeedUpdate = true
-		# geometry.computeFaceNormals()
+		@geometry.normalsNeedUpdate = true
+		@geometry.computeFaceNormals()
 
-		@ground = new THREE.Mesh geometry, @material
-		@ground.position.set @mx, @my, 100
+		@ground = new THREE.Mesh @geometry, @material
+		@ground.position.set @mx, @my, 0
 
 		@ground.receiveShadow = true
 		# @ground.castShadow = true

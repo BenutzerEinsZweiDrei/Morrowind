@@ -36,17 +36,18 @@
     }
 
     Terrain.prototype.mkground = function() {
-      var geometry, m;
+      var m;
       m = new THREE.MeshPhongMaterial({
         color: 0xa0adaf,
         shininess: 150,
         specular: 0xffffff,
         shading: THREE.SmoothShading
       });
-      this.material = m;
-      geometry = new THREE.PlaneGeometry(8192, 8192);
-      this.ground = new THREE.Mesh(geometry, this.material);
-      this.ground.position.set(this.mx, this.my, 100);
+      this.material = this.splat();
+      this.geometry.normalsNeedUpdate = true;
+      this.geometry.computeFaceNormals();
+      this.ground = new THREE.Mesh(this.geometry, this.material);
+      this.ground.position.set(this.mx, this.my, 0);
       this.ground.receiveShadow = true;
       mw.scene.add(this.ground);
       return true;

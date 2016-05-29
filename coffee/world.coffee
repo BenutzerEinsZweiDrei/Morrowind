@@ -71,9 +71,9 @@ class mw.World
 
 		mw.models[model] = null
 
-		unless model is 'vurt_neentree'
-			@cached++
-			return
+		#unless model is 'vurt_neentree'
+			#@cached++
+			#return
 
 		if p.hidden
 			@cached++
