@@ -37,12 +37,14 @@
 
     Terrain.prototype.mkground = function() {
       var geometry, m;
-      m = new THREE.MeshPhongMaterial({
+      m = new THREE.MeshLambertMaterial({
         map: mw.textures['tx_bc_moss.dds'],
-        shading: THREE.FlatShading
+        shading: THREE.SmoothShading,
+        color: mw.AmbientDay
       });
-      this.material = m;
-      this.material.shading = THREE.FlatShading;
+      this.geometry.normalsNeedUpdate = true;
+      this.geometry.computeFaceNormals();
+      this.material = this.splat();
       geometry = new THREE.PlaneGeometry(8192, 8192);
       this.ground = new THREE.Mesh(this.geometry, this.material);
       this.ground.position.set(this.mx, this.my, 0);
@@ -144,11 +146,16 @@
         fragmentShader: document.getElementById('splatFragmentShader').textContent,
         lights: true,
         fog: true,
+        shading: THREE.SmoothShading,
         side: THREE.FrontSide
       });
       material.uniforms.emissive = {
         type: "c",
         value: new THREE.Color(0x000000)
+      };
+      material.uniforms.diffuse = {
+        type: "c",
+        value: new THREE.Color(mw.AmbientDay)
       };
       material.uniforms.cat = {
         type: "t",

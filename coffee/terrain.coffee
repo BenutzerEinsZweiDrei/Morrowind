@@ -43,16 +43,18 @@ class mw.Terrain
 		true
 
 	mkground: ->
-		m = new THREE.MeshPhongMaterial
+		m = new THREE.MeshLambertMaterial
 			map: mw.textures['tx_bc_moss.dds']
-			shading: THREE.FlatShading
-			# color: 0xffffff
+			shading: THREE.SmoothShading
+			color: mw.AmbientDay
 			# emissive: 0xc1c1c1
 			# shininess: 150
+			# ambient: 0xcc0000
 
-		@material = m
+		@geometry.normalsNeedUpdate = true
+		@geometry.computeFaceNormals()
 
-		@material.shading = THREE.FlatShading
+		@material =  @splat() # m
 
 		geometry = new THREE.PlaneGeometry 8192, 8192
 
@@ -203,9 +205,11 @@ class mw.Terrain
 			fragmentShader: document.getElementById( 'splatFragmentShader' ).textContent
 			lights: true
 			fog: true
+			shading: THREE.SmoothShading
 			side: THREE.FrontSide
 
 		material.uniforms.emissive = 	type: "c", 	value: new THREE.Color 0x000000
+		material.uniforms.diffuse = 	type: "c", 	value: new THREE.Color mw.AmbientDay
 		material.uniforms.cat = 		type: "t", 	value: mw.textures['cat.dds']
 		material.uniforms.pastels =		type: "tv", value: @textures
 		material.uniforms.amount =		type: "i", 	value: @textures.length

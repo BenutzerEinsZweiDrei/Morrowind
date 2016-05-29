@@ -11,7 +11,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var AmbientDay, AmbientSunrise, SunDay, SunSunrise, container, spotLight;
+    var AmbientSunrise, SunDay, SunSunrise, container, spotLight;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 100000);
@@ -23,10 +23,10 @@
     this.scene = new THREE.Scene;
     this.scene.fog = new THREE.Fog(0xefd1b5, 2500, 10000);
     AmbientSunrise = 0x424a57;
-    AmbientDay = 0x8991a0;
+    this.AmbientDay = 0x8991a0;
     SunSunrise = 0xf1b163;
     SunDay = 0xffecdd;
-    this.scene.add(new THREE.AmbientLight(AmbientDay));
+    this.scene.add(new THREE.AmbientLight(this.AmbientDay));
     this.sun = new THREE.DirectionalLight(SunDay, 1);
     this.sun.name = 'Sun ^^';
     this.sun.position.set(-600, 300, 600);
@@ -42,7 +42,7 @@
     this.sun.shadow.mapSize.height = 1024;
     this.scene.add(this.sun);
     this.scene.add(new THREE.CameraHelper(this.sun.shadow.camera));
-    spotLight = new THREE.SpotLight(0xcc0000);
+    spotLight = new THREE.SpotLight(0x0000cc);
     spotLight.name = 'Spot Light';
     spotLight.penumbra = 0.3;
     spotLight.position.set(-10894, -71081, 1760);
@@ -53,7 +53,6 @@
     spotLight.shadow.camera.far = 3000;
     spotLight.shadow.mapSize.width = 1024;
     spotLight.shadow.mapSize.height = 1024;
-    this.scene.add(spotLight);
     this.scene.add(new THREE.CameraHelper(spotLight.shadow.camera));
     this.wisp = spotLight;
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);

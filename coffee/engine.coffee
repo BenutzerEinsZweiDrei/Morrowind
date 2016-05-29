@@ -42,7 +42,7 @@ mw.boot = () ->
 	# Fog Night Color=000,000,150
 
 	AmbientSunrise = 	0x424a57 # Ambient Sunrise Color=066,074,087
-	AmbientDay = 		0x8991a0 # Ambient Day Color=137,145,160
+	@AmbientDay = 		0x8991a0 # Ambient Day Color=137,145,160
 	# Ambient Sunset Color=071,080,092
 	# Ambient Night Color=032,039,054
 
@@ -52,7 +52,7 @@ mw.boot = () ->
 	# Sun Night Color=077,091,124
 	# Sun Disc Sunset Color=150,000,000
 
-	@scene.add new THREE.AmbientLight AmbientDay
+	@scene.add new THREE.AmbientLight @AmbientDay
 
 	@sun = new THREE.DirectionalLight SunDay, 1
 	@sun.name = 'Sun ^^'
@@ -72,7 +72,7 @@ mw.boot = () ->
 	@scene.add @sun
 	@scene.add new THREE.CameraHelper @sun.shadow.camera
 
-	spotLight = new THREE.SpotLight( 0xcc0000 );
+	spotLight = new THREE.SpotLight( 0x0000cc );
 	spotLight.name = 'Spot Light';
 	# spotLight.angle = Math.PI / 5;
 	spotLight.penumbra = 0.3;
@@ -86,7 +86,7 @@ mw.boot = () ->
 	spotLight.shadow.mapSize.width = 1024
 	spotLight.shadow.mapSize.height = 1024
 
-	@scene.add spotLight
+	# @scene.add spotLight
 	@scene.add new THREE.CameraHelper spotLight.shadow.camera
 
 	@wisp = spotLight
