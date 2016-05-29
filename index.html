@@ -187,12 +187,11 @@ void main() {
 	vec3 totalEmissiveRadiance = emissive;
 
 	#include <logdepthbuf_fragment>
-	#include <map_fragment>
-	#include <color_fragment>
+	// include <map_fragment>
 
 	// START MW
 	{
-		diffuseColor = texture2D(cat, vUv * 16.0);
+		//diffuseColor = texture2D(cat, vUv * 16.0);
 
 		vec2 uv1 = vUv;
 
@@ -200,17 +199,19 @@ void main() {
 		vec4 coat = vec4(0.0);
 		vec4 mask = vec4(0.0);
 		float p = 0.0;
-		vec4 pastel = texture2D(pastels[0], vUv * 16.0);
+		vec4 pastel = texture2D(pastels[1], vUv * 16.0);
 
 		mask = texture2D(masks[0], vUv);
 
+		p = mask.g;
 		coat = vec4(p, p, p, 0) * pastel;
 
 		vec4 shade = texture2D(vclr, vUv);
-		gl_FragColor = coat * shade*2.;
+		diffuseColor *= coat;
 	}
 	// END MW 
 
+	#include <color_fragment>
 	#include <alphamap_fragment>
 	#include <alphatest_fragment>
 	#include <specularmap_fragment>

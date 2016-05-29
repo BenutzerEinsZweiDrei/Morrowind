@@ -143,7 +143,7 @@
       });
       material.uniforms.emissive = {
         type: "c",
-        value: new THREE.Color(0x0000cc)
+        value: new THREE.Color(0x000000)
       };
       material.uniforms.cat = {
         type: "t",
