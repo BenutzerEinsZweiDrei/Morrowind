@@ -88,8 +88,8 @@ class mw.Terrain
 
 		canvas = document.createElement 'canvas'
 		context = canvas.getContext '2d'
-		canvas.width = 128
-		canvas.height = 128
+		canvas.width = 64
+		canvas.height = 64
 		context.restore() # pop
 		context.translate 1, 0
 		context.drawImage mw.vclr, x, y
@@ -157,7 +157,7 @@ class mw.Terrain
 				v = @blues[(i*4)+2]
 				data.data[(i*4)+color] = if v is b then 255 else 1
 
-			context.putImageData data, 0, 0
+			context.putImageData data, 7, 7
 
 		#
 
@@ -204,6 +204,7 @@ class mw.Terrain
 		draadstaal = new THREE.MeshBasicMaterial wireframe: true, color: 0xc1c1c1
 		mesh = new THREE.Mesh @geometry, draadstaal
 		mesh.position.set @mx, @my, 0
+		# mesh.scale.x = mesh.scale.y = 0.99
 
 		mw.scene.add mesh
 

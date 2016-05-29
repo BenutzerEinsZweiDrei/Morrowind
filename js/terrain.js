@@ -69,8 +69,8 @@
       this.height.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
       context = canvas.getContext('2d');
-      canvas.width = 128;
-      canvas.height = 128;
+      canvas.width = 64;
+      canvas.height = 64;
       context.restore();
       context.translate(1, 0);
       context.drawImage(mw.vclr, x, y);
@@ -117,7 +117,7 @@
           v = this.blues[(i * 4) + 2];
           data.data[(i * 4) + color] = v === b ? 255 : 1;
         }
-        context.putImageData(data, 0, 0);
+        context.putImageData(data, 7, 7);
       }
       ref2 = this.masks;
       for (i = n = 0, len1 = ref2.length; n < len1; i = ++n) {
