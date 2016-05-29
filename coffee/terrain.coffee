@@ -88,10 +88,10 @@ class mw.Terrain
 
 		canvas = document.createElement 'canvas'
 		context = canvas.getContext '2d'
-		canvas.width = 64
-		canvas.height = 64
+		canvas.width = 128
+		canvas.height = 128
 		context.restore() # pop
-		context.translate 1, 0
+		context.translate 1, 63
 		context.drawImage mw.vclr, x, y
 		@vclr = new THREE.Texture canvas
 		@vclr.needsUpdate = true

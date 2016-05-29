@@ -69,10 +69,10 @@
       this.height.minFilter = THREE.LinearMipMapLinearFilter;
       canvas = document.createElement('canvas');
       context = canvas.getContext('2d');
-      canvas.width = 64;
-      canvas.height = 64;
+      canvas.width = 128;
+      canvas.height = 128;
       context.restore();
-      context.translate(1, 0);
+      context.translate(1, 63);
       context.drawImage(mw.vclr, x, y);
       this.vclr = new THREE.Texture(canvas);
       this.vclr.needsUpdate = true;
