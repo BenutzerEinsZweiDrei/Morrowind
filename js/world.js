@@ -86,8 +86,10 @@
         dad.updateMatrix();
         dad.traverse(function(child) {
           var animation, map;
-          child.castShadow = true;
-          child.receiveShadow = true;
+          if (-1 === mw.noshadow.indexOf(model)) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
           if (child instanceof THREE.SkinnedMesh) {
             animation = new THREE.Animation(child, child.geometry.animation);
             animation.play();

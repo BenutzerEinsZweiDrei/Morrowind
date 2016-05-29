@@ -53,6 +53,10 @@ mw.boot = () ->
 	@scene.add @sun.target
 	# @scene.add new THREE.CameraHelper @sun.shadow.camera
 
+	wisp = new THREE.Light 0x0000cc
+	wisp.position.set -11738.976, -70195.289, 385.415
+	@scene.add wisp
+
 	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
 
 	@renderer = new THREE.WebGLRenderer antialias: true

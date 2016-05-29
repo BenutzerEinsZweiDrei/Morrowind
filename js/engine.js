@@ -11,7 +11,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var container, span;
+    var container, span, wisp;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 50000);
@@ -40,6 +40,9 @@
     this.sun.shadow.mapSize.height = 2048;
     this.scene.add(this.sun);
     this.scene.add(this.sun.target);
+    wisp = new THREE.Light(0x0000cc);
+    wisp.position.set(-11738.976, -70195.289, 385.415);
+    this.scene.add(wisp);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer({
       antialias: true

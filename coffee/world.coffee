@@ -95,9 +95,10 @@ class mw.World
 
 			dad.traverse (child) ->
 
-				child.castShadow = true
-				child.receiveShadow = true
-
+				if -1 is mw.noshadow.indexOf model
+					child.castShadow = true
+					child.receiveShadow = true
+					
 				if child instanceof THREE.SkinnedMesh
 
 					animation = new THREE.Animation child, child.geometry.animation
