@@ -64,17 +64,17 @@ mw.boot = () ->
 	@sun.castShadow = true
 
 	@sun.shadow.camera.near = 5
-	@sun.shadow.camera.far = 3000
-	@sun.shadow.camera.right = 1000
-	@sun.shadow.camera.left = -1000
-	@sun.shadow.camera.top	= 1000
-	@sun.shadow.camera.bottom = -1000
+	@sun.shadow.camera.far = 6000
+	@sun.shadow.camera.right = 2000
+	@sun.shadow.camera.left = -2000
+	@sun.shadow.camera.top	= 2000
+	@sun.shadow.camera.bottom = -2000
 
 	@sun.shadow.mapSize.width = 1024
 	@sun.shadow.mapSize.height = 1024
 	@scene.add @sun
 	@scene.add @sun.target
-	@scene.add new THREE.CameraHelper @sun.shadow.camera
+	# @scene.add new THREE.CameraHelper @sun.shadow.camera
 
 	###wisp = new THREE.SpotLight( 0x0000cc );
 	wisp.name = 'Zrrvrbbr';
@@ -96,7 +96,7 @@ mw.boot = () ->
 	@wisp = wisp###
 
 	# test cube:
-	m = new THREE.MeshPhongMaterial
+	###m = new THREE.MeshPhongMaterial
 			color: 0xff0000
 			shininess: 150
 			specular: 0x222222
@@ -109,7 +109,7 @@ mw.boot = () ->
 	cube.castShadow = true
 	cube.receiveShadow = true
 
-	@scene.add cube
+	@scene.add cube###
 
 	# model
 
@@ -117,7 +117,7 @@ mw.boot = () ->
 	#THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
 	@renderer = new THREE.WebGLRenderer antialias: true
-	
+
 	@maxAnisotropy = @renderer.getMaxAnisotropy()
 	#@renderer.shadowMapEnabled = true
 	#@renderer.shadowMapType = THREE.PCFSoftShadowMap;

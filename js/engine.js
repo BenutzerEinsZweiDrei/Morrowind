@@ -11,7 +11,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var AmbientSunrise, SunDay, SunSunrise, container, cube, g, m;
+    var AmbientSunrise, SunDay, SunSunrise, container;
     container = document.createElement('div');
     document.body.appendChild(container);
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 10000);
@@ -35,16 +35,15 @@
     this.sun.shadow.darkness = 1;
     this.sun.castShadow = true;
     this.sun.shadow.camera.near = 5;
-    this.sun.shadow.camera.far = 3000;
-    this.sun.shadow.camera.right = 1000;
-    this.sun.shadow.camera.left = -1000;
-    this.sun.shadow.camera.top = 1000;
-    this.sun.shadow.camera.bottom = -1000;
+    this.sun.shadow.camera.far = 6000;
+    this.sun.shadow.camera.right = 2000;
+    this.sun.shadow.camera.left = -2000;
+    this.sun.shadow.camera.top = 2000;
+    this.sun.shadow.camera.bottom = -2000;
     this.sun.shadow.mapSize.width = 1024;
     this.sun.shadow.mapSize.height = 1024;
     this.scene.add(this.sun);
     this.scene.add(this.sun.target);
-    this.scene.add(new THREE.CameraHelper(this.sun.shadow.camera));
 
     /*wisp = new THREE.SpotLight( 0x0000cc );
     	wisp.name = 'Zrrvrbbr';
@@ -65,18 +64,22 @@
     
     	@wisp = wisp
      */
-    m = new THREE.MeshPhongMaterial({
-      color: 0xff0000,
-      shininess: 150,
-      specular: 0x222222,
-      shading: THREE.SmoothShading
-    });
-    g = new THREE.BoxGeometry(1000, 100, 100);
-    cube = new THREE.Mesh(g, m);
-    cube.position.set(-11224, -70869, 300);
-    cube.castShadow = true;
-    cube.receiveShadow = true;
-    this.scene.add(cube);
+
+    /*m = new THREE.MeshPhongMaterial
+    			color: 0xff0000
+    			shininess: 150
+    			specular: 0x222222
+    			shading: THREE.SmoothShading
+    
+    	g = new THREE.BoxGeometry 1000, 100, 100
+    
+    	cube = new THREE.Mesh g, m
+    	cube.position.set -11224, -70869, 300
+    	cube.castShadow = true
+    	cube.receiveShadow = true
+    
+    	@scene.add cube
+     */
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
     this.renderer = new THREE.WebGLRenderer({
       antialias: true
