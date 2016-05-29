@@ -138,14 +138,16 @@
   };
 
   mw.texture = function(file) {
-    var go, p;
+    var go, loader, p;
     p = file;
-    THREE.ImageUtils.loadTexture(p);
+    loader = new THREE.TextureLoader();
+    loader.load(p);
+    loader = null;
     if (mw.textures[p]) {
       return mw.textures[p];
     } else {
       go = function() {
-        var i, loader;
+        var i;
         loader = new THREE.TGALoader;
         console.log(loader);
         i = p;

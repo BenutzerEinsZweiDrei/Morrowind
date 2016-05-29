@@ -15,8 +15,8 @@ class mw.Prop
 
 		@mesh = mw.models[@model].scene.clone()
 
-		@mesh.castShadow = true
-		@mesh.receiveShadow = true
+		#@mesh.castShadow = true
+		#@mesh.receiveShadow = true
 
 		@mesh.position.set @x, @y, @z
 

@@ -117,7 +117,9 @@ mw.after = ->
 mw.texture = (file) ->
 	p = file
 
-	THREE.ImageUtils.loadTexture p
+	loader = new THREE.TextureLoader()
+	loader.load p
+	loader = null
 
 	if mw.textures[p]
 		return  mw.textures[p]

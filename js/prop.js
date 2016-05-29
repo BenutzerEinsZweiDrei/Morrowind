@@ -14,8 +14,6 @@
         return;
       }
       this.mesh = mw.models[this.model].scene.clone();
-      this.mesh.castShadow = true;
-      this.mesh.receiveShadow = true;
       this.mesh.position.set(this.x, this.y, this.z);
       if (this.scale) {
         this.mesh.scale.set(this.scale, this.scale, this.scale);

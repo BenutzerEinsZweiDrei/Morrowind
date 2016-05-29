@@ -4,7 +4,7 @@ mw.watershed = ->
 	x = (mw.world.x * 8192) + 4096
 	y = (mw.world.y * 8192) + 4096
 
-	@waterNormals = new THREE.ImageUtils.loadTexture('textures/waternormals.jpg');
+	@waterNormals = new THREE.TextureLoader().load 'textures/waternormals.jpg'
 	@waterNormals.wrapS = @waterNormals.wrapT = THREE.RepeatWrapping; 
 
 	@water = new THREE.Water mw.renderer, mw.camera, mw.scene,
@@ -19,7 +19,7 @@ mw.watershed = ->
 			opacity: .5
 			transparent: true
 			# fog: true
-
+			
 	aMeshMirror = new THREE.Mesh geometry, @water.material
 	aMeshMirror.position.set x, y, 0.5
 

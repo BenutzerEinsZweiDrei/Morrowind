@@ -48,7 +48,10 @@ class mw.World
 	cachcb: () ->
 		@cached++
 		if @cached >= @queue
-			@ransack()
+			setTimeout ->
+				mw.world.ransack()
+				return
+			, 3000
 
 		true
 
@@ -67,6 +70,10 @@ class mw.World
 		@queue++
 
 		mw.models[model] = null
+
+		unless model is 'vurt_neentree'
+			@cached++
+			return
 
 		if p.hidden
 			@cached++
@@ -88,6 +95,9 @@ class mw.World
 
 			dad.traverse (child) ->
 
+				child.castShadow = true
+				child.receiveShadow = true
+
 				if child instanceof THREE.SkinnedMesh
 
 					animation = new THREE.Animation child, child.geometry.animation
@@ -97,8 +107,6 @@ class mw.World
 					
 				if child instanceof THREE.Mesh
 
-					child.castShadow = true
-					child.receiveShadow = true
 					#child.geometry.normalsNeedUpdate = true
 					#child.geometry.computeFaceNormals()
 

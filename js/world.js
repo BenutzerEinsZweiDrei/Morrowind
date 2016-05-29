@@ -45,7 +45,9 @@
     World.prototype.cachcb = function() {
       this.cached++;
       if (this.cached >= this.queue) {
-        this.ransack();
+        setTimeout(function() {
+          mw.world.ransack();
+        }, 3000);
       }
       return true;
     };
@@ -68,6 +70,10 @@
       model = p.model;
       this.queue++;
       mw.models[model] = null;
+      if (model !== 'vurt_neentree') {
+        this.cached++;
+        return;
+      }
       if (p.hidden) {
         this.cached++;
         return;
@@ -84,14 +90,14 @@
         dad.updateMatrix();
         dad.traverse(function(child) {
           var animation, map;
+          child.castShadow = true;
+          child.receiveShadow = true;
           if (child instanceof THREE.SkinnedMesh) {
             animation = new THREE.Animation(child, child.geometry.animation);
             animation.play();
             console.log('Oh ye');
           }
           if (child instanceof THREE.Mesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
             child.material.vertexColors = THREE.VertexColors;
             child.material.alphaTest = 0.5;
             if (map = child.material.map) {

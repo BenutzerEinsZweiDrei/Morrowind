@@ -10,7 +10,7 @@ mw.boot = () ->
 	container = document.createElement 'div'
 	document.body.appendChild container
 
-	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 100000
+	@camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 10000
 	@camera.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
 	@camera.up = new THREE.Vector3 0, 0, 1
 
@@ -56,23 +56,27 @@ mw.boot = () ->
 
 	@sun = new THREE.DirectionalLight SunDay, 1
 	@sun.name = 'Sun ^^'
-	@sun.position.set -600, 300, 600
-	# @sun.target.position.set -13088.357563362384, -70417.86172521245, 675.7888756651994
+	@sun.position.set -9736.193505934018, -71181.47477616863, 1385.0809414861014
+	@sun.target.position.set -11224, -70869, 300
 
-	###@sun.castShadow = true
-	@sun.shadow.darkness = 1;
-	@sun.shadow.camera.near = 45;
-	@sun.shadow.camera.far = 10000;
-	@sun.shadow.camera.right = 15;
-	@sun.shadow.camera.left = - 15;
-	@sun.shadow.camera.top	= 15;
-	@sun.shadow.camera.bottom = - 15;
-	@sun.shadow.mapSize.width = 1024;
-	@sun.shadow.mapSize.height = 1024;
+	@sun.castShadow = true
+	@sun.shadow.darkness = 1
+	@sun.castShadow = true
+
+	@sun.shadow.camera.near = 5
+	@sun.shadow.camera.far = 3000
+	@sun.shadow.camera.right = 1000
+	@sun.shadow.camera.left = -1000
+	@sun.shadow.camera.top	= 1000
+	@sun.shadow.camera.bottom = -1000
+
+	@sun.shadow.mapSize.width = 1024
+	@sun.shadow.mapSize.height = 1024
 	@scene.add @sun
-	@scene.add new THREE.CameraHelper @sun.shadow.camera###
+	@scene.add @sun.target
+	@scene.add new THREE.CameraHelper @sun.shadow.camera
 
-	wisp = new THREE.SpotLight( 0x0000cc );
+	###wisp = new THREE.SpotLight( 0x0000cc );
 	wisp.name = 'Zrrvrbbr';
 	# wisp.angle = Math.PI / 5;
 	wisp.penumbra = 0.3
@@ -89,7 +93,7 @@ mw.boot = () ->
 	@scene.add wisp
 	@scene.add new THREE.CameraHelper wisp.shadow.camera
 
-	@wisp = wisp
+	@wisp = wisp###
 
 	# test cube:
 	m = new THREE.MeshPhongMaterial
@@ -98,24 +102,22 @@ mw.boot = () ->
 			specular: 0x222222
 			shading: THREE.SmoothShading
 
-	g = new THREE.BoxGeometry 100, 100, 100
+	g = new THREE.BoxGeometry 1000, 100, 100
 
 	cube = new THREE.Mesh g, m
-	cube.position.set -11224, -70869, 645
+	cube.position.set -11224, -70869, 300
 	cube.castShadow = true
 	cube.receiveShadow = true
 
 	@scene.add cube
-
-	x: -11224.409544363627, y: -70869.48690196892, z: 645.6708242280615
 
 	# model
 
 	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
 	#THREE.Loader.Handlers.add /\.tga$/i, new THREE.TGALoader
 
-	@renderer = new THREE.WebGLRenderer
-
+	@renderer = new THREE.WebGLRenderer antialias: true
+	
 	@maxAnisotropy = @renderer.getMaxAnisotropy()
 	#@renderer.shadowMapEnabled = true
 	#@renderer.shadowMapType = THREE.PCFSoftShadowMap;

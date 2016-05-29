@@ -11,10 +11,10 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var AmbientSunrise, SunDay, SunSunrise, container, cube, g, m, wisp;
+    var AmbientSunrise, SunDay, SunSunrise, container, cube, g, m;
     container = document.createElement('div');
     document.body.appendChild(container);
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 100000);
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 10000);
     this.camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
     this.camera.up = new THREE.Vector3(0, 0, 1);
     this.controls = new THREE.FirstPersonControls(this.camera);
@@ -29,54 +29,58 @@
     this.scene.add(new THREE.AmbientLight(this.AmbientDay));
     this.sun = new THREE.DirectionalLight(SunDay, 1);
     this.sun.name = 'Sun ^^';
-    this.sun.position.set(-600, 300, 600);
+    this.sun.position.set(-9736.193505934018, -71181.47477616863, 1385.0809414861014);
+    this.sun.target.position.set(-11224, -70869, 300);
+    this.sun.castShadow = true;
+    this.sun.shadow.darkness = 1;
+    this.sun.castShadow = true;
+    this.sun.shadow.camera.near = 5;
+    this.sun.shadow.camera.far = 3000;
+    this.sun.shadow.camera.right = 1000;
+    this.sun.shadow.camera.left = -1000;
+    this.sun.shadow.camera.top = 1000;
+    this.sun.shadow.camera.bottom = -1000;
+    this.sun.shadow.mapSize.width = 1024;
+    this.sun.shadow.mapSize.height = 1024;
+    this.scene.add(this.sun);
+    this.scene.add(this.sun.target);
+    this.scene.add(new THREE.CameraHelper(this.sun.shadow.camera));
 
-    /*@sun.castShadow = true
-    	@sun.shadow.darkness = 1;
-    	@sun.shadow.camera.near = 45;
-    	@sun.shadow.camera.far = 10000;
-    	@sun.shadow.camera.right = 15;
-    	@sun.shadow.camera.left = - 15;
-    	@sun.shadow.camera.top	= 15;
-    	@sun.shadow.camera.bottom = - 15;
-    	@sun.shadow.mapSize.width = 1024;
-    	@sun.shadow.mapSize.height = 1024;
-    	@scene.add @sun
-    	@scene.add new THREE.CameraHelper @sun.shadow.camera
+    /*wisp = new THREE.SpotLight( 0x0000cc );
+    	wisp.name = 'Zrrvrbbr';
+    	 * wisp.angle = Math.PI / 5;
+    	wisp.penumbra = 0.3
+    	wisp.position.set -10894, -71081, 1760
+    	wisp.target.position.set -11374, -70615, 642
+    	@scene.add wisp.target
+    
+    	wisp.castShadow = true
+    	wisp.shadow.camera.near = 8
+    	wisp.shadow.camera.far = 3000
+    	wisp.shadow.mapSize.width = 1024
+    	wisp.shadow.mapSize.height = 1024
+    
+    	@scene.add wisp
+    	@scene.add new THREE.CameraHelper wisp.shadow.camera
+    
+    	@wisp = wisp
      */
-    wisp = new THREE.SpotLight(0x0000cc);
-    wisp.name = 'Zrrvrbbr';
-    wisp.penumbra = 0.3;
-    wisp.position.set(-10894, -71081, 1760);
-    wisp.target.position.set(-11374, -70615, 642);
-    this.scene.add(wisp.target);
-    wisp.castShadow = true;
-    wisp.shadow.camera.near = 8;
-    wisp.shadow.camera.far = 3000;
-    wisp.shadow.mapSize.width = 1024;
-    wisp.shadow.mapSize.height = 1024;
-    this.scene.add(wisp);
-    this.scene.add(new THREE.CameraHelper(wisp.shadow.camera));
-    this.wisp = wisp;
     m = new THREE.MeshPhongMaterial({
       color: 0xff0000,
       shininess: 150,
       specular: 0x222222,
       shading: THREE.SmoothShading
     });
-    g = new THREE.BoxGeometry(100, 100, 100);
+    g = new THREE.BoxGeometry(1000, 100, 100);
     cube = new THREE.Mesh(g, m);
-    cube.position.set(-11224, -70869, 645);
+    cube.position.set(-11224, -70869, 300);
     cube.castShadow = true;
     cube.receiveShadow = true;
     this.scene.add(cube);
-    ({
-      x: -11224.409544363627,
-      y: -70869.48690196892,
-      z: 645.6708242280615
-    });
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
-    this.renderer = new THREE.WebGLRenderer;
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true
+    });
     this.maxAnisotropy = this.renderer.getMaxAnisotropy();
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);

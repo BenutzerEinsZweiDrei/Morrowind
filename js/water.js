@@ -5,7 +5,7 @@
     geometry = new THREE.PlaneGeometry(8192 * 3, 8192 * 3);
     x = (mw.world.x * 8192) + 4096;
     y = (mw.world.y * 8192) + 4096;
-    this.waterNormals = new THREE.ImageUtils.loadTexture('textures/waternormals.jpg');
+    this.waterNormals = new THREE.TextureLoader().load('textures/waternormals.jpg');
     this.waterNormals.wrapS = this.waterNormals.wrapT = THREE.RepeatWrapping;
     this.water = new THREE.Water(mw.renderer, mw.camera, mw.scene, {
       textureWidth: 512,
