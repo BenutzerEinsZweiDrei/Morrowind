@@ -52,9 +52,12 @@ mw.boot = () ->
 	# Sun Night Color=077,091,124
 	# Sun Disc Sunset Color=150,000,000
 
-	@scene.add new THREE.AmbientLight AmbientSunrise
-	@sun = new THREE.DirectionalLight SunSunrise, 1
+	@scene.add new THREE.AmbientLight AmbientDay
+
+	@sun = new THREE.DirectionalLight SunDay, 1
+	@sun.castShadow = true
 	@sun.position.set -600, 300, 600
+
 	@scene.add @sun
 
 	# model
@@ -70,6 +73,17 @@ mw.boot = () ->
 
 	@renderer.setPixelRatio window.devicePixelRatio
 	@renderer.setSize window.innerWidth, window.innerHeight
+	@renderer.shadowMap.enabled = true
+	@renderer.shadowMapSoft = true
+
+	@renderer.shadowCameraNear = 3
+	@renderer.shadowCameraFar = @camera.far
+	@renderer.shadowCameraFov = 50
+
+	@renderer.shadowMapBias = 0.0039
+	@renderer.shadowMapDarkness = 0.5
+	@renderer.shadowMapWidth = 1024
+	@renderer.shadowMapHeight = 1024
 
 	@stats = new Stats()
 	@stats.domElement.style.position = 'absolute'

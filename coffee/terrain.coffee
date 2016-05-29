@@ -49,6 +49,7 @@ class mw.Terrain
 
 		@ground = new THREE.Mesh @geometry, @material
 		@ground.position.set @mx, @my, 0
+		@ground.receiveShadow = true
 
 		mw.scene.add @ground
 

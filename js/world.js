@@ -79,6 +79,8 @@
         }
         dad = dae.scene;
         dad.mw = model;
+        dad.castShadow = true;
+        dad.receiveShadow = true;
         mw.models[model] = dae;
         dad.scale.x = dad.scale.y = dad.scale.z = 1;
         dad.updateMatrix();

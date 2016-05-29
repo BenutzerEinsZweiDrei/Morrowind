@@ -43,6 +43,7 @@
       this.material = this.splat();
       this.ground = new THREE.Mesh(this.geometry, this.material);
       this.ground.position.set(this.mx, this.my, 0);
+      this.ground.receiveShadow = true;
       mw.scene.add(this.ground);
       return true;
     };

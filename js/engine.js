@@ -26,8 +26,9 @@
     AmbientDay = 0x8991a0;
     SunSunrise = 0xf1b163;
     SunDay = 0xffecdd;
-    this.scene.add(new THREE.AmbientLight(AmbientSunrise));
-    this.sun = new THREE.DirectionalLight(SunSunrise, 1);
+    this.scene.add(new THREE.AmbientLight(AmbientDay));
+    this.sun = new THREE.DirectionalLight(SunDay, 1);
+    this.sun.castShadow = true;
     this.sun.position.set(-600, 300, 600);
     this.scene.add(this.sun);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
@@ -35,6 +36,15 @@
     this.maxAnisotropy = this.renderer.getMaxAnisotropy();
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMapSoft = true;
+    this.renderer.shadowCameraNear = 3;
+    this.renderer.shadowCameraFar = this.camera.far;
+    this.renderer.shadowCameraFov = 50;
+    this.renderer.shadowMapBias = 0.0039;
+    this.renderer.shadowMapDarkness = 0.5;
+    this.renderer.shadowMapWidth = 1024;
+    this.renderer.shadowMapHeight = 1024;
     this.stats = new Stats();
     this.stats.domElement.style.position = 'absolute';
     this.stats.domElement.style.top = '0px';

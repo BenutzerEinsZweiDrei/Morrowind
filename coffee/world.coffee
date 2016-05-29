@@ -80,6 +80,8 @@ class mw.World
 			dad = dae.scene
 
 			dad.mw = model
+			dad.castShadow = true
+			dad.receiveShadow = true
 
 			mw.models[model] = dae
 
