@@ -61,6 +61,11 @@
           this.props.push(new mw.Prop(p));
         }
       }
+      mw.controls.movementSpeed = 200;
+      mw.controls.lookSpeed = 0.15;
+      mw.controls.lat = -26.743659000000005;
+      mw.controls.lon = -137.39699074999993;
+      mw.camera.position.set(-10608, -71283, 1008);
       mw.watershed.call(mw);
       return true;
     };

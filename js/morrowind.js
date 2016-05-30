@@ -187,7 +187,6 @@
       return mw.world = new mw.World(data);
     });
     mw.animate();
-    mw.net = new mw.Net();
     return true;
   };
 

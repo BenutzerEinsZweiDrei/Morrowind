@@ -187,7 +187,7 @@ mw.after = ->
 		
 	mw.animate()
 
-	mw.net = new mw.Net()
+	# mw.net = new mw.Net()
 
 	true
 

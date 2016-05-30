@@ -11,15 +11,23 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var camera, container, controls, renderer, scene, stats, sun, wisp;
+    var camera, container, controls, renderer, scene, sun, wisp;
     container = document.createElement('div');
     document.body.appendChild(container);
     camera = this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 50000);
-    camera.position.set(-13088.357563362384, -70417.86172521245, 675.7888756651994);
+    mw.camera.position.set(-10608, -71283, 1008);
     camera.up = new THREE.Vector3(0, 0, 1);
+
+    /*
+    	camera.rotation.y = 1
+    	camera.rotation.x = 1.1063848995163013
+    	camera.rotation.z = 0.40295405886168556
+     */
     controls = this.controls = new THREE.FirstPersonControls(camera);
-    controls.movementSpeed = 1000;
-    controls.lookSpeed = 0.25;
+    controls.movementSpeed = 100;
+    controls.lookSpeed = 0.01;
+    controls.lat = -26.743659000000005;
+    controls.lon = -137.39699074999993;
     scene = this.scene = new THREE.Scene;
     scene.fog = new THREE.Fog(mw.Fog, 2250, 9000);
     scene.add(new THREE.AmbientLight(mw.Ambient));
@@ -51,10 +59,6 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
-    stats = this.stats = new Stats();
-    stats.domElement.style.position = 'absolute';
-    stats.domElement.style.top = '0px';
-    container.appendChild(stats.domElement);
     container.appendChild(renderer.domElement);
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     window.addEventListener('resize', onWindowResize, false);
@@ -122,7 +126,6 @@
       mw.water.material.uniforms.time.value += 1.0 / 60.0;
     }
     render.call(mw);
-    mw.stats.update();
     ref = mw.keys;
     for (i = j = 0, len = ref.length; j < len; i = ++j) {
       k = ref[i];
