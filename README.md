@@ -16,4 +16,4 @@ I'm using retextured meshes from the Overhaul 3.0 mod.
 ### Controls
 * `Capslock` to move slow
 * `M` to freeze
-* `N` to attach/detach shadow camera
+* `N` to attach / detach shadow camera
