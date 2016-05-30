@@ -9,14 +9,13 @@
     this.waterNormals.wrapS = this.waterNormals.wrapT = THREE.RepeatWrapping;
     this.water = new THREE.Water(mw.renderer, mw.camera, mw.scene, {
       map: mw.textures['water/water0.dds'],
-      textureWidth: 1024,
-      textureHeight: 1024,
+      textureWidth: 512,
+      textureHeight: 512,
       waterNormals: this.waterNormals,
-      alpha: .4,
-      transparent: true,
+      alpha: .3,
       sunColor: 0xffffff,
       waterColor: 0x001e0f,
-      distortionScale: 30.0,
+      distortionScale: 50.0,
       fog: true
     });
     aMeshMirror = new THREE.Mesh(geometry, this.water.material);

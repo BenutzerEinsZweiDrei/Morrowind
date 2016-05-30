@@ -29,18 +29,18 @@ mw.boot = () ->
 
 	sun = @sun = new THREE.DirectionalLight mw.Sun, 1
 	sun.name = 'Sun ^^'
-	sun.position.set -9736, -71181+1200, 1385
-	sun.target.position.set -11224, -70869+1200, 300
+	sun.position.set -9736-1000, -71181+1200, 1385
+	sun.target.position.set -11224-1000, -70869+1200, 300
 
 	sun.castShadow = true
 	sun.shadow.darkness = 5
 
 	span = 1250
 	sun.shadow.camera.near = 5
-	sun.shadow.camera.far = 4000
-	sun.shadow.camera.right = span
-	sun.shadow.camera.left = -span
-	sun.shadow.camera.top	= span
+	sun.shadow.camera.far = 3000
+	sun.shadow.camera.right = 1000
+	sun.shadow.camera.left = -800
+	sun.shadow.camera.top	= 500
 	sun.shadow.camera.bottom = -span
 
 	sun.shadow.mapSize.width = 2048
