@@ -25,13 +25,13 @@
     scene.add(new THREE.AmbientLight(mw.Ambient));
     sun = this.sun = new THREE.DirectionalLight(mw.Sun, 1);
     sun.name = 'Sun ^^';
-    sun.position.set(-9736, -71181, 1385);
-    this.sun.target.position.set(-11224, -70869, 300);
+    sun.position.set(-9736, -71181 + 1200, 1385);
+    sun.target.position.set(-11224, -70869 + 1200, 300);
     sun.castShadow = true;
     sun.shadow.darkness = 5;
     span = 1250;
     sun.shadow.camera.near = 5;
-    sun.shadow.camera.far = 5000;
+    sun.shadow.camera.far = 4000;
     sun.shadow.camera.right = span;
     sun.shadow.camera.left = -span;
     sun.shadow.camera.top = span;
@@ -99,8 +99,8 @@
     if (mw.keys[78] === 1) {
       mw.shadowing = !mw.shadowing;
       if (!mw.shadowing) {
-        mw.sun.position.set(-9736, -71181, 1385);
-        mw.sun.target.position.set(-11224, -70869, 300);
+        mw.sun.position.set(-9736, -71181 + 1200, 1385);
+        mw.sun.target.position.set(-11224, -70869 + 1200, 300);
       }
     }
     if (mw.keys[20] === 1) {
