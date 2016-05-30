@@ -6,6 +6,8 @@ mw = root.mw =
 	gets: 3
 
 	slow: false
+	shadowing: false
+
 	keys: []
 	models: {}
 	world: null
@@ -131,7 +133,7 @@ document.onkeydown = document.onkeyup = (event) ->
 	if k is 114
 		event.preventDefault()
 	
-	#console.log mw.keys
+	# console.log mw.keys
 
 	if mw.lightbox
 		mw.lightbox.key()

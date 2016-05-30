@@ -29,9 +29,9 @@
     this.sun.target.position.set(-11224, -70869, 300);
     sun.castShadow = true;
     sun.shadow.darkness = 5;
-    span = 1500;
+    span = 1250;
     sun.shadow.camera.near = 5;
-    sun.shadow.camera.far = 6000;
+    sun.shadow.camera.far = 5000;
     sun.shadow.camera.right = span;
     sun.shadow.camera.left = -span;
     sun.shadow.camera.top = span;
@@ -96,6 +96,13 @@
     if (mw.keys[77] === 1) {
       mw.freeze = !mw.freeze;
     }
+    if (mw.keys[78] === 1) {
+      mw.shadowing = !mw.shadowing;
+      if (!mw.shadowing) {
+        mw.sun.position.set(-9736, -71181, 1385);
+        mw.sun.target.position.set(-11224, -70869, 300);
+      }
+    }
     if (mw.keys[20] === 1) {
       mw.slow = !mw.slow;
       if (mw.slow) {
@@ -130,14 +137,16 @@
 
   render = function() {
     var x, y, z;
-    x = -11576 - -9736;
-    y = -70815 - -71181;
-    z = 381 - 1385;
-    mw.sun.position.set(mw.camera.position.x - x, mw.camera.position.y - y, mw.camera.position.z - z);
-    x = -11224 - -9736;
-    y = -70869 - -71181;
-    z = 300 - 1385;
-    mw.sun.target.position.set(mw.sun.position.x + x, mw.sun.position.y + y, mw.sun.position.z + z);
+    if (mw.shadowing) {
+      x = -11576 - -9736;
+      y = -70815 - -71181;
+      z = 381 - 1385;
+      mw.sun.position.set(mw.camera.position.x - x, mw.camera.position.y - y, mw.camera.position.z - z);
+      x = -11224 - -9736;
+      y = -70869 - -71181;
+      z = 300 - 1385;
+      mw.sun.target.position.set(mw.sun.position.x + x, mw.sun.position.y + y, mw.sun.position.z + z);
+    }
     if (mw.water) {
       mw.water.render();
     }

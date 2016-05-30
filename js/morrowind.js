@@ -9,6 +9,7 @@
     gots: 0,
     gets: 3,
     slow: false,
+    shadowing: false,
     keys: [],
     models: {},
     world: null,
