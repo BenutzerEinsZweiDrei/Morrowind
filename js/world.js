@@ -69,11 +69,11 @@
       var cb, loader, model;
       model = p.model;
       this.queue++;
-      mw.models[model] = null;
-      if (p.hidden) {
+      if (p.hidden || mw.models[model] === -1) {
         this.cached++;
         return;
       }
+      mw.models[model] = -1;
       cb = function(dae) {
         var dad, showme;
         if (model === 'ex_common_house_tall_02') {

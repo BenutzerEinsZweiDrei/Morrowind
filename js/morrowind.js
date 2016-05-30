@@ -50,7 +50,7 @@
       '214': 'tx_bc_dirt.dds',
       '247': 'tx_bc_mud.dds'
     },
-    noshadow: ['light_com_lantern_02', 'furn_com_lantern_hook'],
+    noshadow: ['vurt_neentree', 'light_com_lantern_02', 'furn_com_lantern_hook'],
     nolight: ['light_com_lantern_02', 'furn_com_lantern_hook'],
     textures: [],
     wireframe: new THREE.MeshBasicMaterial({

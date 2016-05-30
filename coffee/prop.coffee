@@ -11,7 +11,9 @@ class mw.Prop
 
 		# return unless mw.models[@model]?
 
-		return unless mw.models[@model]?
+		return unless mw.models[@model] isnt -1
+
+		return if @raw.hidden
 
 		@mesh = mw.models[@model].scene.clone()
 

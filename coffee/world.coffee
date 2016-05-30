@@ -69,15 +69,11 @@ class mw.World
 
 		@queue++
 
-		mw.models[model] = null
-
-		#unless model is 'vurt_neentree'
-			#@cached++
-			#return
-
-		if p.hidden
+		if p.hidden or mw.models[model] is -1
 			@cached++
 			return
+			
+		mw.models[model] = -1
 
 		cb = (dae) ->
 			showme = true if model is 'ex_common_house_tall_02'

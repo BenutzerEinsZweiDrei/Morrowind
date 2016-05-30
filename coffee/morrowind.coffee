@@ -31,6 +31,7 @@ mw = root.mw =
 		'247': 'tx_bc_mud.dds'
 	}
 	noshadow: [
+		'vurt_neentree'
 		'light_com_lantern_02'
 		'furn_com_lantern_hook'
 	]

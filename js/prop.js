@@ -10,7 +10,10 @@
       this.r = Math.abs(this.raw.r - 360);
       this.scale = this.raw.scale || 0;
       this.transparent = this.raw.transparent || false;
-      if (mw.models[this.model] == null) {
+      if (mw.models[this.model] === -1) {
+        return;
+      }
+      if (this.raw.hidden) {
         return;
       }
       this.mesh = mw.models[this.model].scene.clone();

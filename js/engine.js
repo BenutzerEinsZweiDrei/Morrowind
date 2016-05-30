@@ -11,7 +11,7 @@
   windowHalfY = window.innerHeight / 2;
 
   mw.boot = function() {
-    var camera, container, controls, renderer, scene, span, stats, sun, wisp;
+    var camera, container, controls, renderer, scene, stats, sun, wisp;
     container = document.createElement('div');
     document.body.appendChild(container);
     camera = this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 50000);
@@ -29,13 +29,12 @@
     sun.target.position.set(-11224 - 1000, -70869 + 1200, 300);
     sun.castShadow = true;
     sun.shadow.darkness = 5;
-    span = 1250;
     sun.shadow.camera.near = 5;
     sun.shadow.camera.far = 3000;
     sun.shadow.camera.right = 1000;
     sun.shadow.camera.left = -800;
     sun.shadow.camera.top = 500;
-    sun.shadow.camera.bottom = -span;
+    sun.shadow.camera.bottom = -1500;
     sun.shadow.mapSize.width = 2048;
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
@@ -99,8 +98,8 @@
     if (mw.keys[78] === 1) {
       mw.shadowing = !mw.shadowing;
       if (!mw.shadowing) {
-        mw.sun.position.set(-9736, -71181 + 1200, 1385);
-        mw.sun.target.position.set(-11224, -70869 + 1200, 300);
+        mw.sun.position.set(-9736 - 1000, -71181 + 1200, 1385);
+        mw.sun.target.position.set(-11224 - 1000, -70869 + 1200, 300);
       }
     }
     if (mw.keys[20] === 1) {

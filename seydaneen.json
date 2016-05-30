@@ -409,21 +409,24 @@
 	"y": -71293.445,
 	"z": 878.583,
 	"r": 102.2,
-	"scale": 2
+	"scale": 2,
+	"hidden": true
 	},
 	{
 	"model": "ex_de_shack_03",
 	"x": -14022.677,
 	"y": -71522.711,
 	"z": 156.316,
-	"r": 125.1
+	"r": 125.1,
+	"hidden": true
 	},
 	{
 	"model": "ex_de_shack_door",
 	"x": -14169.115,
 	"y": -71649.656,
 	"z": 148.809,
-	"r": 35.8
+	"r": 35.8,
+	"hidden": true
 	},
 
 	"# Tree across bridge",
@@ -433,7 +436,8 @@
 	"y": -67694.164,
 	"z": 1142.615,
 	"r": 222.5,
-	"scale": 2
+	"scale": 2,
+	"hidden": true
 	},
 
 	"# Big tree next to Silt Strider",
@@ -443,7 +447,8 @@
 	"y": -68035.586,
 	"z": 1051.939,
 	"r": 159.5,
-	"scale": 2
+	"scale": 2,
+	"hidden": true
 	},
 	{
 	"model": "siltstrider",
@@ -461,14 +466,16 @@
 	"y": -72958.164,
 	"z": 781.389,
 	"r": 136.5,
-	"scale": 1.37
+	"scale": 1.37,
+	"hidden": true
 	},
 	{
 	"model": "ex_de_ship",
 	"x": -8292.135,
 	"y": -73375.852,
 	"z": -22.822,
-	"r": 45.0
+	"r": 45.0,
+	"hidden": true
 	},
 	{
 	"model": "ex_de_ship_door",
@@ -476,7 +483,8 @@
 	"y": -72869.023,
 	"z": 238.412,
 	"r": 45.0,
-	"scale": 1.08
+	"scale": 1.08,
+	"hidden": true
 	}
 
 
