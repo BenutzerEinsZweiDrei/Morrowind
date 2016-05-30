@@ -108,6 +108,8 @@ $(document).ready ->
 	
 	mw.boot.call mw
 
+	$.getJSON 'my trade.json', (data) -> mw.mytrade = data
+
 	mw.produceterrain.call mw
 
 	mw.resources.call mw
@@ -159,8 +161,8 @@ mw.resources = ->
 				asd.anisotropy = mw.maxAnisotropy
 				asd.repeat.set 64, 64
 				mw.textures[a] = asd
-				# console.log "got #{a}"
 				mw.got.call mw
+				return
 
 		go()
 	
@@ -181,6 +183,8 @@ mw.after = ->
 		mw.world = new mw.World data
 		
 	mw.animate()
+
+	mw.net = new mw.Net()
 
 	true
 

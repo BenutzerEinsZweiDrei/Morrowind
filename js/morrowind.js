@@ -110,6 +110,9 @@
       'async': false
     });
     mw.boot.call(mw);
+    $.getJSON('my trade.json', function(data) {
+      return mw.mytrade = data;
+    });
     mw.produceterrain.call(mw);
     mw.resources.call(mw);
     return true;
@@ -159,7 +162,7 @@
           asd.anisotropy = mw.maxAnisotropy;
           asd.repeat.set(64, 64);
           mw.textures[a] = asd;
-          return mw.got.call(mw);
+          mw.got.call(mw);
         });
       };
       go();
@@ -183,6 +186,7 @@
       return mw.world = new mw.World(data);
     });
     mw.animate();
+    mw.net = new mw.Net();
     return true;
   };
 
