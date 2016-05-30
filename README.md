@@ -7,4 +7,8 @@ Nos.tal.gia = yes
 ---
 
 ### Promotional
-This version is like a promotional techno demo.
+This project is promotional of the game. It's not a tech demo for three.js nor a Chrome Experiment.
+
+### Controls
+* `Capslock` to move slow
+* `M` to freeze
