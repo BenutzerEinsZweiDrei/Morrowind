@@ -1,4 +1,5 @@
 # MorrowinD
+![Comparison](~misc/MeVsMw.png)
 Written in CoffeeScript
 ```coffeescript
 WebGL = on
