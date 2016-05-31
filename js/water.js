@@ -12,7 +12,7 @@
       textureWidth: 512,
       textureHeight: 512,
       waterNormals: this.waterNormals,
-      alpha: .3,
+      alpha: 1,
       sunColor: 0xffffff,
       waterColor: 0x001e0f,
       distortionScale: 50.0,

@@ -1,5 +1,5 @@
 mw.watershed = ->
-	
+
 	geometry = new THREE.PlaneGeometry 8192*3, 8192*3
 
 	x = (mw.world.x * 8192) + 4096
@@ -13,7 +13,7 @@ mw.watershed = ->
 			textureWidth: 512,
 			textureHeight: 512
 			waterNormals: @waterNormals
-			alpha: .3
+			alpha: 1
 			# transparent: true
 			# sunDirection: # mw.sun.position.normalize()
 			sunColor: 0xffffff

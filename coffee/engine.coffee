@@ -79,10 +79,10 @@ mw.boot = () ->
 	renderer.shadowMap.enabled = true
 	renderer.shadowMap.type = THREE.PCFShadowMap
 
-	# stats = @stats = new Stats()
-	# stats.domElement.style.position = 'absolute'
-	# stats.domElement.style.top = '0px'
-	# container.appendChild stats.domElement
+	stats = @stats = new Stats()
+	stats.domElement.style.position = 'absolute'
+	stats.domElement.style.top = '0px'
+	container.appendChild stats.domElement
 
 	container.appendChild renderer.domElement
 
@@ -124,6 +124,8 @@ mw.animate = () ->
 
 	mw.delta = mw.clock.getDelta()
 
+	mw.timestep = mw.delta / mw.base
+
 	if not mw.freeze
 		mw.controls.update mw.delta
 
@@ -159,7 +161,7 @@ mw.animate = () ->
 
 	render.call mw
 
-	# mw.stats.update()
+	mw.stats.update()
 
 	for k, i in mw.keys
 		if k
@@ -167,7 +169,6 @@ mw.animate = () ->
 
 	return
 
-clock = new THREE.Clock()
 render = ->
 
 	if mw.shadowing
@@ -184,7 +185,7 @@ render = ->
 	if mw.water
 		mw.water.render()
 
-	THREE.AnimationHandler.update clock.getDelta()
+	THREE.AnimationHandler.update mw.delta
 
 	@renderer.render @scene, @camera
 

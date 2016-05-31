@@ -10,10 +10,13 @@
     gets: 3,
     slow: false,
     shadowing: false,
-    keys: [],
     models: {},
     world: null,
     ply: null,
+    keys: [],
+    delta: 0,
+    base: 0.016,
+    timestep: 1,
     circle: [
       {
         x: 1,

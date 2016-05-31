@@ -8,10 +8,14 @@ mw = root.mw =
 	slow: false
 	shadowing: false
 
-	keys: []
 	models: {}
 	world: null
 	ply: null
+
+	keys: []
+	delta: 0
+	base: 0.016
+	timestep: 1
 
 	circle: [
 		{x: 1, y:-1}, {x: 0, y:-1}, {x:-1, y:-1},

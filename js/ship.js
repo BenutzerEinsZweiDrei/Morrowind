@@ -9,6 +9,30 @@
     function Ship(data) {
       Ship.__super__.constructor.call(this, data);
       mw.ship = this;
+      this.nodes = [
+        {
+          x: -8768.043459278077,
+          y: -76317.46448975372,
+          z: 214.69864753075956
+        }, {
+          x: -11008.29662446419,
+          y: -77440.86070491183,
+          z: 208.28192393984938
+        }, {
+          x: -15064.698398200067,
+          y: -78235.1147036306,
+          z: 311.9163745306073
+        }, {
+          x: -17700.894481160587,
+          y: -72703.35435825039,
+          z: 121.48177096281158
+        }, {
+          x: -21053.005749845994,
+          y: -71397.26995136919,
+          z: 155.7574808565444
+        }
+      ];
+      this.node = this.nodes[0];
       console.log('new ship');
       this.linear = {
         heave: 0,
@@ -45,6 +69,7 @@
     Ship.prototype.step = function() {
       var r, x, y;
       Ship.__super__.step.apply(this, arguments);
+      this.renode();
       x = this.x;
       y = this.y;
       r = this.r;
@@ -70,7 +95,7 @@
     Ship.prototype.yaw = function() {
       var yaw;
       yaw = this.rotations.yaw;
-      yaw.period += 0.01;
+      yaw.period += 0.01 * mw.timestep;
       if (yaw.period > Math.PI * 2) {
         yaw.period -= Math.PI * 2;
       }
@@ -81,7 +106,7 @@
     Ship.prototype.pitch = function() {
       var pitch;
       pitch = this.rotations.pitch;
-      pitch.period += 0.005;
+      pitch.period += 0.005 * mw.timestep;
       if (pitch.period > Math.PI * 2) {
         pitch.period -= Math.PI * 2;
       }
@@ -92,12 +117,16 @@
     Ship.prototype.roll = function() {
       var roll;
       roll = this.rotations.roll;
-      roll.period += 0.0125;
+      roll.period += 0.0125 * mw.timestep;
       if (roll.period > Math.PI * 2) {
         roll.period -= Math.PI * 2;
       }
       roll.value = 0.025 * Math.cos(roll.period);
       return 0;
+    };
+
+    Ship.prototype.renode = function() {
+      return false;
     };
 
     return Ship;
