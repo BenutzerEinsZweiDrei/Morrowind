@@ -139,20 +139,16 @@
       node = this.nodes[this.node];
       goal = this.nodes[this.goal];
       theta = Math.atan2(node.y - goal.y, node.x - goal.x);
-      r = theta + Math.PI / 2;
-      if (r < 0) {
-        r += Math.PI * 2;
-      }
-      console.log(theta);
-      x = .5 * mw.timestep * Math.cos(theta);
-      y = .5 * mw.timestep * Math.tan(theta);
+      r = Math.atan2(this.y - goal.y, this.x - goal.x);
+      x = 1 * mw.timestep * Math.cos(theta);
+      y = 1 * mw.timestep * Math.tan(theta);
       this.x -= x;
       this.y -= y;
-      this.r = r;
+      this.r = Math.PI * 2 * Math.random();
       x = Math.abs(goal.x - this.x);
       y = Math.abs(goal.y - this.y);
       range = Math.hypot(x, y);
-      if (range <= 30) {
+      if (range <= 500) {
         console.log('next goal');
         this.node = this.goal;
         if (this.goal + 1 < this.nodes.length) {

@@ -118,28 +118,25 @@ class mw.Ship extends mw.Prop
 		goal = @nodes[@goal]
 		theta = Math.atan2 node.y-goal.y, node.x-goal.x
 
-		r = theta + Math.PI/2
-		r += Math.PI*2 if r < 0
+		r = Math.atan2 @y-goal.y, @x-goal.x
 
-		console.log theta
-
-		x = .5 * mw.timestep * Math.cos theta
-		y = .5 * mw.timestep * Math.tan theta
+		x = 1 * mw.timestep * Math.cos theta
+		y = 1 * mw.timestep * Math.tan theta
 
 		# console.log x.toFixed 2
 
 		@x -= x
 		@y -= y
+		@r = Math.PI * 2 * Math.random()
 
 		# console.log "going to #{x} and #{y}"
-		@r = r
 
 		x = Math.abs goal.x - @x
 		y = Math.abs goal.y - @y
 
 		range = Math.hypot x, y
 
-		if range <= 30
+		if range <= 500
 			console.log 'next goal'
 
 			@node = @goal
