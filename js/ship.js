@@ -106,7 +106,7 @@
     Ship.prototype.pitch = function() {
       var pitch;
       pitch = this.rotations.pitch;
-      pitch.period += 0.005 * mw.timestep;
+      pitch.period += 0.008 * mw.timestep;
       if (pitch.period > Math.PI * 2) {
         pitch.period -= Math.PI * 2;
       }
@@ -117,7 +117,7 @@
     Ship.prototype.roll = function() {
       var roll;
       roll = this.rotations.roll;
-      roll.period += 0.0125 * mw.timestep;
+      roll.period += 0.01 * mw.timestep;
       if (roll.period > Math.PI * 2) {
         roll.period -= Math.PI * 2;
       }
