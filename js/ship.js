@@ -92,11 +92,11 @@
     Ship.prototype.roll = function() {
       var roll;
       roll = this.rotations.roll;
-      roll.period += 0.015;
+      roll.period += 0.0125;
       if (roll.period > Math.PI * 2) {
         roll.period -= Math.PI * 2;
       }
-      roll.value = 0.03 * Math.cos(roll.period);
+      roll.value = 0.025 * Math.cos(roll.period);
       return 0;
     };
 
