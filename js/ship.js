@@ -32,7 +32,13 @@
           z: 155.7574808565444
         }
       ];
-      this.node = this.nodes[0];
+      this.nodes.unshift({
+        x: this.x,
+        y: this.y,
+        z: this.z
+      });
+      this.node = 0;
+      this.goal = 1;
       console.log('new ship');
       this.linear = {
         heave: 0,
@@ -126,6 +132,33 @@
     };
 
     Ship.prototype.renode = function() {
+      var goal, node, r, range, theta, x, y;
+      if (this.node === this.goal) {
+        return;
+      }
+      node = this.nodes[this.node];
+      goal = this.nodes[this.goal];
+      theta = Math.atan2(node.y - goal.y, node.x - goal.x);
+      r = theta + Math.PI / 2;
+      if (r < 0) {
+        r += Math.PI * 2;
+      }
+      console.log(theta);
+      x = .5 * mw.timestep * Math.cos(theta);
+      y = .5 * mw.timestep * Math.tan(theta);
+      this.x -= x;
+      this.y -= y;
+      this.r = r;
+      x = Math.abs(goal.x - this.x);
+      y = Math.abs(goal.y - this.y);
+      range = Math.hypot(x, y);
+      if (range <= 30) {
+        console.log('next goal');
+        this.node = this.goal;
+        if (this.goal + 1 < this.nodes.length) {
+          this.goal++;
+        }
+      }
       return false;
     };
 

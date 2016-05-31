@@ -12,7 +12,10 @@ class mw.Ship extends mw.Prop
 			{x: -21053.005749845994, y: -71397.26995136919, z: 155.7574808565444}
 		]
 
-		@node = @nodes[0]
+		@nodes.unshift x: @x, y: @y, z: @z
+
+		@node = 0
+		@goal = 1
 
 		console.log 'new ship'
 
@@ -109,5 +112,38 @@ class mw.Ship extends mw.Prop
 		0
 
 	renode: ->
+		return if @node is @goal
+
+		node = @nodes[@node]
+		goal = @nodes[@goal]
+		theta = Math.atan2 node.y-goal.y, node.x-goal.x
+
+		r = theta + Math.PI/2
+		r += Math.PI*2 if r < 0
+
+		console.log theta
+
+		x = .5 * mw.timestep * Math.cos theta
+		y = .5 * mw.timestep * Math.tan theta
+
+		# console.log x.toFixed 2
+
+		@x -= x
+		@y -= y
+
+		# console.log "going to #{x} and #{y}"
+		@r = r
+
+		x = Math.abs goal.x - @x
+		y = Math.abs goal.y - @y
+
+		range = Math.hypot x, y
+
+		if range <= 30
+			console.log 'next goal'
+
+			@node = @goal
+			if @goal+1 < @nodes.length
+				@goal++
 
 		no
