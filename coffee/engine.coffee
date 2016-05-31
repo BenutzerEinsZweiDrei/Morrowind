@@ -11,7 +11,9 @@ mw.boot = () ->
 	document.body.appendChild container
 
 	camera = @camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 50000
-	mw.camera.position.set -10608, -71283, 1008
+	# mw.camera.position.set -10608, -71283, 1008 # Arrille's View
+	mw.camera.position.set -10500, -74902, 997 # Ship's View
+	
 	camera.up = new THREE.Vector3 0, 0, 1
 
 	###
@@ -21,11 +23,16 @@ mw.boot = () ->
 	###
 
 	controls = @controls = new THREE.FirstPersonControls camera
-	controls.movementSpeed = 100
-	controls.lookSpeed = 0.01
+	controls.movementSpeed = 1000 # 100
+	controls.lookSpeed = .25 # 0.01
 
-	controls.lat = -26.743659000000005
-	controls.lon = -137.39699074999993
+	# Arrille's View
+	# controls.lat = -26.743659000000005
+	# controls.lon = -137.39699074999993
+
+	# Ship's View
+	controls.lat = -18
+	controls.lon = -36
 
 	# @controls.object.lookAt new THREE.Vector3 -11812, -70441, 417
 
@@ -144,7 +151,7 @@ mw.animate = () ->
 		;
 		# remove hud
 
-	if mw.world
+	if mw.world?
 		mw.world.step()
 
 	if mw.water

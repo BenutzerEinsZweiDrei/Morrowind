@@ -15,6 +15,7 @@ class mw.World
 		@doskybox()
 
 		@props = []
+
 		@cached = 0
 		@queue = 0
 
@@ -56,15 +57,14 @@ class mw.World
 		true
 
 	ransack: () ->
-		for p in @data
-			if typeof p is "object"
-				@props.push new mw.Prop p
+		for data in @data
+			@props.push mw.factory data if typeof data is "object"
 
-		mw.controls.movementSpeed = 200
+		###mw.controls.movementSpeed = 200
 		mw.controls.lookSpeed = 0.15
 		mw.controls.lat = -26.743659000000005
 		mw.controls.lon = -137.39699074999993
-		mw.camera.position.set -10608, -71283, 1008
+		mw.camera.position.set -10608, -71283, 1008###
 
 		mw.watershed.call mw
 
@@ -75,7 +75,8 @@ class mw.World
 
 		@queue++
 
-		if p.hidden or mw.models[model] is -1
+		# p.hidden or 
+		if mw.models[model] is -1
 			@cached++
 			return
 			
@@ -146,6 +147,7 @@ class mw.World
 
 	step: ->
 
+		p.step() for p in @props
 
 		#if mw.water
 			#THREE.ShaderLib['mirror'].uniforms.time.value += mw.delta

@@ -1,5 +1,5 @@
 class mw.Sound
-	constructor: (@raw) ->
+	constructor: (yea) ->
 		
 
 	step: ->

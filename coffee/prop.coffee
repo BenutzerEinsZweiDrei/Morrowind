@@ -1,36 +1,38 @@
 class mw.Prop
-	constructor: (@raw) ->
-		@model = @raw.model
-		@x = @raw.x
-		@y = @raw.y
-		@z = @raw.z
-		@r = Math.abs @raw.r - 360
+	constructor: (@data) ->
+		@model = @data.model
+		@x = @data.x
+		@y = @data.y
+		@z = @data.z
+		@r = Math.abs @data.r - 360
 		
-		@scale = @raw.scale or 0
-		@transparent = @raw.transparent or false
+		@scale = @data.scale or 0
+		@transparent = @data.transparent or false
 
 		# return unless mw.models[@model]?
 
 		return unless mw.models[@model] isnt -1
 
-		return if @raw.hidden
+		# return if @data.hidden
 
 		@mesh = mw.models[@model].scene.clone()
 
 		#@mesh.castShadow = true
 		#@mesh.receiveShadow = true
 
-		@mesh.position.set @x, @y, @z
-
-		
 		@mesh.scale.set @scale, @scale, @scale if @scale
-		
-		@mesh.rotation.z = @r * Math.PI / 180
+
+		@pose()
 
 		if @model is 'ex_common_house_tall_02'
 			mw.target = this
 
 		mw.scene.add @mesh
+
+	pose: ->
+		@mesh.position.set @x, @y, @z
+		@mesh.rotation.z = @r * Math.PI / 180
+		return
 
 	step: ->
 

@@ -1,3 +1,9 @@
+mw.factory = (data) ->
+	switch data.type
+		when 'Ship' then new mw.Ship data
+
+		else new mw.Prop data
+
 mw.assignUVs = (geometry) ->
 
 	geometry.computeBoundingBox()

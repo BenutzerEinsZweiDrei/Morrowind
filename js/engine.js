@@ -15,7 +15,7 @@
     container = document.createElement('div');
     document.body.appendChild(container);
     camera = this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 20, 50000);
-    mw.camera.position.set(-10608, -71283, 1008);
+    mw.camera.position.set(-10500, -74902, 997);
     camera.up = new THREE.Vector3(0, 0, 1);
 
     /*
@@ -24,10 +24,10 @@
     	camera.rotation.z = 0.40295405886168556
      */
     controls = this.controls = new THREE.FirstPersonControls(camera);
-    controls.movementSpeed = 100;
-    controls.lookSpeed = 0.01;
-    controls.lat = -26.743659000000005;
-    controls.lon = -137.39699074999993;
+    controls.movementSpeed = 1000;
+    controls.lookSpeed = .25;
+    controls.lat = -18;
+    controls.lon = -36;
     scene = this.scene = new THREE.Scene;
     scene.fog = new THREE.Fog(mw.Fog, 2250, 9000);
     scene.add(new THREE.AmbientLight(mw.Ambient));
@@ -119,7 +119,7 @@
     if (mw.keys[72] === 1) {
 
     }
-    if (mw.world) {
+    if (mw.world != null) {
       mw.world.step();
     }
     if (mw.water) {
