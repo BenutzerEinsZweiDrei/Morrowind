@@ -81,9 +81,6 @@
     World.prototype.cache = function(p) {
       var cb, loader, model;
       model = p.model;
-      if (p.hidden) {
-        return;
-      }
       if (mw.models[model]) {
         console.log(model + " already caching");
         return;

@@ -16,7 +16,11 @@ class mw.Ship extends mw.Prop
 
 		@nodes.unshift x: @x, y: @y, z: @z
 
-		@boxes()
+
+		@buoys()
+		
+		@belongings = []
+		@shenanigans()
 
 		@node = 0
 		@goal = 1
@@ -32,14 +36,29 @@ class mw.Ship extends mw.Prop
 			roll: value: 0, period: 0
 			yaw: value: 0, period: 0
 
-		@seakeeping = @mesh.children[0].matrix
-		@quo = @seakeeping
-
 		# THREE.SceneUtils.attach mw.camera, mw.scene, @mesh
 
 		# @mesh.add mw.camera
 
-	boxes: ->
+	shenanigans: ->
+		door =
+			model: 'ex_de_ship_door'
+			x: -7918.463
+			y: -72870.719
+			z: 238.412
+			r: 45.0
+			scale: 1.08
+
+		prop = mw.factory door
+		@belongings.push prop
+
+		# prop.mesh.applyMatrix new THREE.Matrix4().makeTranslation door.x-@x, door.y-@y, door.z-@z
+
+		@mesh.add prop.mesh
+
+		0
+
+	buoys: ->
 		for n in @nodes
 			g = new THREE.BoxGeometry 100, 100, 100
 			m = new THREE.MeshBasicMaterial color: 0xcc0000
@@ -62,6 +81,8 @@ class mw.Ship extends mw.Prop
 	# @Override
 	step: ->
 		super
+
+		return
 
 		@renode()
 
@@ -146,7 +167,7 @@ class mw.Ship extends mw.Prop
 		node = @nodes[@node]
 		goal = @nodes[@goal]
 
-		knot = 3 * mw.timestep
+		knot = 1 * mw.timestep
 
 		# buoytobuoy = Math.atan2 goal.y-node.y, goal.x-node.x
 		buoy = Math.atan2 goal.y-@y, goal.x-@x

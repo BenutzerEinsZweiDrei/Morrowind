@@ -15,7 +15,7 @@ mw.watershed = ->
 			waterNormals: @waterNormals
 			alpha: 1
 			# transparent: true
-			# sunDirection: # mw.sun.position.normalize()
+			sunDirection: mw.sun.position.clone().normalize()
 			sunColor: 0xffffff
 			waterColor: 0x001e0f
 			distortionScale: 50.0

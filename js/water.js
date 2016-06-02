@@ -13,6 +13,7 @@
       textureHeight: 512,
       waterNormals: this.waterNormals,
       alpha: 1,
+      sunDirection: mw.sun.position.clone().normalize(),
       sunColor: 0xffffff,
       waterColor: 0x001e0f,
       distortionScale: 50.0,

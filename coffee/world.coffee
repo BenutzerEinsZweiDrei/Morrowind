@@ -77,7 +77,7 @@ class mw.World
 	cache: (p) ->
 		model = p.model
 
-		return if p.hidden
+		# return if p.hidden
 
 		if mw.models[model]
 			console.log "#{model} already caching"
@@ -115,7 +115,7 @@ class mw.World
 					animation.play()
 
 					console.log 'Oh ye'
-										
+
 				if child instanceof THREE.Mesh
 
 					#child.geometry.normalsNeedUpdate = true

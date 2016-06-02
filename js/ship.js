@@ -38,7 +38,9 @@
         y: this.y,
         z: this.z
       });
-      this.boxes();
+      this.buoys();
+      this.belongings = [];
+      this.shenanigans();
       this.node = 0;
       this.goal = 1;
       this.linear = {
@@ -64,11 +66,25 @@
           period: 0
         }
       };
-      this.seakeeping = this.mesh.children[0].matrix;
-      this.quo = this.seakeeping;
     }
 
-    Ship.prototype.boxes = function() {
+    Ship.prototype.shenanigans = function() {
+      var door, prop;
+      door = {
+        model: 'ex_de_ship_door',
+        x: -7918.463,
+        y: -72870.719,
+        z: 238.412,
+        r: 45.0,
+        scale: 1.08
+      };
+      prop = mw.factory(door);
+      this.belongings.push(prop);
+      this.mesh.add(prop.mesh);
+      return 0;
+    };
+
+    Ship.prototype.buoys = function() {
       var g, i, len, m, mesh, n, ref;
       ref = this.nodes;
       for (i = 0, len = ref.length; i < len; i++) {
@@ -96,6 +112,7 @@
     Ship.prototype.step = function() {
       var r, x, y;
       Ship.__super__.step.apply(this, arguments);
+      return;
       this.renode();
       x = this.x;
       y = this.y;
@@ -170,7 +187,7 @@
       }
       node = this.nodes[this.node];
       goal = this.nodes[this.goal];
-      knot = 3 * mw.timestep;
+      knot = 1 * mw.timestep;
       buoy = Math.atan2(goal.y - this.y, goal.x - this.x);
       correction = Math.PI / 2;
       radians = this.r - correction;
