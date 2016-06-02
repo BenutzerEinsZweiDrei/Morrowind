@@ -174,12 +174,12 @@
       buoy = Math.atan2(goal.y - this.y, goal.x - this.x);
       correction = Math.PI / 2;
       radians = this.r - correction;
-      yaw = knot / 1000;
+      yaw = knot / 2000;
       pitch = Math.atan2(Math.sin(radians), Math.cos(radians));
       buoy = Math.atan2(Math.sin(buoy), Math.cos(buoy));
       diff = Math.atan2(Math.sin(pitch - buoy), Math.cos(pitch - buoy));
       this.course();
-      yaw = diff * this.rotations.course.value;
+      yaw = Math.max(yaw, this.rotations.course.value * mw.timestep / 185);
       if (diff > yaw) {
         this.r -= yaw;
       } else if (diff < -yaw) {
