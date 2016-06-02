@@ -20,9 +20,6 @@ class mw.Ship extends mw.Prop
 
 		@node = 0
 		@goal = 1
-		@progress = 0
-
-		console.log 'new ship'
 
 		@linear =
 			heave: 0
@@ -132,28 +129,17 @@ class mw.Ship extends mw.Prop
 		node = @nodes[@node]
 		goal = @nodes[@goal]
 
+		knot = 2 * mw.timestep
+
+		theta = Math.atan2 goal.y-node.y, goal.x-node.x
+		@x += knot * Math.cos theta
+		@y += knot * Math.sin theta
+
+		@r = (theta - Math.PI / 2) * 180 / Math.PI
+
 		x = Math.abs goal.x - @x
 		y = Math.abs goal.y - @y
 		range = Math.hypot x, y
-
-		@progress += 2 * mw.timestep
-
-		theta = Math.atan2 node.y-goal.y, node.x-goal.x
-
-		degrees = theta * 180 / Math.PI
-
-		r = theta - Math.PI / 2
-		# console.log "to #{r}"
-
-		x = node.x - (@progress * Math.cos theta)
-		y = node.y - (@progress * Math.sin theta)
-
-		# console.log x.toFixed 2
-
-		@x = x
-		@y = y
-		@r = r * 180 / Math.PI
-
 		if range <= 500
 			console.log 'next goal'
 
@@ -162,7 +148,5 @@ class mw.Ship extends mw.Prop
 				@goal++
 			else
 				@goal = 0
-
-			@progress = 0
 
 		no

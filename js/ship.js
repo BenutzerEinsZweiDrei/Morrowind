@@ -41,8 +41,6 @@
       this.boxes();
       this.node = 0;
       this.goal = 1;
-      this.progress = 0;
-      console.log('new ship');
       this.linear = {
         heave: 0,
         sway: 0,
@@ -151,24 +149,20 @@
     };
 
     Ship.prototype.renode = function() {
-      var degrees, goal, node, r, range, theta, x, y;
+      var goal, knot, node, range, theta, x, y;
       if (this.node === this.goal) {
         return;
       }
       node = this.nodes[this.node];
       goal = this.nodes[this.goal];
+      knot = 2 * mw.timestep;
+      theta = Math.atan2(goal.y - node.y, goal.x - node.x);
+      this.x += knot * Math.cos(theta);
+      this.y += knot * Math.sin(theta);
+      this.r = (theta - Math.PI / 2) * 180 / Math.PI;
       x = Math.abs(goal.x - this.x);
       y = Math.abs(goal.y - this.y);
       range = Math.hypot(x, y);
-      this.progress += 2 * mw.timestep;
-      theta = Math.atan2(node.y - goal.y, node.x - goal.x);
-      degrees = theta * 180 / Math.PI;
-      r = theta - Math.PI / 2;
-      x = node.x - (this.progress * Math.cos(theta));
-      y = node.y - (this.progress * Math.sin(theta));
-      this.x = x;
-      this.y = y;
-      this.r = r * 180 / Math.PI;
       if (range <= 500) {
         console.log('next goal');
         this.node = this.goal;
@@ -177,7 +171,6 @@
         } else {
           this.goal = 0;
         }
-        this.progress = 0;
       }
       return false;
     };
