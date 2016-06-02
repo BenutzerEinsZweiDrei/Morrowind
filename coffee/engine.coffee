@@ -112,7 +112,7 @@ mw.hearing = ->
 
 	audioLoader.load 'sounds/boat_waves.wav', (buffer) ->
 		shipping.setBuffer buffer
-		shipping.setRefDistance 20
+		shipping.setRefDistance 140
 		shipping.setLoop true
 		shipping.play()
 

@@ -87,7 +87,7 @@
     shipping = new THREE.PositionalAudio(listener);
     audioLoader.load('sounds/boat_waves.wav', function(buffer) {
       shipping.setBuffer(buffer);
-      shipping.setRefDistance(20);
+      shipping.setRefDistance(140);
       shipping.setLoop(true);
       return shipping.play();
     });
