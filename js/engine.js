@@ -39,10 +39,18 @@
     sun.shadow.darkness = 5;
     sun.shadow.camera.near = 5;
     sun.shadow.camera.far = 3000;
-    sun.shadow.camera.right = 1000;
-    sun.shadow.camera.left = -800;
-    sun.shadow.camera.top = 500;
-    sun.shadow.camera.bottom = -1500;
+    sun.shadow.camera.right = 3000;
+    sun.shadow.camera.left = -3000;
+    sun.shadow.camera.top = 3000;
+    sun.shadow.camera.bottom = -3000;
+
+    /*sun.shadow.camera.near = 5
+    	sun.shadow.camera.far = 3000
+    	sun.shadow.camera.right = 1000
+    	sun.shadow.camera.left = -800
+    	sun.shadow.camera.top	= 500
+    	sun.shadow.camera.bottom = -1500
+     */
     sun.shadow.mapSize.width = 2048;
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
@@ -67,18 +75,26 @@
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     window.addEventListener('resize', onWindowResize, false);
     this.clock = new THREE.Clock();
+    this.hearing();
     return true;
   };
 
-  ({
-    audios: function() {
-      var loader;
-      return loader = new THREE.SEA3D({
-        autoPlay: true,
-        container: scene
-      });
-    }
-  });
+  mw.hearing = function() {
+    var audioLoader, listener, shipping;
+    listener = new THREE.AudioListener;
+    mw.camera.add(listener);
+    audioLoader = new THREE.AudioLoader;
+    shipping = new THREE.PositionalAudio(listener);
+    audioLoader.load('sounds/boat_waves.wav', function(buffer) {
+      shipping.setBuffer(buffer);
+      shipping.setRefDistance(20);
+      shipping.setLoop(true);
+      return shipping.play();
+    });
+    mw.shipping = shipping;
+    mw.listener = listener;
+    return 0;
+  };
 
   onWindowResize = function() {
     windowHalfX = window.innerWidth / 2;
@@ -145,12 +161,13 @@
   };
 
   render = function() {
-    var x, y, z;
+    var cam, x, y, z;
+    cam = new THREE.Vector3().setFromMatrixPosition(mw.camera.matrixWorld);
     if (mw.shadowing) {
       x = -11576 - -9736;
       y = -70815 - -71181;
       z = 381 - 1385;
-      mw.sun.position.set(mw.camera.position.x - x, mw.camera.position.y - y, mw.camera.position.z - z);
+      mw.sun.position.set(cam.x - x, cam.y - y, cam.z - z);
       x = -11224 - -9736;
       y = -70869 - -71181;
       z = 300 - 1385;

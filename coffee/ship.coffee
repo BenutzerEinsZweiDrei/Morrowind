@@ -18,7 +18,8 @@ class mw.Ship extends mw.Prop
 
 		@nodes.unshift x: @x, y: @y, z: @z
 
-
+		@mesh.add mw.shipping
+		
 		@buoys()
 
 		@knots = 2

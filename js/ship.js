@@ -39,6 +39,7 @@
         y: this.y,
         z: this.z
       });
+      this.mesh.add(mw.shipping);
       this.buoys();
       this.knots = 2;
       this.belongings = [];
