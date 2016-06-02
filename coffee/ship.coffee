@@ -16,8 +16,11 @@ class mw.Ship extends mw.Prop
 
 		@nodes.unshift x: @x, y: @y, z: @z
 
+		@boxes()
+
 		@node = 0
 		@goal = 1
+		@progress = 0
 
 		console.log 'new ship'
 
@@ -33,6 +36,16 @@ class mw.Ship extends mw.Prop
 
 		@seakeeping = @mesh.children[0].matrix
 		@quo = @seakeeping
+
+	boxes: ->
+		for n in @nodes
+			g = new THREE.BoxGeometry 100, 100, 100
+			m = new THREE.MeshBasicMaterial color: 0xcc0000
+
+			mesh = new THREE.Mesh g, m
+			mesh.position.set n.x, n.y, 0
+			mw.scene.add mesh
+		0
 
 	wiggle: ->
 		roll =  @rotations.roll.value
@@ -118,26 +131,28 @@ class mw.Ship extends mw.Prop
 
 		node = @nodes[@node]
 		goal = @nodes[@goal]
-		theta = Math.atan2 node.y-goal.y, node.x-goal.x
-
-		r = theta
-		# console.log "to #{r}"
-
-		x = 1 * mw.timestep * Math.cos theta
-		y = 1 * mw.timestep * Math.tan theta
-
-		# console.log x.toFixed 2
-
-		@x -= x
-		@y -= y
-		@r = r * 180 / Math.PI
-
-		# console.log "going to #{x} and #{y}"
 
 		x = Math.abs goal.x - @x
 		y = Math.abs goal.y - @y
-
 		range = Math.hypot x, y
+
+		@progress += 2 * mw.timestep
+
+		theta = Math.atan2 node.y-goal.y, node.x-goal.x
+
+		degrees = theta * 180 / Math.PI
+
+		r = theta - Math.PI / 2
+		# console.log "to #{r}"
+
+		x = node.x - (@progress * Math.cos theta)
+		y = node.y - (@progress * Math.sin theta)
+
+		# console.log x.toFixed 2
+
+		@x = x
+		@y = y
+		@r = r * 180 / Math.PI
 
 		if range <= 500
 			console.log 'next goal'
@@ -145,5 +160,9 @@ class mw.Ship extends mw.Prop
 			@node = @goal
 			if @goal+1 < @nodes.length
 				@goal++
+			else
+				@goal = 0
+
+			@progress = 0
 
 		no

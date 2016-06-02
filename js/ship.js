@@ -38,8 +38,10 @@
         y: this.y,
         z: this.z
       });
+      this.boxes();
       this.node = 0;
       this.goal = 1;
+      this.progress = 0;
       console.log('new ship');
       this.linear = {
         heave: 0,
@@ -63,6 +65,22 @@
       this.seakeeping = this.mesh.children[0].matrix;
       this.quo = this.seakeeping;
     }
+
+    Ship.prototype.boxes = function() {
+      var g, i, len, m, mesh, n, ref;
+      ref = this.nodes;
+      for (i = 0, len = ref.length; i < len; i++) {
+        n = ref[i];
+        g = new THREE.BoxGeometry(100, 100, 100);
+        m = new THREE.MeshBasicMaterial({
+          color: 0xcc0000
+        });
+        mesh = new THREE.Mesh(g, m);
+        mesh.position.set(n.x, n.y, 0);
+        mw.scene.add(mesh);
+      }
+      return 0;
+    };
 
     Ship.prototype.wiggle = function() {
       var pitch, roll, yaw;
@@ -133,28 +151,33 @@
     };
 
     Ship.prototype.renode = function() {
-      var goal, node, r, range, theta, x, y;
+      var degrees, goal, node, r, range, theta, x, y;
       if (this.node === this.goal) {
         return;
       }
       node = this.nodes[this.node];
       goal = this.nodes[this.goal];
-      theta = Math.atan2(node.y - goal.y, node.x - goal.x);
-      r = theta;
-      x = 1 * mw.timestep * Math.cos(theta);
-      y = 1 * mw.timestep * Math.tan(theta);
-      this.x -= x;
-      this.y -= y;
-      this.r = r * 180 / Math.PI;
       x = Math.abs(goal.x - this.x);
       y = Math.abs(goal.y - this.y);
       range = Math.hypot(x, y);
+      this.progress += 2 * mw.timestep;
+      theta = Math.atan2(node.y - goal.y, node.x - goal.x);
+      degrees = theta * 180 / Math.PI;
+      r = theta - Math.PI / 2;
+      x = node.x - (this.progress * Math.cos(theta));
+      y = node.y - (this.progress * Math.sin(theta));
+      this.x = x;
+      this.y = y;
+      this.r = r * 180 / Math.PI;
       if (range <= 500) {
         console.log('next goal');
         this.node = this.goal;
         if (this.goal + 1 < this.nodes.length) {
           this.goal++;
+        } else {
+          this.goal = 0;
         }
+        this.progress = 0;
       }
       return false;
     };
