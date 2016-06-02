@@ -129,18 +129,42 @@ class mw.Ship extends mw.Prop
 		node = @nodes[@node]
 		goal = @nodes[@goal]
 
-		knot = 2 * mw.timestep
+		knot = 3 * mw.timestep
 
-		theta = Math.atan2 goal.y-node.y, goal.x-node.x
-		@x += knot * Math.cos theta
-		@y += knot * Math.sin theta
+		buoy = Math.atan2 goal.y-@y, goal.x-@x
 
-		@r = (theta - Math.PI / 2) * 180 / Math.PI
+		# aim = (theta + (Math.PI / 2)) * 180 / Math.PI
+		radians = @r * (Math.PI/180) - Math.PI / 2
+
+		# radians = degrees * (pi/180)
+		# degrees = radians * (180/pi)
+
+		yaw = knot/1000
+
+		capped = Math.atan2 Math.sin(radians), Math.cos(radians)
+
+		# console.log capped
+
+		if capped-buoy>yaw
+			if capped-yaw<buoy
+				@r = buoy
+			else
+				@r -= yaw * (180/Math.PI)
+
+		else if capped-buoy<yaw
+			if capped-yaw>buoy
+				@r = buoy
+			else
+				@r += yaw * (180/Math.PI)
+
+		@x += knot * Math.cos radians
+		@y += knot * Math.sin radians
 
 		x = Math.abs goal.x - @x
 		y = Math.abs goal.y - @y
 		range = Math.hypot x, y
-		if range <= 500
+
+		if range <= 50
 			console.log 'next goal'
 
 			@node = @goal

@@ -149,21 +149,36 @@
     };
 
     Ship.prototype.renode = function() {
-      var goal, knot, node, range, theta, x, y;
+      var buoy, capped, goal, knot, node, radians, range, x, y, yaw;
       if (this.node === this.goal) {
         return;
       }
       node = this.nodes[this.node];
       goal = this.nodes[this.goal];
-      knot = 2 * mw.timestep;
-      theta = Math.atan2(goal.y - node.y, goal.x - node.x);
-      this.x += knot * Math.cos(theta);
-      this.y += knot * Math.sin(theta);
-      this.r = (theta - Math.PI / 2) * 180 / Math.PI;
+      knot = 3 * mw.timestep;
+      buoy = Math.atan2(goal.y - this.y, goal.x - this.x);
+      radians = this.r * (Math.PI / 180) - Math.PI / 2;
+      yaw = knot / 1000;
+      capped = Math.atan2(Math.sin(radians), Math.cos(radians));
+      if (capped - buoy > yaw) {
+        if (capped - yaw < buoy) {
+          this.r = buoy;
+        } else {
+          this.r -= yaw * (180 / Math.PI);
+        }
+      } else if (capped - buoy < yaw) {
+        if (capped - yaw > buoy) {
+          this.r = buoy;
+        } else {
+          this.r += yaw * (180 / Math.PI);
+        }
+      }
+      this.x += knot * Math.cos(radians);
+      this.y += knot * Math.sin(radians);
       x = Math.abs(goal.x - this.x);
       y = Math.abs(goal.y - this.y);
       range = Math.hypot(x, y);
-      if (range <= 500) {
+      if (range <= 50) {
         console.log('next goal');
         this.node = this.goal;
         if (this.goal + 1 < this.nodes.length) {
