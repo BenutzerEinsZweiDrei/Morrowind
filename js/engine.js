@@ -98,6 +98,9 @@
     requestAnimationFrame(mw.animate);
     mw.delta = mw.clock.getDelta();
     mw.timestep = mw.delta / mw.base;
+    if (mw.timestep > 2) {
+      mw.timestep = 1;
+    }
     if (!mw.freeze) {
       mw.controls.update(mw.delta);
     }

@@ -126,6 +126,8 @@ mw.animate = () ->
 
 	mw.timestep = mw.delta / mw.base
 
+	mw.timestep = 1 if mw.timestep > 2
+
 	if not mw.freeze
 		mw.controls.update mw.delta
 

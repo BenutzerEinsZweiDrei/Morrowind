@@ -129,8 +129,9 @@ class mw.Ship extends mw.Prop
 		node = @nodes[@node]
 		goal = @nodes[@goal]
 
-		knot = 3 * mw.timestep
+		knot = 10 * mw.timestep
 
+		# buoytobuoy = Math.atan2 goal.y-node.y, goal.x-node.x
 		buoy = Math.atan2 goal.y-@y, goal.x-@x
 
 		# aim = (theta + (Math.PI / 2)) * 180 / Math.PI
@@ -141,20 +142,25 @@ class mw.Ship extends mw.Prop
 
 		yaw = knot/1000
 
-		capped = Math.atan2 Math.sin(radians), Math.cos(radians)
+		pitch = Math.atan2 Math.sin(radians), Math.cos(radians)
+		# buoytobuoy =  Math.atan2 Math.sin(buoytobuoy), Math.cos(buoytobuoy)
+		buoy =  Math.atan2 Math.sin(buoy), Math.cos(buoy)
 
-		# console.log capped
+		console.log "#{pitch*180/Math.PI} and #{buoy*180/Math.PI}"
+		# console.log "the buoy is at an angle of #{(pitch-buoy) * (180/Math.PI)}"
 
-		if capped-buoy>yaw
-			if capped-yaw<buoy
-				@r = buoy
-			else
+		diff = Math.atan2 Math.sin(pitch-buoy), Math.cos(pitch-buoy)
+
+		if diff>yaw
+			#if pitch-yaw<buoy
+			#	@r = buoy
+			#else
 				@r -= yaw * (180/Math.PI)
 
-		else if capped-buoy<yaw
-			if capped-yaw>buoy
-				@r = buoy
-			else
+		else if diff<yaw
+			#if pitch-yaw>buoy
+			#	@r = buoy
+			#else
 				@r += yaw * (180/Math.PI)
 
 		@x += knot * Math.cos radians

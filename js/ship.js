@@ -149,29 +149,24 @@
     };
 
     Ship.prototype.renode = function() {
-      var buoy, capped, goal, knot, node, radians, range, x, y, yaw;
+      var buoy, diff, goal, knot, node, pitch, radians, range, x, y, yaw;
       if (this.node === this.goal) {
         return;
       }
       node = this.nodes[this.node];
       goal = this.nodes[this.goal];
-      knot = 3 * mw.timestep;
+      knot = 10 * mw.timestep;
       buoy = Math.atan2(goal.y - this.y, goal.x - this.x);
       radians = this.r * (Math.PI / 180) - Math.PI / 2;
       yaw = knot / 1000;
-      capped = Math.atan2(Math.sin(radians), Math.cos(radians));
-      if (capped - buoy > yaw) {
-        if (capped - yaw < buoy) {
-          this.r = buoy;
-        } else {
-          this.r -= yaw * (180 / Math.PI);
-        }
-      } else if (capped - buoy < yaw) {
-        if (capped - yaw > buoy) {
-          this.r = buoy;
-        } else {
-          this.r += yaw * (180 / Math.PI);
-        }
+      pitch = Math.atan2(Math.sin(radians), Math.cos(radians));
+      buoy = Math.atan2(Math.sin(buoy), Math.cos(buoy));
+      console.log((pitch * 180 / Math.PI) + " and " + (buoy * 180 / Math.PI));
+      diff = Math.atan2(Math.sin(pitch - buoy), Math.cos(pitch - buoy));
+      if (diff > yaw) {
+        this.r -= yaw * (180 / Math.PI);
+      } else if (diff < yaw) {
+        this.r += yaw * (180 / Math.PI);
       }
       this.x += knot * Math.cos(radians);
       this.y += knot * Math.sin(radians);
