@@ -2,6 +2,8 @@ class mw.Ship extends mw.Prop
 	constructor: (data) ->
 		super data
 
+		@mesh.matrixAutoUpdate = true
+
 		@type = 'Ship'
 
 		mw.ship = this
@@ -43,18 +45,21 @@ class mw.Ship extends mw.Prop
 	shenanigans: ->
 		door =
 			model: 'ex_de_ship_door'
-			x: -7918.463
-			y: -72870.719
-			z: 238.412
+			x: -7918.463 #- @x
+			y: -72870.719 #- @y
+			z: 238.412 #- @z
 			r: 45.0
 			scale: 1.08
+
+		x = door.x - @x
+		y = door.y - @y
+		z = door.z - @z
 
 		prop = mw.factory door
 		@belongings.push prop
 
-		# prop.mesh.applyMatrix new THREE.Matrix4().makeTranslation door.x-@x, door.y-@y, door.z-@z
-
-		@mesh.add prop.mesh
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
 
 		0
 
@@ -81,8 +86,6 @@ class mw.Ship extends mw.Prop
 	# @Override
 	step: ->
 		super
-
-		return
 
 		@renode()
 

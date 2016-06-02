@@ -19,6 +19,11 @@ class mw.Prop
 		@shape()
 		@pose()
 
+		@mesh.updateMatrix()
+		@mesh.updateMatrixWorld()
+
+		@mesh.matrixAutoUpdate = false
+
 		mw.scene.add @mesh if @mesh?
 
 	shape: ->

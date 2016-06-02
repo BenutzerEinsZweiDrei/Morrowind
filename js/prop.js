@@ -17,6 +17,9 @@
       this.mesh = null;
       this.shape();
       this.pose();
+      this.mesh.updateMatrix();
+      this.mesh.updateMatrixWorld();
+      this.mesh.matrixAutoUpdate = false;
       if (this.mesh != null) {
         mw.scene.add(this.mesh);
       }

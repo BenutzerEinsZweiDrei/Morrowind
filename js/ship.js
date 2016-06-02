@@ -8,6 +8,7 @@
 
     function Ship(data) {
       Ship.__super__.constructor.call(this, data);
+      this.mesh.matrixAutoUpdate = true;
       this.type = 'Ship';
       mw.ship = this;
       this.nodes = [
@@ -69,7 +70,7 @@
     }
 
     Ship.prototype.shenanigans = function() {
-      var door, prop;
+      var door, prop, x, y, z;
       door = {
         model: 'ex_de_ship_door',
         x: -7918.463,
@@ -78,9 +79,13 @@
         r: 45.0,
         scale: 1.08
       };
+      x = door.x - this.x;
+      y = door.y - this.y;
+      z = door.z - this.z;
       prop = mw.factory(door);
       this.belongings.push(prop);
-      this.mesh.add(prop.mesh);
+      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
+      prop.mesh.updateMatrixWorld();
       return 0;
     };
 
@@ -112,7 +117,6 @@
     Ship.prototype.step = function() {
       var r, x, y;
       Ship.__super__.step.apply(this, arguments);
-      return;
       this.renode();
       x = this.x;
       y = this.y;
