@@ -20,6 +20,8 @@ class mw.Ship extends mw.Prop
 
 
 		@buoys()
+
+		@knots = 2
 		
 		@belongings = []
 		@shenanigans()
@@ -61,6 +63,86 @@ class mw.Ship extends mw.Prop
 		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
 		prop.mesh.updateMatrixWorld()
 
+		THREE.SceneUtils.attach mw.camera, mw.scene, @mesh
+		mw.camera.updateMatrixWorld()
+
+		crate =
+			model: 'contain_crate_01'
+			x: -7932.143
+			y: -73255.852
+			z: 217.178
+			r: 225.0
+		prop = mw.factory crate
+		@belongings.push prop
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
+
+		crate =
+			model: 'contain_crate_01'
+			x: -7862.265
+			y: -73173.664
+			z: 217.136
+			r: 274.9
+		prop = mw.factory crate
+		@belongings.push prop
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
+
+		crate =
+			model: 'contain_crate_01'
+			x: -7812.131
+			y: -73111.852
+			z: 217.136
+			r: 315.0
+		prop = mw.factory crate
+		@belongings.push prop
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
+
+		crate =
+			model: 'contain_crate_01'
+			x: -8406.916
+			y: -73219.922
+			z: 218.796
+			r: 360.0
+		prop = mw.factory crate
+		@belongings.push prop
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
+
+		barrel =
+			model: 'contain_barrel_01'
+			x: -8924.142
+			y: -73951.859
+			z: 265.178
+			r: 360.0
+		prop = mw.factory barrel
+		@belongings.push prop
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
+
+		barrel =
+			model: 'contain_barrel_01'
+			x: -8948.135
+			y: -74023.852
+			z: 265.178
+			r: 360.0
+		prop = mw.factory barrel
+		@belongings.push prop
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
+
+		trapdoor =
+			model: 'ex_de_ship_trapdoor'
+			x: -8584.352
+			y: -73710.805
+			z: 233.497
+			r: 45.0
+		prop = mw.factory trapdoor
+		@belongings.push prop
+		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
+		prop.mesh.updateMatrixWorld()
+
 		0
 
 	buoys: ->
@@ -87,6 +169,8 @@ class mw.Ship extends mw.Prop
 	step: ->
 		super
 
+		# return
+
 		@renode()
 
 		x = @x
@@ -101,7 +185,8 @@ class mw.Ship extends mw.Prop
 		@x = x
 		@y = y
 		@r = r
-		return
+
+		no
 
 	rock: ->
 
@@ -170,7 +255,7 @@ class mw.Ship extends mw.Prop
 		node = @nodes[@node]
 		goal = @nodes[@goal]
 
-		knot = 1 * mw.timestep
+		knot = @knots * mw.timestep
 
 		# buoytobuoy = Math.atan2 goal.y-node.y, goal.x-node.x
 		buoy = Math.atan2 goal.y-@y, goal.x-@x

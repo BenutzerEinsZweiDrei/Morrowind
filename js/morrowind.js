@@ -50,13 +50,13 @@
         y: 1
       }
     ],
-    pretex: ['cat.dds', 'tx_sky_clear.dds', 'tx_bc_mud.dds', 'tx_bc_dirt.dds', 'tx_bc_moss.dds', 'grass/Vurt_BCGrassPlants.dds'],
+    pretex: ['cat.dds', 'tx_sky_clear.dds', 'tx_bc_mud.dds', 'tx_bc_dirt.dds', 'tx_bc_moss.dds'],
     blues: {
       '230': 'tx_bc_moss.dds',
       '214': 'tx_bc_dirt.dds',
       '247': 'tx_bc_mud.dds'
     },
-    noshadow: ['vurt_neentree', 'light_com_lantern_02', 'furn_com_lantern_hook', 'flora_bc_tree_02', 'terrain_bc_scum_02', 'flora_treestump_wg_01', 'flora_bc_lilypad_01', 'flora_bc_lilypad_02', 'siltstrider', 'ex_de_ship'],
+    noshadow: ['vurt_neentree', 'light_com_lantern_02', 'furn_com_lantern_hook', 'flora_bc_tree_02', 'terrain_bc_scum_02', 'flora_treestump_wg_01', 'flora_bc_lilypad_01', 'flora_bc_lilypad_02', 'siltstrider'],
     nolight: ['light_com_lantern_02', 'furn_com_lantern_hook'],
     textures: [],
     wireframe: new THREE.MeshBasicMaterial({

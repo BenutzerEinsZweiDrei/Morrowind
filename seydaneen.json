@@ -485,6 +485,20 @@
 	"r": 45.0,
 	"scale": 1.08,
 	"hidden": true
+	},
+
+	"# Preloads",
+	{
+	"model": "contain_crate_01",
+	"hidden": true
+	},
+	{
+	"model": "contain_barrel_01",
+	"hidden": true
+	},
+	{
+	"model": "ex_de_ship_trapdoor",
+	"hidden": true
 	}
 
 

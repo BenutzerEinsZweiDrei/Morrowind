@@ -32,7 +32,7 @@ mw = root.mw =
 		'tx_bc_mud.dds'
 		'tx_bc_dirt.dds'
 		'tx_bc_moss.dds'
-		'grass/Vurt_BCGrassPlants.dds'
+		# 'grass/Vurt_BCGrassPlants.dds'
 	]
 	blues: {
 		'230': 'tx_bc_moss.dds'
@@ -49,7 +49,7 @@ mw = root.mw =
 		'flora_bc_lilypad_01'
 		'flora_bc_lilypad_02'
 		'siltstrider'
-		'ex_de_ship'
+		# 'ex_de_ship'
 	]
 	nolight: [
 		'light_com_lantern_02'

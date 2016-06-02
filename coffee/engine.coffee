@@ -12,7 +12,7 @@ mw.boot = () ->
 
 	camera = @camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 50000
 	# mw.camera.position.set -10608, -71283, 1008 # Arrille's View
-	mw.camera.position.set -10500, -74902, 997 # Ship's View
+	mw.camera.position.set -8503.72820894099, -73706.23796587897, 408.92018992170136 # Ship's View
 	
 	camera.up = new THREE.Vector3 0, 0, 1
 
