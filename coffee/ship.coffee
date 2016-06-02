@@ -2,6 +2,8 @@ class mw.Ship extends mw.Prop
 	constructor: (data) ->
 		super data
 
+		@type = 'Ship'
+
 		mw.ship = this
 
 		@nodes = [

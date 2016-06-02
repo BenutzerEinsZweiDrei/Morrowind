@@ -2,7 +2,7 @@
 (function() {
   mw.watershed = function() {
     var aMeshMirror, geometry, x, y;
-    geometry = new THREE.PlaneGeometry(8192, 8192);
+    geometry = new THREE.PlaneGeometry(8192 * 3, 8192 * 3);
     x = (mw.world.x * 8192) + 4096;
     y = (mw.world.y * 8192) + 4096;
     this.waterNormals = new THREE.TextureLoader().load('textures/waternormals.jpg');
@@ -21,7 +21,6 @@
     aMeshMirror = new THREE.Mesh(geometry, this.water.material);
     aMeshMirror.position.set(x, y, 0.5);
     aMeshMirror.add(this.water);
-    mw.wotah = aMeshMirror;
     mw.scene.add(aMeshMirror);
     return true;
   };

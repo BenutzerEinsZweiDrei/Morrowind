@@ -64,7 +64,7 @@ mw.boot = () ->
 	scene.add sun.target
 	# scene.add new THREE.CameraHelper sun.shadow.camera
 
-	wisp = new THREE.PointLight 0xf58c28, 1, 100
+	wisp = new THREE.PointLight 0xf58c28, 1.3, 150
 	wisp.position.set -11738.976, -70195.289, 385.415
 	scene.add wisp
 
@@ -158,8 +158,8 @@ mw.animate = () ->
 
 	if mw.water
 		mw.water.material.uniforms.time.value += 1.0 / 60.0;
-		mw.wotah.position.x = mw.camera.position.x
-		mw.wotah.position.y = mw.camera.position.y
+		# mw.wotah.position.x = mw.camera.position.x
+		# mw.wotah.position.y = mw.camera.position.y
 
 	render.call mw
 

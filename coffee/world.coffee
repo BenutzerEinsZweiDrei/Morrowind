@@ -1,5 +1,5 @@
 class mw.World
-	constructor: (@data) ->
+	constructor: () ->
 
 		# todo: revamp ygky
 
@@ -19,7 +19,7 @@ class mw.World
 		@cached = 0
 		@queue = 0
 
-		for p in @data
+		for p in mw.props
 			@cache p if typeof p is "object"
 
 		@waterStep = 0
@@ -55,7 +55,12 @@ class mw.World
 		true
 
 	ransack: () ->
-		for data in @data
+		for data in mw.props
+			if typeof data is "object" and not data.hidden
+				@props.push mw.factory data
+
+		for data in mw.grasses
+			data.type = 'Grass'
 			if typeof data is "object" and not data.hidden
 				@props.push mw.factory data
 
@@ -110,7 +115,7 @@ class mw.World
 					animation.play()
 
 					console.log 'Oh ye'
-					
+										
 				if child instanceof THREE.Mesh
 
 					#child.geometry.normalsNeedUpdate = true

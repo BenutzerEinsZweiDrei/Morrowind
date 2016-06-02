@@ -28,6 +28,7 @@ mw = root.mw =
 		'tx_bc_mud.dds'
 		'tx_bc_dirt.dds'
 		'tx_bc_moss.dds'
+		'grass/Vurt_BCGrassPlants.dds'
 	]
 	blues: {
 		'230': 'tx_bc_moss.dds'
@@ -44,6 +45,7 @@ mw = root.mw =
 		'flora_bc_lilypad_01'
 		'flora_bc_lilypad_02'
 		'siltstrider'
+		'ex_de_ship'
 	]
 	nolight: [
 		'light_com_lantern_02'
@@ -192,9 +194,11 @@ mw.got = ->
 	true
 
 mw.after = ->
-	$.getJSON "seydaneen.json", (data) ->
-		mw.world = new mw.World data
-		
+	$.getJSON "seydaneen.json", (data) -> mw.props = data
+	$.getJSON "grasses.json", (data) -> mw.grasses = data
+
+	mw.world = new mw.World
+
 	mw.animate()
 
 	# mw.net = new mw.Net()
@@ -218,8 +222,8 @@ mw.texture = (file) ->
 			console.log loader
 			i = p
 			loader.load p, (asd) ->
-				#asd.wrapS = asd.wrapT = THREE.RepeatWrapping
-				#asd.repeat.set 64, 64
+				asd.wrapS = asd.wrapT = THREE.RepeatWrapping
+				asd.repeat.set 64, 64
 				mw.textures[i] = asd
 				return
 

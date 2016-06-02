@@ -47,13 +47,13 @@
         y: 1
       }
     ],
-    pretex: ['cat.dds', 'tx_sky_clear.dds', 'tx_bc_mud.dds', 'tx_bc_dirt.dds', 'tx_bc_moss.dds'],
+    pretex: ['cat.dds', 'tx_sky_clear.dds', 'tx_bc_mud.dds', 'tx_bc_dirt.dds', 'tx_bc_moss.dds', 'grass/Vurt_BCGrassPlants.dds'],
     blues: {
       '230': 'tx_bc_moss.dds',
       '214': 'tx_bc_dirt.dds',
       '247': 'tx_bc_mud.dds'
     },
-    noshadow: ['vurt_neentree', 'light_com_lantern_02', 'furn_com_lantern_hook', 'flora_bc_tree_02', 'terrain_bc_scum_02', 'flora_treestump_wg_01', 'flora_bc_lilypad_01', 'flora_bc_lilypad_02', 'siltstrider'],
+    noshadow: ['vurt_neentree', 'light_com_lantern_02', 'furn_com_lantern_hook', 'flora_bc_tree_02', 'terrain_bc_scum_02', 'flora_treestump_wg_01', 'flora_bc_lilypad_01', 'flora_bc_lilypad_02', 'siltstrider', 'ex_de_ship'],
     nolight: ['light_com_lantern_02', 'furn_com_lantern_hook'],
     textures: [],
     wireframe: new THREE.MeshBasicMaterial({
@@ -187,8 +187,12 @@
 
   mw.after = function() {
     $.getJSON("seydaneen.json", function(data) {
-      return mw.world = new mw.World(data);
+      return mw.props = data;
     });
+    $.getJSON("grasses.json", function(data) {
+      return mw.grasses = data;
+    });
+    mw.world = new mw.World;
     mw.animate();
     return true;
   };
@@ -208,6 +212,8 @@
         console.log(loader);
         i = p;
         return loader.load(p, function(asd) {
+          asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
+          asd.repeat.set(64, 64);
           mw.textures[i] = asd;
         });
       };

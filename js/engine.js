@@ -47,7 +47,7 @@
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
     scene.add(sun.target);
-    wisp = new THREE.PointLight(0xf58c28, 1, 100);
+    wisp = new THREE.PointLight(0xf58c28, 1.3, 150);
     wisp.position.set(-11738.976, -70195.289, 385.415);
     scene.add(wisp);
     THREE.Loader.Handlers.add(/\.dds$/i, new THREE.DDSLoader);
@@ -129,8 +129,6 @@
     }
     if (mw.water) {
       mw.water.material.uniforms.time.value += 1.0 / 60.0;
-      mw.wotah.position.x = mw.camera.position.x;
-      mw.wotah.position.y = mw.camera.position.y;
     }
     render.call(mw);
     mw.stats.update();

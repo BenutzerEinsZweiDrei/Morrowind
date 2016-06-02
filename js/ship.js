@@ -8,6 +8,7 @@
 
     function Ship(data) {
       Ship.__super__.constructor.call(this, data);
+      this.type = 'Ship';
       mw.ship = this;
       this.nodes = [
         {
