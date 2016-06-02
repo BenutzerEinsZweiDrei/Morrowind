@@ -114,8 +114,7 @@ mw.hearing = ->
 		shipping.setBuffer buffer
 		shipping.setRefDistance 140
 		shipping.setLoop true
-		shipping.play()
-
+		
 	mw.shipping = shipping
 	mw.listener = listener
 	0

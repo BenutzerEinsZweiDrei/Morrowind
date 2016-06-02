@@ -40,6 +40,7 @@
         z: this.z
       });
       this.mesh.add(mw.shipping);
+      mw.shipping.play();
       this.buoys();
       this.knots = 2;
       this.belongings = [];

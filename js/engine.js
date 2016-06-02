@@ -88,8 +88,7 @@
     audioLoader.load('sounds/boat_waves.wav', function(buffer) {
       shipping.setBuffer(buffer);
       shipping.setRefDistance(140);
-      shipping.setLoop(true);
-      return shipping.play();
+      return shipping.setLoop(true);
     });
     mw.shipping = shipping;
     mw.listener = listener;
