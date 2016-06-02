@@ -27,12 +27,17 @@ class mw.Ship extends mw.Prop
 			surge: 0
 
 		@rotations =
+			course: value: 0, period: 0
 			pitch: value: 0, period: 0
 			roll: value: 0, period: 0
 			yaw: value: 0, period: 0
 
 		@seakeeping = @mesh.children[0].matrix
 		@quo = @seakeeping
+
+		# THREE.SceneUtils.attach mw.camera, mw.scene, @mesh
+
+		# @mesh.add mw.camera
 
 	boxes: ->
 		for n in @nodes
@@ -95,7 +100,7 @@ class mw.Ship extends mw.Prop
 		if yaw.period > Math.PI * 2
 			yaw.period -= Math.PI * 2
 
-		yaw.value = 0.1 * Math.cos yaw.period
+		yaw.value = 0.018 * Math.cos yaw.period
 
 		0
 
@@ -107,19 +112,31 @@ class mw.Ship extends mw.Prop
 		if pitch.period > Math.PI * 2
 			pitch.period -= Math.PI * 2
 
-		pitch.value = 0.015 * Math.cos pitch.period
+		pitch.value = 0.014 * Math.cos pitch.period
 
 		0
 
 	roll: ->
 		roll = @rotations.roll
 
-		roll.period += 0.01 * mw.timestep
+		roll.period += 0.012 * mw.timestep
 
 		if roll.period > Math.PI * 2
 			roll.period -= Math.PI * 2
 
-		roll.value = 0.025 * Math.cos roll.period
+		roll.value = 0.024 * Math.cos roll.period
+
+		0
+
+	course: ->
+		course = @rotations.course
+
+		course.period += 0.01 * mw.timestep
+
+		if course.period > Math.PI
+			course.period = Math.PI
+
+		course.value = Math.sin course.period
 
 		0
 
@@ -129,13 +146,14 @@ class mw.Ship extends mw.Prop
 		node = @nodes[@node]
 		goal = @nodes[@goal]
 
-		knot = 10 * mw.timestep
+		knot = 3 * mw.timestep
 
 		# buoytobuoy = Math.atan2 goal.y-node.y, goal.x-node.x
 		buoy = Math.atan2 goal.y-@y, goal.x-@x
 
 		# aim = (theta + (Math.PI / 2)) * 180 / Math.PI
-		radians = @r * (Math.PI/180) - Math.PI / 2
+		correction = Math.PI / 2
+		radians = @r - correction
 
 		# radians = degrees * (pi/180)
 		# degrees = radians * (180/pi)
@@ -146,22 +164,18 @@ class mw.Ship extends mw.Prop
 		# buoytobuoy =  Math.atan2 Math.sin(buoytobuoy), Math.cos(buoytobuoy)
 		buoy =  Math.atan2 Math.sin(buoy), Math.cos(buoy)
 
-		console.log "#{pitch*180/Math.PI} and #{buoy*180/Math.PI}"
-		# console.log "the buoy is at an angle of #{(pitch-buoy) * (180/Math.PI)}"
-
 		diff = Math.atan2 Math.sin(pitch-buoy), Math.cos(pitch-buoy)
 
-		if diff>yaw
-			#if pitch-yaw<buoy
-			#	@r = buoy
-			#else
-				@r -= yaw * (180/Math.PI)
+		@course()
 
-		else if diff<yaw
-			#if pitch-yaw>buoy
-			#	@r = buoy
-			#else
-				@r += yaw * (180/Math.PI)
+		yaw = diff * @rotations.course.value
+
+		if diff>yaw
+			@r -= yaw
+		else if diff<-yaw
+			@r += yaw
+		else
+			@r = buoy + correction
 
 		@x += knot * Math.cos radians
 		@y += knot * Math.sin radians
@@ -172,6 +186,7 @@ class mw.Ship extends mw.Prop
 
 		if range <= 50
 			console.log 'next goal'
+			@rotations.course.period = 0
 
 			@node = @goal
 			if @goal+1 < @nodes.length

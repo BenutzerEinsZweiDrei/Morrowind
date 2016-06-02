@@ -1,7 +1,7 @@
 class mw.Prop
 	constructor: (@data) ->
 		data = @data
-		
+
 		@type = 'Prop'
 
 		@model = data.model
@@ -9,6 +9,7 @@ class mw.Prop
 		@y = data.y
 		@z = data.z
 		@r = Math.abs data.r - 360
+		@r *= mw.DEGTORAD
 		
 		@scale = data.scale or 0
 		@transparent = data.transparent or false
@@ -31,7 +32,7 @@ class mw.Prop
 
 	pose: ->
 		@mesh.position.set @x, @y, @z
-		@mesh.rotation.z = @r * Math.PI / 180
+		@mesh.rotation.z = @r
 		0
 
 	step: ->

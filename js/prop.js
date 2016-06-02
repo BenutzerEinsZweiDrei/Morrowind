@@ -11,6 +11,7 @@
       this.y = data.y;
       this.z = data.z;
       this.r = Math.abs(data.r - 360);
+      this.r *= mw.DEGTORAD;
       this.scale = data.scale || 0;
       this.transparent = data.transparent || false;
       this.mesh = null;
@@ -34,7 +35,7 @@
 
     Prop.prototype.pose = function() {
       this.mesh.position.set(this.x, this.y, this.z);
-      this.mesh.rotation.z = this.r * Math.PI / 180;
+      this.mesh.rotation.z = this.r;
       return 0;
     };
 

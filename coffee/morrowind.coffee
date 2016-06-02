@@ -11,11 +11,15 @@ mw = root.mw =
 	models: {}
 	world: null
 	ply: null
+	ship: null
 
 	keys: []
 	delta: 0
 	base: 0.016
 	timestep: 1
+
+	DEGTORAD: Math.PI/180
+	RADTODEG: 180/Math.PI
 
 	circle: [
 		{x: 1, y:-1}, {x: 0, y:-1}, {x:-1, y:-1},
