@@ -38,6 +38,12 @@ mw = root.mw =
 		'vurt_neentree'
 		'light_com_lantern_02'
 		'furn_com_lantern_hook'
+		'flora_bc_tree_02'
+		'terrain_bc_scum_02'
+		'flora_treestump_wg_01'
+		'flora_bc_lilypad_01'
+		'flora_bc_lilypad_02'
+		'siltstrider'
 	]
 	nolight: [
 		'light_com_lantern_02'

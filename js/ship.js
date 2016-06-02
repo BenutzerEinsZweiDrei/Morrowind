@@ -139,12 +139,12 @@
       node = this.nodes[this.node];
       goal = this.nodes[this.goal];
       theta = Math.atan2(node.y - goal.y, node.x - goal.x);
-      r = Math.atan2(this.y - goal.y, this.x - goal.x);
+      r = theta;
       x = 1 * mw.timestep * Math.cos(theta);
       y = 1 * mw.timestep * Math.tan(theta);
       this.x -= x;
       this.y -= y;
-      this.r = Math.PI * 2 * Math.random();
+      this.r = r * 180 / Math.PI;
       x = Math.abs(goal.x - this.x);
       y = Math.abs(goal.y - this.y);
       range = Math.hypot(x, y);

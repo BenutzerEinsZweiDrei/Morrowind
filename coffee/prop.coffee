@@ -1,5 +1,5 @@
 class mw.Prop
-	constructor: (@data) ->
+	constructor: (@data) ->		
 		@model = @data.model
 		@x = @data.x
 		@y = @data.y
@@ -9,11 +9,10 @@ class mw.Prop
 		@scale = @data.scale or 0
 		@transparent = @data.transparent or false
 
-		# return unless mw.models[@model]?
+		return unless mw.models[@model]?
 
 		return unless mw.models[@model] isnt -1
 
-		# return if @data.hidden
 
 		@mesh = mw.models[@model].scene.clone()
 

@@ -48,17 +48,16 @@ class mw.World
 
 	cachcb: () ->
 		@cached++
+		console.log "#{@cached} >= #{@queue}"
 		if @cached >= @queue
-			setTimeout ->
-				mw.world.ransack()
-				return
-			, 3000
+			mw.world.ransack()
 
 		true
 
 	ransack: () ->
 		for data in @data
-			@props.push mw.factory data if typeof data is "object"
+			if typeof data is "object" and not data.hidden
+				@props.push mw.factory data
 
 		###mw.controls.movementSpeed = 200
 		mw.controls.lookSpeed = 0.15
@@ -73,14 +72,17 @@ class mw.World
 	cache: (p) ->
 		model = p.model
 
-		@queue++
+		return if p.hidden
 
-		# p.hidden or 
-		if mw.models[model] is -1
-			@cached++
+		if mw.models[model]
+			console.log "#{model} already caching"
 			return
 			
 		mw.models[model] = -1
+		@queue++
+
+		console.log "queued ##{@queue} #{model}"
+
 
 		cb = (dae) ->
 			showme = true if model is 'ex_common_house_tall_02'

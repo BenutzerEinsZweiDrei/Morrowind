@@ -53,7 +53,7 @@
       '214': 'tx_bc_dirt.dds',
       '247': 'tx_bc_mud.dds'
     },
-    noshadow: ['vurt_neentree', 'light_com_lantern_02', 'furn_com_lantern_hook'],
+    noshadow: ['vurt_neentree', 'light_com_lantern_02', 'furn_com_lantern_hook', 'flora_bc_tree_02', 'terrain_bc_scum_02', 'flora_treestump_wg_01', 'flora_bc_lilypad_01', 'flora_bc_lilypad_02', 'siltstrider'],
     nolight: ['light_com_lantern_02', 'furn_com_lantern_hook'],
     textures: [],
     wireframe: new THREE.MeshBasicMaterial({

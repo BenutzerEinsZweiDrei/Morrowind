@@ -44,10 +44,9 @@
 
     World.prototype.cachcb = function() {
       this.cached++;
+      console.log(this.cached + " >= " + this.queue);
       if (this.cached >= this.queue) {
-        setTimeout(function() {
-          mw.world.ransack();
-        }, 3000);
+        mw.world.ransack();
       }
       return true;
     };
@@ -57,7 +56,7 @@
       ref = this.data;
       for (j = 0, len = ref.length; j < len; j++) {
         data = ref[j];
-        if (typeof data === "object") {
+        if (typeof data === "object" && !data.hidden) {
           this.props.push(mw.factory(data));
         }
       }
@@ -75,12 +74,16 @@
     World.prototype.cache = function(p) {
       var cb, loader, model;
       model = p.model;
-      this.queue++;
-      if (mw.models[model] === -1) {
-        this.cached++;
+      if (p.hidden) {
+        return;
+      }
+      if (mw.models[model]) {
+        console.log(model + " already caching");
         return;
       }
       mw.models[model] = -1;
+      this.queue++;
+      console.log("queued #" + this.queue + " " + model);
       cb = function(dae) {
         var dad, showme;
         if (model === 'ex_common_house_tall_02') {

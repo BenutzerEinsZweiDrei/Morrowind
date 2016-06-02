@@ -118,7 +118,8 @@ class mw.Ship extends mw.Prop
 		goal = @nodes[@goal]
 		theta = Math.atan2 node.y-goal.y, node.x-goal.x
 
-		r = Math.atan2 @y-goal.y, @x-goal.x
+		r = theta
+		# console.log "to #{r}"
 
 		x = 1 * mw.timestep * Math.cos theta
 		y = 1 * mw.timestep * Math.tan theta
@@ -127,7 +128,7 @@ class mw.Ship extends mw.Prop
 
 		@x -= x
 		@y -= y
-		@r = Math.PI * 2 * Math.random()
+		@r = r * 180 / Math.PI
 
 		# console.log "going to #{x} and #{y}"
 

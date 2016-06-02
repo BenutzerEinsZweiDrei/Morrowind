@@ -129,6 +129,8 @@
     }
     if (mw.water) {
       mw.water.material.uniforms.time.value += 1.0 / 60.0;
+      mw.wotah.position.x = mw.camera.position.x;
+      mw.wotah.position.y = mw.camera.position.y;
     }
     render.call(mw);
     mw.stats.update();

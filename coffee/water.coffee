@@ -1,6 +1,6 @@
 mw.watershed = ->
 
-	geometry = new THREE.PlaneGeometry 8192*3, 8192*3
+	geometry = new THREE.PlaneGeometry 8192, 8192
 
 	x = (mw.world.x * 8192) + 4096
 	y = (mw.world.y * 8192) + 4096
@@ -26,6 +26,8 @@ mw.watershed = ->
 	aMeshMirror.position.set x, y, 0.5
 
 	aMeshMirror.add @water
+
+	mw.wotah = aMeshMirror
 	# aMeshMirror.rotation.x = - Math.PI * 0.5;
 	
 	mw.scene.add aMeshMirror

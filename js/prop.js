@@ -10,6 +10,9 @@
       this.r = Math.abs(this.data.r - 360);
       this.scale = this.data.scale || 0;
       this.transparent = this.data.transparent || false;
+      if (mw.models[this.model] == null) {
+        return;
+      }
       if (mw.models[this.model] === -1) {
         return;
       }
