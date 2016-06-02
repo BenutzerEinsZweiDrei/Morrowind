@@ -158,7 +158,7 @@ class mw.Ship extends mw.Prop
 		# radians = degrees * (pi/180)
 		# degrees = radians * (180/pi)
 
-		yaw = knot/2000
+		yaw = knot/2100
 
 		pitch = Math.atan2 Math.sin(radians), Math.cos(radians)
 		# buoytobuoy =  Math.atan2 Math.sin(buoytobuoy), Math.cos(buoytobuoy)
@@ -168,7 +168,7 @@ class mw.Ship extends mw.Prop
 
 		@course()
 
-		yaw = Math.max yaw, @rotations.course.value * mw.timestep / 185
+		yaw = Math.max yaw, @rotations.course.value * mw.timestep / 200
 
 		if diff>yaw
 			@r -= yaw
