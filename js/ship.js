@@ -17,10 +17,6 @@
           y: -76317.46448975372,
           z: 214.69864753075956
         }, {
-          x: -11008.29662446419,
-          y: -77440.86070491183,
-          z: 208.28192393984938
-        }, {
           x: -15064.698398200067,
           y: -78235.1147036306,
           z: 311.9163745306073
@@ -42,7 +38,7 @@
       this.mesh.add(mw.shipping);
       mw.shipping.play();
       this.buoys();
-      this.knots = 2;
+      this.knots = 6;
       this.belongings = [];
       this.shenanigans();
       this.node = 0;

@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Magic Cards';
+    src: url(MagicCardsNormal.ttf);
+}
+
+.ui {
+    display: block;
+    font-family: 'Magic Cards';
+    font-size: 18px;
+    color: #80581b;
+    color: #b9a990;
+    text-shadow: 1px 1px 0 rgb(255, 255, 255);
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgb(0, 0, 0);
+}
+
+.ui table {
+
+}
+
+.righttop {
+	position: absolute;
+	top: 50px;
+	right: 50px;
+}
+
+.ui .titlebar {
+	display: block;
+}

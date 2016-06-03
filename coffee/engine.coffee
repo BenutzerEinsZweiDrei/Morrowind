@@ -101,6 +101,8 @@ mw.boot = () ->
 
 	@hearing()
 
+	@options()
+
 	true
 
 mw.hearing = ->
@@ -118,6 +120,13 @@ mw.hearing = ->
 	mw.shipping = shipping
 	mw.listener = listener
 	0
+
+mw.options = ->
+	mw.menu = $ '<div class="ui righttop">'
+
+	mw.menu.append 'Menu'
+
+	$('body').append mw.menu
 
 onWindowResize = () ->
 

@@ -76,6 +76,7 @@
     window.addEventListener('resize', onWindowResize, false);
     this.clock = new THREE.Clock();
     this.hearing();
+    this.options();
     return true;
   };
 
@@ -93,6 +94,12 @@
     mw.shipping = shipping;
     mw.listener = listener;
     return 0;
+  };
+
+  mw.options = function() {
+    mw.menu = $('<div class="ui righttop">');
+    mw.menu.append('Menu');
+    return $('body').append(mw.menu);
   };
 
   onWindowResize = function() {
