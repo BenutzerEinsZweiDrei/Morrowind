@@ -18,9 +18,9 @@
     function Grass(data) {
       this.shrub = shrubbery[data.shrub] || shrubbery.Green;
       data.z += this.shrub.height / 2;
-      data.r = -mw.camera.rotation.x;
-      data.r *= mw.RADTODEG;
+      this.r = Math.PI - mw.camera.rotation.y;
       Grass.__super__.constructor.call(this, data);
+      this.pose();
       this.type = 'Grass';
     }
 
@@ -35,7 +35,6 @@
       geometry = new THREE.PlaneBufferGeometry(this.shrub.width, this.shrub.height, 1);
       this.mesh = new THREE.Mesh(geometry, material);
       this.mesh.rotation.x = -Math.PI / 2;
-      this.mesh.scale.z = -1;
       return 1;
     };
 

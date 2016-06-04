@@ -11,11 +11,11 @@ class mw.Grass extends mw.Prop
 		@shrub = shrubbery[ data.shrub ] or shrubbery.Green
 
 		data.z += @shrub.height / 2
-		data.r = -mw.camera.rotation.x
-		data.r *= mw.RADTODEG
+		@r = Math.PI - mw.camera.rotation.y
 		
 		super data
 
+		@pose()
 
 		@type = 'Grass'
 
@@ -32,7 +32,7 @@ class mw.Grass extends mw.Prop
 
 		@mesh = new THREE.Mesh geometry, material
 		@mesh.rotation.x = -Math.PI/2
-		@mesh.scale.z = -1
+		# @mesh.scale.z = -1
 
 		1
 

@@ -9,8 +9,10 @@
       this.x = d.x;
       this.y = d.y;
       this.z = d.z;
-      this.r = Math.abs(d.r - 360);
-      this.r *= mw.DEGTORAD;
+      if (!this.r) {
+        this.r = Math.abs(d.r - 360);
+        this.r *= mw.DEGTORAD;
+      }
       this.mesh = null;
       this.shape();
       this.pose();

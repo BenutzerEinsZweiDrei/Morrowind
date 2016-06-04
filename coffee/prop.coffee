@@ -7,8 +7,10 @@ class mw.Prop
 		@x = d.x
 		@y = d.y
 		@z = d.z
-		@r = Math.abs d.r - 360
-		@r *= mw.DEGTORAD
+
+		unless @r
+			@r = Math.abs d.r - 360
+			@r *= mw.DEGTORAD
 
 		@mesh = null
 
