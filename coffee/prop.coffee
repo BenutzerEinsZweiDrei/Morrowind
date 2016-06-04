@@ -1,18 +1,14 @@
 class mw.Prop
 	constructor: (@data) ->
-		data = @data
+		d = @data
 
 		@type = 'Prop'
 
-		@model = data.model
-		@x = data.x
-		@y = data.y
-		@z = data.z
-		@r = Math.abs data.r - 360
+		@x = d.x
+		@y = d.y
+		@z = d.z
+		@r = Math.abs d.r - 360
 		@r *= mw.DEGTORAD
-		
-		@scale = data.scale or 0
-		@transparent = data.transparent or false
 
 		@mesh = null
 
@@ -27,11 +23,15 @@ class mw.Prop
 		mw.scene.add @mesh if @mesh?
 
 	shape: ->
+		@model = @data.model
+
 		return unless mw.models[@model]? and mw.models[@model] isnt -1
 
 		@mesh = mw.models[@model].scene.clone()
 
-		@mesh.scale.set @scale, @scale, @scale if @scale
+		@mesh.name = 'Prop'
+
+		@mesh.scale.set @scale, @scale, @scale if @data.scale
 
 		0
 

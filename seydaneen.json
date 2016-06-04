@@ -410,7 +410,7 @@
 	"z": 878.583,
 	"r": 102.2,
 	"scale": 2,
-	"hidden": true
+	"hidden": false
 	},
 	{
 	"model": "ex_de_shack_03",
@@ -418,7 +418,7 @@
 	"y": -71522.711,
 	"z": 156.316,
 	"r": 125.1,
-	"hidden": true
+	"hidden": false
 	},
 	{
 	"model": "ex_de_shack_door",
@@ -426,7 +426,7 @@
 	"y": -71649.656,
 	"z": 148.809,
 	"r": 35.8,
-	"hidden": true
+	"hidden": false
 	},
 
 	"# Tree across bridge",
@@ -437,7 +437,7 @@
 	"z": 1142.615,
 	"r": 222.5,
 	"scale": 2,
-	"hidden": true
+	"hidden": false
 	},
 
 	"# Big tree next to Silt Strider",
@@ -448,7 +448,7 @@
 	"z": 1051.939,
 	"r": 159.5,
 	"scale": 2,
-	"hidden": true
+	"hidden": false
 	},
 	{
 	"model": "siltstrider",
@@ -467,7 +467,7 @@
 	"z": 781.389,
 	"r": 136.5,
 	"scale": 1.37,
-	"hidden": true
+	"hidden": false
 	},
 	{
 	"model": "ex_de_ship",
@@ -488,18 +488,9 @@
 	},
 
 	"# Preloads",
-	{
-	"model": "contain_crate_01",
-	"hidden": true
-	},
-	{
-	"model": "contain_barrel_01",
-	"hidden": true
-	},
-	{
-	"model": "ex_de_ship_trapdoor",
-	"hidden": true
-	}
-
+	{"model": "ex_de_ship_door"},
+	{"model": "contain_crate_01"},
+	{"model": "contain_barrel_01"},
+	{"model": "ex_de_ship_trapdoor"}
 
 ]

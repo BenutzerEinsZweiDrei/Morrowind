@@ -15,6 +15,10 @@
     ply: null,
     ship: null,
     keys: [],
+    mouse: {},
+    point: {},
+    left: false,
+    right: false,
     delta: 0,
     base: 0.016,
     timestep: 1,
@@ -50,7 +54,7 @@
         y: 1
       }
     ],
-    pretex: ['cat.dds', 'tx_sky_clear.dds', 'tx_bc_mud.dds', 'tx_bc_dirt.dds', 'tx_bc_moss.dds'],
+    pretex: ['cat.dds', 'tx_sky_clear.dds', 'tx_bc_mud.dds', 'tx_bc_dirt.dds', 'tx_bc_moss.dds', 'grass/vurt_grass04.dds'],
     blues: {
       '230': 'tx_bc_moss.dds',
       '214': 'tx_bc_dirt.dds',
@@ -167,7 +171,6 @@
         return loader.load("textures/" + f, function(asd) {
           asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
           asd.anisotropy = mw.maxAnisotropy;
-          asd.repeat.set(64, 64);
           mw.textures[a] = asd;
           mw.got.call(mw);
         });
@@ -200,29 +203,17 @@
     return true;
   };
 
-  mw.texture = function(file) {
-    var go, loader, p;
-    p = file;
-    loader = new THREE.TextureLoader();
-    loader.load(p);
-    loader = null;
-    if (mw.textures[p]) {
-      return mw.textures[p];
-    } else {
-      go = function() {
-        var i;
-        loader = new THREE.TGALoader;
-        console.log(loader);
-        i = p;
-        return loader.load(p, function(asd) {
-          asd.wrapS = asd.wrapT = THREE.RepeatWrapping;
-          asd.repeat.set(64, 64);
-          mw.textures[i] = asd;
-        });
-      };
-      go();
-    }
-    return true;
+  mw.click = function() {
+    var grass;
+    grass = {
+      type: 'Grass',
+      shrub: 'Green',
+      x: mw.position.x,
+      y: mw.position.y,
+      z: mw.position.z,
+      r: 0
+    };
+    return mw.factory(grass);
   };
 
 }).call(this);

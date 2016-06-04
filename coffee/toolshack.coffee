@@ -1,8 +1,15 @@
 mw.factory = (data) ->
 	switch data.type
 		when 'Ship' then new mw.Ship data
+		when 'Grass' then new mw.Grass data
 
 		else new mw.Prop data
+
+mw.attachto = (data, attach) ->
+	prop = mw.factory data
+	THREE.SceneUtils.attach prop.mesh, mw.scene, attach
+	prop.mesh.updateMatrixWorld()
+	prop
 
 mw.assignUVs = (geometry) ->
 

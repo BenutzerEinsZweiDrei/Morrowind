@@ -20,10 +20,10 @@ class mw.Ship extends mw.Prop
 		@mesh.add mw.shipping
 		mw.shipping.play()
 
-
+		
 		@buoys()
 
-		@knots = 6
+		@knots = 4
 		
 		@belongings = []
 		@shenanigans()
@@ -42,108 +42,21 @@ class mw.Ship extends mw.Prop
 			roll: value: 0, period: 0
 			yaw: value: 0, period: 0
 
-		# THREE.SceneUtils.attach mw.camera, mw.scene, @mesh
 
-		# @mesh.add mw.camera
 
 	shenanigans: ->
-		door =
-			model: 'ex_de_ship_door'
-			x: -7918.463 #- @x
-			y: -72870.719 #- @y
-			z: 238.412 #- @z
-			r: 45.0
-			scale: 1.08
+		datas = []
+		datas.push model: 'ex_de_ship_door',		x: -7918.463, y: -72870.719, z: 238.412, r: 45.0, scale: 1.08
+		datas.push model: 'contain_crate_01', 		x: -7932.143, y: -73255.852, z: 217.178, r: 225.0
+		datas.push model: 'contain_crate_01', 		x: -7862.265, y: -73173.664, z: 217.136, r: 274.9
+		datas.push model: 'contain_crate_01', 		x: -7812.131, y: -73111.852, z: 217.136, r: 315.0
+		datas.push model: 'contain_crate_01', 		x: -8406.916, y: -73219.922, z: 218.796, r: 360.0
+		datas.push model: 'contain_barrel_01', 		x: -8924.142, y: -73951.859, z: 265.178, r: 360.0
+		datas.push model: 'contain_barrel_01', 		x: -8948.135, y: -74023.852, z: 265.178, r: 360.0
+		datas.push model: 'ex_de_ship_trapdoor', 	x: -8584.352, y: -73710.805, z: 233.497, r: 45.0
 
-		x = door.x - @x
-		y = door.y - @y
-		z = door.z - @z
+		@belongings.push mw.attachto d, @mesh for d in datas
 
-		prop = mw.factory door
-		@belongings.push prop
-
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
-
-		THREE.SceneUtils.attach mw.camera, mw.scene, @mesh
-		mw.camera.updateMatrixWorld()
-
-		crate =
-			model: 'contain_crate_01'
-			x: -7932.143
-			y: -73255.852
-			z: 217.178
-			r: 225.0
-		prop = mw.factory crate
-		@belongings.push prop
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
-
-		crate =
-			model: 'contain_crate_01'
-			x: -7862.265
-			y: -73173.664
-			z: 217.136
-			r: 274.9
-		prop = mw.factory crate
-		@belongings.push prop
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
-
-		crate =
-			model: 'contain_crate_01'
-			x: -7812.131
-			y: -73111.852
-			z: 217.136
-			r: 315.0
-		prop = mw.factory crate
-		@belongings.push prop
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
-
-		crate =
-			model: 'contain_crate_01'
-			x: -8406.916
-			y: -73219.922
-			z: 218.796
-			r: 360.0
-		prop = mw.factory crate
-		@belongings.push prop
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
-
-		barrel =
-			model: 'contain_barrel_01'
-			x: -8924.142
-			y: -73951.859
-			z: 265.178
-			r: 360.0
-		prop = mw.factory barrel
-		@belongings.push prop
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
-
-		barrel =
-			model: 'contain_barrel_01'
-			x: -8948.135
-			y: -74023.852
-			z: 265.178
-			r: 360.0
-		prop = mw.factory barrel
-		@belongings.push prop
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
-
-		trapdoor =
-			model: 'ex_de_ship_trapdoor'
-			x: -8584.352
-			y: -73710.805
-			z: 233.497
-			r: 45.0
-		prop = mw.factory trapdoor
-		@belongings.push prop
-		THREE.SceneUtils.attach prop.mesh, mw.scene, @mesh
-		prop.mesh.updateMatrixWorld()
 
 		0
 

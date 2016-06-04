@@ -47,6 +47,7 @@
       this.geometry.normalsNeedUpdate = true;
       this.geometry.computeFaceNormals();
       this.ground = new THREE.Mesh(this.geometry, this.material);
+      this.ground.name = 'Terrain';
       this.ground.position.set(this.mx, this.my, 0);
       this.ground.receiveShadow = true;
       mw.scene.add(this.ground);
@@ -148,10 +149,6 @@
         shading: THREE.FlatShading,
         side: THREE.FrontSide
       });
-      material.uniforms.emissive = {
-        type: "c",
-        value: new THREE.Color(0x000000)
-      };
       material.uniforms.diffuse = {
         type: "c",
         value: new THREE.Color(mw.Ambient)

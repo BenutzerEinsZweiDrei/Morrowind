@@ -14,6 +14,12 @@ mw = root.mw =
 	ship: null
 
 	keys: []
+	mouse: {}
+	point: {}
+
+	left: no
+	right: no
+
 	delta: 0
 	base: 0.016
 	timestep: 1
@@ -32,6 +38,7 @@ mw = root.mw =
 		'tx_bc_mud.dds'
 		'tx_bc_dirt.dds'
 		'tx_bc_moss.dds'
+		'grass/vurt_grass04.dds'
 		# 'grass/Vurt_BCGrassPlants.dds'
 	]
 	blues: {
@@ -178,7 +185,7 @@ mw.resources = ->
 			loader.load "textures/#{f}", (asd) ->
 				asd.wrapS = asd.wrapT = THREE.RepeatWrapping
 				asd.anisotropy = mw.maxAnisotropy
-				asd.repeat.set 64, 64
+				# asd.repeat.set 64, 64
 				mw.textures[a] = asd
 				mw.got.call mw
 				return
@@ -211,26 +218,13 @@ mw.after = ->
 
 # definitions of insanity
 
-mw.texture = (file) ->
-	p = file
+mw.click = ->
+	grass =
+		type: 'Grass'
+		shrub: 'Green'
+		x: mw.position.x
+		y: mw.position.y
+		z: mw.position.z
+		r: 0
 
-	loader = new THREE.TextureLoader()
-	loader.load p
-	loader = null
-
-	if mw.textures[p]
-		return  mw.textures[p]
-	else
-		go = ->
-			loader = new THREE.TGALoader
-			console.log loader
-			i = p
-			loader.load p, (asd) ->
-				asd.wrapS = asd.wrapT = THREE.RepeatWrapping
-				asd.repeat.set 64, 64
-				mw.textures[i] = asd
-				return
-
-		go()
-
-	true
+	mw.factory grass

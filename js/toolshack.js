@@ -4,9 +4,19 @@
     switch (data.type) {
       case 'Ship':
         return new mw.Ship(data);
+      case 'Grass':
+        return new mw.Grass(data);
       default:
         return new mw.Prop(data);
     }
+  };
+
+  mw.attachto = function(data, attach) {
+    var prop;
+    prop = mw.factory(data);
+    THREE.SceneUtils.attach(prop.mesh, mw.scene, attach);
+    prop.mesh.updateMatrixWorld();
+    return prop;
   };
 
   mw.assignUVs = function(geometry) {

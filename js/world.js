@@ -82,17 +82,12 @@
       var cb, loader, model;
       model = p.model;
       if (mw.models[model]) {
-        console.log(model + " already caching");
         return;
       }
       mw.models[model] = -1;
       this.queue++;
-      console.log("queued #" + this.queue + " " + model);
       cb = function(dae) {
-        var dad, showme;
-        if (model === 'ex_common_house_tall_02') {
-          showme = true;
-        }
+        var dad;
         dad = dae.scene;
         dad.mw = model;
         mw.models[model] = dae;

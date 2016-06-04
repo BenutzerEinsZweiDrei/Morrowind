@@ -79,21 +79,13 @@ class mw.World
 
 		# return if p.hidden
 
-		if mw.models[model]
-			console.log "#{model} already caching"
-			return
+		return if mw.models[model]
 			
 		mw.models[model] = -1
 		@queue++
 
-		console.log "queued ##{@queue} #{model}"
-
 
 		cb = (dae) ->
-			showme = true if model is 'ex_common_house_tall_02'
-
-			# console.log dae if showme
-
 			dad = dae.scene
 
 			dad.mw = model

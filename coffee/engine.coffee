@@ -5,14 +5,74 @@ mw.mouseY = 0
 windowHalfX = window.innerWidth / 2
 windowHalfY = window.innerHeight / 2
 
+$(document).mousemove (event) ->
+	mw.mouse =
+		x: event.clientX
+		y: event.clientY
+
+	return
+
+mw.mouseat = ->
+	@mouse3d = new THREE.Vector3(
+		( mw.mouse.x / window.innerWidth ) * 2 - 1,
+		- ( mw.mouse.y / window.innerHeight ) * 2 + 1,
+		0.5)
+
+	0
+
+$(document).mouseup (event) ->
+	mw.left = 0 if event.button is 0
+	mw.right = 0 if event.button is 2
+
+	return
+
+$(document).mousedown (event) ->
+	mw.left = 1 if event.button is 0
+	mw.right = 1 if event.button is 2
+
+	mw.click()
+
+	return
+
+$(document).on 'contextmenu', -> false
+
+
+normalMatrix = new THREE.Matrix3
+
+mw.intersect = ->
+	intersects = @raycaster.intersectObjects @scene.children
+
+	intersect = intersects[0] or null
+
+	return unless intersect?
+	
+	mesh = intersect.object
+
+	mw.point = intersect.point.clone()
+
+	normalMatrix.getNormalMatrix mesh.matrixWorld
+
+
+	normal = intersect.face.normal.clone()
+	normal.applyMatrix3(normalMatrix).normalize()
+
+	mw.position = new THREE.Vector3().addVectors intersect.point, normal
+
+		# intersects[i].object.material.color.set 0xff0000
+
+	return
+
 
 mw.boot = () ->
 	container = document.createElement 'div'
 	document.body.appendChild container
 
+	params = document.location.href.split('#')
+	mw.amalexia = -1 isnt params.indexOf 'amalexia'
+
 	camera = @camera = new THREE.PerspectiveCamera 45, window.innerWidth / window.innerHeight, 20, 50000
-	# mw.camera.position.set -10608, -71283, 1008 # Arrille's View
-	mw.camera.position.set -8503.72820894099, -73706.23796587897, 408.92018992170136 # Ship's View
+	mw.camera.position.set -10608, -71283, 1008 # Arrille's View
+	# mw.camera.position.set -8503, -73706, 408 # Ship's View
 	
 	camera.up = new THREE.Vector3 0, 0, 1
 
@@ -27,12 +87,12 @@ mw.boot = () ->
 	controls.lookSpeed = .25 # 0.01
 
 	# Arrille's View
-	# controls.lat = -26.743659000000005
-	# controls.lon = -137.39699074999993
+	controls.lat = -26.743659000000005
+	controls.lon = -137.39699074999993
 
 	# Ship's View
-	controls.lat = -18
-	controls.lon = -36
+	# controls.lat = -18
+	# controls.lon = -36
 
 	# @controls.object.lookAt new THREE.Vector3 -11812, -70441, 417
 
@@ -74,6 +134,8 @@ mw.boot = () ->
 	wisp = new THREE.PointLight 0xf58c28, 1.3, 150
 	wisp.position.set -11738.976, -70195.289, 385.415
 	scene.add wisp
+
+	mw.raycaster = new THREE.Raycaster
 
 	THREE.Loader.Handlers.add /\.dds$/i, new THREE.DDSLoader
 
@@ -156,6 +218,11 @@ mw.animate = () ->
 	mw.timestep = mw.delta / mw.base
 
 	mw.timestep = 1 if mw.timestep > 10
+
+	mw.mouseat()
+
+	mw.raycaster.setFromCamera mw.mouse3d.clone(), mw.camera
+	mw.intersect()
 
 	if not mw.freeze
 		mw.controls.update mw.delta

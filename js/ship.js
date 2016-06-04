@@ -38,7 +38,7 @@
       this.mesh.add(mw.shipping);
       mw.shipping.play();
       this.buoys();
-      this.knots = 6;
+      this.knots = 4;
       this.belongings = [];
       this.shenanigans();
       this.node = 0;
@@ -69,101 +69,69 @@
     }
 
     Ship.prototype.shenanigans = function() {
-      var barrel, crate, door, prop, trapdoor, x, y, z;
-      door = {
+      var d, datas, i, len;
+      datas = [];
+      datas.push({
         model: 'ex_de_ship_door',
         x: -7918.463,
         y: -72870.719,
         z: 238.412,
         r: 45.0,
         scale: 1.08
-      };
-      x = door.x - this.x;
-      y = door.y - this.y;
-      z = door.z - this.z;
-      prop = mw.factory(door);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
-      THREE.SceneUtils.attach(mw.camera, mw.scene, this.mesh);
-      mw.camera.updateMatrixWorld();
-      crate = {
+      });
+      datas.push({
         model: 'contain_crate_01',
         x: -7932.143,
         y: -73255.852,
         z: 217.178,
         r: 225.0
-      };
-      prop = mw.factory(crate);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
-      crate = {
+      });
+      datas.push({
         model: 'contain_crate_01',
         x: -7862.265,
         y: -73173.664,
         z: 217.136,
         r: 274.9
-      };
-      prop = mw.factory(crate);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
-      crate = {
+      });
+      datas.push({
         model: 'contain_crate_01',
         x: -7812.131,
         y: -73111.852,
         z: 217.136,
         r: 315.0
-      };
-      prop = mw.factory(crate);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
-      crate = {
+      });
+      datas.push({
         model: 'contain_crate_01',
         x: -8406.916,
         y: -73219.922,
         z: 218.796,
         r: 360.0
-      };
-      prop = mw.factory(crate);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
-      barrel = {
+      });
+      datas.push({
         model: 'contain_barrel_01',
         x: -8924.142,
         y: -73951.859,
         z: 265.178,
         r: 360.0
-      };
-      prop = mw.factory(barrel);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
-      barrel = {
+      });
+      datas.push({
         model: 'contain_barrel_01',
         x: -8948.135,
         y: -74023.852,
         z: 265.178,
         r: 360.0
-      };
-      prop = mw.factory(barrel);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
-      trapdoor = {
+      });
+      datas.push({
         model: 'ex_de_ship_trapdoor',
         x: -8584.352,
         y: -73710.805,
         z: 233.497,
         r: 45.0
-      };
-      prop = mw.factory(trapdoor);
-      this.belongings.push(prop);
-      THREE.SceneUtils.attach(prop.mesh, mw.scene, this.mesh);
-      prop.mesh.updateMatrixWorld();
+      });
+      for (i = 0, len = datas.length; i < len; i++) {
+        d = datas[i];
+        this.belongings.push(mw.attachto(d, this.mesh));
+      }
       return 0;
     };
 
