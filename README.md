@@ -1,19 +1,19 @@
-# MorrowinD
-![Comparison](~misc/MeVsMw.png)
-Written in CoffeeScript
-```coffeescript
-WebGL = on
-Nos.tal.gia = yes
-```
----
+# MorrowinD in LUA
 
-### Promotional
-This little webpage is promotional of the game. It's not a tech demo for three.js nor a Chrome Experiment.
+this is copying the seyda neen scene to love2d with 3dDreamEngine
 
-### More like a visual tour of Vvardenfell
-I don't mean to reimplement Morrowind as a game, like OpenMW. I'm using retextured meshes from the Overhaul 3.0 mod, so there's high-res stuff and everything looks gorgeous.
+![image](http)
 
-### Controls
-* `Capslock` to move slow
-* `M` to freeze
-* `N` to attach / detach shadow camera
+## Status: WIP
+
+## Necessarys
+[JS MorrowinD](https://github.com/mechoriet/Morrowind)
+
+
+[3DreamEngine](https://github.com/3dreamengine/3DreamEngine)
+
+[Love2d](http://www.love2d.org/)
+
+
+## TODO
+fix ported obj files

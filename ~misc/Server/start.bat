@@ -1,2 +1,0 @@
-node nwah.js
-pause
